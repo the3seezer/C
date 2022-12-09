@@ -1,4 +1,7 @@
 // theBitRiddler
+// 12/9/2022
+// 10:21 AM
+// Checking the Github response
 #include <stdio.h>
 
 #define SIZE 7
