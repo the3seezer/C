@@ -1,0 +1,3 @@
+Issues found in A folder in workshop file on strltime function on the string specifier (in printf).
+Resolved(it was a format specifier problem)
+https://www.tutorialspoint.com/c_standard_library/c_function_strftime.htm*
