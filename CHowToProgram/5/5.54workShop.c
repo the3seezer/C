@@ -16,16 +16,24 @@ enum Status {
 };
 
 int main(void){
+	srand(time(NULL));
 	enum Status RaceStatus = CONTINUE;
 	int T = 0,H = 0;//T for Tortoise and H for Hare
 	puts("The Hare and The Tortoise Race");
 	start();
 	while(RaceStatus == CONTINUE){
-		// STAGE I
 		int line = 1;
-		//system("cls");
+		// system("cls"); //***
 		T += tortoise();
 		sleep(1);
+		
+		puts("");
+		puts("");
+		puts("");
+		puts("");
+		puts("");
+		puts("");
+		
 		H += hare();
 		system("cls");
 		if(H > 70){
@@ -78,78 +86,19 @@ int main(void){
 		printf("%s","\n");
 		//sleep(1);
 		if(T >= 70 || H >= 70){
+			if(T > 70){
+				T = 70;
+			}
+			if(H > 70){
+				H = 70;
+			}
 			end(H,T);
 			RaceStatus = STOP;
-			break;
-		}
-		
-		// STAGE II
-		
-			line = 1;
-		//system("cls");
-		T += tortoise();
-		sleep(1);
-		H += hare();
-		system("cls");
-		if(H > 70){
-			H = 70;
-		}
-		if(T > 70){
-			T = 70;
-		}
-		while(line <= 70){//One line incident
-			if(T < 1){
-				T = 1;
-			}
-			if(H < 1){
-				H = 1;
-			}
-		
-			if(line != T && line < T){//line before T
-				if(line != H){
-					printf("%s","_");
-				}
-				if(line == H){
-					printf("%s","H");
-				}
-			}
-		//	printf("%s","_");
-			if(line == T){//The T
-				if(H == T){
-					if(T >= 70 && H >= 70){
-						printf("%s"," ");
-					}
-					else{
-						printf("%s","OUCH!");
-					}
-				}
-				else{
-					printf("%s","T");
-				}	
-			}
-			
-			if(line > T){//line after T
-				if(line != H){
-					printf("%s","_");
-				}
-				if(line == H){
-					printf("%s","H");
-				}
-			}
-			line++;	
-		}
-		printf("%s","\n");
-		//sleep(1);
-		if(T >= 70 || H >= 70){
-			end(H,T);
-			RaceStatus = STOP;
-			break;
 		}
 	}
 }
 
 int tortoise(void){
-	srand(time(NULL));
 	int p = 1 + rand() % 10;//p = position
 	switch(p){
 		case 1:
@@ -172,7 +121,6 @@ int tortoise(void){
 }
 
 int hare(void){
-	srand(time(NULL));
 	int p = 1 + rand() % 10;
 	switch(p){
 		case 1:
@@ -219,7 +167,6 @@ int start(void){
 
 void end(int H,int T){
 	if(H == T && H == 70 && T == 70){
-		srand(time(NULL));
 		int i = 1 + rand() % 2;
 		switch(i){
 			case 2:

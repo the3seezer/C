@@ -16,20 +16,22 @@ enum Status {
 };
 
 int main(void){
+	srand(time(NULL));
 	enum Status RaceStatus = CONTINUE;
 	int T = 0,H = 0;//T for Tortoise and H for Hare
-	puts("The Hare and The Tortoise Race");
+	puts("The Hare and The Tortoise Race\nH for Hare \nT for Tortoise");
 	start();
 	while(RaceStatus == CONTINUE){
 		int line = 1;
-		//system("cls");
 		int t = tortoise();
 		//printf("tortoise: %d ",t);
+		
 		T += t;
 		int h = hare();
 		//printf("hare: %d\n",h);
 		H += h;
 		system("cls");
+//		puts("The Hare and The Tortoise Race\nH for Hare \nT for Tortoise");
 		if(H > 70){
 			H = 70;
 		}
@@ -77,9 +79,16 @@ int main(void){
 			}
 			line++;	
 		}
+		
 		printf("%s","\n");
 		sleep(1);
 		if(T >= 70 || H >= 70){
+			if(T > 70){
+				T = 70;
+			}
+			if(H > 70){
+				H = 70;
+			}
 			end(H,T);
 			RaceStatus = STOP;
 		}
@@ -87,7 +96,6 @@ int main(void){
 }
 
 int tortoise(void){
-	srand(time(NULL));
 	int p = 1 + rand() % 10;//p = position
 	switch(p){
 		case 1:
@@ -110,7 +118,6 @@ int tortoise(void){
 }
 
 int hare(void){
-	srand(time(NULL));
 	int p = 1 + rand() % 10;
 	switch(p){
 		case 1:
@@ -157,14 +164,13 @@ int start(void){
 
 void end(int H,int T){
 	if(H == T && H == 70 && T == 70){
-		srand(time(NULL));
 		int i = 1 + rand() % 2;
 		switch(i){
 			case 2:
 				printf("%s","Turtle,the underdog won!");
 				break;
 			case 1:
-				printf("%s","It's a tie");
+				printf("%s","It's a tie\n");
 				puts("Race Begins again");
 				main();
 				break;
