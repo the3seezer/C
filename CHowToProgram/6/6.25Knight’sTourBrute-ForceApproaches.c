@@ -9,4 +9,4 @@
 int main(void) {
 	int chess[SIZE][SIZE] = {0};
 	
-}
+}/* end main */
