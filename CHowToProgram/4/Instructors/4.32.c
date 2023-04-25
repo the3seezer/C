@@ -23,7 +23,7 @@ int main(void) {
 			
 		}
 		
-		for (asterisk = 1; asterisk = line; asterisk++) {
+		for (asterisk = 1; asterisk <= line; asterisk++) {
 			
 			printf("%s", "*");
 			
