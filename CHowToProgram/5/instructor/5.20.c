@@ -6,20 +6,20 @@
 */
 #include <stdio.h>
 
-void square(int side, char fillCharacter);
+void square( char fillCharacter, int side );
 
 int main( void ) {
+	char c = '0';
 	int s = 0;
-	char c = 0;
 	
-	printf( "%s", "Enter a side and a character: ");
-	scanf( "%d%c", &s, &c );
+	printf( "%s", "Enter a character and a side: ");
+	scanf( "%c%d", &c, &s );
 	
-	square( s, c );
+	square( c, s );
 	
 } /* end main */
 
-void square( int side, char fillCharacter ) {
+void square( char fillCharacter, int side ) {
 	int loop = 0;
 	int loop2 = 0;
 	
