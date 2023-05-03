@@ -13,7 +13,7 @@ int main( void ) {
 	printf( "The long double is %Lf\n", y );
 	
 	
-	/* The character issue is not checked out */
+	/* The character issue is now checked out */
 	char x = '0';
 	printf( "%s", "Enter a character: " );
 	scanf( "%c", &x );
