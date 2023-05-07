@@ -1,3 +1,23 @@
 NewToken:
-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
-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
+
+
+DO WHILE
+Best Do while use in
+instructor's manual CHowToProgram 4.36
+
+int x = 0;
+do {
+  printf( "%s", "Enter between 5 and 10" );
+  scanf( "%d", &x );
+while ( x < 5 || x > 10 );
+
+This will go no where until the condition is met.
+equal to:
+
+int x = 0;
+printf( "%s", "Enter between 5 and 10" );
+scanf( "%d", &x );
+while ( x < 5 || x > 10 ) {
+  printf( "%s", "Enter between 5 and 10" );
+  scanf( "%d", &x );
+}

@@ -5,21 +5,30 @@
  workshop
 */
 #include <stdio.h>
+
+/*  ARRAYS
+ Are groug of variables of the same data type according to c language.
+ examples of data types are: int %d, char %c or %s, float %f, double %lf then %f long double %Lf then %lf
+ VARIABLE 
+ IS a structure which stores a single value 
+ synthax: date type (variable name) = value
+ array synthax; data type array name [];*/ 
+int power( int, int );
+ 
 int main( void ) {
-	long double y = 0.0;
-	printf( "%s", "Enter any digit: ");
-	scanf( "%lf", &y );
-	
-	printf( "The long double is %Lf\n", y );
-	
-	
-	/* The character issue is now checked out */
-	char x = '0';
-	printf( "%s", "Enter a character: " );
-	scanf( "%c", &x );
-	
-	printf("The character is %c\n", x );
-	
-	
-	
+	int x = 1;
+	int y = 0;
+	 //array declared 
+	printf( "%s", "Enter the base and the exponent. ");
+	scanf( "%d%d", &x, &y );
+	printf( "%d", power( x, y ) );
+}
+
+int power( int b, int e ) {
+	if ( e == 1 ) {
+		return b;
+	}
+	else {
+		b *= power( b, e - 1);
+	}
 }
