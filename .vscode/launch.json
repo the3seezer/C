@@ -9,6 +9,8 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+            // "program": "D:\\CODES\\C\\CHowToProgram\\5\\instructor\\5.42.exe",
+            // "program": "D:\CODES\C\CHowToProgram\5\instructor\5.42.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
