@@ -14,8 +14,8 @@ int main( void ) {
 	int end = 3;
 	int temp = 2;
 	
-	printf( "%s", "Enter the starting number of disks. ");
-	scanf( "%d", &disks );
+	printf_s( "%s", "Enter the starting number of disks. ");
+	scanf_s( "%d", &disks );
 	
 	tower( disks, start, end, temp );
 		
@@ -24,13 +24,13 @@ int main( void ) {
 void tower( int d, int s, int e, int t ) {
 	
 	if ( d == 1 ) {
-		printf("%d --> %d\n", s, e );
+		printf_s("%d --> %d\n", s, e );
 		return;
 	}
 	
 	tower( d - 1, s, t, e );
 	
-	printf("%d --> %d\n", s, e );
+	printf_s("%d --> %d\n", s, e );
 	
 	tower( d - 1, t, e, s );
 	
