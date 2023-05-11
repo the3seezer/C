@@ -9,7 +9,7 @@
       "stopAtEntry": false,
       "externalConsole": true,
       "cwd": "d:/CODES/C/CHowToProgram/5/instructor/output",
-      "program": "d:/CODES/C/CHowToProgram/5/instructor/output/build/Debug/outDebug",
+      "program": "d:/CODES/C/CHowToProgram/5/instructor/output/5.49.exe",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
