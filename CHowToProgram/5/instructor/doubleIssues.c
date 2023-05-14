@@ -8,7 +8,7 @@
 int main( void ) {
 	long double y = 0.0;
 	printf( "%s", "Enter any digit: ");
-	scanf( "%lf", &y );
+	scanf( "%Lf", &y );
 	
 	printf( "The long double is %Lf\n", y );
 	
