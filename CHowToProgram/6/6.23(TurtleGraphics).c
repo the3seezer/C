@@ -398,8 +398,8 @@ int execute(int b[][WIDTH], char instruction[]) {
 // executing the commands
 /*	 Direction And Turning
 	 Turning Right
-	 Row || Column 1 == HOLD, 2 == FORWARD, 3 == REVERSE
-	 Turn 1 == RIGHT, 2 == LEFT, 3 == NOT_TURNING */
+	 Row || Column: 1 == HOLD, 2 == FORWARD, 3 == REVERSE
+	 Turn: 1 == RIGHT, 2 == LEFT, 3 == NOT_TURNING */
 	if (row == 1 && column == 2 && turn == 1) { 
 		row = 2;
 		column = 1;
@@ -422,8 +422,8 @@ int execute(int b[][WIDTH], char instruction[]) {
 	}
 	
 	// Turning Left
-	// Row || Column 1 == HOLD, 2 == FORWARD, 3 == REVERSE
-	// Turn 1 == RIGHT, 2 == LEFT, 3 == NOT_TURNING
+	// Row || Column: 1 == HOLD, 2 == FORWARD, 3 == REVERSE
+	// Turn: 1 == RIGHT, 2 == LEFT, 3 == NOT_TURNING
 	if (row == 1 && column == 2 && turn == 2) {
 		row = 3;
 		column = 1;
