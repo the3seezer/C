@@ -1,73 +1,164 @@
-/* 
- theBitRiddler
- 5/23/2023
- 11:00 PM
- (Airline Reservations System)
+/* theBitRiddler
+   6/3/2023
+   4:22 PM
+   turtleGraphics
 */
 #include <stdio.h>
-#include <ctype.h>
+
+#define MAX 100
+#define TRUE 1
+#define FALSE 0
+
+void getCommands( int commands[][ 2 ] );
+int turnRight( int d );
+int turnLeft( int d );
+void movePen( int down, int a[][ 50 ], int dir, int dist );
+void printArray( const int b[][ 50 ] );
 
 int main( void ) {
-    int plane[ 11 ] = { 0 };
-    int i = 0;
-    int firstClass = 1;
-    int economy = 6;
-    int choice = 0;
-    char response[ 2 ] = { '0' };
+    int floor[ 50 ][ 50 ] = { 0 };
+    int penDown = 0;
+    int command = 0;
+    int distance = 0;
+    int commandArray[ MAX ][ 2 ] = { 0 };
+    int direction = 0;
+    int count = 0;
 
-    while ( i < 10 ) {
-        printf_s( "\n%s\n%s", "Please type 1 for \'first class \' ",
-        "Please type 2 for \'economy\' " );
-        scanf_s( "%d", &choice );
+    getCommands( commandArray );
+    command = commandArray[ count ][ 0 ];
 
-        if ( choice == 1 ) {
+    while ( command != 9 ) {
 
-            if ( !plane[ firstClass ] && firstClass <= 5 ) {
-                printf_s( "Your seat number is %d.\n", firstClass );
-                plane[ firstClass++ ] = 1;
-                i++;
-            }
-            else if ( firstClass > 5 && economy <= 10 ) {
-                printf_s( "First class is full would like economy class ( Y or N ).\n?" );
-                scanf_s( "%s", response );
+        switch ( command ) {
+            case 1: 
+                penDown = FALSE;
+                break;
 
-                if ( toupper( response[ 0 ] == 'Y' ) ) {
-                    printf_s( "Your seat number is %d.\n", economy );
-                    plane[ economy++ ] = 1;
-                    i++;
-                }
-                else {
-                    printf_s( "%s", "Next flight lives in 3 hours. \n" );
-                }
+            case 2: 
+                penDown = TRUE;
+                break;
 
-            }
-            else {
-                printf_s( "%s", "Next flight lives in 3 hours. \n" );
-            }
+            case 3:
+                direction = turnRight( direction );
+                break;
+
+            case 4: 
+                direction = turnLeft( direction );
+                break;
+
+            case 5: 
+                distance = commandArray[ count ][ 1 ];
+                movePen( penDown, floor, direction, distance );
+                break;
+
+            case 6: 
+                printf_s( "%s", "The drawing is \n" );
+                printArray( floor );
+                break;
+            
+        } /* end switch */
+
+        command = commandArray[ ++count ][ 0 ];
+
+    } /* end while */
+
+    return 0;
+
+} /* end main */
+
+void getCommands( int commands[][ 2 ] ) {
+    int m = 0;
+    int tempCommand = 0;
+
+    printf_s( "%s", "Enter command ( 9 to end ): " );
+    scanf_s( "%d", &tempCommand );
+
+    for ( m = 0; m < MAX && tempCommand != 9; m++ ) {
+        commands[ m ][ 0 ] = tempCommand;
+
+        if ( tempCommand == 5 ) {
+            scanf_s( ",%d", &commands[ m ][ 1 ] );
         }
-        else {
 
-            if ( !plane[ economy ] && economy <= 10 ) {
-                printf_s( "Your seat number is %d.\n", economy );
-                plane[ economy++ ] = 1;
-                i++;
-            }
-            else if ( economy > 10 && firstClass <= 5 ) {
-                printf_s( "%s", "Economy class is full would like first class ( Y or N )\n?" );
-                scanf_s( "%s", response );
-
-                if ( toupper( response[ 0 ] ) == 'Y' ) {
-                    printf_s( "Your seat number is %d.\n", firstClass );
-                    plane[ firstClass++ ] = 1;
-                    i++;
-                }
-                else {
-                    printf_s( "%s", "Next flight lives in 3 hours. \n" );
-                }
-            }
-            else {
-                printf_s( "%s", "Next flight lives in 3 hours. \n" );
-            }
-        }
+        printf_s( "%s", "Enter command ( 9 to end ): " );
+        scanf_s( "%d", &tempCommand );
     }
-}
+
+    commands[ m ][ 0 ] = 9;
+
+} /* end function getCommands */
+
+int turnRight( int d ) {
+    return ++d > 3 ? 0 : d;
+} /* end function turnRight */
+
+int turnLeft( int d ) {
+    return --d < 0 ? 3 : d;
+} /* end function turnLeft */
+
+void movePen( int down, int a[][ 50 ], int dir, int dist ) {
+    int i = 0;
+    int j = 0;
+    static int xPos = 0;
+    static int yPos = 0;
+
+    switch ( dir ) {
+
+        /* move right */
+        case 0: 
+            for ( j = 1; j <= dist && yPos + j < 50; j++ ) {
+                if ( down ) {
+                    a[ xPos ][ yPos + j ] = 1;
+                } /* end if */
+                
+            } /* end for*/
+            yPos += j - 1;
+            break;
+
+        /* move down */
+        case 1:
+            for ( i = 1; i <= dist && xPos + i < 50; i++ ) {
+                if ( down ) {
+                    a[ xPos + i ][ yPos ] = 1;
+                } /* end if */
+
+            } /* end for */
+            xPos += i - 1;
+            break;
+
+        /* move left */
+        case 2: 
+            for ( j = 1; j <= dist && yPos - 1 >= 0; j++ ) {
+                if ( down ) {
+                    a[ xPos ][ yPos - j ] = 1;
+                } /* end if */
+
+            } /* end for */
+            yPos -= j - 1;
+            break;
+
+        /* move up */
+        case 3: 
+            for ( i = 1; i <= dist && xPos >= 0; i++ ) {
+                if ( down ) {
+                    a[ xPos - i ][ yPos ] = 1;
+                } /* end if */
+
+            } /* end for */
+            xPos -= i - 1;
+            break;
+    } /* end switch */
+
+} /* end function movePen */
+
+void printArray(const int b[][ 50 ] ) {
+    for ( size_t i = 0; i < 50; i++ ) {
+
+        for ( size_t j = 0; j < 50; j++ ) {
+            putchar( b[ i ][ j ] ? '*' : ' ' );
+        } /* end for */
+
+        putchar( '\n' );
+
+    } /* end for */
+} /* end printArray */
