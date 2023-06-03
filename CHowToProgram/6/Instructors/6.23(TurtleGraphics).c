@@ -12,9 +12,9 @@
 
 void getCommands( int commands[][ 2 ] );
 int turnRight( int d );
-int turnLeft( int d );
+int turnLeft( int c );
 void movePen( int down, int a[][ 50 ], int dir, int dist );
-void printArray( int a[][ 50 ] );
+void printArray( int b[][ 50 ] );
 
 
 int main( void ) {
@@ -69,31 +69,31 @@ int main( void ) {
 }
 
 void getCommands( int commands[][ 2 ] ) {
-    int i = 0;
+    int m = 0;
     int tempCommand = 0;
     printf_s( "%s", "Enter command ( 9 to end input ): " );
     scanf_s( "%d", &tempCommand );
 
-    for ( i = 0; tempCommand != 9 && i < MAX; i++ ) {
-        commands[ i ][ 0 ] = tempCommand;
+    for ( m = 0; tempCommand != 9 && m < MAX; m++ ) {
+        commands[ m ][ 0 ] = tempCommand;
 
         if ( tempCommand == 5 ) {
-            scanf_s( "%d", &commands[ i ][ 1 ] );
+            scanf_s( ",%d", &commands[ m ][ 1 ] );
         }
 
         printf_s( "%s", "Enter command ( 9 to end input ): " );
         scanf_s( "%d", &tempCommand );
     }
 
-    commands[ i ][ 0 ] = 9;
+    commands[ m ][ 0 ] = 9;
 
 } /* end function getCommands */
 
 void movePen( int down, int a[][ 50 ], int dir, int dist ) {
     int i = 0;
     int j = 0;
-    int xPos = 0;
-    int yPos = 0;
+    static int xPos = 0;
+    static int yPos = 0;
 
     switch( dir ) {
 
@@ -157,16 +157,16 @@ int turnRight( int d ) {
     return ++d > 3 ? 0 : d;
 } /* end function turnRight */
 
-int turnLeft( int d ) {
-    return --d < 0 ? 3 : d;
+int turnLeft( int c ) {
+    return --c < 0 ? 3 : c;
 } /* end function turnLeft */
 
-void printArray( int a[][ 50 ] ) {
+void printArray( int b[][ 50 ] ) {
 
-    for ( size_t i = 0; i < 50; i++ ) {
+    for ( size_t k = 0; k < 50; k++ ) {
 
-        for ( size_t j = 0; j < 50; j++ ) {
-            putchar( a[ i ][ j ] ? '*' : ' ' );
+        for ( size_t l = 0; l < 50; l++ ) {
+            putchar( b[ k ][ l ] ? '*' : ' ' );
         } /* end for */
 
         putchar( '\n' );
