@@ -99,7 +99,7 @@ void movePen( int down, int a[][ 50 ], int dir, int dist ) {
 
         /*  move right*/
         case 0: 
-            for ( j = 1; j <= dist && yPos + 1 < 50; j++ ) {
+            for ( j = 1; j <= dist && yPos + j < 50; j++ ) {
 
                 if ( down ) {
                     a[ xPos ][ yPos + j ] = 1;
