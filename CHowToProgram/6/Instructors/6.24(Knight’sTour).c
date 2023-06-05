@@ -35,7 +35,6 @@ int main( void ) {
     board[ currentRow ][ currentColumn ] = ++moveNumber;
 
     while ( !done ) {
-        // accessNumber = minAccess;
 
         for ( size_t moveType = 0; moveType < 8; moveType++ ) {
             testRow = currentRow + vertical[ moveType ];
@@ -49,7 +48,7 @@ int main( void ) {
                 break;
 
             } /* end if */
-            else {
+            else if ( moveNumber == 64 ) {
                 done = TRUE;
             }
 
