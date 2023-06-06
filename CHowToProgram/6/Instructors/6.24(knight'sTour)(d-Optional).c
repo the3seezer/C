@@ -7,8 +7,6 @@ Knight's Tour Modified
 one from each square of the chessboard. How many full tours did you get?)
 */
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
 
 #define TRUE 1
 #define FALSE 0
@@ -16,7 +14,7 @@ one from each square of the chessboard. How many full tours did you get?)
 void printBoard( int workBoard[][ 8 ] );
 void clearBoard( int workBoard[][ 8 ] );
 int validMove( int row, int column, int workBoard[][ 8 ] );
-int postMove( int row, int column, int workAccess[][ 8 ] );
+int postMove( int row, int column, int workAccess[][ 8 ], int workBoard[][ 8 ] );
 void tour( int row, int column, int moveTour );
 
 int main( void ) {
@@ -52,16 +50,12 @@ void tour( int row, int column, int moveTour ) {
     int testColumn = 0;
     int minRow = 0;
     int minColumn = 0;
-    int postMinRow = 0;
-    int postMinColumn = 0;
     int accessNumber = 0;
     int postAccessNumber = 0;
     int thisPostAccessNumber = 0;
     int minAccess = 9;
     int done = FALSE;
 
-    clearBoard( board );
-    srand( time( NULL ) );
     currentRow = row;
     currentColumn = column;
     board[ currentRow ][ currentColumn ] = ++moveNumber;
@@ -75,17 +69,8 @@ void tour( int row, int column, int moveTour ) {
 
             if ( validMove( testRow, testColumn, board ) ) {
 
-                if ( access[ testRow ][ testColumn ] < accessNumber ) {
-                    postAccessNumber = postMove( testRow, testColumn,  access);
-
-                    accessNumber = access[ testRow ][ testColumn ];
-                    minRow = testRow;
-                    minColumn = testColumn;
-
-                } /* end else if */
-                
                 if ( access[ testRow ][ testColumn ] == accessNumber ) {
-                    thisPostAccessNumber = postMove( testRow, testColumn,  access);
+                    thisPostAccessNumber = postMove( testRow, testColumn,  access, board );
 
                     if ( thisPostAccessNumber < postAccessNumber ) {
                         minRow = testRow;
@@ -95,6 +80,15 @@ void tour( int row, int column, int moveTour ) {
 
                 } /* end if */
 
+                if ( access[ testRow ][ testColumn ] < accessNumber ) {
+                    postAccessNumber = postMove( testRow, testColumn,  access, board );
+
+                    accessNumber = access[ testRow ][ testColumn ];
+                    minRow = testRow;
+                    minColumn = testColumn;
+
+                } /* end if */
+                
                 --access[ testRow ][ testColumn ];
 
             } /* end if */
@@ -127,19 +121,18 @@ void tour( int row, int column, int moveTour ) {
     
 } /* end function tour */
 
-int postMove( int row, int column, int workAccess[][ 8 ] ) {
+int postMove( int row, int column, int workAccess[][ 8 ], int workBoard[][ 8 ] ) {
     int horizontalAccess[ 8 ] = { 2, 1, -1, -2, -2, -1, 1, 2 };
     int verticalAccess[ 8 ] = { -1, -2, -2, -1, 1, 2, 2, 1 };
     int testMinorRow = 0;
     int testMinorColumn = 0;
-
     int minorNumber = 9;
 
     for (size_t moveType = 0; moveType < 8; moveType++ ) {
         testMinorRow = row + verticalAccess[ moveType ];
         testMinorColumn = column + horizontalAccess[ moveType ];
 
-        if ( validMove( testMinorRow, testMinorColumn, workAccess ) ) {
+        if ( validMove( testMinorRow, testMinorColumn, workBoard ) ) {
 
             if ( workAccess[ testMinorRow ][ testMinorColumn ] < minorNumber ) {
                 minorNumber = workAccess[ testMinorRow ][ testMinorColumn ];

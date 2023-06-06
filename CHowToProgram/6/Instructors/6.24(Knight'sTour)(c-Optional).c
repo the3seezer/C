@@ -7,8 +7,6 @@ Knight's Tour Modified
 one from each square of the chessboard. How many full tours did you get?)
 */
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
 
 #define TRUE 1
 #define FALSE 0
@@ -56,8 +54,6 @@ void tour( int row, int column, int moveTour ) {
     int minAccess = 9;
     int done = FALSE;
 
-    srand( time( NULL ) );
-
     clearBoard( board );
     currentRow = row;   
     currentColumn = column; 
@@ -84,7 +80,7 @@ void tour( int row, int column, int moveTour ) {
         } /* end for */
 
         if ( accessNumber == minAccess ) {
-            done = FALSE;
+            done = TRUE;
         }
         else {
             currentRow = minRow;
