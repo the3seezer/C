@@ -1,10 +1,12 @@
-/* 
+/*
 theBitRiddler
-6/4/2023
-10:18 PM
-Knight's Tour Modified
- (Optional: Modify the program to run 64 tours,
-one from each square of the chessboard. How many full tours did you get?)
+9:27 PM
+6/5/2023
+Write a version of the Knight’s Tour program which, when encountering a
+tie between two or more squares, decides what square to choose by looking
+ahead to those squares reachable from the “tied” squares. Your program
+should move to the square for which the next move would arrive at a square
+with the lowest accessibility number
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,27 +15,12 @@ one from each square of the chessboard. How many full tours did you get?)
 #define TRUE 1
 #define FALSE 0
 
-void printBoard( int workBoard[][ 8 ] );
 void clearBoard( int workBoard[][ 8 ] );
+void printBoard( int workBoard[][ 8 ] );
 int validMove( int row, int column, int workBoard[][ 8 ] );
-int postMove( int row, int column, int workAccess[][ 8 ] );
-void tour( int row, int column, int moveTour );
+int postMove( int row, int column, int workAccess[][ 8 ], int workBoard[][ 8 ] );
 
 int main( void ) {
-    int move = 0;
-
-    for ( size_t i = 0; i < 8; i++ ) {
-
-        for ( size_t j = 0; j < 8; j++ ) {
-            tour( i, j, ++move );
-        } /* end for */
-
-    } /* end for */
-
-    return 0;
-} /* end main */
-
-void tour( int row, int column, int moveTour ) {
     int board[ 8 ][ 8 ] = { 0 };
     int access[ 8 ][ 8 ] = {2, 3, 4, 4, 4, 4, 3, 2,
                              3, 4, 6, 6, 6, 6, 4, 3,
@@ -52,8 +39,6 @@ void tour( int row, int column, int moveTour ) {
     int testColumn = 0;
     int minRow = 0;
     int minColumn = 0;
-    int postMinRow = 0;
-    int postMinColumn = 0;
     int accessNumber = 0;
     int postAccessNumber = 0;
     int thisPostAccessNumber = 0;
@@ -62,8 +47,8 @@ void tour( int row, int column, int moveTour ) {
 
     clearBoard( board );
     srand( time( NULL ) );
-    currentRow = row;
-    currentColumn = column;
+    currentRow = 7;
+    currentColumn = 7;
     board[ currentRow ][ currentColumn ] = ++moveNumber;
 
     while ( !done ) {
@@ -75,17 +60,8 @@ void tour( int row, int column, int moveTour ) {
 
             if ( validMove( testRow, testColumn, board ) ) {
 
-                if ( access[ testRow ][ testColumn ] < accessNumber ) {
-                    postAccessNumber = postMove( testRow, testColumn,  access);
-
-                    accessNumber = access[ testRow ][ testColumn ];
-                    minRow = testRow;
-                    minColumn = testColumn;
-
-                } /* end else if */
-                
                 if ( access[ testRow ][ testColumn ] == accessNumber ) {
-                    thisPostAccessNumber = postMove( testRow, testColumn,  access);
+                    thisPostAccessNumber = postMove( testRow, testColumn,  access, board );
 
                     if ( thisPostAccessNumber < postAccessNumber ) {
                         minRow = testRow;
@@ -95,6 +71,15 @@ void tour( int row, int column, int moveTour ) {
 
                 } /* end if */
 
+                if ( access[ testRow ][ testColumn ] < accessNumber ) {
+                    postAccessNumber = postMove( testRow, testColumn,  access, board );
+
+                    accessNumber = access[ testRow ][ testColumn ];
+                    minRow = testRow;
+                    minColumn = testColumn;
+
+                } /* end if */
+  
                 --access[ testRow ][ testColumn ];
 
             } /* end if */
@@ -112,22 +97,23 @@ void tour( int row, int column, int moveTour ) {
 
     } /* end while */
 
-    printf_s( "The %dth tour ended with %d moves.\n", moveTour, moveNumber );
+    printf_s( "The tour ended with %d moves.\n", moveNumber );
 
-    
     if ( moveNumber == 64 ) {
-        printf_s( "%s", "This is a full tour.\n" );
+        printf_s( "%s", "This was a full tour.\n\n" );
     } /* end if */
     else {
-        printf_s( "%s", "This is not a full tour.\n\n" );
+        printf_s( "%s", "This was not a full tour.\n\n" );
     } /* end if */
 
     printf_s( "%s", "The board for this test is:\n\n" );
     printBoard( board );
-    
-} /* end function tour */
 
-int postMove( int row, int column, int workAccess[][ 8 ] ) {
+    return 0;
+
+} /* end main */
+
+int postMove( int row, int column, int workAccess[][ 8 ], int workBoard[][ 8 ] ) {
     int horizontalAccess[ 8 ] = { 2, 1, -1, -2, -2, -1, 1, 2 };
     int verticalAccess[ 8 ] = { -1, -2, -2, -1, 1, 2, 2, 1 };
     int testMinorRow = 0;
@@ -139,7 +125,7 @@ int postMove( int row, int column, int workAccess[][ 8 ] ) {
         testMinorRow = row + verticalAccess[ moveType ];
         testMinorColumn = column + horizontalAccess[ moveType ];
 
-        if ( validMove( testMinorRow, testMinorColumn, workAccess ) ) {
+        if ( validMove( testMinorRow, testMinorColumn, workBoard ) ) {
 
             if ( workAccess[ testMinorRow ][ testMinorColumn ] < minorNumber ) {
                 minorNumber = workAccess[ testMinorRow ][ testMinorColumn ];
@@ -153,34 +139,31 @@ int postMove( int row, int column, int workAccess[][ 8 ] ) {
 
 } /* end function postMove */
 
-int validMove( int row, int column, int workBoard[][ 8 ] ) {
-
-    return ( row >= 0 && row <= 7 && column >= 0 && column <= 7 && workBoard[ row ][ column] == 0 );
-
-} /* end function validMove */
-
 void clearBoard( int workBoard[][ 8 ] ) {
-     
-     for ( size_t i = 0; i < 8; i++ ) {
+    for ( size_t i = 0; i < 8; i++ ) {
         for ( size_t j = 0; j < 8; j++ ) {
             workBoard[ i ][ j ] = 0;
         } /* end for */
-
-     } /* end for */
-
+    } /* end for */
 } /* end function clearBoard */
 
+int validMove( int row, int column, int workBoard[][ 8 ] ) {
+
+    return ( row >= 0 && row <= 7 && column >= 0 && column <= 7 && workBoard[ row ][ column ] == 0 );
+
+} /* end function validMove */
+
 void printBoard( int workBoard[][ 8 ] ) {
-    printf_s( "%s", "   0  1  2  3  4  5  6  7  \n" );
+    printf_s( "%s", "   0  1  2  3  4  5  6  7 \n" );
+
     for ( size_t i = 0; i < 8; i++ ) {
         printf_s( "%zu", i );
 
         for ( size_t j = 0; j < 8; j++ ) {
             printf_s( "%3d", workBoard[ i ][ j ] );
-        }
+        } /* end for */
         printf_s( "%s", "\n" );
 
-    }
-    printf_s( "%s", "\n\n\n" );
-
-} /* end function printBoard */
+    } /* end for */
+    printf_s( "%s", "\n" );
+}
