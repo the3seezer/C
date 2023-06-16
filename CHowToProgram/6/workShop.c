@@ -1,52 +1,149 @@
-// theBitRiddler
-// 12/22/2022
-// 10:18 PM
-// Exercise 6.8 (e) and (f)
+/*
+theBitRiddler
+6/14/2023
+2:47 PM
+ (Eight Queens) 
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
-int doing(int even, int odd, int static_even, int static_odd);
-void undo(int do_even, int static_do_odd, int do_static_even, int static_do_static_odd);
+#define YES 1
+#define NO 0
 
-int main(void) { 
-	int even = 2;
-	int odd = 1;
-	static int static_even = 4;
-	static int static_odd = 3;
-	
-	for (int i = 0; i < 10; ++i) {
-		doing(even, odd, static_even, static_odd);
-	}
-}
+int validMove( int, int, int [][ 8 ] );
+void printBoard( int workBoard[][ 8 ] );
+void clearBoard( int [][ 8 ] );
 
-int doing(int even, int odd, int static_even, int static_odd) {
-	int do_even = 0;
-	static int static_do_odd = 0;
-	int do_static_even = 0;
-	static int static_do_static_odd = 0;
-	
-	do_even += even;
-	static_do_odd += odd;
-	do_static_even += static_even;
-	static_do_static_odd += static_odd;
-	
-}
+int main( void ) {
+    int currentRow = 0;
+    int currentColumn = 0;
+    int testRow = 0;
+    int testColumn = 0;
+    int moveNumber = 0;
+    int goodMove = 0;
+    int done = NO;
+    int board[ 8 ][ 8 ] = { 0 };
 
-void undo(int do_even, int static_do_odd, int do_static_even, int static_do_static_odd) {
-	static int size = 0;
-	++size;
-	int undo_do_even[size] = {0};
-	int undo_static_do_odd[size] = {0};
-	int undo_do_static_even[size] = {0};
-	int undo_static_do_static_odd[size] = {0};
-	
-	undo_do_even[size - 1] = do_even;
-	undo_static_do_odd[size - 1] = static_do_odd;
-	undo_do_static_even[size - 1] = do_static_even;
-	undo_static_do_static_odd[size - 1] = static_do_static_odd;
-	if (size) {
-		size--;
-		undo(undo_do_even[size - 1], undo_static_do_odd[size - 1], undo_do_static_even[size - 1], undo_static_do_static_odd[size - 1]);
-	}
-}
+    srand( time( NULL ) );
+    currentRow = rand() % 8;
+    currentColumn = rand() % 8;
+    clearBoard( board );
+    board[ currentRow ][ currentColumn ] = ++moveNumber;
+
+    while( !done ) { 
+        testRow = currentRow;
+        testColumn = currentColumn;
+        /* get the direction */
+        for ( size_t direction = 0; direction < 8; direction++ ) {
+            /* get the distance */
+            for ( size_t distance = 8; distance >= 1; distance-- ) {
+                switch( direction ) {
+                    /* test right */
+                    case 0: 
+                        testColumn = currentColumn + distance;
+                        break;
+
+                    /* test down right */
+                    case 1: 
+                        testRow = currentRow + distance;
+                        testColumn = currentColumn + distance;
+                        break; 
+
+                    /* test down */
+                    case 2: 
+                        testRow = currentRow + distance;
+                        break;
+
+                    /* test down left */
+                    case 3: 
+                        testRow = currentRow + distance;
+                        testColumn = currentColumn - distance;
+                        break;
+
+                    /* test left */
+                    case 4: 
+                        testColumn = currentColumn - distance;
+                        break;
+
+                    /* test up left */
+                    case 5: 
+                        testRow = currentRow - distance;
+                        testColumn = currentColumn - distance;
+                        break; 
+
+                    /* test up */
+                    case 6: 
+                        testRow = currentRow - distance;
+                        break;
+
+                    /* test up right */
+                    case 7: 
+                        testRow = currentRow - distance;
+                        testColumn = currentColumn + distance;
+                        break;
+                } /* end switch */
+
+                goodMove = validMove( testRow, testColumn, board );
+
+                if ( goodMove ) {
+                    currentRow = testRow;
+                    currentColumn = testColumn;
+                    board[ currentRow ][ currentColumn ] = ++moveNumber;
+                    break;
+                } /* end if */
+
+            } /* end for */
+
+            if ( goodMove ) {
+                break;
+            }
+
+        } /* end for */
+
+        if ( !goodMove ) {
+            done = YES;
+        }
+
+    } /* end while */
+
+    printf_s( "The tour ended with %d moves.\n", moveNumber );
+
+    if ( moveNumber == 64 ) {
+        printf_s( "%s", "This is a complete tour.\n" );
+    }
+    else {
+        printf_s( "%s", "This is not a complete tour.\n" );
+    }
+
+    printf_s( "%s", "The board for this test is:\n" );
+    printBoard( board );
+
+} /* end main */
+
+void printBoard( int workBoard[][ 8 ] ) {
+    printf_s( "%s", "    0   1   2   3   4   5   6   7\n" );
+    for ( size_t i = 0; i < 8; i++ ) {
+        printf_s( "%zu", i );
+        for ( size_t j = 0; j < 8; j++ ) {
+            printf_s( "%4d", workBoard[ i ][ j ] );
+        } /* end for */
+        printf_s( "%s", "\n" );
+    } /* end for */
+    printf_s( "%s", "\n" );
+} /* end function printBoard */
+
+int validMove( int row, int column, int workBoard[][ 8 ] ) {
+
+    return ( row >= 0 && row <= 7 && column >= 0 && column <= 7 && workBoard[ row ][ column ] == 0 );
+
+} /* end function validMove */
+
+void clearBoard( int workBoard[][ 8 ] ) {
+    for ( size_t i = 0; i < 8; i++ ) {
+        for ( size_t j = 0; j < 8; j++ ) {
+            workBoard[ i ][ j ] = 0;
+        } /* end for */
+    } /* end for */
+} /* end function clearBoard */
+
