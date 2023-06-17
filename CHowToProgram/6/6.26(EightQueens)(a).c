@@ -97,7 +97,7 @@ int main( void ) {
 
             if ( goodMove ) {
                 break;
-            }
+            } /* end if */
 
         } /* end for */
 
