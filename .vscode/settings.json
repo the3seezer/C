@@ -2,5 +2,6 @@
     "files.associations": {
         "*.embeddedhtml": "html",
         "stdlib.h": "c"
-    }
+    },
+    "DockerRun.DisableDockerrc": true
 }

@@ -1,215 +1,270 @@
-// theBitRiddler
-// 2/5/2023
-// 10:10 AM
-// The Knight's tour "accessibility heuristic"
+/* 
+theBitRiddler
+6/15/2023
+5:33 PM
+Eight Queens Brute-Force Approaches
+*/
 #include <stdio.h>
-#define SIZE 8
+#include <stdlib.h>
+#include <time.h>
 
-enum ChessMove {
-	CONTINUE, END, STOP
-};
+#define YES 1
+#define NO 0
 
-void startChess(int b[][SIZE]);
-int validMove(int, int, int, int);
-void displayChess(const int b[][SIZE], const int d[][SIZE]);
-void accessUpdate(int o[][SIZE], int acs[][SIZE]);
-void reduceAccess(int, int, int, int, int acs_r[][SIZE]);
-int knightTour(int row, int column, int tour);
+void clearBoard( int workBoard[][ 8 ] );
+void printBoard( int workBoard[][ 8 ] );
+int validMove( int row, int column, int workBoard[][ 8 ] );
 
-int main(void) {
-	int complete[3] = {0};
-	int tour = 1;
-	for (size_t row = 3; row < 4; ++row) {
-		for (size_t column = 0; column < SIZE; ++column) {
-			++complete[knightTour(row, column, tour)];
-			if (complete[99]) { // when row == 3 and column == 2, it simply doesn't run or debug!!!
-				tour++;
-				continue;
-			}
-			tour++;
-		}
-	}
-	printf("Complete tours are %d\nIncomplete Tours are %d", complete[2], complete[1]);
-}
+int main( void ) {
+    int board[ 8 ][ 8 ] = { 0 };
+    int currentRow = 0;
+    int currentColumn = 0;
+    int testRow = 0;
+    int testColumn = 0;
+    int direction = 0;
+    int distance = 0;
+    int moveNumber = 0;
+    int goodMove = 0;
+    int done = NO;
 
-int knightTour(int row, int column, int tour) {
-	int chess[SIZE][SIZE];
-	enum ChessMove Status = CONTINUE;
-	int currentRow = row;
-	int currentColumn = column;
-	
-	int number = 0;
-	int horizontal[8] = {2, 1, -1, -2, -2, -1, 1, 2};
-	int vertical[8] = {-1, -2, -2, -1, 1, 2, 2, 1};
-	
-	int forloop = 0;
-	int forloop1 = 0;
-	int forloop2 = 0;
-	
-	int chess_access[SIZE][SIZE] = {{2, 3, 4, 4, 4, 4, 3, 2},
-									{3, 4, 6, 6, 6, 6, 4, 3},
-									{4, 6, 8, 8, 8, 8, 6, 4},
-									{4, 6, 8, 8, 8, 8, 6, 4},
-									{4, 6, 8, 8, 8, 8, 6, 4},
-									{4, 6, 8, 8, 8, 8, 6, 4},
-									{3, 4, 6, 6, 6, 6, 4, 3},
-									{2, 3, 4, 4, 4, 4, 3, 2}};
-									
-	startChess(chess);
-	
-//	displayChess(chess, chess_access);
-	
-	chess[currentRow][currentColumn] = ++number;
-	
-	accessUpdate(chess, chess_access);
-	
-//	displayChess(chess, chess_access);
-	
-	
-	while (Status == CONTINUE) {
-		
-		int inaccessibility = 9; // Find a square with minimum accessibility first
-		int access_check = 0;
-		for (int moveNumber = 0; moveNumber < 8; ++moveNumber) { // Find minimum accessibility
-			forloop = 1;
-			forloop1++;
-			
-			int valid_check = validMove(horizontal[moveNumber], vertical[moveNumber], currentColumn, currentRow);
-			
-			if (valid_check == 1) {
-				if (chess[currentRow + vertical[moveNumber]][currentColumn + horizontal[moveNumber]] == 0) {
-					
-					access_check = chess_access[currentRow + vertical[moveNumber]][currentColumn + horizontal[moveNumber]];
-					
-					if (access_check < inaccessibility) {
-						inaccessibility = access_check;
-					}	
-				}
-			}
-			
-		}
-		for (int moveNumber = 0; moveNumber < 8; ++moveNumber) { // Move to the minimum accessible square
-			forloop = 2;
-			forloop2++;
-			
-			int valid_check = validMove(horizontal[moveNumber], vertical[moveNumber], currentColumn, currentRow);
-			
-			if (valid_check == 1) {
-				
-					access_check = chess_access[currentRow + vertical[moveNumber]][currentColumn + horizontal[moveNumber]];
-				if (chess[currentRow + vertical[moveNumber]][currentColumn + horizontal[moveNumber]] == 0) {
-					
-					if (inaccessibility == access_check) {
-						currentRow += vertical[moveNumber];
-						currentColumn += horizontal[moveNumber];
-						chess[currentRow][currentColumn] = ++number;
-						
-						accessUpdate(chess, chess_access);
-						
-						int inaccessibility = 9; // Find a square with minimum accessibility first
-						int access_check = 0;
-						
-						break;
-					}	
-				}
-				else if (chess[currentRow + vertical[moveNumber]][currentColumn + horizontal[moveNumber]] != 0 && moveNumber != 7) {
-					if (moveNumber != 7) {
-						if (row == 3 && column == 2) {
-							puts("\n\n\nEnds here!!!!!!");
-							printf("\ncurrentRow %d currentColumn %d\n", currentRow, currentColumn);
-							printf("moveNumber:%d, %d forloop %d: number:%d\n\n\n", moveNumber, (forloop == 1) ? forloop1: (forloop == 2) ? forloop2 : 0, (forloop == 1) ? 1: (forloop == 2) ? 2 : 0,  number);
-							return 99;
-						}
-					}
-					else {
-						Status = STOP;
-					}	
-				}
-			}
-		}
-		if (number == 64) {
-			Status = END;
-		}
-	}
-	displayChess(chess, chess_access);
-	printf("The Knight made %d moves, \nfrom square; chess[%d][%d]\nTour number %d\n",
-	 number, row, column, tour);
-	
-	if (Status == STOP) {
-		return 1;
-	}
-	else if (Status == END) {
-		return 2;
-	}
-} /* end knightTour */
+    srand( time( NULL ) );
 
-void accessUpdate(int o[][SIZE], int acs[][SIZE]) {
-	int horizontal[8] = {2, 1, -1, -2, -2, -1, 1, 2};
-	int vertical[8] = {-1, -2, -2, -1, 1, 2, 2, 1};
-	// loop through original array
-	for (size_t i = 0; i < SIZE; ++i) {
-		for (size_t j = 0; j < SIZE; ++j) {
-			if (o[i][j] != 0 && acs[i][j]) { /* Stop the enteruptions in the future */
-				acs[i][j] = 0;
-				
-				/* look for the filled square and reduce the accessibility of squares accessing it */
-				for (size_t moveAccess = 0; moveAccess < 8; ++moveAccess) {
-					reduceAccess(horizontal[moveAccess], vertical[moveAccess], j, i, acs);
-				}
-			}
-		}
-	}
-} /* end accessUpdate */
+    currentRow = rand() % 8;
+    currentColumn = rand() % 8;
+    clearBoard( board );
+    board[ currentRow ][ currentColumn ] = ++moveNumber;
 
-void reduceAccess(int x, int y, int thisX, int thisY, int acs_r[][SIZE]) {
-//	int prevX = thisX; /* record previous column */
-//	int prevY = thisY; /* record previous row */
-	thisX += x;  /* column */
-	thisY += y;  /* row */
-	
-	/* look for the filled square and reduce the accessibility of a square accessing it */
-	if (thisX >= 0 && thisX <= 7 && thisY >= 0 && thisY <= 7 && acs_r[thisY][thisX]) {
-		--acs_r[thisY][thisX];
-	}
-} /* end reduceAccess */
+    while ( !done ) {
+        testRow = currentRow;
+        testColumn = currentColumn;
 
-int validMove(int xx, int yy, int nextX, int nextY) { // Row for y and Column for x;
-	nextX += xx;
-	nextY += yy;
-	if (nextX >= 0 && nextX <= 7 && nextY >= 0 && nextY <= 7) {
-		return 1;
-	}
-	return -1;
-}
+        direction = rand() % 8;
 
-void displayChess(const int b[][SIZE], const int d[][SIZE]) {	
-	// Display accessibility 
-	puts("Accessibility");
-	printf("%s\n", "         [0]  [1]  [2]  [3]  [4]  [5]  [6]  [7]");
-	for (size_t w = 0; w < SIZE; ++w) {
-		printf("[%4d]", w);
-		for (size_t z = 0; z < SIZE; ++z) {
-			printf("%5d", d[w][z]);
-		}
-		puts("");
-	}
-	puts("\n");
-	printf("%s", "Chessboard\n");
-	printf("%s\n", "       [0]  [1]  [2]  [3]  [4]  [5]  [6]  [7]");
-	for (size_t u = 0; u < SIZE; ++u) {
-		printf("%4d", u);
-		for (size_t v = 0; v < SIZE; ++v) {
-			printf("%5d", b[u][v]);
-		}
-		puts("");
-	}
-	puts("\n");
-}
+        distance = rand() % 8;
 
-void startChess(int b[][SIZE]) {
-	for (size_t u = 0; u < SIZE; ++u) {
-		for (size_t v = 0; v < SIZE; ++v) {
-			b[u][v] = 0;
-		}
-	}
-}
+        switch( direction ) {
+            /* test right */
+            case 0: 
+                testColumn = currentColumn + distance;
+                break;
+
+            /* test down right */
+            case 1: 
+                testRow = currentRow + distance;
+                testColumn = currentColumn + distance;
+                break; 
+
+            /* test down */
+            case 2: 
+                testRow = currentRow + distance;
+                break;
+
+            /* test down left */
+            case 3: 
+                testRow = currentRow + distance;
+                testColumn = currentColumn - distance;
+                break;
+
+            /* test left */
+            case 4: 
+                testColumn = currentColumn - distance;
+                break;
+
+            /* test up left */
+            case 5: 
+                testRow = currentRow - distance;
+                testColumn = currentColumn - distance;
+                break; 
+
+            /* test up */
+            case 6: 
+                testRow = currentRow - distance;
+                break;
+
+            /* test up right */
+            case 7: 
+                testRow = currentRow - distance;
+                testColumn = currentColumn + distance;
+                break;
+        } /* end switch */
+
+        goodMove = validMove( testRow, testColumn, board );
+
+        if ( goodMove ) {
+            currentRow = testRow;
+            currentColumn = testColumn;
+            board[ currentRow ][ currentColumn ] = ++moveNumber;
+        } /* end if */
+        else {
+
+            for ( size_t count1 = 0; count1 < 7 && !goodMove; count1++) {
+                direction = ++direction % 8;
+                switch( direction ) {
+                    /* test right */
+                    case 0: 
+                        testColumn = currentColumn + distance;
+                        break;
+
+                    /* test down right */
+                    case 1: 
+                        testRow = currentRow + distance;
+                        testColumn = currentColumn + distance;
+                        break; 
+
+                    /* test down */
+                    case 2: 
+                        testRow = currentRow + distance;
+                        break;
+
+                    /* test down left */
+                    case 3: 
+                        testRow = currentRow + distance;
+                        testColumn = currentColumn - distance;
+                        break;
+
+                    /* test left */
+                    case 4: 
+                        testColumn = currentColumn - distance;
+                        break;
+
+                    /* test up left */
+                    case 5: 
+                        testRow = currentRow - distance;
+                        testColumn = currentColumn - distance;
+                        break; 
+
+                    /* test up */
+                    case 6: 
+                        testRow = currentRow - distance;
+                        break;
+
+                    /* test up right */
+                    case 7: 
+                        testRow = currentRow - distance;
+                        testColumn = currentColumn + distance;
+                        break;
+                } /* end switch */
+
+                goodMove = validMove( testRow, testColumn, board );
+
+                if ( goodMove ) {
+                    currentRow = testRow;
+                    currentColumn = testColumn;
+                    board[ currentRow ][ currentColumn ] = ++moveNumber;
+                } /* end if */
+                else {
+
+                    for ( size_t count2 = 0; count2 < 7 && !goodMove; count2++) {
+                    distance = ++distance % 8;
+                    switch( direction ) {
+                        /* test right */
+                        case 0: 
+                            testColumn = currentColumn + distance;
+                            break;
+
+                        /* test down right */
+                        case 1: 
+                            testRow = currentRow + distance;
+                            testColumn = currentColumn + distance;
+                            break; 
+
+                        /* test down */
+                        case 2: 
+                            testRow = currentRow + distance;
+                            break;
+
+                        /* test down left */
+                        case 3: 
+                            testRow = currentRow + distance;
+                            testColumn = currentColumn - distance;
+                            break;
+
+                        /* test left */
+                        case 4: 
+                            testColumn = currentColumn - distance;
+                            break;
+
+                        /* test up left */
+                        case 5: 
+                            testRow = currentRow - distance;
+                            testColumn = currentColumn - distance;
+                            break; 
+
+                        /* test up */
+                        case 6: 
+                            testRow = currentRow - distance;
+                            break;
+
+                        /* test up right */
+                        case 7: 
+                            testRow = currentRow - distance;
+                            testColumn = currentColumn + distance;
+                            break;
+                    } /* end switch */
+
+                    goodMove = validMove( testRow, testColumn, board );
+
+                    if ( goodMove ) {
+                        currentRow = testRow;
+                        currentColumn = testColumn;
+                        board[ currentRow ][ currentColumn ] = ++moveNumber;
+                    } /* end if */
+
+                } /* end else */
+            
+            } /* end for */
+
+            if ( !goodMove ) {
+                done = YES;
+            } /* end if */
+
+        } /* end else */
+
+        if ( moveNumber == 64 ) {
+            done = YES;
+        } /* end if */
+
+    } /* end while */
+
+    printf_s( "The Tour end with %d moves.\n", moveNumber );
+
+    if ( moveNumber == 64 ) {
+        printf_s( "%s", "This is a complete tour.\n" );
+    } /* end if */
+    else {
+        printf_s( "%s", "This is not a complete tour.\n" );
+    } /* end else */
+
+    printf_s( "%s", "The board for this random test was:\n\n" );
+    printBoard( board );
+
+    return 0;
+
+} /* end main */
+
+int validMove( int row, int column, int workBoard[][ 8 ] ) {
+
+    return ( row >= 0 && row <= 7 && column >= 0 && column <= 7 && workBoard[ row ][ column ] == 0 );
+
+} /* end funtion validMove */
+
+void printBoard( int workBoard[][ 8 ] ) {
+    printf_s( "%s", "    0   1   2   3   4   5   6   7\n" );
+    for ( size_t i = 0; i < 8; i++ ) {
+        printf_s( "%zu", i );
+        for ( size_t j = 0; j < 8; j++ ) {
+            printf_s( "%4d", workBoard[ i ][ j ] );
+        } /* end for */
+        printf_s( "%s", "\n" );
+    } /* end for */
+    printf_s( "%s", "\n" );
+} /* end function printBoard */
+
+void clearBoard( int workBoard[][ 8 ] ) {
+    for ( size_t i = 0; i < 8; i++ ) {
+        for (size_t j = 0; j < 8; j++ ) {
+            workBoard[ i ][ j ] = 0;
+        } /* end for */
+    } /* end for */
+    
+} /* end function clearBoard */
