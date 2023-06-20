@@ -1,169 +1,173 @@
-/*
-theBitRiddler
-9:27 PM
-6/5/2023
-Write a version of the Knight’s Tour program which, when encountering a
-tie between two or more squares, decides what square to choose by looking
-ahead to those squares reachable from the “tied” squares. Your program
-should move to the square for which the next move would arrive at a square
-with the lowest accessibility number
-*/
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+ /* Exercise 6.31 Solution 
+  (Bucket Sort) A bucket sort begins with an single-subscripted array of positive integers to be sorted, and a double-subscripted array of integers with rows subscripted from 0 to 9 and columns subscripted from 0 to n - 1 where n is the number of values in
+the array to be sorted. Each row of the double-subscripted array is referred to as a bucket. Write a function bucketSort that takes
+an integer array and the array size as arguments. 
+The algorithm is as follows:
+1) Loop through the single-subscripted array and place each of its values in a row of the bucket array based on its ones digit.
+For example, 97 is placed in row 7, 3 is placed in row 3 and 100 is placed in row 0.
+2) Loop through the bucket array and copy the values back to the original array. The new order of the above values in the
+single-subscripted array is 100, 3 and 97.
+3) Repeat this process for each subsequent digit position (tens, hundreds, thousands, etc.) and stop when the leftmost digit
+of the largest number has be processed. 
+On the second pass of the array, 100 is placed in row 0, 3 is placed in row 0 (it had only one digit) and 97 is placed in row 9. The
+order of the values in the single-subscripted array is 100, 3 and 97. On the third pass, 100 is placed in row 1, 3 is placed in row zero
+and 97 is placed in row zero (after 3). The bucket sort is guaranteed to have all the values properly sorted after processing the left most digit of the largest number. The bucket sort knows it is done when all the values are copied into row zero of the double-subscripted array. 
+Note that the double-subscripted array of buckets is ten times the size of the integer array being sorted. This sorting technique
+provides better performance than a bubble sort, but requires much larger storage capacity. Bubble sort requires only one additional
+memory location for the type of data being sorted. Bucket sort is an example of a space-time trade-off. It uses more memory, but
+performs better. This version of the bucket sort requires copying all the data back to the original array on each pass. Another possibility is to create a second double-subscripted bucket array and repeatedly move the data between the two bucket arrays until all the
+data is copied into row zero of one of the arrays. Row zero then contains the sorted array.*/
 
-#define TRUE 1
-#define FALSE 0
+ #include <stdio.h>
 
-void clearBoard( int workBoard[][ 8 ] );
-void printBoard( int workBoard[][ 8 ] );
-int validMove( int row, int column, int workBoard[][ 8 ] );
-int postMove( int row, int column, int workAccess[][ 8 ], int workBoard[][ 8 ] );
+ /* symbolic constant SIZE must be defined as the array size
+ for bucketSort to work */
+ #define SIZE 12
 
-int main( void ) {
-    int board[ 8 ][ 8 ] = { 0 };
-    int access[ 8 ][ 8 ] = {2, 3, 4, 4, 4, 4, 3, 2,
-                             3, 4, 6, 6, 6, 6, 4, 3,
-                             4, 6, 8, 8, 8, 8, 6, 4,
-                             4, 6, 8, 8, 8, 8, 6, 4,
-                             4, 6, 8, 8, 8, 8, 6, 4,
-                             4, 6, 8, 8, 8, 8, 6, 4,
-                             3, 4, 6, 6, 6, 6, 4, 3,
-                             2, 3, 4, 4, 4, 4, 3, 2};
-    int horizontal[ 8 ] = { 2, 1, -1, -2, -2, -1, 1, 2 };
-    int vertical[ 8 ] = { -1, -2, -2, -1, 1, 2, 2, 1 };
-    int currentRow = 0;
-    int currentColumn = 0;
-    int moveNumber = 0;
-    int testRow = 0;
-    int testColumn = 0;
-    int minRow = 0;
-    int minColumn = 0;
-    int accessNumber = 0;
-    int postAccessNumber = 0;
-    int thisPostAccessNumber = 0;
-    int minAccess = 9;
-    int done = FALSE;
+ /* function prototypes */
+ void bucketSort( int a[] );
+ void distributeElements( int a[], int buckets[][ SIZE ], int digit );
+ void collectElements( int a[], int buckets[][ SIZE ] );
+ int numberOfDigits( int b[], int arraySize );
+ void zeroBucket( int buckets[][ SIZE ] );
 
-    clearBoard( board );
-    srand( time( NULL ) );
-    currentRow = 7;
-    currentColumn = 7;
-    board[ currentRow ][ currentColumn ] = ++moveNumber;
+ int main()
+ { 
 
-    while ( !done ) {
-        accessNumber = minAccess;
+ /* array to be sorted */
+ int array[ SIZE ] = { 19, 13, 5, 27, 1, 26, 31, 16, 2, 9, 11, 21 };
+ int i; /* loop counter */
 
-        for ( size_t moveType = 0; moveType < 8; moveType++ ) {
-            testRow = currentRow + vertical[ moveType ];
-            testColumn = currentColumn + horizontal[ moveType ];
+ printf( "Array elements in original order:\n" );
 
-            if ( validMove( testRow, testColumn, board ) ) {
+ /* display the unsorted array */
+ for ( i = 0; i < SIZE; i++ ) {
+ printf( "%3d", array[ i ] );
+ } /* end for */
 
-                if ( access[ testRow ][ testColumn ] == accessNumber ) {
-                    thisPostAccessNumber = postMove( testRow, testColumn,  access, board );
+ putchar( '\n' );
+ bucketSort( array ); /* sort the array */
 
-                    if ( thisPostAccessNumber < postAccessNumber ) {
-                        minRow = testRow;
-                        minColumn = testColumn;
-                        accessNumber = access[ testRow ][ testColumn ];
-                    } /* end if */
+ printf( "\nArray elements in sorted order:\n" );
 
-                } /* end if */
+ /* display sorted array */
+ for ( i = 0; i < SIZE; i++ ) {
+ printf( "%3d", array[ i ] );
+ } /* end for */
 
-                if ( access[ testRow ][ testColumn ] < accessNumber ) {
-                    postAccessNumber = postMove( testRow, testColumn,  access, board );
+ putchar( '\n' );
 
-                    accessNumber = access[ testRow ][ testColumn ];
-                    minRow = testRow;
-                    minColumn = testColumn;
+ return 0; /* indicate successful termination */
 
-                } /* end if */
-  
-                --access[ testRow ][ testColumn ];
+ } /* end main */
 
-            } /* end if */
+ /* Perform the bucket sort algorithm */
+ void bucketSort( int a[] )
+ { 
+ int totalDigits; /* largest # of digits in array */
+ int i; /* loop counter */
+ int bucket[ 10 ][ SIZE ] = { 0 }; /* initialize bucket array */
 
-        } /* end for */
+ totalDigits = numberOfDigits( a, SIZE ); 
 
-        if ( accessNumber == minAccess ) {
-            done = TRUE;
-        } /* end if */
-        else {
-            currentRow = minRow;
-            currentColumn = minColumn;
-            board[ currentRow ][ currentColumn ] = ++moveNumber;
-        } /* end else if */
+ /* put elements in buckets for sorting 
+ one sorted, get elements from buckets */
+ for ( i = 1; i <= totalDigits; i++ ) { 
+ distributeElements( a, bucket, i );
+ collectElements( a, bucket );
 
-    } /* end while */
+ /* set all bucket contents to zero */
+ if ( i != totalDigits ) {
+ zeroBucket( bucket ); 
+ } /* end if */
 
-    printf_s( "The tour ended with %d moves.\n", moveNumber );
+ } /* end for */
 
-    if ( moveNumber == 64 ) {
-        printf_s( "%s", "This was a full tour.\n\n" );
-    } /* end if */
-    else {
-        printf_s( "%s", "This was not a full tour.\n\n" );
-    } /* end if */
+ } /* end function bucketSort */
 
-    printf_s( "%s", "The board for this test is:\n\n" );
-    printBoard( board );
+ /* Determine the number of digits in the largest number */
+ int numberOfDigits( int b[], int arraySize )
+ { 
+ int largest = b[ 0 ]; /* assume first element is largest */
+ int i; /* loop counter */
+ int digits = 0; /* total number of digits */
 
-    return 0;
+ /* find largest array element */
+ for ( i = 1; i < arraySize; i++ ) {
 
-} /* end main */
+ if ( b[ i ] > largest ) {
+ largest = b[ i ];
+ } /* end if */
 
-int postMove( int row, int column, int workAccess[][ 8 ], int workBoard[][ 8 ] ) {
-    int horizontalAccess[ 8 ] = { 2, 1, -1, -2, -2, -1, 1, 2 };
-    int verticalAccess[ 8 ] = { -1, -2, -2, -1, 1, 2, 2, 1 };
-    int testMinorRow = 0;
-    int testMinorColumn = 0;
+ } /* end for */
 
-    int minorNumber = 9;
+ /* find number of digits of largest element */
+ while ( largest != 0 ) { 
+ ++digits;
+ largest /= 10;
+ } /* end while */
 
-    for (size_t moveType = 0; moveType < 8; moveType++ ) {
-        testMinorRow = row + verticalAccess[ moveType ];
-        testMinorColumn = column + horizontalAccess[ moveType ];
+ return digits; /* return number of digits */
 
-        if ( validMove( testMinorRow, testMinorColumn, workBoard ) ) {
+ } /* end function numberOfDigits */
 
-            if ( workAccess[ testMinorRow ][ testMinorColumn ] < minorNumber ) {
-                minorNumber = workAccess[ testMinorRow ][ testMinorColumn ];
-            } /* end if */
+ /* Distribute elements into buckets based on specified digit */
+ void distributeElements( int a[], int buckets[][ SIZE ], int digit )
+ { 
+ int divisor = 10; /* used to get specific digit */
+ int i; /* loop counter */
+ int bucketNumber; /* current bucket number */
+ int elementNumber; /* current element number */
 
-        } /* end if */
+ /* determine the divisor */
+ for ( i = 1; i < digit; i++ ) { 
+ divisor *= 10; 
+ } /* end for */
 
-    } /* end for */
+ /* bucketNumber example for hundreds digit: */
+ /* ( 1234 % 1000 - 1234 % 100 ) / 100 --> 2 */
+ for ( i = 0; i < SIZE; i++ ) { 
+ bucketNumber = ( a[ i ] % divisor - a[ i ] % ( divisor / 10 ) ) /
+ ( divisor / 10 );
 
-    return minorNumber;
+ /* retrieve value in buckets[ bucketNumber ][ 0 ] to determine */
+ /* which element of the row to store a[ i ] in. */
+ elementNumber = ++buckets[ bucketNumber ][ 0 ];
+ buckets[ bucketNumber ][ elementNumber ] = a[ i ];
+ } /* end for */
 
-} /* end function postMove */
+ } /* end function distributeElements */
 
-void clearBoard( int workBoard[][ 8 ] ) {
-    for ( size_t i = 0; i < 8; i++ ) {
-        for ( size_t j = 0; j < 8; j++ ) {
-            workBoard[ i ][ j ] = 0;
-        } /* end for */
-    } /* end for */
-} /* end function clearBoard */
+ /* Return elements to original array */
+ void collectElements( int a[], int buckets[][ SIZE ] )
+ { 
+ int i; /* loop counter */
+ int j; /* loop counter */
+ int subscript = 0; /* current subscript */
 
-int validMove( int row, int column, int workBoard[][ 8 ] ) {
+ /* retrieve elements from buckets */
+ for ( i = 0; i < 10; i++ ) {
 
-    return ( row >= 0 && row <= 7 && column >= 0 && column <= 7 && workBoard[ row ][ column ] == 0 );
+ for ( j = 1; j <= buckets[ i ][ 0 ]; j++ ) {
+ a[ subscript++ ] = buckets[ i ][ j ];
+ } /* end for */
 
-} /* end function validMove */
+ } /* end for */
 
-void printBoard( int workBoard[][ 8 ] ) {
-    printf_s( "%s", "   0  1  2  3  4  5  6  7 \n" );
+ } /* end function collectElements */
 
-    for ( size_t i = 0; i < 8; i++ ) {
-        printf_s( "%zu", i );
+ /* Set all buckets to zero */
+ void zeroBucket( int buckets[][ SIZE ] )
+ { 
+ int i; /* loop counter */
+ int j; /* loop counter */
 
-        for ( size_t j = 0; j < 8; j++ ) {
-            printf_s( "%3d", workBoard[ i ][ j ] );
-        } /* end for */
-        printf_s( "%s", "\n" );
+ for ( i = 0; i < 10; i++ ) {
 
-    } /* end for */
-    printf_s( "%s", "\n" );
-}
+ for ( j = 0; j < SIZE; j++ ) {
+ buckets[ i ][ j ] = 0;
+ } /* end for */
+
+ } /* end for */
+
+ } /* end function zeroBucket */
