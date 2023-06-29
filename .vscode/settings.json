@@ -3,5 +3,6 @@
         "*.embeddedhtml": "html",
         "stdlib.h": "c"
     },
-    "DockerRun.DisableDockerrc": true
+    "DockerRun.DisableDockerrc": true,
+    "C_Cpp.errorSquiggles": "disabled"
 }
