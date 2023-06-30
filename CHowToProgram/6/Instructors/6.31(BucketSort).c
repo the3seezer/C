@@ -48,7 +48,7 @@ void bucketSort( int a[] ) {
 
 int numberOfDigits( int a[], int arraySize) {
     int largest = a[ 0 ];;
-    int digits = 0;
+    int totalDigits = 0;
 
     for ( size_t i = 1; i < arraySize; i++ ) {
         if ( a[ i ] > largest) {
@@ -57,11 +57,11 @@ int numberOfDigits( int a[], int arraySize) {
     } /* end for */
     
     while( largest != 0) {
-        ++digits;
+        ++totalDigits;
         largest /= 10;
     } /* end while */
 
-    return digits;
+    return totalDigits;
 } /* end function numberOfDigits */
 
 void distributeElements( int a[], int bucket[][ SIZE ], int digit ) {
