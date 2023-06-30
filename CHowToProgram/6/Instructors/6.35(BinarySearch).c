@@ -1,15 +1,15 @@
 /* 
 theBitRiddler
 6/30/2023
-11:03 AM
-Binary Search
+8:00 PM
+Binary Search 
 */
 #include <stdio.h>
 
 #define SIZE 15
 
-void printArray( int a[], size_t low, size_t mid, size_t high);
 int binarySearch( int a[], int key, size_t low, size_t high );
+void printRow( int a[], size_t low, size_t mid, size_t high );
 void header( void );
 
 int main( void ) {
@@ -21,7 +21,7 @@ int main( void ) {
         array[ i ] = i * 2;
     } /* end for */
 
-    printf_s( "%s", "Enter a value to be searched: ");
+    printf_s( "%s", "Enter a value to be searched:  ");
     scanf_s( "%d", &searchKey );
 
     header();
@@ -29,61 +29,63 @@ int main( void ) {
     subscript = binarySearch( array, searchKey, 0, SIZE - 1 );
 
     if ( subscript != -1 ) {
-        printf_s( "%d value is found in subscript %d\n", searchKey, subscript );
+        printf_s( "\n%d is found at index %d\n", searchKey, subscript);
     } /* end if */
     else {
-        printf_s( "%d not found.\n", searchKey );
-    }
+        printf_s( "\nValue not found in the list.\n" );
+    } //end of outer IF statement
 
     return 0;
+
 } /* end main */
 
 int binarySearch( int a[], int key, size_t low, size_t high ) {
     int middle = 0;
 
-    middle = ( low + high ) / 2;
+    if ( low <= high ) {
+        middle = (low + high) / 2;
 
-    printArray( a, low, middle, high );
+        printRow( a, low, middle, high );
 
-    if ( a[ middle ] == key ) {
-        return middle;
+        if ( a[ middle ] == key ) {
+            return middle;
+        } /* end if */
+        else if ( key < a[ middle ]) {
+            return binarySearch( a, key, low, middle - 1 );
+        } /* end if */
+        else {
+            return binarySearch( a, key, middle + 1, high );
+        } /* end else */
     } /* end if */
-    else if ( !( low <= high ) ) {
-        return -1;
-    } /* end else if */
-    else if ( key < a[ middle ]) {
-        binarySearch( a, key, low, middle - 1 );
-    } /* end else if */
-    else if ( key > a[ middle ]) {
-        binarySearch( a, key, middle + 1, high );
-    } /* end else if */  
+
+    return -1;
 
 } /* end function binarySearch */
 
-void printArray( int a[], size_t low, size_t mid, size_t high ) {
+void printRow( int a[], size_t low, size_t mid, size_t high ) {
 
     for ( size_t i = 0; i < SIZE; i++ ) {
-
         if ( i < low || i > high ) {
-            printf_s( "%s", "    ");
+            printf_s("    ");
         } /* end if */
-        else if ( mid == i ) {
+        else if ( i == mid ) {
             printf_s( "%3d*", a[ i ]);
         } /* end else if */
         else {
-            printf_s("%3d ", a[ i ]);
+            printf_s("%3d ",a[ i ]);
         } /* end else */
     } /* end for */
     puts("");
-} /* end function printArray */
+} /* end function printRow */
 
 void header( void ) {
     for ( int i = 0; i < SIZE * 4; i++ ) {
-        putchar( '-');
+        printf_s( "%s", "*");
     } /* end for */
-    puts("");
+    puts("\n");
+
     for ( int i = 0; i < SIZE; i++ ) {
-        printf( "%3d ", i );
+        printf_s( "%3d ", i );
     } /* end for */
-    puts("");
+    putchar('\n');
 } /* end function header */
