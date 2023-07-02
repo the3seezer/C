@@ -146,4 +146,3 @@ void clearBoard( int workBoard[][ 8 ] ) {
         } /* end for */
     } /* end for */
 } /* end function clearBoard */
-
