@@ -1,23 +1,39 @@
- // fig07_06.c
- // Converting a string to uppercase using a
- // non-constant pointer to non-constant data.
- #include <ctype.h>
- #include <stdio.h>
+#include <stdio.h>
 
- void convertToUppercase(char *sPtr); // prototype
+#define SIZE 10
 
- int main(void) {
- char string[] = "cHaRaCters and $32.98"; // initialize char array
+void bubbleSort( int const * array, size_t size );
 
- printf("The string before conversion is: %s\n", string);
- convertToUppercase(string);
- printf("The string after conversion is: %s\n", string);
- }
+int main( void ) {
+    int a[ SIZE ] = { 2, 6, 4, 8, 10, 12, 89, 68, 45, 37 };
 
- // convert string to uppercase letters
- void convertToUppercase(char *sPtr) {
- while (*sPtr != '\0' ) { // current character is not
- *sPtr = toupper(*sPtr); // convert to uppercase
- ++sPtr; // make sPtr point to the next character
- }
- } 
+    puts( "Elements in original order" );
+    for ( size_t i = 0; i < SIZE; i++ )
+        printf_s( "%4d", a[ i ]);
+
+    bubbleSort( a, SIZE );
+
+    puts( "\nElements in ascending order\n" );
+    for ( size_t i = 0; i < SIZE; i++ )
+        printf_s( "%4d", a[ i ]);
+
+    return 0;
+
+} /* end main */
+
+void bubbleSort( int const * array, size_t size ) {
+    void swap( int * firstPtr, int * secondPtr );
+
+    for ( int pass = 1; pass < size; pass++ )
+        for ( size_t i = 0; i < size - pass; i++ )
+            if ( array[ i ] > array[ i + 1 ])
+                swap( &array[ i ], &array[ i + 1 ]);
+
+
+} /* end function bubbleSort */
+
+void swap( int * firstPtr, int * secondPtr ) {
+    int temp = * firstPtr;
+    * firstPtr = * secondPtr;
+    * secondPtr = temp;
+} /* end function swap */
