@@ -6,5 +6,16 @@ theBitRiddler
 */
 #include <stdio.h>
 int main( void ) {
-    
+    /*(a)*/
+    // void zero( long *bigIntegers)
+
+    /*(b)*/
+    void zero( long * );
+
+    /*(c)*/
+    // int add1AndSum( int * oneTooSmall )
+
+    /*(d)*/
+    int add1AndSum( int * );
+
 }
