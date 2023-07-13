@@ -163,7 +163,7 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
 void copy( int *copyFace, int *handFace ) {
     for ( size_t i = 0; i < HAND; i++ ) {
         copyFace[ i ] = handFace[ i ];
-    } /* end for */
+    }
 } /* end function copy */
 
 void sort( int *copyFace, size_t size ) {
@@ -177,6 +177,9 @@ void sort( int *copyFace, size_t size ) {
             } /* end if */
         } /* end for */
     } /* end for */
+    for ( size_t i = 0; i < HAND; i++ )
+        printf_s( "%3d", copyFace[ i ]);
+    putchar(' ');
 } /* end function sort */
 
 void shuffle( int deck[][FACES]) {
@@ -193,5 +196,5 @@ void shuffle( int deck[][FACES]) {
 
         deck[ row ][ column ] = card;
 
-    } /* end for */
+    }
 } /* end function shuffle */
