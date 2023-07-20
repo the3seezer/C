@@ -13,7 +13,6 @@ void clearBoard( int [][ 8 ] );
 int main( void ) {
     int board[ 8 ][ 8 ] = { 0 };
     int done = NO;
-    int moved = NO;
     srand( time( NULL) );
     int moveNumber = 0;
     int goodSquare = 0;
@@ -24,6 +23,7 @@ int main( void ) {
     board[ currentRow ][ currentColumn ] = ++moveNumber;
 
     while ( !done ) {
+        int moved = NO;
         int testRow = rand() % 8;
         int testColumn = rand() % 8;
 
