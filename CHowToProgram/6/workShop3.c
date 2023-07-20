@@ -1,36 +1,128 @@
 #include <stdio.h>
-#define SIZE 10
+#include <stdlib.h>
+#include <time.h>
 
-void assign(int array[], size_t start, size_t size);
-int sum(int array[], size_t size);
-void display(int array[], size_t start, size_t size);
+#define YES 1
+#define NO 0
 
-int main(void) {
-	int array[SIZE] = {0};
-	assign(array, 0, SIZE);
-	printf("Sum: %d\n", sum(array, SIZE));
-	display(array, 0, SIZE);
-}
+int validMove( int, int, int [][ 8 ] );
+int validSquare( int, int, int[][ 8 ] );
+void printBoard( int workBoard[][ 8 ] );
+void clearBoard( int [][ 8 ] );
 
-void assign(int array[], size_t start, size_t size) {
-	if (start < size) {
-		array[start] = start + 1;
-		assign(array, start + 1, size);	
-	}
-}
+int main( void ) {
+    int board[ 8 ][ 8 ] = { 0 };
+    clearBoard(board);
+    srand( time( NULL) );
+    
+    int moveNumber = 0;
+    int currentRow = rand() % 8;
+    int currentColumn = rand() % 8;
+    board[ currentRow ][ currentColumn ] = ++moveNumber;
 
-void display(int array[], size_t start, size_t size) {
-	if (start < size) {
-		printf("%d\n", array[start]);
-		display(array, start + 1, size);
-	}
-}
+        for ( int currentRow = 0; currentRow < 8; currentRow++ )
+            for ( int currentColumn = 0; currentColumn < 8; currentColumn++ )
+                if( validSquare(currentRow, currentColumn, board) ) {
+                    board[ currentRow ][currentColumn ] = ++moveNumber;
+                }
+    
+    printBoard(board);
+    printf_s( "\nThe last queen was the %dth\n", moveNumber );
+} /* end main */
 
-int sum(int array[], size_t size) {
-	if (size == 1) {
-		return array[0];
-	}
-	else {
-		return array[size - 1] + sum(array, size - 1);
-	}
-}
+int validSquare( int currentRow, int currentColumn, int board[][ 8 ]) {
+    int badSquare = 0;
+
+    for ( int direction = 0; direction < 8; direction++ ) {
+            switch( direction ) {
+                case 0:
+                    for ( size_t distance = 0; currentColumn + distance <= 7; distance++ ) {
+                        if ( !( validMove(currentRow, currentColumn + distance, board ) ) ) {
+                            badSquare = 1;
+                        }
+                    }
+                    break;
+                case 1: 
+                    for ( size_t distance = 0; currentRow + distance <= 7 && currentColumn + distance <= 7; distance++ ) {
+                        if ( !( validMove(currentRow + distance, currentColumn + distance, board ) ) ) {
+                            badSquare = 1;
+                        }
+                    }
+                    break;
+                case 2: 
+                    for ( size_t distance = 0; currentRow + distance <= 7; distance++ ) {
+                        if ( !( validMove( currentRow + distance, currentColumn, board ) ) ) {
+                            badSquare = 1;
+                        }
+                    }
+                    break;
+                case 3: 
+                    for ( int distance = 0; currentRow + distance <= 7 && currentColumn - distance >= 0; distance++ ) {
+                        if ( !( validMove(currentRow + distance, currentColumn - distance, board ) ) ) {
+                            badSquare = 1;
+                        }
+                    }
+                    break;
+                case 4: 
+                    for ( int distance = 0; currentColumn - distance >= 0; distance++ ) {
+                        if ( !( validMove(currentRow, currentColumn - distance, board ) ) ) {
+                            badSquare = 1;
+                        }
+                    }
+                    break;
+                case 5: 
+                    for ( int distance = 0; currentRow - distance >= 0 && currentColumn - distance >= 0; distance++ ) {
+                        if ( !( validMove(currentRow - distance, currentColumn - distance, board ) ) ) {
+                            badSquare = 1;
+                        }
+                    }
+                    break;
+                case 6: 
+                    for ( int distance = 0; currentRow - distance >= 0; distance++ ) {
+                        if ( !( validMove( currentRow - distance, currentColumn, board ) ) ) {
+                            badSquare = 1;
+                        }
+                    }
+                    break;
+                case 7: 
+                    for ( int distance = 0; currentRow - distance >= 0 && currentColumn + distance <= 7; distance++ ) {
+                        if ( !( validMove( currentRow - distance, currentColumn + distance, board ) ) ) {
+                            badSquare = 1;
+                        }
+                    }
+                    break;
+            } /* end switch for direction */
+        } /* end for of direction */
+
+    if ( !badSquare )
+        return 1;
+    else 
+    	return 0;
+
+} /* end function validSquare */
+
+void printBoard( int workBoard[][ 8 ] ) {
+    printf_s( "%s", "    0   1   2   3   4   5   6   7\n" );
+    for ( size_t i = 0; i < 8; i++ ) {
+        printf_s( "%zu", i );
+        for ( size_t j = 0; j < 8; j++ ) {
+            printf_s( "%4d", workBoard[ i ][ j ] );
+        } /* end for */
+        printf_s( "%s", "\n" );
+    } /* end for */
+    printf_s( "%s", "\n" );
+} /* end function printBoard */
+
+int validMove( int row, int column, int workBoard[][ 8 ] ) {
+
+    return ( row >= 0 && row <= 7 && column >= 0 && column <= 7 && workBoard[ row ][ column ] == 0 );
+
+} /* end function validMove */
+
+void clearBoard( int workBoard[][ 8 ] ) {
+    for ( size_t i = 0; i < 8; i++ ) {
+        for ( size_t j = 0; j < 8; j++ ) {
+            workBoard[ i ][ j ] = 0;
+        } /* end for */
+    } /* end for */
+} /* end function clearBoard */

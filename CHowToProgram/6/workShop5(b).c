@@ -7,6 +7,7 @@
 
 int validMove( int, int, int [][ 8 ] );
 int validSquare( int, int, int[][ 8 ] );
+void accessNegate( int, int, int [][ 8 ]);
 void printBoard( int workBoard[][ 8 ] );
 void clearBoard( int [][ 8 ] );
 
@@ -21,6 +22,7 @@ int main( void ) {
                              24, 26, 28, 28, 28, 28, 26, 24,
                              23, 24, 26, 26, 26, 26, 24, 23,
                              22, 23, 24, 24, 24, 24, 23, 22 };
+                             
     clearBoard(board);
     int moveNumber = 0;
     int currentRow = rand() % 8; 
@@ -32,33 +34,84 @@ int main( void ) {
     int done = NO;
 
     board[ currentRow ][ currentColumn ] = ++moveNumber;
+    
+    accessNegate(currentRow, currentColumn, access );
 
-    while ( !done ) {
+     while ( !done ) {
         accessNumber = minAccess;
 
-        for ( int testRow = 0; testRow < 8; testRow++ )
-            for ( int testColumn = 0; testColumn < 8; testColumn++ )
-                if( validSquare( testRow, testColumn, board) ) {
-                    if ( access[ testRow ][ testColumn ] < accessNumber ) {
-                        accessNumber = access[ testRow ][ testColumn ];
-                        minRow = testRow;
-                        minColumn = testColumn;
+        for ( currentRow = 0; currentRow < 8; currentRow++ )
+            for ( currentColumn = 0; currentColumn < 8; currentColumn++ )
+                if( validSquare(currentRow, currentColumn, board) ) {
+                    if ( access[ currentRow ][ currentColumn ] < accessNumber ) {
+                        accessNumber = access[ currentRow ][ currentColumn ];
+                        minRow = currentRow;
+                        minColumn = currentColumn;
                     } /* end if */
                 }
 
-        if ( accessNumber == minAccess ) { 
+        if ( accessNumber == minAccess ) { // accessNumber == minAccess moveNumber == 8
             done = YES;
         } /* end if */
         else {
             currentRow = minRow;
             currentColumn = minColumn;
             board[ currentRow ][ currentColumn ] = ++moveNumber;
+            accessNegate(currentRow, currentColumn, access );
         } /* end else */
 
-    } /* end while */
+     } /* end while */
     printBoard(board);
     printf_s( "\nThe last queen was the %dth\n", moveNumber );
 } /* end main */
+
+void accessNegate( int accessRow, int accessColumn, int accessBoard[][ 8 ]) {
+    
+    for ( int direction = 0; direction < 8; direction++ ) {
+        switch( direction ) {
+            case 0:
+                for ( size_t distance = 0; accessColumn + distance <= 7; distance++ ) {
+                    --accessBoard[ accessRow ][ accessColumn + distance ];
+                }
+                break;
+            case 1: 
+                for ( size_t distance = 0; accessRow + distance <= 7 && accessColumn + distance <= 7; distance++ ) {
+                    --accessBoard[ accessRow + distance ][ accessColumn + distance ];
+                }
+                break;
+            case 2: 
+                for ( size_t distance = 0; accessRow + distance <= 7; distance++ ) {
+                    --accessBoard[ accessRow + distance ][ accessColumn ];
+                }
+                break;
+            case 3: 
+                for ( int distance = 0; accessRow + distance <= 7 && accessColumn - distance >= 0; distance++ ) {
+                    --accessBoard[ accessRow + distance ][ accessColumn - distance ];
+                }
+                break;
+            case 4: 
+                for ( int distance = 0; accessColumn - distance >= 0; distance++ ) {
+                    --accessBoard[ accessRow ][ accessColumn ];
+                }
+                break;
+            case 5: 
+                for ( int distance = 0; accessRow - distance >= 0 && accessColumn - distance >= 0; distance++ ) {
+                    --accessBoard[ accessRow - distance ][ accessColumn - distance ];
+                }
+                break;
+            case 6: 
+                for ( int distance = 0; accessRow - distance >= 0; distance++ ) {
+                    --accessBoard[ accessRow - distance ][ accessColumn ];
+                }
+                break;
+            case 7: 
+                for ( int distance = 0; accessRow - distance >= 0 && accessColumn + distance <= 7; distance++ ) {
+                    --accessBoard[ accessRow - distance ][ accessColumn + distance ];
+                }
+                break;
+        } /* end switch for direction */
+    } /* end for of direction */
+} /* end function accessNegate*/
 
 int validSquare( int testRow, int testColumn, int board[][ 8 ]) {
     int badSquare = 0;

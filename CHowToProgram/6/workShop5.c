@@ -33,20 +33,20 @@ int main( void ) {
 
     board[ currentRow ][ currentColumn ] = ++moveNumber;
 
-    while ( !done ) {
+     while ( !done ) {
         accessNumber = minAccess;
 
-        for ( int testRow = 0; testRow < 8; testRow++ )
-            for ( int testColumn = 0; testColumn < 8; testColumn++ )
-                if( validSquare( testRow, testColumn, board) ) {
-                    if ( access[ testRow ][ testColumn ] < accessNumber ) {
-                        accessNumber = access[ testRow ][ testColumn ];
-                        minRow = testRow;
-                        minColumn = testColumn;
+        for ( currentRow = 0; currentRow < 8; currentRow++ )
+            for ( currentColumn = 0; currentColumn < 8; currentColumn++ )
+                if( validSquare(currentRow, currentColumn, board) ) {
+                    if ( access[ currentRow ][ currentColumn ] < accessNumber ) {
+                        accessNumber = access[ currentRow ][ currentColumn ];
+                        minRow = currentRow;
+                        minColumn = currentColumn;
                     } /* end if */
                 }
 
-        if ( accessNumber == minAccess ) { 
+        if ( accessNumber == minAccess ) { // accessNumber == minAccess moveNumber == 8
             done = YES;
         } /* end if */
         else {
@@ -55,7 +55,7 @@ int main( void ) {
             board[ currentRow ][ currentColumn ] = ++moveNumber;
         } /* end else */
 
-    } /* end while */
+     } /* end while */
     printBoard(board);
     printf_s( "\nThe last queen was the %dth\n", moveNumber );
 } /* end main */

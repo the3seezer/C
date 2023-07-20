@@ -7,6 +7,7 @@
 
 int validMove( int, int, int [][ 8 ] );
 int validSquare( int, int, int[][ 8 ] );
+int postSquare( int row, int column, int workAccess[][ 8 ], int workBoard[][ 8 ] );
 void printBoard( int workBoard[][ 8 ] );
 void clearBoard( int [][ 8 ] );
 
@@ -28,25 +29,41 @@ int main( void ) {
     int minRow = 0;
     int minColumn = 0;
     int accessNumber = 0;
+    int postAccessNumber = 0;
+    int thisPostAccessNumber = 0;
     int minAccess = 29;
     int done = NO;
 
     board[ currentRow ][ currentColumn ] = ++moveNumber;
 
-    while ( !done ) {
+     while ( !done ) {
         accessNumber = minAccess;
 
-        for ( int testRow = 0; testRow < 8; testRow++ )
-            for ( int testColumn = 0; testColumn < 8; testColumn++ )
-                if( validSquare( testRow, testColumn, board) ) {
-                    if ( access[ testRow ][ testColumn ] < accessNumber ) {
-                        accessNumber = access[ testRow ][ testColumn ];
-                        minRow = testRow;
-                        minColumn = testColumn;
+        for ( currentRow = 0; currentRow < 8; currentRow++ )
+            for ( currentColumn = 0; currentColumn < 8; currentColumn++ )
+                if( validSquare(currentRow, currentColumn, board) ) {
+                    if ( access[ currentRow ][ currentColumn ] == accessNumber ) {
+                        thisPostAccessNumber = postSquare( currentRow, currentColumn,  access, board );
+
+                        if ( thisPostAccessNumber < postAccessNumber ) {
+                            minRow = currentRow;
+                            minColumn = currentColumn;
+                            accessNumber = access[ currentRow ][ currentColumn ];
+                        } /* end if */
+
+                    } /* end if */
+
+                    if ( access[ currentRow ][ currentColumn ] < accessNumber ) {
+                        postAccessNumber = postSquare( currentRow, currentColumn,  access, board );
+
+                        accessNumber = access[ currentRow ][ currentColumn ];
+                        minRow = currentRow;
+                        minColumn = currentColumn;
+
                     } /* end if */
                 }
 
-        if ( accessNumber == minAccess ) { 
+        if ( accessNumber == minAccess ) { // accessNumber == minAccess moveNumber == 8
             done = YES;
         } /* end if */
         else {
@@ -55,10 +72,36 @@ int main( void ) {
             board[ currentRow ][ currentColumn ] = ++moveNumber;
         } /* end else */
 
-    } /* end while */
+     } /* end while */
     printBoard(board);
     printf_s( "\nThe last queen was the %dth\n", moveNumber );
 } /* end main */
+
+int postSquare( int row, int column, int workAccess[][ 8 ], int workBoard[][ 8 ] ) {
+    int testMinorRow = 0;
+    int testMinorColumn = 0;
+
+    int minorNumber = 29;
+
+    for ( row = 0; row < 8; row++ ) {
+        for ( column = 0; column < 8; column++ ) {
+            testMinorRow = row;
+            testMinorColumn = column;
+            
+            if( validSquare(testMinorRow, testMinorColumn, workBoard) ) {
+
+                    if ( workAccess[ testMinorRow ][ testMinorColumn ] < minorNumber ) {
+                        minorNumber = workAccess[ testMinorRow ][ testMinorColumn ];
+                    } /* end if */
+
+            } /* end if */
+
+        } /* end for */           
+    } /* end for */
+
+    return minorNumber;
+
+} /* end function postSquare */
 
 int validSquare( int testRow, int testColumn, int board[][ 8 ]) {
     int badSquare = 0;

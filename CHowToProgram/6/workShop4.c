@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <time.h>
 
+#define YES 1
+#define NO 0
+
 int validMove( int, int, int [][ 8 ] );
 int validSquare( int, int, int[][ 8 ] );
 void printBoard( int workBoard[][ 8 ] );
@@ -9,83 +12,93 @@ void clearBoard( int [][ 8 ] );
 
 int main( void ) {
     int board[ 8 ][ 8 ] = { 0 };
+    int access[ 8 ][ 8 ] = { 22, 23, 24, 24, 24, 24, 23, 22,
+                             23, 24, 26, 26, 26, 26, 24, 23,
+                             24, 26, 28, 28, 28, 28, 26, 24,
+                             24, 26, 28, 28, 28, 28, 26, 24,
+                             24, 26, 28, 28, 28, 28, 26, 24,
+                             24, 26, 28, 28, 28, 28, 26, 24,
+                             23, 24, 26, 26, 26, 26, 24, 23,
+                             22, 23, 24, 24, 24, 24, 23, 22 };
     clearBoard(board);
-    srand( time( NULL) );
-    
     int moveNumber = 0;
-    int currentRow = rand() % 8;
-    int currentColumn = rand() % 8;
+    int currentRow = 0;
+    int currentColumn = 0;
+    int minRow = 0;
+    int minColumn = 0;
+    int accessNumber = 0;
+    int minAccess = 29;
+    int done = NO;
+
     board[ currentRow ][ currentColumn ] = ++moveNumber;
 
-    for ( int testRow = 0; testRow < 8; testRow++ )
-        for ( int testColumn = 0; testColumn < 8; testColumn++ )
-            if( validSquare( testRow, testColumn, board) ) {
-                currentRow = testRow;
-                currentColumn = testColumn;
-                board[ currentRow ][currentColumn ] = ++moveNumber;
-            }
+        for ( currentRow = 0; currentRow < 8; currentRow++ )
+            for ( currentColumn = 0; currentColumn < 8; currentColumn++ )
+                if( validSquare(currentRow, currentColumn, board) ) {
+                    board[ currentRow ][currentColumn ] = ++moveNumber;
+                }
     
     printBoard(board);
     printf_s( "\nThe last queen was the %dth\n", moveNumber );
 } /* end main */
 
-int validSquare( int currentRow, int currentColumn, int board[][ 8 ]) {
+int validSquare( int testRow, int testColumn, int board[][ 8 ]) {
     int badSquare = 0;
 
     for ( int direction = 0; direction < 8; direction++ ) {
             switch( direction ) {
                 case 0:
-                    for ( size_t distance = 0; currentColumn + distance <= 7; distance++ ) {
-                        if ( !( validMove(currentRow, currentColumn + distance, board ) ) ) {
+                    for ( size_t distance = 0; testColumn + distance <= 7; distance++ ) {
+                        if ( !( validMove(testRow, testColumn + distance, board ) ) ) {
                             badSquare = 1;
                         }
                     }
                     break;
                 case 1: 
-                    for ( size_t distance = 0; currentRow + distance <= 7 && currentColumn + distance <= 7; distance++ ) {
-                        if ( !( validMove(currentRow + distance, currentColumn + distance, board ) ) ) {
+                    for ( size_t distance = 0; testRow + distance <= 7 && testColumn + distance <= 7; distance++ ) {
+                        if ( !( validMove(testRow + distance, testColumn + distance, board ) ) ) {
                             badSquare = 1;
                         }
                     }
                     break;
                 case 2: 
-                    for ( size_t distance = 0; currentRow + distance <= 7; distance++ ) {
-                        if ( !( validMove( currentRow + distance, currentColumn, board ) ) ) {
+                    for ( size_t distance = 0; testRow + distance <= 7; distance++ ) {
+                        if ( !( validMove( testRow + distance, testColumn, board ) ) ) {
                             badSquare = 1;
                         }
                     }
                     break;
                 case 3: 
-                    for ( int distance = 0; currentRow + distance <= 7 && currentColumn - distance >= 0; distance++ ) {
-                        if ( !( validMove(currentRow + distance, currentColumn - distance, board ) ) ) {
+                    for ( int distance = 0; testRow + distance <= 7 && testColumn - distance >= 0; distance++ ) {
+                        if ( !( validMove(testRow + distance, testColumn - distance, board ) ) ) {
                             badSquare = 1;
                         }
                     }
                     break;
                 case 4: 
-                    for ( int distance = 0; currentColumn - distance >= 0; distance++ ) {
-                        if ( !( validMove(currentRow, currentColumn - distance, board ) ) ) {
+                    for ( int distance = 0; testColumn - distance >= 0; distance++ ) {
+                        if ( !( validMove(testRow, testColumn - distance, board ) ) ) {
                             badSquare = 1;
                         }
                     }
                     break;
                 case 5: 
-                    for ( int distance = 0; currentRow - distance >= 0 && currentColumn - distance >= 0; distance++ ) {
-                        if ( !( validMove(currentRow - distance, currentColumn - distance, board ) ) ) {
+                    for ( int distance = 0; testRow - distance >= 0 && testColumn - distance >= 0; distance++ ) {
+                        if ( !( validMove(testRow - distance, testColumn - distance, board ) ) ) {
                             badSquare = 1;
                         }
                     }
                     break;
                 case 6: 
-                    for ( int distance = 0; currentRow - distance >= 0; distance++ ) {
-                        if ( !( validMove( currentRow - distance, currentColumn, board ) ) ) {
+                    for ( int distance = 0; testRow - distance >= 0; distance++ ) {
+                        if ( !( validMove( testRow - distance, testColumn, board ) ) ) {
                             badSquare = 1;
                         }
                     }
                     break;
                 case 7: 
-                    for ( int distance = 0; currentRow - distance >= 0 && currentColumn + distance <= 7; distance++ ) {
-                        if ( !( validMove( currentRow - distance, currentColumn + distance, board ) ) ) {
+                    for ( int distance = 0; testRow - distance >= 0 && testColumn + distance <= 7; distance++ ) {
+                        if ( !( validMove( testRow - distance, testColumn + distance, board ) ) ) {
                             badSquare = 1;
                         }
                     }

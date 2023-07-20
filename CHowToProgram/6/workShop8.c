@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <time.h>
 
+#define YES 1
+#define NO 0
+
 int validMove( int, int, int [][ 8 ] );
 int validSquare( int, int, int[][ 8 ] );
 void printBoard( int workBoard[][ 8 ] );
@@ -9,21 +12,51 @@ void clearBoard( int [][ 8 ] );
 
 int main( void ) {
     int board[ 8 ][ 8 ] = { 0 };
-    clearBoard(board);
+    int done = NO;
     srand( time( NULL) );
-    
     int moveNumber = 0;
+    int goodSquare = 0;
     int currentRow = rand() % 8;
     int currentColumn = rand() % 8;
+
+    clearBoard(board);
     board[ currentRow ][ currentColumn ] = ++moveNumber;
 
-    for ( int testRow = 0; testRow < 8; testRow++ )
-        for ( int testColumn = 0; testColumn < 8; testColumn++ )
-            if( validSquare( testRow, testColumn, board) ) {
+    int testRow = rand() % 8;
+    int testColumn = rand() % 8;
+
+    goodSquare = validSquare( testRow, testColumn, board);
+
+    if( goodSquare ) {
+         currentRow = testRow;
+         currentColumn = testColumn;
+         board[ currentRow ][currentColumn ] = ++moveNumber;
+    }
+    else {
+        for ( int count = 0; count < 7 && !goodSquare; count++ ) {
+            testRow = ++testRow % 8;
+
+            goodSquare = validSquare( testRow, testColumn, board);
+
+            if( goodSquare ) {
                 currentRow = testRow;
                 currentColumn = testColumn;
                 board[ currentRow ][currentColumn ] = ++moveNumber;
-            }
+            } /* end if */
+            else {
+                for ( int count = 0; count < 7 && !goodSquare; count++ ) {
+                    testColumn = ++testColumn % 8;
+
+                    if( goodSquare ) {
+                        currentRow = testRow;
+                        currentColumn = testColumn;
+                        board[ currentRow ][currentColumn ] = ++moveNumber;
+                    } /* end if */
+
+                } /* end for */
+            } /* end else */
+        } /* end for */
+    } /* end else */
     
     printBoard(board);
     printf_s( "\nThe last queen was the %dth\n", moveNumber );

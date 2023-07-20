@@ -1,17 +1,36 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
 
 #define YES 1
 #define NO 0
+#define SIZE 65
 
 int validMove( int, int, int [][ 8 ] );
 int validSquare( int, int, int[][ 8 ] );
 void printBoard( int workBoard[][ 8 ] );
 void clearBoard( int [][ 8 ] );
+int queen( int, int, int );
 
 int main( void ) {
-    srand( time( NULL ) );
+     int route = 0;
+    int arrayRoute[ SIZE ] = { 0 };
+
+    for ( int row = 0; row < 8; row++ ) {
+        for ( int column = 0; column < 8; column++ ) {
+            if( queen(row, column, ++route ) ) {
+                ++arrayRoute[ route ];
+            } /* end if */
+        } /* end for */
+    } /* end for */
+
+    printf_s( "%s", "Complete tours are: ");
+    for ( int route = 0; route < SIZE; route++ ) {
+        if ( arrayRoute[ route ] )
+            printf_s( "%3d", route );
+    }
+    
+} /* end main */
+
+int queen( int row, int column, int route ) {
     int board[ 8 ][ 8 ] = { 0 };
     int access[ 8 ][ 8 ] = { 22, 23, 24, 24, 24, 24, 23, 22,
                              23, 24, 26, 26, 26, 26, 24, 23,
@@ -21,10 +40,11 @@ int main( void ) {
                              24, 26, 28, 28, 28, 28, 26, 24,
                              23, 24, 26, 26, 26, 26, 24, 23,
                              22, 23, 24, 24, 24, 24, 23, 22 };
+
     clearBoard(board);
     int moveNumber = 0;
-    int currentRow = rand() % 8; 
-    int currentColumn = rand() % 8;
+    int currentRow = row; 
+    int currentColumn = column;
     int minRow = 0;
     int minColumn = 0;
     int accessNumber = 0;
@@ -57,8 +77,13 @@ int main( void ) {
 
     } /* end while */
     printBoard(board);
-    printf_s( "\nThe last queen was the %dth\n", moveNumber );
-} /* end main */
+    printf_s( "The last queen was the %dth on the %dth route\n\n", moveNumber, route );
+    if ( moveNumber == 8 ) 
+        return 1;
+    else  
+        return 0;
+
+} /* end function queen */
 
 int validSquare( int testRow, int testColumn, int board[][ 8 ]) {
     int badSquare = 0;
