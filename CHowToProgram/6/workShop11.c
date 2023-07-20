@@ -10,6 +10,7 @@ int validSquare( int, int, int[][ 8 ] );
 void printBoard( int workBoard[][ 8 ] );
 int queenMoves(int moveNumber, int currentRow, int currentColumn, int board[][ 8 ], int access[][ 8 ]);
 void clearBoard( int [][ 8 ] );
+int testRowRecursive( int, int, int, int, int [][ 8 ], int [][ 8 ] );
 
 int main( void ) {
     srand( time( NULL ) );
@@ -44,16 +45,9 @@ int queenMoves(int moveNumber, int currentRow, int currentColumn, int board[][ 8
 
     accessNumber = minAccess;
 
-    for ( int testRow = 0; testRow < 8; testRow++ )
-        for ( int testColumn = 0; testColumn < 8; testColumn++ )
-            if( validSquare( testRow, testColumn, board) ) {
-                if ( access[ testRow ][ testColumn ] < accessNumber ) {
-                    accessNumber = access[ testRow ][ testColumn ];
-                    minRow = testRow;
-                    minColumn = testColumn;
-                } /* end if */
-            }
-
+    int testRow = 0;
+    testRowRecursive( testRow, minRow, minColumn , accessNumber, access, board );
+        
     if ( accessNumber == minAccess ) { 
         done = YES;
     } /* end if */
@@ -71,6 +65,26 @@ int queenMoves(int moveNumber, int currentRow, int currentColumn, int board[][ 8
     } /* end else */
 
 } /* end function queenMoves */
+
+int testRowRecursive( int testRow, int minRow, int minColumn, int accessNumber, int access[][ 8 ], int board[][ 8 ] ) {
+    
+    for ( int testColumn = 0; testColumn < 8; testColumn++ )
+            if( validSquare( testRow, testColumn, board) ) {
+                if ( access[ testRow ][ testColumn ] < accessNumber ) {
+                    accessNumber = access[ testRow ][ testColumn ];
+                    minRow = testRow;
+                    minColumn = testColumn;
+                } /* end if */
+            }
+    
+    if ( testRow == 8 ) {
+        return accessNumber;
+    }
+    else {
+        testRowRecursive( ++testRow, minRow, minColumn , accessNumber, access, board );
+    }
+
+} /* end function testRowRecursive */
 
 int validSquare( int testRow, int testColumn, int board[][ 8 ]) {
     int badSquare = 0;
