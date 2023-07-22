@@ -23,7 +23,7 @@ void mainRow( int, int[]);
 void mainColumn( int, int, int []);
 
 int main( void ) {
-    static int route = 0;
+    int route = 0;
     int arrayRoute[ SIZE ] = { 0 };
 
     mainRow( route, arrayRoute );

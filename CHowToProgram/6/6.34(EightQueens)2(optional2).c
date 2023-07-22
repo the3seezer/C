@@ -1,7 +1,7 @@
 /*
 theBitRiddler
 7/22/2023
-3:01 PM
+2:17 PM
 Eight Queens
 */
 #include <stdio.h>
@@ -18,58 +18,26 @@ int rowRecursive( int, int, int, int, int [][ 8 ]);
 int columnRecursive( int, int, int, int, int, int [][ 8 ]);
 void clearBoard( int [][ 8 ] );
 int queen( int, int, int );
-void routeRecursive( int []);
-void mainRow( int, int, int[]);
-void mainColumn( int, int, int, int []);
 
 int main( void ) {
     int route = 0;
     int arrayRoute[ SIZE ] = { 0 };
 
-    int row = 0;
-    mainRow( row, route, arrayRoute );
-    
+    for ( int row = 0; row < 8; row++ ) {
+        for ( int column = 0; column < 8; column++ ) {
+            if( queen(row, column, ++route ) ) {
+                ++arrayRoute[ route ];
+            } /* end if */
+        } /* end for */
+    } /* end for */
+
     printf_s( "%s", "Complete tours are: ");
-    routeRecursive( arrayRoute );
-
-} /* end main */
-
-void mainRow( int row, int route, int arrayRoute[]) {
-    
-    if ( row < 8 ) {
-
-        int column = 0;
-        mainColumn( row, column, route, arrayRoute );
-        
-        route += 8; 
-
-        mainRow( ++row, route, arrayRoute );
-    } /* end for */
-
-} /* end function mainRow */
-
-void mainColumn( int row, int column, int route, int arrayRoute[] ) {
-    
-    if (  column < 8 ) {
-
-        if( queen(row, column, ++route ) ) {
-            ++arrayRoute[ route ];
-        } /* end if */
-
-        mainColumn( row, ++column, route, arrayRoute );
-    } /* end for */
-} /* end function mainColumn */
-
-void routeRecursive( int arrayRoute[]) {
-    static int route = 0;
-    if ( route < SIZE ) {
+    for ( int route = 0; route < SIZE; route++ ) {
         if ( arrayRoute[ route ])
             printf_s( "%3d", route );
 
-        ++route;
-        routeRecursive( arrayRoute);
     } /* end for */
-} /* end function routeRecursive */
+} /* end main */
 
 int queen( int row, int column, int route ) {
     int board[ 8 ][ 8 ] = { 0 };

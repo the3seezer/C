@@ -21,7 +21,6 @@ int main( void ) {
     srand( time( NULL ));
 
     int deck[SUITS][FACES] = { 0 };
-
     shuffle( deck );
 
     const char *suit[ SUITS ] = { "Hearts", "Diamonds", "Clubs", "Spades" };

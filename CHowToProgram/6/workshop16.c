@@ -3,6 +3,7 @@ theBitRiddler
 7/22/2023
 3:01 PM
 Eight Queens
+Note: the route variable is a work on progress. other than that, it works fine
 */
 #include <stdio.h>
 
@@ -35,11 +36,12 @@ int main( void ) {
 } /* end main */
 
 void mainRow( int row, int route, int arrayRoute[]) {
-
+    
     if ( row < 8 ) {
 
         int column = 0;
-        mainColumn(row, column, route, arrayRoute );
+        mainColumn( row, column, route, arrayRoute );
+        route += 8; 
 
         mainRow( ++row, route, arrayRoute );
     } /* end for */
@@ -54,7 +56,7 @@ void mainColumn( int row, int column, int route, int arrayRoute[] ) {
             ++arrayRoute[ route ];
         } /* end if */
 
-        mainColumn(row, ++column, route, arrayRoute );
+        mainColumn( row, ++column, route, arrayRoute );
     } /* end for */
 } /* end function mainColumn */
 
