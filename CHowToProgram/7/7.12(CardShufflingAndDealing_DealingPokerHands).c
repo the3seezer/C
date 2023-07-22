@@ -47,10 +47,11 @@ void deal( int deck[][FACES], const char * suit[], const char * face[]) {
                     if ( subscript == 5)
                         subscript = 0;
                     hand( handFace, handSuit, subscript++, column, row, face, suit );
-                }
-            }
-        }
-    }
+                } /* end if */
+            } /* end for */
+        } /* end for */
+    } /* end for */
+
 } /* end function deal */
 
 void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, const char *face[], const char *suit[] ) {

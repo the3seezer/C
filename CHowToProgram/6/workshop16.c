@@ -19,40 +19,43 @@ int columnRecursive( int, int, int, int, int, int [][ 8 ]);
 void clearBoard( int [][ 8 ] );
 int queen( int, int, int );
 void routeRecursive( int []);
-void mainRow( int, int[]);
-void mainColumn( int, int, int []);
+void mainRow( int, int, int[]);
+void mainColumn( int, int, int, int []);
 
 int main( void ) {
-    static int route = 0;
+    int route = 0;
     int arrayRoute[ SIZE ] = { 0 };
 
-    mainRow( route, arrayRoute );
+    int row = 0;
+    mainRow( row, route, arrayRoute );
     
     printf_s( "%s", "Complete tours are: ");
     routeRecursive( arrayRoute );
 
 } /* end main */
 
-void mainRow( int route, int arrayRoute[]) {
-    static int row = 0;
+void mainRow( int row, int route, int arrayRoute[]) {
+
     if ( row < 8 ) {
 
-        mainColumn(row, route, arrayRoute );
+        int column = 0;
+        mainColumn(row, column, route, arrayRoute );
 
-        row++;
-        mainRow(route, arrayRoute );
+        mainRow( ++row, route, arrayRoute );
     } /* end for */
 
 } /* end function mainRow */
 
-void mainColumn( int row, int route, int arrayRoute[] ) {
+void mainColumn( int row, int column, int route, int arrayRoute[] ) {
+    
+    if (  column < 8 ) {
 
-    for ( int column = 0; column < 8; column++ ) {
         if( queen(row, column, ++route ) ) {
             ++arrayRoute[ route ];
         } /* end if */
-    } /* end for */
 
+        mainColumn(row, ++column, route, arrayRoute );
+    } /* end for */
 } /* end function mainColumn */
 
 void routeRecursive( int arrayRoute[]) {
