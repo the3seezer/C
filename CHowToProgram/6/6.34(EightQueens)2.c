@@ -1,3 +1,9 @@
+/*
+theBitRiddler
+7/22/2023
+2:17 PM
+Eight Queens
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -9,6 +15,8 @@ int validMove( int, int, int [][ 8 ] );
 int validSquare( int, int, int[][ 8 ] );
 void printBoard( int workBoard[][ 8 ] );
 int queenMoves(int moveNumber, int currentRow, int currentColumn, int board[][ 8 ], int access[][ 8 ]);
+int rowRecursive( int, int, int, int, int [][ 8 ]);
+int columnRecursive( int, int, int, int, int, int [][ 8 ]);
 void clearBoard( int [][ 8 ] );
 
 int main( void ) {
@@ -35,6 +43,38 @@ int main( void ) {
     printf_s( "\nThe last queen was the %dth\n", moveNumber );
 } /* end main */
 
+int rowRecursive( int testRow, int moveNumber, int currentRow, int currentColumn, int board[][ 8 ]) {
+
+   if ( testRow < 8 ) {
+   		
+   		int testColumn = 0;
+   		moveNumber = columnRecursive( testRow, testColumn, moveNumber, currentRow, currentColumn, board );
+			
+	    moveNumber = rowRecursive( ++testRow, moveNumber, currentRow, currentColumn, board );	
+   }
+        
+    return moveNumber;
+
+} /* end function rowRecursive */
+
+int columnRecursive( int testRow, int testColumn, int moveNumber, int currentRow, int currentColumn, int board[][ 8 ]) {
+	
+	if ( testColumn < 8 ) {
+
+		if( validSquare( testRow, testColumn, board) ) {
+            currentRow = testRow;
+            currentColumn = testColumn;
+            board[ currentRow ][currentColumn ] = ++moveNumber;
+        } /* else if */
+        
+        moveNumber = columnRecursive( testRow, ++testColumn, moveNumber, currentRow, currentColumn, board );
+
+	} /* else if */
+                       
+    return moveNumber;
+            
+} /* end function columnRecursive */
+
 int queenMoves(int moveNumber, int currentRow, int currentColumn, int board[][ 8 ], int access[][ 8 ]) {
     int accessNumber = 0;
     int minAccess = 29;
@@ -44,15 +84,8 @@ int queenMoves(int moveNumber, int currentRow, int currentColumn, int board[][ 8
 
     accessNumber = minAccess;
 
-    for ( int testRow = 0; testRow < 8; testRow++ )
-        for ( int testColumn = 0; testColumn < 8; testColumn++ )
-            if( validSquare( testRow, testColumn, board) ) {
-                if ( access[ testRow ][ testColumn ] < accessNumber ) {
-                    accessNumber = access[ testRow ][ testColumn ];
-                    minRow = testRow;
-                    minColumn = testColumn;
-                } /* end if */
-            }
+    int testRow = 0;
+    moveNumber = rowRecursive( testRow, moveNumber, currentRow, currentColumn, board );
 
     if ( accessNumber == minAccess ) { 
         done = YES;

@@ -1,3 +1,9 @@
+/*
+theBitRiddler
+7/22/2023
+2:17 PM
+Eight Queens
+*/
 #include <stdio.h>
 
 #define YES 1

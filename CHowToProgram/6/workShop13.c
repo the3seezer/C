@@ -1,9 +1,3 @@
-/*
-theBitRiddler
-7/22/2023
-2:17 PM
-Eight Queens
-*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -32,28 +26,23 @@ int main( void ) {
     
     printBoard(board);
     printf_s( "\nThe last queen was the %dth\n", moveNumber );
-
-    return 0;
-
 } /* end main */
 
 int columnRecursive( int testRow, int testColumn, int moveNumber, int currentRow, int currentColumn, int board[][ 8 ]) {
 	
 	if ( testColumn < 8 ) {
-
 		if( validSquare( testRow, testColumn, board) ) {
             currentRow = testRow;
             currentColumn = testColumn;
             board[ currentRow ][currentColumn ] = ++moveNumber;
-        } /* else if */
+        } 
         
         moveNumber = columnRecursive( testRow, ++testColumn, moveNumber, currentRow, currentColumn, board );
-
-	} /* else if */
+	}
                        
     return moveNumber;
             
-} /* end function columnRecursive */
+}
 
 int rowRecursive( int testRow, int moveNumber, int currentRow, int currentColumn, int board[][ 8 ]) {
 

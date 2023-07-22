@@ -2,7 +2,7 @@
 theBitRiddler
 6/14/2023
 2:47 PM
- (Eight Queens) 
+(Eight Queens) 
 */
 #include <stdio.h>
 #include <stdlib.h>

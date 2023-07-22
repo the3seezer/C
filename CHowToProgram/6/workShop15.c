@@ -1,19 +1,54 @@
+/*
+theBitRiddler
+7/22/2023
+3:01 PM
+Eight Queens
+*/
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
 
 #define YES 1
 #define NO 0
+#define SIZE 65
 
 int validMove( int, int, int [][ 8 ] );
 int validSquare( int, int, int[][ 8 ] );
 void printBoard( int workBoard[][ 8 ] );
 int queenMoves(int moveNumber, int currentRow, int currentColumn, int board[][ 8 ], int access[][ 8 ]);
+int rowRecursive( int, int, int, int, int [][ 8 ]);
+int columnRecursive( int, int, int, int, int, int [][ 8 ]);
 void clearBoard( int [][ 8 ] );
-void testRowRecursive( int, int, int, int, int [][ 8 ], int [][ 8 ] );
+int queen( int, int, int );
+void routeRecursive( int []);
 
 int main( void ) {
-    srand( time( NULL ) );
+    int route = 0;
+    int arrayRoute[ SIZE ] = { 0 };
+
+    for ( int row = 0; row < 8; row++ ) {
+        for ( int column = 0; column < 8; column++ ) {
+            if( queen(row, column, ++route ) ) {
+                ++arrayRoute[ route ];
+            } /* end if */
+        } /* end for */
+    } /* end for */
+
+    printf_s( "%s", "Complete tours are: ");
+    routeRecursive( arrayRoute );
+
+} /* end main */
+
+void routeRecursive( int arrayRoute[]) {
+    static int route = 0;
+    if ( route < SIZE ) {
+        if ( arrayRoute[ route ])
+            printf_s( "%3d", route );
+
+        ++route;
+        routeRecursive( arrayRoute);
+    } /* end for */
+} /* end function routeRecursive */
+
+int queen( int row, int column, int route ) {
     int board[ 8 ][ 8 ] = { 0 };
     int access[ 8 ][ 8 ] = { 22, 23, 24, 24, 24, 24, 23, 22,
                              23, 24, 26, 26, 26, 26, 24, 23,
@@ -25,29 +60,66 @@ int main( void ) {
                              22, 23, 24, 24, 24, 24, 23, 22 };
     clearBoard(board);
     int moveNumber = 0;
-    int currentRow = rand() % 8; 
-    int currentColumn = rand() % 8;
+    int currentRow = row; 
+    int currentColumn = column;
 
     board[ currentRow ][ currentColumn ] = ++moveNumber;
 
     moveNumber = queenMoves( moveNumber, currentRow, currentColumn, board, access); 
 
     printBoard(board);
-    printf_s( "\nThe last queen was the %dth\n", moveNumber );
-} /* end main */
+    printf_s( "The last queen was the %dth on route %d\n\n", moveNumber, route );
+    if ( moveNumber == 8 ) 
+        return 1;
+    else  
+        return 0;
+
+} /* end function queen */
+
+int rowRecursive( int testRow, int moveNumber, int currentRow, int currentColumn, int board[][ 8 ]) {
+
+   if ( testRow < 8 ) {
+   		
+   		int testColumn = 0;
+   		moveNumber = columnRecursive( testRow, testColumn, moveNumber, currentRow, currentColumn, board );
+			
+	    moveNumber = rowRecursive( ++testRow, moveNumber, currentRow, currentColumn, board );	
+   }
+        
+    return moveNumber;
+
+} /* end function rowRecursive */
+
+int columnRecursive( int testRow, int testColumn, int moveNumber, int currentRow, int currentColumn, int board[][ 8 ]) {
+	
+	if ( testColumn < 8 ) {
+
+		if( validSquare( testRow, testColumn, board) ) {
+            currentRow = testRow;
+            currentColumn = testColumn;
+            board[ currentRow ][currentColumn ] = ++moveNumber;
+        } /* else if */
+        
+        moveNumber = columnRecursive( testRow, ++testColumn, moveNumber, currentRow, currentColumn, board );
+
+	} /* else if */
+                       
+    return moveNumber;
+            
+} /* end function columnRecursive */
 
 int queenMoves(int moveNumber, int currentRow, int currentColumn, int board[][ 8 ], int access[][ 8 ]) {
-    static int accessNumber = 0;
+    int accessNumber = 0;
     int minAccess = 29;
-    static int minRow = 0;
-    static int minColumn = 0;
+    int minRow = 0;
+    int minColumn = 0;
     int done = NO;
 
     accessNumber = minAccess;
 
     int testRow = 0;
-    testRowRecursive( testRow, minRow, minColumn , accessNumber, access, board );
-        
+    moveNumber = rowRecursive( testRow, moveNumber, currentRow, currentColumn, board );
+
     if ( accessNumber == minAccess ) { 
         done = YES;
     } /* end if */
@@ -65,23 +137,6 @@ int queenMoves(int moveNumber, int currentRow, int currentColumn, int board[][ 8
     } /* end else */
 
 } /* end function queenMoves */
-
-void testRowRecursive( int testRow, int minRow, int minColumn, int accessNumber, int access[][ 8 ], int board[][ 8 ] ) {
-    if ( testRow < 8 ) {
-
-        for ( int testColumn = 0; testColumn < 8; testColumn++ )
-            if( validSquare( testRow, testColumn, board) ) {
-                if ( access[ testRow ][ testColumn ] < accessNumber ) {
-                    accessNumber = access[ testRow ][ testColumn ];
-                    minRow = testRow;
-                    minColumn = testColumn;
-                } /* end if */
-            }
-   
-        testRowRecursive( ++testRow, minRow, minColumn , accessNumber, access, board );
-    }
-
-} /* end function testRowRecursive */
 
 int validSquare( int testRow, int testColumn, int board[][ 8 ]) {
     int badSquare = 0;
