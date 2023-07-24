@@ -60,10 +60,10 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
     handFace[ subscript ] = column;
     handSuit[ subscript ] = row;
     int same = 0;
-    int pair = 0, pCard = 0, s1 = 0, s2 = 0;
-    int pairNumber = 0; // number of pairs
-    int three = 0, tCard = 0, s3 = 0;
-    int four = 0, fCard = 0, s4 = 0;
+    int pair = 0, pCard = 0, s1 = 0, s2 = 0; // pCard for a pair of similary cards, s1 and s2 to keep track of first and second similary cards
+    int pairNumber = 0; // number of group of similary cards
+    int three = 0, tCard = 0, s3 = 0; // tCard for triple similary cards, s3 to keep track of a third similary card
+    int four = 0, fCard = 0, s4 = 0; // fCard for four similary cards, s4 to  keep track of a four similary card
     int noFlush = 0;
     int noStraight = 0;
 
@@ -74,7 +74,7 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
         sort( copyFace, HAND );
 
         for ( size_t i = 0; i < subscript; i++ ) {
-            if( copyFace[ i ] == copyFace[ i + 1 ] || copyFace[ i ] == (copyFace[ i + 1 ] - 1) ) {
+            if( copyFace[ i ] == copyFace[ i + 1 ] || copyFace[ i ] == (copyFace[ i + 1 ] - 1) ) { // get the straight card 
                 ;
             } /* end if */
             else 
@@ -93,7 +93,7 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
                     if ( same == 1 ) {
                         pair = handFace[ count ];
                         s1 = handSuit[ count ];
-                        s2 = handSuit[ count2 ];
+                        s2 = handSuit[ count2 ]; 
                     }
                     else if ( same == 2 ) {
                         three = handFace[ count ];
@@ -103,7 +103,7 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
                         four = handFace[ count ];
                         s4 = handSuit[ count2 ];
                     }
-                    handFace[ count2 ] = 99; // just to avoid repetetion
+                    handFace[ count2 ] = 99; // 99 just to avoid repetetion
                 } /* end if */
             } /* end for */
             handFace[ count ] = 99; // just to avoid repetetion
