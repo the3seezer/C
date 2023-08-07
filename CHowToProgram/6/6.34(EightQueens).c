@@ -2,7 +2,7 @@
 theBitRiddler
 7/22/2023
 2:17 PM
-Eight Queens
+Eight Queens; with return recursives
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,8 +23,8 @@ int main( void ) {
     clearBoard(board);
     srand( time( NULL) );
     
-    currentRow = rand() % 8;
-    currentColumn = rand() % 8;
+    currentRow = 5; //rand() % 8;
+    currentColumn = 0; //rand() % 8;
     board[ currentRow ][ currentColumn ] = ++moveNumber;
 
     int testRow = 0;

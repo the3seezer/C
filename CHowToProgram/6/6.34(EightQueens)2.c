@@ -32,8 +32,8 @@ int main( void ) {
                              22, 23, 24, 24, 24, 24, 23, 22 };
     clearBoard(board);
     int moveNumber = 0;
-    int currentRow = rand() % 8; 
-    int currentColumn = rand() % 8;
+    int currentRow = 5; // rand() % 8; 
+    int currentColumn = 0; // rand() % 8;
 
     board[ currentRow ][ currentColumn ] = ++moveNumber;
 

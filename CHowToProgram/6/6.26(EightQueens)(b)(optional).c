@@ -26,7 +26,7 @@ int main( void ) {
         } /* end for */
     } /* end for */
 
-    printf_s( "%s", "Complete tours are: ");
+    printf_s( "%s", "Complete tours are tour: ");
     for ( int route = 0; route < SIZE; route++ ) {
         if ( arrayRoute[ route ])
             printf_s( "%3d", route );

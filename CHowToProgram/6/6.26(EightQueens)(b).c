@@ -19,8 +19,8 @@ int main( void ) {
     srand( time( NULL) );
     
     int moveNumber = 0;
-    int currentRow = rand() % 8;
-    int currentColumn = rand() % 8;
+    int currentRow = 5; // rand() % 8;
+    int currentColumn = 0; // rand() % 8;
     board[ currentRow ][ currentColumn ] = ++moveNumber;
 
     for ( int testRow = 0; testRow < 8; testRow++ )
