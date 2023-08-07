@@ -2,7 +2,7 @@
 theBitRiddler
 7/10/2023
 7:21 PM
-(Card Shuffling and Dealing: Dealing Poker Hands) 
+(Project: Card Shuffling and Dealing—Which Poker Hand is Better?)
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,7 +21,6 @@ int main( void ) {
     srand( time( NULL ));
 
     int deck[SUITS][FACES] = { 0 };
-
     shuffle( deck );
 
     const char *suit[ SUITS ] = { "Hearts", "Diamonds", "Clubs", "Spades" };
@@ -34,23 +33,30 @@ int main( void ) {
 } /* end main */
 
 void deal( int deck[][FACES], const char * suit[], const char * face[]) {
+    // first hand 
     int handFace[HAND] = { 0 };
     int handSuit[HAND] = { 0 };
-    size_t subscript = 0;   
+    size_t subscript = 0; 
+    // second hand
+    int handFace2[HAND] = { 0 };
+    int handSuit2[HAND] = { 0 };
+    size_t subscript2 = 0;
     
-
     for ( int card = 1; card <= CARDS; card++ ) {
         for ( size_t row = 0; row < SUITS; row++ ) {
             for ( size_t column = 0; column < FACES; column++ ) {
                 if ( deck[ row ][ column] == card ) {
-                    printf_s( "%5s of %-8s %c", face[ column ], suit[ row ], card % 5 == 0 ? '\n' : ' ' );
                     if ( subscript == 5)
                         subscript = 0;
-                    hand( handFace, handSuit, subscript++, column, row, face, suit );
-                }
-            }
-        }
-    }
+                    if ( subscript2 == 5 )
+                        subscript2 = 0;
+                    card % 2 ? hand( handFace, handSuit, subscript++, column, row, face, suit ) :
+                    hand( handFace2, handSuit2, subscript2++, column, row, face, suit );
+                } /* end if */
+            } /* end for */
+        } /* end for */
+    } /* end for */
+    
 } /* end function deal */
 
 void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, const char *face[], const char *suit[] ) {
@@ -60,21 +66,27 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
     handFace[ subscript ] = column;
     handSuit[ subscript ] = row;
     int same = 0;
-    int pair = 0, pCard = 0, s1 = 0, s2 = 0;
-    int pairNumber = 0; // number of pairs
-    int three = 0, tCard = 0, s3 = 0;
-    int four = 0, fCard = 0, s4 = 0;
-    int noFlush = 0;
-    int noStraight = 0;
+    int pair = 0, pCard = 0, s1 = 0, s2 = 0; // pCard for a pair of similary cards, s1 and s2 to keep track of first and second similary cards
+    int pairNumber = 0; // number of group of similary cards
+    int three = 0, tCard = 0, s3 = 0; // tCard for triple similary cards, s3 to keep track of a third similary card
+    int four = 0, fCard = 0, s4 = 0; // fCard for four similary cards, s4 to  keep track of a four similary card
+    int noFlush = 0; // to get a flush hand we need a no flush flag
+    int noStraight = 0; // to get a straight hand we need a no straight flag 
 
     if ( subscript % 4 == 0 && subscript != 0 ) { 
+
+        for ( size_t i = 0; i < 5; i++ ) {
+            printf_s( "%5s of %-8s %c", face[ handFace[ i ] ], suit[ handSuit[ i ] ], i < 5 == 0 ? ' ' : ' ' );
+        } /* end for */
+        puts("");
+
         int copyFace[ HAND ] = {0};
         copy( copyFace, handFace );
         
         sort( copyFace, HAND );
 
         for ( size_t i = 0; i < subscript; i++ ) {
-            if( copyFace[ i ] == copyFace[ i + 1 ] || copyFace[ i ] == (copyFace[ i + 1 ] - 1) ) {
+            if( copyFace[ i ] == copyFace[ i + 1 ] || copyFace[ i ] == (copyFace[ i + 1 ] - 1) ) { // get the straight card 
                 ;
             } /* end if */
             else 
@@ -93,7 +105,7 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
                     if ( same == 1 ) {
                         pair = handFace[ count ];
                         s1 = handSuit[ count ];
-                        s2 = handSuit[ count2 ];
+                        s2 = handSuit[ count2 ]; 
                     }
                     else if ( same == 2 ) {
                         three = handFace[ count ];
@@ -103,7 +115,7 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
                         four = handFace[ count ];
                         s4 = handSuit[ count2 ];
                     }
-                    handFace[ count2 ] = 99; // just to avoid repetetion
+                    handFace[ count2 ] = 99; // 99 just to avoid repetetion
                 } /* end if */
             } /* end for */
             handFace[ count ] = 99; // just to avoid repetetion
@@ -140,7 +152,7 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
                 printf_s( "; Fours \n");
         } /* end else if */
 
-        for ( size_t i = 0; i < subscript; i++ ) {
+        for ( size_t i = 0; i < subscript; i++ ) { // get the flush hand 
             if ( handSuit[ i ] != handSuit[ i + 1]) {
                 noFlush = 1;
             } /* end if */
@@ -155,7 +167,8 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
             printf_s( "%s", "hand\n");
         } /* end if */
         
-        puts("");   
+        puts(""); 
+ 
     } /* end if */
 
 } /* end function hand */
@@ -163,7 +176,7 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
 void copy( int *copyFace, int *handFace ) {
     for ( size_t i = 0; i < HAND; i++ ) {
         copyFace[ i ] = handFace[ i ];
-    }
+    } /* end for */
 } /* end function copy */
 
 void sort( int *copyFace, size_t size ) {
@@ -177,9 +190,6 @@ void sort( int *copyFace, size_t size ) {
             } /* end if */
         } /* end for */
     } /* end for */
-    for ( size_t i = 0; i < HAND; i++ )
-        printf_s( "%3d", copyFace[ i ]);
-    putchar(' ');
 } /* end function sort */
 
 void shuffle( int deck[][FACES]) {
@@ -196,5 +206,5 @@ void shuffle( int deck[][FACES]) {
 
         deck[ row ][ column ] = card;
 
-    }
+    } /* end for */
 } /* end function shuffle */
