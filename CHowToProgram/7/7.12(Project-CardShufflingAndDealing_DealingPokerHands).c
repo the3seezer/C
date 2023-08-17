@@ -66,6 +66,7 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
     int four = 0, fCard = 0, s4 = 0; // fCard for four similary cards, s4 to  keep track of a four similary card
     int noFlush = 0; // to get a flush hand we need a no flush flag
     int noStraight = 0; // to get a straight hand we need a no straight flag 
+    int noRoyal = 0; // get a no royal flag
 
     if ( subscript % 4 == 0 && subscript != 0 ) { 
         int copyFace[ HAND ] = {0};
@@ -73,12 +74,22 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
         
         sort( copyFace, HAND );
 
+        // get the straight card 
         for ( size_t i = 0; i < subscript; i++ ) {
-            if( copyFace[ i ] == (copyFace[ i + 1 ] - 1) ) { // get the straight card 
+            if( copyFace[ i ] == (copyFace[ i + 1 ] - 1) ) { 
                 ;
             } /* end if */
             else 
                 noStraight = 1;
+        } /* end for */
+
+        // get the royal hand
+        for ( size_t i = 1; i < subscript; i++ ) {
+            if( copyFace[ i ] == (copyFace[ i + 1 ] - 1) && copyFace[ 0 ] == 0 && copyFace[ 1 ] == 9 ) { 
+                ;
+            } /* end if */
+            else 
+                noRoyal = 1;
         } /* end for */
 
         for ( size_t count = 0 ; count < HAND; count++ ) {
@@ -151,13 +162,16 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
             } /* end if */
         } /* end for */
 
-        if ( !noFlush || !noStraight ) {
+        if ( !noFlush || !noStraight || !noRoyal ) {
             printf_s( "%s", "a ");
-            if ( !noFlush )
-                printf_s( "%s", "flushy ");
-            if ( !noStraight )
+            if ( !noRoyal /*&& !noFlush*/ )
+                printf_s( "%s", "royal *flush");
+            if ( !noStraight && !noFlush )
+                printf_s( "%s", "straight flush");
+            else if ( !noStraight )
                 printf_s( "%s", "straight ");
-            printf_s( "%s", "hand\n");
+            else if ( !noFlush )
+                printf_s( "%s", "flush ");
         } /* end if */
         
         puts("");   
