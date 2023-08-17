@@ -59,8 +59,9 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
     handFace[ subscript ] = column;
     handSuit[ subscript ] = row;
     int same = 0;
-    int pair = 0, pCard = 0, s1 = 0, s2 = 0; // pCard for a pair of similary cards, s1 and s2 to keep track of first and second similary cards
-    int pairNumber = 0; // number of group of similary cards
+    int pair = 0, pCard = 0, s1 = 0, s2 = 0; // pair for the value of the face, pCard for a pair of similary cards, s1 and s2 the value of the suit of first and second similary cards
+    int similaryNumber = 0; // number of group of similary cards
+    int pairNumber = 0; // number of pairs
     int three = 0, tCard = 0, s3 = 0; // tCard for triple similary cards, s3 to keep track of a third similary card
     int four = 0, fCard = 0, s4 = 0; // fCard for four similary cards, s4 to  keep track of a four similary card
     int noFlush = 0; // to get a flush hand we need a no flush flag
@@ -73,7 +74,7 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
         sort( copyFace, HAND );
 
         for ( size_t i = 0; i < subscript; i++ ) {
-            if( copyFace[ i ] == copyFace[ i + 1 ] || copyFace[ i ] == (copyFace[ i + 1 ] - 1) ) { // get the straight card 
+            if( copyFace[ i ] == (copyFace[ i + 1 ] - 1) ) { // get the straight card 
                 ;
             } /* end if */
             else 
@@ -82,9 +83,9 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
 
         for ( size_t count = 0 ; count < HAND; count++ ) {
             same = 0;
-            pair = 0;
-            three = 0;
-            four = 0;
+            pair = 0; // get the value of the face of pairs
+            three = 0; // get the value of the face of the triples
+            four = 0; /// get the value of the face of the four of the kind
 
             for ( size_t count2 = 0; count2 < HAND; count2++) {
                 if ( count != count2 && handFace[count] == handFace[ count2 ] && handFace[count2] != 99 ) {
@@ -107,7 +108,7 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
             } /* end for */
             handFace[ count ] = 99; // just to avoid repetetion
 
-            if (pairNumber && same )
+            if (similaryNumber && same )
                 printf_s( "%s", " and ");
 
             if ( same == 1 ) {
@@ -123,20 +124,25 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
                 printf_s( " Four: %ss of %s, %s, %s and %s", face[ four ], suit[ s1 ], suit[ s2 ], suit[ s3 ], suit[ s4 ] ); 
             } /* end else if */
 
-            if (same)
+            if (same )
+                similaryNumber++;
+            
+            if ( same == 1 )
                 pairNumber++;
 
         } /* end for */
 
-        if (pairNumber > 1 )
-            printf_s( "; %d pairs \n", pairNumber );
-        else if ( pairNumber) {
-            if ( pCard ) 
+        if (pairNumber == 2 )
+            printf_s( "; two pairs \n" ); // two pairs
+        else if ( similaryNumber) {
+            if ( pCard && similaryNumber == 1 ) 
                 printf_s( "; one pair \n");
+            else if ( tCard && similaryNumber == 2 )
+                printf_s( "; full house \n" );           
             else if ( tCard )
-                printf_s( "; triple \n");
+                printf_s( "; three of a kind \n");
             else if ( fCard )
-                printf_s( "; Fours \n");
+                printf_s( "; Four of a kind \n");
         } /* end else if */
 
         for ( size_t i = 0; i < subscript; i++ ) { // get the flush hand 

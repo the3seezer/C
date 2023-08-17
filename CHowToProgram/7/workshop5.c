@@ -53,6 +53,7 @@ void deal( int deck[][FACES], const char * suit[], const char * face[]) {
                         subscript2 = 0;
                     card % 2 ? hand( handFace, handSuit, subscript++, column, row, face, suit ) :
                     hand( handFace2, handSuit2, subscript2++, column, row, face, suit );
+                   
                 } /* end if */
             } /* end for */
         } /* end for */
