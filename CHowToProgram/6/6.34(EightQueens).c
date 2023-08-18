@@ -63,7 +63,7 @@ int rowRecursive( int testRow, int moveNumber, int currentRow, int currentColumn
    		moveNumber = columnRecursive( testRow, testColumn, moveNumber, currentRow, currentColumn, board );
 			
 	    moveNumber = rowRecursive( ++testRow, moveNumber, currentRow, currentColumn, board );	
-   }
+   } /* end if */
         
     return moveNumber;
 
