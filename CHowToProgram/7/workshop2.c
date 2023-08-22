@@ -342,8 +342,12 @@ void fullHouse( int * handFace1, int * handFace2 ) {
     copy( copyFace1, handFace1 );
     copy( copyFace2, handFace2 );
 
-    for ( sizet_t count = 0; count < HAND; count++ ) {
+    for ( size_t count = 0; count < HAND; count++ ) {
+        same1 = 0;
+        same2 = 0;
+        for ( size_t count2 = 0; count2 < HAND; count2++ ) {
 
+        } // end for 
     } // end for 
 
 } /* end function fullHouse */
