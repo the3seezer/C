@@ -58,14 +58,14 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
 
     handFace[ subscript ] = column;
     handSuit[ subscript ] = row;
-    int same = 0;
+    int same = 0; // similary cards
     int pair = 0, pCard = 0, s1 = 0, s2 = 0; // pair for the value of the face, pCard for a pair of similary cards, s1 and s2 the value of the suit of first and second similary cards
     int similaryNumber = 0; // number of group of similary cards
     int pairNumber = 0; // number of pairs
     int three = 0, tCard = 0, s3 = 0; // tCard for triple similary cards, s3 to keep track of a third similary card
     int four = 0, fCard = 0, s4 = 0; // fCard for four similary cards, s4 to  keep track of a four similary card
-    int noFlush = 0; // to get a flush hand we need a no flush flag
-    int noStraight = 0; // to get a straight hand we need a no straight flag 
+    int no_flush = 0; // to get a flush hand we need a no flush flag
+    int no_straight = 0; // to get a straight hand we need a no straight flag 
     int royal = 0; // get a royal hand
 
     if ( subscript % 4 == 0 && subscript != 0 ) { 
@@ -80,7 +80,7 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
                 ;
             } /* end if */
             else 
-                noStraight = 1;
+                no_straight = 1;
         } /* end for */
 
         // get the royal hand
@@ -154,19 +154,19 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
 
         for ( size_t i = 0; i < subscript; i++ ) { // get the flush hand 
             if ( handSuit[ i ] != handSuit[ i + 1]) {
-                noFlush = 1;
+                no_flush = 1;
             } /* end if */
         } /* end for */
 
-        if ( !noFlush || !noStraight || royal ) {
+        if ( !no_flush || !no_straight || royal ) {
             printf_s( "%s", "a ");
-            if ( royal && !noFlush )
+            if ( royal && !no_flush )
                 printf_s( "%s", "royal flush");
-            if ( !noStraight && !noFlush )
+            else if ( !no_straight && !no_flush )
                 printf_s( "%s", "straight flush");
-            else if ( !noStraight )
+            else if ( !no_straight )
                 printf_s( "%s", "straight ");
-            else if ( !noFlush )
+            else if ( !no_flush )
                 printf_s( "%s", "flush ");
         } /* end if */
         
