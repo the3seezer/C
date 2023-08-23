@@ -346,18 +346,107 @@ void fullHouse( int * handFace1, int * handFace2 ) {
         same1 = 0;
         same2 = 0;
         for ( size_t count2 = 0; count2 < HAND; count2++ ) {
-
+            if ( count != count2 && copyFace1[ count ] == copyFace1[ count2 ] && copyFace1[ count2 ] != -1 ) {
+                same1++;
+                copyFace1[ count2 ] = -1;
+            } // end if 
+            if ( count != count2 && copyFace2[ count ] == copyFace2[ count2 ] && copyFace2[ count2 ] != -1 ) {
+                same2++;
+                copyFace2[ count2 ] = -1;
+            } // end if 
         } // end for 
+        if ( same1 == 1 )
+            pair1 = copyFace1[ count ];
+        if ( same1 == 2 )
+            trips1 = copyFace1[ count ];
+
+        if ( same2 == 1 )
+            pair2 = copyFace2[ count ];
+        if ( same2 == 2 )
+            trips2 = copyFace2[ count ];
+            
+        if ( same1 )
+            copyFace1[ count ] = -1;
+        if ( same2 )
+            copyFace2[ count ] = -1;
     } // end for 
 
+    if ( trips1 > trips2 )
+        printf_s( "%s", "Hand one is better than hand two\n");
+    if ( trips1 < trips2 )
+        printf_s( "%s", "Hand two is better than hand one\n");
+    if ( trips1 == trips2 ) {
+        if ( pair1 > pair2 ) 
+            printf_s( "%s", "Hand one is better than hand two\n");
+        if ( pair1 < pair2 )
+            printf_s( "%s", "Hand two is better than hand one\n");
+        if ( pair1 == pair2 )
+            printf_s( "%s", "It's a tie!\n");
+    } // end if
 } /* end function fullHouse */
 
 void fourOfAKind( int * handFace1, int * handFace2 ) {
+    int same1 = 0;
+    int same2 = 0;
+    int quads1 = 0;
+    int quads2 = 0;
+    int kicker1 = 0;
+    int kicker2 = 0;
+    int copyFace1[ HAND ] = { 0 };
+    int copyFace2[ HAND ] = { 0 };
+    copy( copyFace1, handFace1 );
+    copy( copyFace2, handFace2 );
 
-} /* end function fullHouse */
+    for ( size_t count = 0; count < HAND; count++ ) {
+        same1 = 0;
+        same2 = 0;
+        for ( size_t count2 = 0; count2 < HAND; count2++ ) {
+            if ( count != count2 && copyFace1[ count ] == copyFace1[ count2 ] && copyFace1[ count2 ] != -1 ) {
+                same1++;
+                if ( same1 == 3 )
+                    quads1 = copyFace1[count];
+                copyFace1[ count2 ] = -1;
+            } // end if 
+            if ( count != count2 && copyFace2[ count ] == copyFace2[ count2] && copyFace2[ count2 ] != -1 ) {
+                same2++;
+                if ( same2 == 3 ) 
+                    quads2 = copyFace2[ count ];
+                copyFace2[ count2 ] = -1;
+            } // end if 
+        } // end for 
+        if ( same1 )
+            copyFace1[ count ] = -1;
+        if ( same2 )
+            copyFace2[ count ] = -1;
+    } // end for 
+
+    if ( quads1 > quads2 )
+        printf_s( "%s", "Hand one is better than hand two\n");
+    if ( quads1 < quads2 )
+        printf_s( "%s", "Hand two is better than hand one\n");
+    if ( quads1 == quads2 ) {
+        kicker1 = highCard( copyFace1, HAND );
+        kicker2 = highCard( copyFace2, HAND );
+        if ( kicker1 > kicker2 )
+            printf_s( "%s", "Hand one is better than hand two\n");
+        if ( kicker1 < kicker2 )
+            printf_s( "%s", "Hand two is better than hand one\n");
+        if ( kicker1 == kicker2 )
+            printf_s( "%s", "It's a tie!\n");
+    } // end if
+} /* end function fourOfAKind */
 
 void straightFlush( int * handFace1, int * handFace2 ) {
-
+    int high1 = 0; // get a high card of hand one
+    int high2 = 0; // get a high card of hand two
+    high1 = highCard(handFace1, HAND );
+    high2 = highCard(handFace2, HAND );
+    if ( high1 > high2 )
+        printf_s( "%s", "Hand one is better than hand two\n");
+    if ( high1 < high2 )
+        printf_s( "%s", "Hand two is better than hand one\n");
+    if ( high1 == high2 )
+        printf_s( "%s", "It's a tie! \n");
 } /* end function straightFlush */
 
 void betterHand( int *handFace1, int * handSuit1, int *handFace2, int *handSuit2, int ( *handRankingP ) ( int *handFace, int *handSuit ) ) {
@@ -618,7 +707,20 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
 
         } /* end for */
 
-        if (pairNumber == 2 )
+        no_flush = noFlush(handSuit, subscript );
+
+        if ( !no_flush || !no_straight || royal ) {
+            printf_s( "%s", "; a ");
+            if ( royal && !no_flush )
+                printf_s( "%s", "royal flush\n");
+            else if ( !no_straight && !no_flush )
+                printf_s( "%s", "straight flush\n");
+            else if ( !no_straight )
+                printf_s( "%s", "straight \n");
+            else if ( !no_flush )
+                printf_s( "%s", "flush \n");
+        } /* end if */
+        else if (pairNumber == 2 )
             printf_s( "; two pairs \n" ); // two pairs
         else if ( similaryNumber) {
             if ( pCard && similaryNumber == 1 ) 
@@ -630,20 +732,6 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
             else if ( fCard )
                 printf_s( "; Four of a kind \n");
         } /* end else if */
-
-        no_flush = noFlush(handSuit, subscript );
-
-        if ( !no_flush || !no_straight || royal ) {
-            printf_s( "%s", "a ");
-            if ( royal && !no_flush )
-                printf_s( "%s", "royal flush\n");
-            else if ( !no_straight && !no_flush )
-                printf_s( "%s", "straight flush\n");
-            else if ( !no_straight )
-                printf_s( "%s", "straight \n");
-            else if ( !no_flush )
-                printf_s( "%s", "flush \n");
-        } /* end if */
         
     } /* end if */
 

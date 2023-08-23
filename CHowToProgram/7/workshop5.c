@@ -8,12 +8,15 @@ void sort( int *copyFace, size_t size );
 void copy( int *copyFace, int *handFace );
 void cardValue( int * handFace );
 void threeOfAKind( int * handFace1, int * handFace2 );
+void fullHouse( int * handFace1, int * handFace2 );
+void fourOfAKind( int * handFace1, int * handFace2 );
 
 int main( void ) {
-    int copyFace1[ 5 ] = { 0, 0, 0, 5, 6 };
-    int copyFace2[ 5 ] = { 0, 0, 0, 2, 3 };
+    int copyFace1[ 5 ] = { 0, 0, 0, 0, 2 };
+    int copyFace2[ 5 ] = { 0, 0, 0, 0, 2 };
 
-    threeOfAKind(copyFace1, copyFace2);
+    cardValue(copyFace1); cardValue(copyFace2);
+    fourOfAKind(copyFace1, copyFace2);
     // printf_s( "%d", highCard( copyFace1, HAND ) );
     // printf_s( "kicker1: %d and kicker2: %d \n", kicker1, kicker2 );
     // printf_s( "pair1_1 :%d pair1_2: %d\n", pair1_1, pair1_2 );
@@ -24,6 +27,112 @@ int main( void ) {
     //     printf_s( "%3d", copyFace2[ i ]); puts("");
 
 } // end main
+
+void fourOfAKind( int * handFace1, int * handFace2 ) {
+    int same1 = 0;
+    int same2 = 0;
+    int quads1 = 0;
+    int quads2 = 0;
+    int kicker1 = 0;
+    int kicker2 = 0;
+    int copyFace1[ HAND ] = { 0 };
+    int copyFace2[ HAND ] = { 0 };
+    copy( copyFace1, handFace1 );
+    copy( copyFace2, handFace2 );
+
+    for ( size_t count = 0; count < HAND; count++ ) {
+        same1 = 0;
+        same2 = 0;
+        for ( size_t count2 = 0; count2 < HAND; count2++ ) {
+            if ( count != count2 && copyFace1[ count ] == copyFace1[ count2 ] && copyFace1[ count2 ] != -1 ) {
+                same1++;
+                if ( same1 == 3 )
+                    quads1 = copyFace1[count];
+                copyFace1[ count2 ] = -1;
+            } // end if 
+            if ( count != count2 && copyFace2[ count ] == copyFace2[ count2] && copyFace2[ count2 ] != -1 ) {
+                same2++;
+                if ( same2 == 3 ) 
+                    quads2 = copyFace2[ count ];
+                copyFace2[ count2 ] = -1;
+            } // end if 
+        } // end for 
+        if ( same1 )
+            copyFace1[ count ] = -1;
+        if ( same2 )
+            copyFace2[ count ] = -1;
+    } // end for 
+
+    if ( quads1 > quads2 )
+        printf_s( "%s", "Hand one is better than hand two\n");
+    if ( quads1 < quads2 )
+        printf_s( "%s", "Hand two is better than hand one\n");
+    if ( quads1 == quads2 ) {
+        kicker1 = highCard( copyFace1, HAND );
+        kicker2 = highCard( copyFace2, HAND );
+        if ( kicker1 > kicker2 )
+            printf_s( "%s", "Hand one is better than hand two\n");
+        if ( kicker1 < kicker2 )
+            printf_s( "%s", "Hand two is better than hand one\n");
+        if ( kicker1 == kicker2 )
+            printf_s( "%s", "It's a tie!\n");
+    } // end if
+} /* end function fourOfAKind */
+
+void fullHouse( int * handFace1, int * handFace2 ) {
+    int same1 = 0; 
+    int same2 = 0;
+    int trips1 = 0; 
+    int trips2 = 0;
+    int pair1 = 0;
+    int pair2 = 0;
+    int copyFace1[ HAND ] = { 0 };
+    int copyFace2[ HAND ] = { 0 };
+    copy( copyFace1, handFace1 );
+    copy( copyFace2, handFace2 );
+
+    for ( size_t count = 0; count < HAND; count++ ) {
+        same1 = 0;
+        same2 = 0;
+        for ( size_t count2 = 0; count2 < HAND; count2++ ) {
+            if ( count != count2 && copyFace1[ count ] == copyFace1[ count2 ] && copyFace1[ count2 ] != -1 ) {
+                same1++;
+                copyFace1[ count2 ] = -1;
+            } // end if 
+            if ( count != count2 && copyFace2[ count ] == copyFace2[ count2 ] && copyFace2[ count2 ] != -1 ) {
+                same2++;
+                copyFace2[ count2 ] = -1;
+            } // end if 
+        } // end for 
+        if ( same1 == 1 )
+            pair1 = copyFace1[ count ];
+        if ( same1 == 2 )
+            trips1 = copyFace1[ count ];
+
+        if ( same2 == 1 )
+            pair2 = copyFace2[ count ];
+        if ( same2 == 2 )
+            trips2 = copyFace2[ count ];
+            
+        if ( same1 )
+            copyFace1[ count ] = -1;
+        if ( same2 )
+            copyFace2[ count ] = -1;
+    } // end for 
+
+    if ( trips1 > trips2 )
+        printf_s( "%s", "Hand one is better than hand two\n");
+    if ( trips1 < trips2 )
+        printf_s( "%s", "Hand two is better than hand one\n");
+    if ( trips1 == trips2 ) {
+        if ( pair1 > pair2 ) 
+            printf_s( "%s", "Hand one is better than hand two\n");
+        if ( pair1 < pair2 )
+            printf_s( "%s", "Hand two is better than hand one\n");
+        if ( pair1 == pair2 )
+            printf_s( "%s", "It's a tie!\n");
+    } // end if
+} /* end function fullHouse */
 
 void threeOfAKind( int * handFace1, int * handFace2 ) {
     int same1 = 0;

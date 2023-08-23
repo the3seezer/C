@@ -1,19 +1,8 @@
 /*
 theBitRiddler
-7/10/2023
-7:21 PM
-(Project: Card Shuffling and Dealing—Which Poker Hand is Better?)
-    Hand ranks and the return value I gave them in the handRanking Function:
-    1. royal_flush = 22;
-    2. straight_flush = 21;
-    3. four_of_a_kind = 20;
-    4. full_house = 19;
-    5. flush = 18;
-    6. straight = 17;
-    7. three_of_a_kind = 16;
-    8. two_pair = 15;
-    9. pair = 14;
-    10. a high card 
+8/22/2023
+11:08 PM
+(Project: Card Shuffling and Dealing—Simulating the Dealer) 
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -572,8 +561,11 @@ int handRanking( int *handFace, int * handSuit ) {
     else if ( pairNumber == 1 )
         my_rank = 14;
     // get a high card 
-    else if ( my_rank < 14 ) 
-        my_rank = highCard( handFace, HAND );
+    else if ( my_rank < 14 ) {
+        copy(copyFace, handFace);
+        cardValue(copyFace );
+        my_rank = highCard( copyFace, HAND );
+    }     
     // return the rank
     return my_rank;  
 } /* end function handRanking */
@@ -634,8 +626,6 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
     int royal = 0; // get a royal hand
 
     if ( subscript % 4 == 0 && subscript != 0 ) { 
-        // handFace[ 0 ] = 0; handFace[ 1 ] = 0; handFace[ 2 ] = 2; handFace[ 3 ] = 3; handFace[ 4 ] = 4;
-        // handSuit[ 0 ] = 0; handSuit[ 1 ] = 0; handSuit[ 2 ] = 0; handSuit[ 3 ] = 0; handSuit[ 4 ] = 0;
         // check your hand
         for ( size_t i = 0; i < 5; i++ ) {
             printf_s( "%5s of %-8s %c", face[ handFace[ i ] ], suit[ handSuit[ i ] ], i < 5 == 0 ? ' ' : ' ' );
@@ -694,17 +684,17 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
             if ( same == 1 ) {
                 pCard = 1;
                 if ( !(!no_flush || !no_straight || royal) )
-                printf_s( "A pair: %ss of %s and %s", face[ pair ], suit[ s1 ], suit[ s2 ] ); 
+                    printf_s( "A pair: %ss of %s and %s", face[ pair ], suit[ s1 ], suit[ s2 ] ); 
             } /* end if */ 
             else if ( same == 2 ) {
                 tCard = 1;
                 if ( !(!no_flush || !no_straight || royal) )
-                printf_s( " Three: %ss of %s, %s and %s", face[ three ], suit[ s1 ], suit[ s2 ], suit[ s3 ] ); 
+                    printf_s( " Three: %ss of %s, %s and %s", face[ three ], suit[ s1 ], suit[ s2 ], suit[ s3 ] ); 
             }  /* end else if */  
             else if ( same == 3 ) {
                 fCard = 1;
                 if ( !(!no_flush || !no_straight || royal) )
-                printf_s( " Four: %ss of %s, %s, %s and %s", face[ four ], suit[ s1 ], suit[ s2 ], suit[ s3 ], suit[ s4 ] ); 
+                    printf_s( " Four: %ss of %s, %s, %s and %s", face[ four ], suit[ s1 ], suit[ s2 ], suit[ s3 ], suit[ s4 ] ); 
             } /* end else if */
 
             if ( same )
