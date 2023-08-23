@@ -52,18 +52,14 @@ int main( void ) {
 } /* end main */
 
 void deal( int deck[][FACES], const char * suit[], const char * face[]) {
-    // first hand 
-    int handFace[HAND] = { 0 };
-    int handSuit[HAND] = { 0 };
+    // player 
+    int playerFace[HAND] = { 0 };
+    int playerSuit[HAND] = { 0 };
     size_t subscript = 0; 
-    // second hand
-    int handFace2[HAND] = { 0 };
-    int handSuit2[HAND] = { 0 };
-    size_t subscript2 = 0;
     // dealer
     int dealerFace[ HAND ] = { 0 };
     int dealerSuit[ HAND ] = { 0 };
-    size_t subscript3 = 0;
+    size_t subscript2 = 0;
     
     for ( int card = 1; card <= CARDS; card++ ) {
         for ( size_t row = 0; row < SUITS; row++ ) {
@@ -73,11 +69,11 @@ void deal( int deck[][FACES], const char * suit[], const char * face[]) {
                         subscript = 0;
                     if ( subscript2 == 5 )
                         subscript2 = 0;
-                    card % 2 ? hand( handFace, handSuit, subscript++, column, row, face, suit ) :
-                    hand( handFace2, handSuit2, subscript2++, column, row, face, suit );
+                    card % 2 ? hand( playerFace, playerSuit, subscript++, column, row, face, suit ) :
+                    hand( dealerFace, dealerSuit, subscript2++, column, row, face, suit );
 
                     if ( subscript2 == 5 ) {
-                        betterHand(handFace, handSuit, handFace2, handSuit2, handRanking );
+                        betterHand( playerFace, playerSuit, dealerFace, dealerSuit, handRanking );
                     } /* end if */
                 } /* end if */
             } /* end for */
