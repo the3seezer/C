@@ -16,6 +16,7 @@ theBitRiddler
 void hand( int *handFace, int *handSuit, size_t subscript, int column, int row, const char *face[], const char *suit[] );
 void shuffle( int deck[][ FACES ]);
 void deal(int deck[][FACES], const char * suit[], const char *face[]);
+void dealerSimulation( size_t subscript, int * , int * , int, int, const char * face[], const char * suit[] );
 void betterHand( int *handFace1, int * handSuit1, int *handFace2, int *handSuit2, int ( *handRankingP) ( int *handFace, int *handSuit ) );
 int handRanking( int *handFace, int * handSuit );
 void tieBreaker( int *, int *, int );
@@ -51,29 +52,38 @@ int main( void ) {
 
 } /* end main */
 
+void dealerSimulation(size_t subscript, int *dealerFace , int * dealerSuit, int column, int row, const char * face[], const char * suit[] ) {
+
+} /* end function dealerSimulation */
+
 void deal( int deck[][FACES], const char * suit[], const char * face[]) {
-    // first hand 
-    int handFace[HAND] = { 0 };
-    int handSuit[HAND] = { 0 };
+    // player 
+    int playerFace[HAND] = { 0 };
+    int playerSuit[HAND] = { 0 };
     size_t subscript = 0; 
-    // second hand
-    int handFace2[HAND] = { 0 };
-    int handSuit2[HAND] = { 0 };
+    // dealer
+    int dealerFace[ HAND ] = { 0 };
+    int dealerSuit[ HAND ] = { 0 };
     size_t subscript2 = 0;
     
     for ( int card = 1; card <= CARDS; card++ ) {
         for ( size_t row = 0; row < SUITS; row++ ) {
             for ( size_t column = 0; column < FACES; column++ ) {
                 if ( deck[ row ][ column] == card ) {
+                    
                     if ( subscript == 5)
                         subscript = 0;
                     if ( subscript2 == 5 )
                         subscript2 = 0;
-                    card % 2 ? hand( handFace, handSuit, subscript++, column, row, face, suit ) :
-                    hand( handFace2, handSuit2, subscript2++, column, row, face, suit );
+
+                    if ( card % 2 == 0 )
+                        dealerSimulation( subscript2, dealerFace, dealerSuit, column, row, face, suit );
+
+                    card % 2 ? hand( playerFace, playerSuit, subscript++, column, row, face, suit ) :
+                    hand( dealerFace, dealerSuit, subscript2++, column, row, face, suit );
 
                     if ( subscript2 == 5 ) {
-                        betterHand(handFace, handSuit, handFace2, handSuit2, handRanking );
+                        betterHand( playerFace, playerSuit, dealerFace, dealerSuit, handRanking );
                     } /* end if */
                 } /* end if */
             } /* end for */

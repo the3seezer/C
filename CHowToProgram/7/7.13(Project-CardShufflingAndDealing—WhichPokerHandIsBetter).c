@@ -717,7 +717,7 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
         } /* end for */
 
         if ( !no_flush || !no_straight || royal ) {
-            printf_s( "%s", "; a ");
+            printf_s( "%s", "a ");
             if ( royal && !no_flush )
                 printf_s( "%s", "royal flush\n");
             else if ( !no_straight && !no_flush )

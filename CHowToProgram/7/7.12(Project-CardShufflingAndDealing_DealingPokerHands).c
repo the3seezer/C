@@ -83,6 +83,13 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
                 no_straight = 1;
         } /* end for */
 
+        // get the flush
+        for ( size_t i = 0; i < subscript; i++ ) { // get the flush hand 
+            if ( handSuit[ i ] != handSuit[ i + 1]) {
+                no_flush = 1;
+            } /* end if */
+        } /* end for */
+
         // get the royal hand
         if ( copyFace[ 0 ] == 0 && copyFace[ 1 ] == 9 && copyFace[ 2 ] == 10 && copyFace[ 3 ] == 11 && copyFace[ 4 ] == 12 )
             royal = 1;
@@ -116,19 +123,23 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
             handFace[ count ] = 99; // just to avoid repetetion
 
             if (similaryNumber && same )
-                printf_s( "%s", " and ");
+                if ( !(!no_flush || !no_straight || royal) )
+                    printf_s( "%s", " and ");
 
             if ( same == 1 ) {
                 pCard = 1;
-                printf_s( "A pair: %ss of %s and %s", face[ pair ], suit[ s1 ], suit[ s2 ] ); 
+                if ( !(!no_flush || !no_straight || royal) )
+                    printf_s( "A pair: %ss of %s and %s", face[ pair ], suit[ s1 ], suit[ s2 ] ); 
             } /* end if */ 
             else if ( same == 2 ) {
                 tCard = 1;
-                printf_s( " Three: %ss of %s, %s and %s", face[ three ], suit[ s1 ], suit[ s2 ], suit[ s3 ] ); 
+                if ( !(!no_flush || !no_straight || royal) )
+                    printf_s( " Three: %ss of %s, %s and %s", face[ three ], suit[ s1 ], suit[ s2 ], suit[ s3 ] ); 
             }  /* end else if */  
             else if ( same == 3 ) {
                 fCard = 1;
-                printf_s( " Four: %ss of %s, %s, %s and %s", face[ four ], suit[ s1 ], suit[ s2 ], suit[ s3 ], suit[ s4 ] ); 
+                if ( !(!no_flush || !no_straight || royal) )
+                    printf_s( " Four: %ss of %s, %s, %s and %s", face[ four ], suit[ s1 ], suit[ s2 ], suit[ s3 ], suit[ s4 ] ); 
             } /* end else if */
 
             if (same )
@@ -139,7 +150,18 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
 
         } /* end for */
 
-        if (pairNumber == 2 )
+        if ( !no_flush || !no_straight || royal ) {
+            printf_s( "%s", "a ");
+            if ( royal && !no_flush )
+                printf_s( "%s", "royal flush\n");
+            else if ( !no_straight && !no_flush )
+                printf_s( "%s", "straight flush\n");
+            else if ( !no_straight )
+                printf_s( "%s", "straight \n");
+            else if ( !no_flush )
+                printf_s( "%s", "flush \n");
+        } /* end if */
+        else if (pairNumber == 2 )
             printf_s( "; two pairs \n" ); // two pairs
         else if ( similaryNumber) {
             if ( pCard && similaryNumber == 1 ) 
@@ -151,24 +173,6 @@ void hand(int *handFace, int *handSuit, size_t subscript, int column, int row, c
             else if ( fCard )
                 printf_s( "; Four of a kind \n");
         } /* end else if */
-
-        for ( size_t i = 0; i < subscript; i++ ) { // get the flush hand 
-            if ( handSuit[ i ] != handSuit[ i + 1]) {
-                no_flush = 1;
-            } /* end if */
-        } /* end for */
-
-        if ( !no_flush || !no_straight || royal ) {
-            printf_s( "%s", "a ");
-            if ( royal && !no_flush )
-                printf_s( "%s", "royal flush");
-            else if ( !no_straight && !no_flush )
-                printf_s( "%s", "straight flush");
-            else if ( !no_straight )
-                printf_s( "%s", "straight ");
-            else if ( !no_flush )
-                printf_s( "%s", "flush ");
-        } /* end if */
         
         puts("");   
     } /* end if */
