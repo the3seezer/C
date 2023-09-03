@@ -112,24 +112,7 @@ void tieBreaker( int * handFace1, int * handFace2, int rank ) {
     sort( copyFace1, HAND ); 
     sort( copyFace2, HAND );
 
-    if ( rank == 0 ) 
-        (* betterTie[ rank ] ) ( copyFace1, copyFace2 );
-    if ( rank == 1 ) 
-        ( * betterTie[ rank ]) ( copyFace1, copyFace2 );
-    if ( rank == 2 ) 
-        (*betterTie[ rank ])( copyFace1, copyFace2 );
-    if ( rank == 3 ) 
-        ( * betterTie[ rank ]) ( copyFace1, copyFace2 );
-    if ( rank == 4 )
-        ( * betterTie[ rank ]) ( copyFace1, copyFace2 );
-    if ( rank == 5 )
-        ( * betterTie[ rank ]) ( copyFace1, copyFace2 );
-    if ( rank == 6 )
-        ( * betterTie[ rank ]) ( copyFace1, copyFace2 );
-    if ( rank == 7 )
-        ( * betterTie[ rank ]) ( copyFace1, copyFace2 );
-    if ( rank == 8 )
-        ( * betterTie[ rank ]) ( copyFace1, copyFace2 );
+    (* betterTie[ rank ] ) ( copyFace1, copyFace2 );
 
 } /* end function tieCheck */
 
