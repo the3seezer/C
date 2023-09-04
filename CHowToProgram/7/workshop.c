@@ -12,6 +12,7 @@ theBitRiddler
 #define SUITS 4
 #define FACES 13
 #define HAND 5
+#define DRAWCARDS 3
 
 void hands( int *, int *, int deck[][FACES], int * card, int *handFace, int *handSuit, int *dealerFace, int * dealerSuit, int *subscriptPtr1, int *subscriptPtr2, int column, int row, const char *face[], const char *suit[] );
 void shuffle( int deck[][ FACES ]);
@@ -84,9 +85,66 @@ void deal( int deck[][FACES], const char * suit[], const char * face[]) {
 } /* end function deal */
 
 void dealerSimulation(int deck[][FACES], int * card, int *dealerFace , int * dealerSuit, size_t subscript, int column, int row, const char * face[], const char * suit[] ) {
+    int same = 0; // similary cards
+    int pair = 0, s1 = 0, s2 = 0, pCard = 0; // pair for the value of the face, pCard for a pair of similary cards, s1 and s2 the value of the suit of first and second similary cards
+    int similaryNumber = 0; // number of group of similary cards
+    int pairNumber = 0; // number of pairs
+    int trips = 0, s3 = 0, tCard = 0; // tCard for triple similary cards, s3 to keep track of a third similary card
+    int quads = 0, s4 = 0, fCard = 0; // fCard for four similary cards, s4 to  keep track of a four similary card
+    int no_flush = 0; // to get a flush hand we need a no flush flag
+    int no_straight = 0; // to get a straight hand we need a no straight flag 
+    int royal = 0; // get a royal hand
+    int dealer_card = * card; // record the last card dealt to the dealer
+
     // make checkHand function to check the hand
     checkHand( dealerFace, dealerSuit, face, suit );
 
+    int copyDFace[ HAND ] = {0};
+    copy( copyDFace, dealerFace );
+
+    cardValue( copyDFace );
+
+    sort( copyDFace, HAND );
+
+    no_straight = noStraight( copyDFace, HAND - 1 );
+
+    royal = getRoyal( copyDFace );
+
+    no_flush = noFlush( dealerSuit, HAND - 1 );
+
+    copy( copyDFace, dealerFace );
+
+    similaryDisplay( same, pair, trips, quads, copyDFace, dealerSuit, s1, s2, s3, s4, &similaryNumber, &pairNumber, no_flush, no_straight, royal, &pCard, &tCard, &fCard, face, suit );
+
+    rankDisplay( no_flush, no_straight, royal, pairNumber, similaryNumber, pCard, tCard, fCard );
+
+    int drawArray[ DRAWCARDS ] = { -1, -1, -1 };
+    int hand_card = 0; // record the cards in the hand to be removed
+    int i = 0;
+    printf_s( "%s", "Choose one, two or three cards to draw and replace.\n"
+            "1 to the first left card, 2, 3, 4 and 5 respectively: -1 to end or not to draw.\n");
+    scanf_s( "%d", &hand_card );
+    while ( hand_card != -1 && hand_card > 0 && hand_card <= 5 && i <= DRAWCARDS - 1 ) {
+        drawArray[ i++ ] = hand_card - 1; // get card positions in the dealer's hand to be replaced
+        scanf_s( "%d", &hand_card );
+    } // end if 
+    i = 0;
+    while ( i < DRAWCARDS ) {
+        dealer_card++; // draw a card 
+        for ( size_t hand_row = 0; hand_row < SUITS; hand_row++ ) {
+            for ( size_t hand_column = 0; hand_column < FACES; hand_column++ ) {
+                // replace the cards in the dealer's hand using the recorded positions
+                if ( deck[ hand_row ][ hand_column ] == dealer_card && drawArray[ i ] >= 0 ) {
+                    dealerFace[ drawArray[ i ] ] = hand_column;
+                    dealerSuit[ drawArray[ i ] ] = hand_row;
+                } // end if
+            } // end for
+        } // end for
+        i++;
+    } // end while
+
+    // record the last card drawn to the dealer
+    *card = dealer_card;
 } /* end function dealerSimulation */
 
 void hands( int * p, int * d, int deck[][FACES], int * card, int *handFace, int *handSuit, int *dealerFace, int * dealerSuit, int *subscriptPtr1, int *subscriptPtr2, int column, int row, const char *face[], const char *suit[] ) {
@@ -187,11 +245,11 @@ void hands( int * p, int * d, int deck[][FACES], int * card, int *handFace, int 
     *subscriptPtr1 = subscript1;
     *subscriptPtr2 = subscript2;
 
-    if ( player && !dealer ) {
+    if ( player ) {
         player = 0;
         dealer = 1;
     } // end if
-    else if ( !player && dealer ) {
+    else {
         player = 1;
         dealer = 0;
     } // end else

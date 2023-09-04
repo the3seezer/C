@@ -12,12 +12,13 @@ theBitRiddler
 #define SUITS 4
 #define FACES 13
 #define HAND 5
+#define DRAWCARDS 3
 
 void hands( int *, int *, int deck[][FACES], int * card, int *handFace, int *handSuit, int *dealerFace, int * dealerSuit, int *subscriptPtr1, int *subscriptPtr2, int column, int row, const char *face[], const char *suit[] );
 void shuffle( int deck[][ FACES ]);
 void similaryDisplay( int same, int pair, int three, int four, int *copyFace, int * handSuit, int s1, int s2, int s3, int s4, int *similaryNumberPtr, int *pairNumberPtr, int no_flush, int no_straight, int royal, int *pCardPtr, int *tCardPtr, int *fCardPtr, const char * face[], const char * suit[]);
 void deal(int deck[][FACES], const char * suit[], const char *face[]);
-int dealerSimulation( int deck[][FACES], int* card, int * , int * , size_t subscript, int, int, const char * face[], const char * suit[] );
+void dealerSimulation( int deck[][FACES], int* card, int * , int * , size_t subscript, int, int, const char * face[], const char * suit[] );
 void checkHand( int *, int *, const char * face[], const char *suit[]);
 void rankDisplay( int, int, int, int, int, int, int, int);
 void betterHand( int *handFace1, int * handSuit1, int *handFace2, int *handSuit2, int ( *handRankingP) ( int *handFace, int *handSuit ) );
@@ -83,7 +84,7 @@ void deal( int deck[][FACES], const char * suit[], const char * face[]) {
     } /* end for */  
 } /* end function deal */
 
-int dealerSimulation(int deck[][FACES], int * card, int *dealerFace , int * dealerSuit, size_t subscript, int column, int row, const char * face[], const char * suit[] ) {
+void dealerSimulation(int deck[][FACES], int * card, int *dealerFace , int * dealerSuit, size_t subscript, int column, int row, const char * face[], const char * suit[] ) {
     int same = 0; // similary cards
     int pair = 0, s1 = 0, s2 = 0, pCard = 0; // pair for the value of the face, pCard for a pair of similary cards, s1 and s2 the value of the suit of first and second similary cards
     int similaryNumber = 0; // number of group of similary cards
@@ -93,7 +94,10 @@ int dealerSimulation(int deck[][FACES], int * card, int *dealerFace , int * deal
     int no_flush = 0; // to get a flush hand we need a no flush flag
     int no_straight = 0; // to get a straight hand we need a no straight flag 
     int royal = 0; // get a royal hand
-    int draw = 0; // get a dealer's choice to draw 
+    int drawArray[ DRAWCARDS ] = { -1, -1, -1 };
+    int hand_card = 0; // record the cards in the hand to be removed
+    int dealer_card = * card; // record the last card dealt to the dealer
+    int i = 0; // counter
 
     // make checkHand function to check the hand
     checkHand( dealerFace, dealerSuit, face, suit );
@@ -117,12 +121,30 @@ int dealerSimulation(int deck[][FACES], int * card, int *dealerFace , int * deal
 
     rankDisplay( no_flush, no_straight, royal, pairNumber, similaryNumber, pCard, tCard, fCard );
 
-    do {
-        printf_s( "%s", "Print 1 to draw any card; one, two or three cards or 2 to continue\n" );
-        scanf_s( "%d", &draw );
-    }
-    while ( draw < 1 && draw > 2 );
+    printf_s( "%s", "Choose one, two or three cards to draw and replace.\n"
+            "1 to the first left card, 2, 3, 4 and 5 respectively: -1 to end or not to draw.\n");
+            scanf_s( "%d", &hand_card );
+    while ( hand_card != -1 && hand_card > 0 && hand_card <= 5 && i <= DRAWCARDS - 1 ) {
+        drawArray[ i++ ] = hand_card - 1; // get card positions in the dealer's hand to be replaced
+        scanf_s( "%d", &hand_card );
+    } // end if 
+    i = 0;
+    while ( drawArray[ i ] >= 0 ) {
+        dealer_card++; // draw a card 
+        for ( size_t hand_row = 0; hand_row < SUITS; hand_row++ ) {
+            for ( size_t hand_column = 0; hand_column < FACES; hand_column++ ) {
+                // replace the cards in the dealer's hand using the recorded positions
+                if ( deck[ hand_row ][ hand_column ] == dealer_card ) {
+                    dealerFace[ drawArray[ i ] ] = hand_column;
+                    dealerSuit[ drawArray[ i ] ] = hand_row;
+                } // end if
+            } // end for
+        } // end for
+        i++;
+    } // end while
 
+    // record the last card drawn to the dealer
+    *card = dealer_card;
 } /* end function dealerSimulation */
 
 void hands( int * p, int * d, int deck[][FACES], int * card, int *handFace, int *handSuit, int *dealerFace, int * dealerSuit, int *subscriptPtr1, int *subscriptPtr2, int column, int row, const char *face[], const char *suit[] ) {

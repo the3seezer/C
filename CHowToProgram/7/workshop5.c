@@ -1,5 +1,13 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define CARDS 52
+#define SUITS 4
+#define FACES 13
 #define HAND 5
+#define DRAWCARDS 3
+
 void onePair( int * handFace1, int *handFace2 );
 void twoPair( int * handFace1, int * handFace2 );
 void aHighCard( int *, int * );
@@ -12,19 +20,37 @@ void fullHouse( int * handFace1, int * handFace2 );
 void fourOfAKind( int * handFace1, int * handFace2 );
 
 int main( void ) {
-    int copyFace1[ 5 ] = { 0, 0, 0, 0, 2 };
-    int copyFace2[ 5 ] = { 0, 0, 0, 0, 2 };
+    int drawArray[ DRAWCARDS ] = { -1, -1, -1 };
+    int hand_card = 0;
+    int i = 0;
+    int dealer_card = 0;
+    int deck[ SUITS ][ FACES ] = { 0 };
+    int dealerFace[ HAND ] = { 0 };
+    int dealerSuit[ HAND ] = { 0 };
 
-    cardValue(copyFace1); cardValue(copyFace2);
-    fourOfAKind(copyFace1, copyFace2);
-    // printf_s( "%d", highCard( copyFace1, HAND ) );
-    // printf_s( "kicker1: %d and kicker2: %d \n", kicker1, kicker2 );
-    // printf_s( "pair1_1 :%d pair1_2: %d\n", pair1_1, pair1_2 );
-    // printf_s( "pair2_1 :%d pair2_2: %d\n", pair2_1, pair2_2 );
-    // for ( size_t i = 0; i < 5; i++ )
-    //     printf_s( "%3d", copyFace1[ i ]); puts("");
-    // for ( size_t i = 0; i < 5; i++ )
-    //     printf_s( "%3d", copyFace2[ i ]); puts("");
+    printf_s( "%s", "Choose one, two or three cards to draw and replace.\n"
+            "1 to the first left card, 2, 3, 4 and 5 respectively: -1 to end or not to draw.\n");
+    scanf_s( "%d", &hand_card );
+    while ( hand_card != -1 && hand_card > 0 && hand_card <= 5 && i <= DRAWCARDS - 1 ) {
+        drawArray[ i++ ] = hand_card - 1; // get card positions in the dealer's hand to be replaced
+        scanf_s( "%d", &hand_card );
+    } // end if 
+    for ( int i = 0; i < DRAWCARDS; i++ ) {
+         printf("drawArray[%i]=%i\n", i + 1, drawArray[ i ]);
+    } // end if
+    while ( drawArray[ i ] >= 0 ) {
+        dealer_card++; // draw a card 
+        for ( size_t hand_row = 0; hand_row < SUITS; hand_row++ ) {
+            for ( size_t hand_column = 0; hand_column < FACES; hand_column++ ) {
+                // replace the cards in the dealer's hand using the recorded positions
+                if ( deck[ hand_row ][ hand_column ] == dealer_card ) {
+                    dealerFace[ drawArray[ i ] ] = hand_column;
+                    dealerSuit[ drawArray[ i ] ] = hand_row;
+                } // end if
+            } // end for
+        } // end for
+        i++;
+    } // end while
 
 } // end main
 
