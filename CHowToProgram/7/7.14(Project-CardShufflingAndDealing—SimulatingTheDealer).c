@@ -95,6 +95,9 @@ void dealerSimulation(int deck[][FACES], int * card, int *dealerFace , int * dea
     int no_straight = 0; // to get a straight hand we need a no straight flag 
     int royal = 0; // get a royal hand
     int dealer_card = * card; // record the last card dealt to the dealer
+    int drawArray[ DRAWCARDS ] = { -1, -1, -1 };
+    int hand_card = 0; // record the cards in the hand to be removed
+    int i = 0;
 
     // make checkHand function to check the hand
     checkHand( dealerFace, dealerSuit, face, suit );
@@ -118,9 +121,6 @@ void dealerSimulation(int deck[][FACES], int * card, int *dealerFace , int * dea
 
     rankDisplay( no_flush, no_straight, royal, pairNumber, similaryNumber, pCard, tCard, fCard );
 
-    int drawArray[ DRAWCARDS ] = { -1, -1, -1 };
-    int hand_card = 0; // record the cards in the hand to be removed
-    int i = 0;
     printf_s( "%s", "Choose one, two or three cards to draw and replace.\n"
             "1 to the first left card, 2, 3, 4 and 5 respectively: -1 to end or not to draw.\n");
     scanf_s( "%d", &hand_card );
@@ -130,13 +130,13 @@ void dealerSimulation(int deck[][FACES], int * card, int *dealerFace , int * dea
     } // end if 
     i = 0;
     while ( i < DRAWCARDS ) {
-        dealer_card++; // draw a card 
         for ( size_t hand_row = 0; hand_row < SUITS; hand_row++ ) {
             for ( size_t hand_column = 0; hand_column < FACES; hand_column++ ) {
                 // replace the cards in the dealer's hand using the recorded positions
                 if ( deck[ hand_row ][ hand_column ] == dealer_card && drawArray[ i ] >= 0 ) {
                     dealerFace[ drawArray[ i ] ] = hand_column;
                     dealerSuit[ drawArray[ i ] ] = hand_row;
+                    dealer_card++; // draw a card 
                 } // end if
             } // end for
         } // end for
