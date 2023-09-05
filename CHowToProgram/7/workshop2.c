@@ -21,6 +21,15 @@ void deal(int deck[][FACES], const char * suit[], const char *face[]);
 void dealerAutoSimulation( int deck[][FACES], int* card, int * , int * , size_t subscript, int, int, const char * face[], const char * suit[] );
 void checkHand( int *, int *, const char * face[], const char *suit[]);
 int checkRank( int *, int *, const char * [], const char * [] );
+void highCardDraw( int *, int * );
+void onePairDraw( int *, int *);
+void twoPairDraw( int *, int * );
+void tripsDraw( int *, int * );
+void straightDraw( int *, int * );
+void flushDraw( int *, int * );
+void fullHouseDraw( int *, int * );
+void quadsDraw( int *, int * );
+void straightFlushDraw( int *, int * );
 int rankDisplay( int, int, int, int, int, int, int, int);
 void betterHand( int *handFace1, int * handSuit1, int *handFace2, int *handSuit2, int ( *handRankingP) ( int *handFace, int *handSuit ) );
 int handRanking( int *handFace, int * handSuit );
@@ -85,22 +94,55 @@ void deal( int deck[][FACES], const char * suit[], const char * face[]) {
     } /* end for */  
 } /* end function deal */
 
+void highCardDraw( int * handFace, int * draw ) {
+
+} /* end function highCardDraw */
+
+void onePairDraw( int * handFace, int * draw ) {
+
+} /* end function onePairDraw */
+
+void twoPairDraw( int * handFace, int * draw ) {
+
+} /* end function twoPairDraw */
+
+void tripsDraw( int * handFace, int * draw ) {
+
+} /* end function tripsDraw */
+
+void straightDraw( int *handFace, int * draw ) {
+
+} /* end function straightDraw */
+
+void flushDraw( int * handFace, int * draw ) {
+
+} /* end function flushDraw */
+
+void fullHouseDraw( int * handFace, int * draw ) {
+
+} /* end function fullHouseDraw */
+
+void quadsDraw( int * handFace, int * draw ) {
+
+} /* end function quadsDraw */
+
+void straightFlushDraw( int * handFace, int * draw ) {
+
+} /* end straightFlushDraw */
+
 void dealerAutoSimulation(int deck[][FACES], int * card, int *dealerFace , int * dealerSuit, size_t subscript, int column, int row, const char * face[], const char * suit[] ) {
+    void ( * draw[ 9 ] ) ( int *, int * ) = { highCardDraw, onePairDraw, twoPairDraw, tripsDraw, straightDraw, 
+                                     flushDraw, fullHouseDraw, quadsDraw, straightFlushDraw };
     int dealer_card = * card; // record the last card dealt to the dealer
     int drawArray[ DRAWCARDS ] = { -1, -1, -1 }; // record the cards to be replaced if selected
-    int hand_card = 0; // record the cards in the hand to be removed
     int i = 0; // counter
     int rank = 0;
 
     rank = checkRank( dealerFace, dealerSuit, face, suit );
 
-    printf_s( "%s", "Choose one, two or three cards to draw and replace.\n"
-            "1 to the first left card, 2, 3, 4 and 5 respectively: -1 to end or not to draw.\n");
-    scanf_s( "%d", &hand_card );
-    while ( hand_card != -1 && hand_card > 0 && hand_card <= 5 && i <= DRAWCARDS - 1 ) {
-        drawArray[ i++ ] = hand_card - 1; // get card positions in the dealer's hand to be replaced
-        scanf_s( "%d", &hand_card );
-    } // end if 
+    if ( rank != 9 )
+        ( * draw[ rank ] ) ( dealerFace, drawArray );
+    
     i = 0;
     while ( i < DRAWCARDS ) { 
         for ( size_t hand_row = 0; hand_row < SUITS; hand_row++ ) {
