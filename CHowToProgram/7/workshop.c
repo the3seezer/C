@@ -90,8 +90,9 @@ void dealerAutoSimulation(int deck[][FACES], int * card, int *dealerFace , int *
     int drawArray[ DRAWCARDS ] = { -1, -1, -1 }; // record the cards to be replaced if selected
     int hand_card = 0; // record the cards in the hand to be removed
     int i = 0; // counter
+    int rank = 0;
 
-    checkRank( dealerFace, dealerSuit, face, suit );
+    rank = checkRank( dealerFace, dealerSuit, face, suit );
 
     printf_s( "%s", "Choose one, two or three cards to draw and replace.\n"
             "1 to the first left card, 2, 3, 4 and 5 respectively: -1 to end or not to draw.\n");
@@ -152,7 +153,7 @@ int checkRank( int * handFace, int * handSuit , const char * face[], const char 
     // find the number of similary cards
     similaryDisplay( same, pair, trips, quads, copyFace, handSuit, s1, s2, s3, s4, &similaryNumber, &pairNumber, no_flush, no_straight, royal, &pCard, &tCard, &fCard, face, suit );
 
-    rankDisplay( no_flush, no_straight, royal, pairNumber, similaryNumber, pCard, tCard, fCard );
+    return rankDisplay( no_flush, no_straight, royal, pairNumber, similaryNumber, pCard, tCard, fCard );
 
 } /* end function checkRank */
 
@@ -183,7 +184,7 @@ void hands( int * p, int * d, int deck[][FACES], int * card, int *handFace, int 
     } // end if
 
     if ( subscript1 % 4 == 0 && subscript2 != 0 && subscript2 % 4 == 0 && subscript2 != 0 && dealer ) {
-        
+
         // get the dealers simulation
         dealerAutoSimulation( deck, card, dealerFace, dealerSuit, subscript2, column, row, face, suit );
 
@@ -230,36 +231,46 @@ int rankDisplay( int no_flush, int no_straight, int royal, int pairNumber, int s
             printf_s( "%s", "a ");
             if ( royal && !no_flush ) {
                 printf_s( "%s", "royal flush\n");
+                return 9;
             } // end if   
             else if ( !no_straight && !no_flush ) {
                 printf_s( "%s", "straight flush\n");
+                return 8;
             } // end if    
             else if ( !no_straight ) {
                 printf_s( "%s", "straight \n");
+                return 4;
             } // end if    
             else if ( !no_flush ) {
                 printf_s( "%s", "flush \n");
+                return 5;
             } // end if   
         } /* end if */
         else if (pairNumber == 2 ) {
             printf_s( "; two pairs \n" ); // two pairs
+            return 2;
         } // end if   
         else if ( similaryNumber ) {
             if ( pCard && similaryNumber == 1 ) {
-               printf_s( "; one pair \n"); 
+               printf_s( "; one pair \n");
+               return 1; 
             } // end if   
             else if ( tCard && similaryNumber == 2 ) {
                 printf_s( "; full house \n" ); 
+                return 6;
             } // end if             
             else if ( tCard ) {
                 printf_s( "; three of a kind \n");
+                return 3;
             } // end if
             else if ( fCard ) {
                 printf_s( "; Four of a kind \n");
+                return 7;
             } // end if    
         } /* end else if */
 
-    return 0;
+    return 0; // for a high card
+
 } /* end function rankDisplay */
 
 void similaryDisplay( int same, int pair, int three, int four, int *copyFace, int * handSuit, int s1, int s2, int s3, int s4, int *similaryNumberPtr, int *pairNumberPtr, int no_flush, int no_straight, int royal, int *pCardPtr, int *tCardPtr, int *fCardPtr, const char * face[], const char * suit[]) {
