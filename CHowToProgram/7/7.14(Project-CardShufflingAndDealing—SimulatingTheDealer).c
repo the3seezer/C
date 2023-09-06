@@ -18,7 +18,7 @@ void hands( int *, int *, int deck[][FACES], int * card, int *handFace, int *han
 void shuffle( int deck[][ FACES ]);
 void similaryDisplay( int same, int pair, int three, int four, int *copyFace, int * handSuit, int s1, int s2, int s3, int s4, int *similaryNumberPtr, int *pairNumberPtr, int no_flush, int no_straight, int royal, int *pCardPtr, int *tCardPtr, int *fCardPtr, const char * face[], const char * suit[]);
 void deal(int deck[][FACES], const char * suit[], const char *face[]);
-void dealerSimulation( int deck[][FACES], int* card, int * , int * , size_t subscript, int, int, const char * face[], const char * suit[] );
+void dealerSimulation( int deck[][FACES], int* card, int * , int * , const char * face[], const char * suit[] );
 void checkHand( int *, int *, const char * face[], const char *suit[]);
 void rankDisplay( int, int, int, int, int, int, int, int);
 void betterHand( int *handFace1, int * handSuit1, int *handFace2, int *handSuit2, int ( *handRankingP) ( int *handFace, int *handSuit ) );
@@ -84,7 +84,7 @@ void deal( int deck[][FACES], const char * suit[], const char * face[]) {
     } /* end for */  
 } /* end function deal */
 
-void dealerSimulation(int deck[][FACES], int * card, int *dealerFace , int * dealerSuit, size_t subscript, int column, int row, const char * face[], const char * suit[] ) {
+void dealerSimulation(int deck[][FACES], int * card, int *dealerFace , int * dealerSuit, const char * face[], const char * suit[] ) {
     int same = 0; // similary cards
     int pair = 0, s1 = 0, s2 = 0, pCard = 0; // pair for the value of the face, pCard for a pair of similary cards, s1 and s2 the value of the suit of first and second similary cards
     int similaryNumber = 0; // number of group of similary cards
@@ -133,7 +133,7 @@ void dealerSimulation(int deck[][FACES], int * card, int *dealerFace , int * dea
         for ( size_t hand_row = 0; hand_row < SUITS; hand_row++ ) {
             for ( size_t hand_column = 0; hand_column < FACES; hand_column++ ) {
                 // replace the cards in the dealer's hand using the recorded positions
-                if ( deck[ hand_row ][ hand_column ] == dealer_card && drawArray[ i ] >= 0 ) {
+                if ( deck[ hand_row ][ hand_column ] == dealer_card + 1 && drawArray[ i ] >= 0 ) { // compare the next card
                     dealerFace[ drawArray[ i ] ] = hand_column;
                     dealerSuit[ drawArray[ i ] ] = hand_row;
                     dealer_card++; // draw a card 
@@ -185,7 +185,7 @@ void hands( int * p, int * d, int deck[][FACES], int * card, int *handFace, int 
 
     if ( subscript1 % 4 == 0 && subscript2 != 0 && subscript2 % 4 == 0 && subscript2 != 0 && dealer ) {
         // get the dealers simulation
-        dealerSimulation( deck, card, dealerFace, dealerSuit, subscript2, column, row, face, suit );
+        dealerSimulation( deck, card, dealerFace, dealerSuit, face, suit );
         // check your hand
         checkHand( handFace, handSuit, face, suit );
         // make an array to copy, sort and find a straight hand

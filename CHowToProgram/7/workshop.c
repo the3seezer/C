@@ -18,10 +18,18 @@ void hands( int *, int *, int deck[][FACES], int * card, int *handFace, int *han
 void shuffle( int deck[][ FACES ]);
 void similaryDisplay( int same, int pair, int three, int four, int *copyFace, int * handSuit, int s1, int s2, int s3, int s4, int *similaryNumberPtr, int *pairNumberPtr, int no_flush, int no_straight, int royal, int *pCardPtr, int *tCardPtr, int *fCardPtr, const char * face[], const char * suit[]);
 void deal(int deck[][FACES], const char * suit[], const char *face[]);
-void dealerAutoSimulation( int deck[][FACES], int* card, int * , int * , size_t subscript, int, int, const char * face[], const char * suit[] );
+void dealerAutoSimulation( int deck[][FACES], int* card, int * , int * );
+void playerSimulation( int deck[][FACES], int* card, int * , int * , const char * face[], const char * suit[] );
 void checkHand( int *, int *, const char * face[], const char *suit[]);
-int checkRank( int *, int *, const char * [], const char * [] );
-int rankDisplay( int, int, int, int, int, int, int, int);
+void checkRank( int *, int *, const char * [], const char * [] );
+int checkDealerRank( int *, int * );
+void highCardDraw( int *, int *, int );
+void onePairDraw( int *, int *, int);
+void twoPairDraw( int *, int *, int );
+void tripsDraw( int *, int *, int );
+void quadsDraw( int *, int *, int );
+void rankDisplay( int, int, int, int, int, int, int, int);
+int dealerRankLevel( int, int, int, int, int, int, int, int);
 void betterHand( int *handFace1, int * handSuit1, int *handFace2, int *handSuit2, int ( *handRankingP) ( int *handFace, int *handSuit ) );
 int handRanking( int *handFace, int * handSuit );
 void tieBreaker( int *, int *, int );
@@ -33,13 +41,14 @@ void straight( int *, int * );
 void threeOfAKind( int *, int * );
 void twoPair(int *, int * );
 void onePair( int *, int * );
-void aHighCard( int *, int * );
-int highCard( int * , size_t size );
+void highCard( int *, int * );
+int aHighCard( int * , size_t size );
+void lowCardDraw( int *, int *, int, int );
 int getRoyal( int * );
 int noStraight(int * , int );
 int noFlush( int *, size_t );
 void sort( int *handFace, size_t size );
-void copy( int *copyFace, int * handFace);
+void copy( int * const copyFace, const int * const handFace);
 void cardValue( int * );
 
 int main( void ) {
@@ -85,28 +94,162 @@ void deal( int deck[][FACES], const char * suit[], const char * face[]) {
     } /* end for */  
 } /* end function deal */
 
-void dealerAutoSimulation(int deck[][FACES], int * card, int *dealerFace , int * dealerSuit, size_t subscript, int column, int row, const char * face[], const char * suit[] ) {
+void lowCardDraw( int * handFace, int * draw , int j, int level ) {
+    int smallest = 13; // to find the low card
+    if ( ( level == 0 || level == 1 ) ?  j < 3 : ( level == 2 || level == 4 ) ? j < 1 : j < 2 ) {
+        for ( size_t i = 0; i < HAND; i++ ) 
+            if ( handFace[ i ] < smallest ) { // any card less than ten
+            smallest = handFace[ i ];
+            } // end for
+        for ( size_t i = 0; i < HAND; i++ )
+            if ( handFace[ i ] == smallest ) {
+                if ( handFace[ i ] < 8 && level == 0 ) // if the card is less than ten
+                    draw[ j++ ] = i;
+                else 
+                    draw[ j++ ] = i;
+                handFace[ i ] = 99; // to avoid repetition
+            } // end if
+
+        lowCardDraw( handFace, draw, j, level );
+    } // end if
+
+} /* end function lowCard */
+
+void highCardDraw( int * handFace, int * draw, int level ) {
+    int copyFace[ HAND ] = { 0 };
+    int j = 0; // draw counter
+    copy( copyFace, handFace );
+    cardValue( copyFace );
+    lowCardDraw( copyFace, draw, j, level );
+} /* end function highCardDraw */
+
+void onePairDraw( int * handFace, int * draw, int level ) {
+    int copyFace[ HAND ] = { 0 };
+    int j = 0; // draw counter
+    copy( copyFace, handFace );
+    cardValue( copyFace );
+
+    // take the ranked cards out, deal with kickers
+    for ( size_t count1 = 0; count1 < HAND; count1++ ) 
+        for ( size_t count2 = 0; count2 < HAND; count2++ ) 
+            if ( copyFace[ count1 ] == copyFace[ count2] && count1 != count2 ) {
+                copyFace[ count1 ] = 99;
+                copyFace[ count2 ] = 99;
+            } // end if
+
+    lowCardDraw( copyFace, draw, j, level );
+} /* end function onePairDraw */
+
+void twoPairDraw( int * handFace, int * draw, int level ) {
+    int copyFace[ HAND ] = { 0 };
+    int j = 0; // draw counter
+    int same1 = 0;
+    int same2 = 0;
+    copy( copyFace, handFace );
+    cardValue( copyFace );
+
+    for ( size_t count1 = 0; count1 < HAND; count1++ ) {
+        same1 = 0;
+        same2 = 0;
+        for ( size_t count2 = 0; count2 < HAND; count2++ ) {
+            if ( copyFace[ count1 ] == copyFace[ count2 ] && count1 != count2 && copyFace[ count2 ] != 99 ) {
+                same1++;
+                if ( same1 ) {
+                    copyFace[ count2 ] = 99;
+                } // end if 
+            } // end if
+            if ( copyFace[ count1 ] == copyFace[ count2 ] && count1 != count2 && copyFace[ count2 ] != 99 ) {
+                same2++;
+                if ( same2 ) {
+                    copyFace[ count2 ] = 99;
+                } // end if
+            } // end if
+        } // end for
+        if ( same1 )
+            copyFace[ count1 ] = 99;
+        if ( same2 )
+            copyFace[ count1 ] = 99;
+    } // end for
+
+    lowCardDraw( copyFace, draw, j, level );
+
+} /* end function twoPairDraw */
+
+void tripsDraw( int * handFace, int * draw, int level ) {
+    int copyFace[ HAND ] = { 0 };
+    int j = 0; // draw counter
+    int same = 0;
+    copy( copyFace, handFace );
+    cardValue( copyFace );
+    for ( size_t count1 = 0; count1 < HAND; count1++ ) {
+        same = 0;
+        for ( size_t count2 = 0; count2 < HAND; count2++ ) {
+            if ( count1 != count2 && copyFace[ count1 ] == copyFace[ count2 ] && copyFace[ count2 ] != 99 ) {
+                same++;
+                if ( same == 1 ) {
+                    copyFace[ count2 ] = 99;
+                } // end if
+                if ( same == 2 ) {
+                    copyFace[ count2 ] = 99;
+                } // end if
+            } // end if
+        } // end for
+        if ( same )
+            copyFace[ count1 ] = 99;
+    } // end for
+
+    lowCardDraw( copyFace, draw, j, level );
+
+} /* end function tripsDraw */
+
+void quadsDraw( int * handFace, int * draw, int level ) {
+    int copyFace[ HAND ] = { 0 };
+    int j = 0; // draw counter
+    int same = 0;
+    copy( copyFace, handFace );
+    cardValue( copyFace );
+    for ( size_t count1 = 0; count1 < HAND; count1++ ) {
+        same = 0;
+        for ( size_t count2 = 0; count2 < HAND; count2++ ) {
+            if ( count1 != count2 && copyFace[ count1 ] == copyFace[ count2 ] && copyFace[ count2 ] != 99 ) {
+                same++;
+                if ( same == 1 ) {
+                    copyFace[ count2 ] = 99;
+                } // end if
+                if ( same == 2 ) {
+                    copyFace[ count2 ] = 99;
+                } // end if
+                if ( same == 3 ) {
+                    copyFace[ count2 ] = 99;
+                }
+            } // end if
+        } // end for
+        if ( same )
+            copyFace[ count1 ] = 99;
+    } // end for
+
+    lowCardDraw( copyFace, draw, j, level );
+
+} /* end function quadsDraw */
+
+void dealerAutoSimulation(int deck[][FACES], int * card, int *dealerFace , int * dealerSuit ) {
+    void ( * draw[ 5 ] ) ( int *, int *, int ) = { highCardDraw, onePairDraw, twoPairDraw, tripsDraw, quadsDraw };
     int dealer_card = * card; // record the last card dealt to the dealer
     int drawArray[ DRAWCARDS ] = { -1, -1, -1 }; // record the cards to be replaced if selected
-    int hand_card = 0; // record the cards in the hand to be removed
     int i = 0; // counter
-    int rank = 0;
+    int level = 0; // record the drawable ranks
 
-    rank = checkRank( dealerFace, dealerSuit, face, suit );
+    level = checkDealerRank( dealerFace, dealerSuit );
 
-    printf_s( "%s", "Choose one, two or three cards to draw and replace.\n"
-            "1 to the first left card, 2, 3, 4 and 5 respectively: -1 to end or not to draw.\n");
-    scanf_s( "%d", &hand_card );
-    while ( hand_card != -1 && hand_card > 0 && hand_card <= 5 && i <= DRAWCARDS - 1 ) {
-        drawArray[ i++ ] = hand_card - 1; // get card positions in the dealer's hand to be replaced
-        scanf_s( "%d", &hand_card );
-    } // end if 
-    i = 0;
+    if ( level != 9 ) 
+        ( * draw[ level ] ) ( dealerFace, drawArray, level );
+   
+    
     while ( i < DRAWCARDS ) { 
         for ( size_t hand_row = 0; hand_row < SUITS; hand_row++ ) {
             for ( size_t hand_column = 0; hand_column < FACES; hand_column++ ) {
                 // replace the cards in the dealer's hand using the recorded positions
-                if ( deck[ hand_row ][ hand_column ] == dealer_card && drawArray[ i ] >= 0 ) {
+                if ( deck[ hand_row ][ hand_column ] == dealer_card + 1 && drawArray[ i ] >= 0 ) { // compare the next card
                     dealerFace[ drawArray[ i ] ] = hand_column;
                     dealerSuit[ drawArray[ i ] ] = hand_row;
                     dealer_card++; // draw a card
@@ -120,7 +263,104 @@ void dealerAutoSimulation(int deck[][FACES], int * card, int *dealerFace , int *
     *card = dealer_card;
 } /* end function dealerSimulation */
 
-int checkRank( int * handFace, int * handSuit , const char * face[], const char * suit[] ) {
+int checkDealerRank( int *handFace, int * handSuit ) {
+    int same = 0; // similary cards
+    int pCard = 0; //  get a pair of similary cards
+    int similaryNumber = 0; // number of group of similary cards
+    int pairNumber = 0; // number of pairs
+    int tCard = 0; // get trips: triple similary cards
+    int fCard = 0; // get quads: four similary cards
+    int no_flush = 0; // to get a flush hand we need a no flush flag
+    int no_straight = 0; // to get a straight hand we need a no straight flag 
+    int royal = 0; // get a royal hand
+
+    // make an array to copy, sort and find a straight hand
+    int copyFace[ HAND ] = {0};
+    copy( copyFace, handFace );
+
+    cardValue( copyFace );
+
+    sort( copyFace, HAND );
+        
+    no_straight = noStraight(copyFace, HAND - 1 );
+
+    royal = getRoyal( copyFace );
+
+    no_flush = noFlush(handSuit, HAND - 1 );
+
+    // Reuse the copyFace array to copy and find similary cards
+    copy( copyFace, handFace );
+
+    // find the number of similary cards. note: three for trips and four for quads
+    for ( size_t count = 0 ; count < HAND; count++ ) { 
+        same = 0;
+
+        for ( size_t count2 = 0; count2 < HAND; count2++) {
+            if ( count != count2 && copyFace[count] == copyFace[ count2 ] && copyFace[count2] != 99 ) {
+                same++;
+                copyFace[ count2 ] = 99; // asign maybe 99 just to avoid repetetion
+            } /* end if */
+        } /* end for */
+        copyFace[ count ] = 99; // just to avoid repetetion
+
+        if ( same == 1 ) {
+            pCard = 1;
+        } /* end if */ 
+        else if ( same == 2 ) {
+            tCard = 1; 
+        }  /* end else if */  
+        else if ( same == 3 ) {
+            fCard = 1;
+        } /* end else if */
+
+        if ( same )
+            similaryNumber++;
+            
+        if ( same == 1 )
+            pairNumber++;
+
+    } /* end for */
+
+    return dealerRankLevel( no_flush, no_straight, royal, pairNumber, similaryNumber, pCard, tCard, fCard );
+} /* end function checkDealerRank*/
+
+int dealerRankLevel( int no_flush, int no_straight, int royal, int pairNumber, int similaryNumber, int pCard, int tCard, int fCard ) {
+    if ( !no_flush || !no_straight || royal ) {
+        if ( royal && !no_flush ) {
+            return 9; // to avoid them
+        } // end if   
+        else if ( !no_straight && !no_flush ) {
+            return 9;
+        } // end if    
+        else if ( !no_straight ) {
+            return 9;
+        } // end if    
+        else if ( !no_flush ) {
+            return 9;
+        } // end if   
+    } /* end if */
+    else if (pairNumber == 2 ) {
+        return 2;
+    } // end if   
+    else if ( similaryNumber ) {
+        if ( pCard && similaryNumber == 1 ) {
+           return 1; 
+        } // end if   
+        else if ( tCard && similaryNumber == 2 ) { // full house
+            return 9;
+         } // end if             
+         else if ( tCard ) {
+             return 3;
+         } // end if
+         else if ( fCard ) {
+             return 4;
+         } // end if    
+    } /* end else if */
+    else
+        return 0; // for a high card
+} /* end function dealerRankDisplay */
+
+void checkRank( int * handFace, int * handSuit , const char * face[], const char * suit[] ) {
     int same = 0; // similary cards
     int pair = 0, s1 = 0, s2 = 0, pCard = 0; // pair for the value of the face, pCard for a pair of similary cards, s1 and s2 the value of the suit of first and second similary cards
     int similaryNumber = 0; // number of group of similary cards
@@ -153,9 +393,72 @@ int checkRank( int * handFace, int * handSuit , const char * face[], const char 
     // find the number of similary cards
     similaryDisplay( same, pair, trips, quads, copyFace, handSuit, s1, s2, s3, s4, &similaryNumber, &pairNumber, no_flush, no_straight, royal, &pCard, &tCard, &fCard, face, suit );
 
-    return rankDisplay( no_flush, no_straight, royal, pairNumber, similaryNumber, pCard, tCard, fCard );
+    rankDisplay( no_flush, no_straight, royal, pairNumber, similaryNumber, pCard, tCard, fCard );
 
 } /* end function checkRank */
+
+void playerSimulation(int deck[][FACES], int * card, int *handFace , int * handSuit, const char * face[], const char * suit[] ) {
+    int same = 0; // similary cards
+    int pair = 0, s1 = 0, s2 = 0, pCard = 0; // pair for the value of the face, pCard for a pair of similary cards, s1 and s2 the value of the suit of first and second similary cards
+    int similaryNumber = 0; // number of group of similary cards
+    int pairNumber = 0; // number of pairs
+    int trips = 0, s3 = 0, tCard = 0; // tCard for triple similary cards, s3 to keep track of a third similary card
+    int quads = 0, s4 = 0, fCard = 0; // fCard for four similary cards, s4 to  keep track of a four similary card
+    int no_flush = 0; // to get a flush hand we need a no flush flag
+    int no_straight = 0; // to get a straight hand we need a no straight flag 
+    int royal = 0; // get a royal hand
+    int player_card = * card; // record the last card dealt to the player
+    int drawArray[ DRAWCARDS ] = { -1, -1, -1 };
+    int hand_card = 0; // record the cards in the hand to be removed
+    int i = 0;
+
+    // make checkHand function to check the hand
+    checkHand( handFace, handSuit, face, suit );
+
+    int copyPFace[ HAND ] = {0};
+    copy( copyPFace, handFace );
+
+    cardValue( copyPFace );
+
+    sort( copyPFace, HAND );
+
+    no_straight = noStraight( copyPFace, HAND - 1 );
+
+    royal = getRoyal( copyPFace );
+
+    no_flush = noFlush( handSuit, HAND - 1 );
+
+    copy( copyPFace, handFace );
+
+    similaryDisplay( same, pair, trips, quads, copyPFace, handSuit, s1, s2, s3, s4, &similaryNumber, &pairNumber, no_flush, no_straight, royal, &pCard, &tCard, &fCard, face, suit );
+
+    rankDisplay( no_flush, no_straight, royal, pairNumber, similaryNumber, pCard, tCard, fCard );
+
+    printf_s( "%s", "Choose one, two or three cards to draw and replace.\n"
+            "1 to the first left card, 2, 3, 4 and 5 respectively: -1 to end or not to draw.\n");
+    scanf_s( "%d", &hand_card );
+    while ( hand_card != -1 && hand_card > 0 && hand_card <= 5 && i <= DRAWCARDS - 1 ) {
+        drawArray[ i++ ] = hand_card - 1; // get card positions in the player's hand to be replaced
+        scanf_s( "%d", &hand_card );
+    } // end if 
+    i = 0;
+    while ( i < DRAWCARDS ) {
+        for ( size_t hand_row = 0; hand_row < SUITS; hand_row++ ) {
+            for ( size_t hand_column = 0; hand_column < FACES; hand_column++ ) {
+                // replace the cards in the player's hand using the recorded positions
+                if ( deck[ hand_row ][ hand_column ] == player_card + 1 && drawArray[ i ] >= 0 ) { // compare the next card
+                    handFace[ drawArray[ i ] ] = hand_column;
+                    handSuit[ drawArray[ i ] ] = hand_row;
+                    player_card++; // draw a card 
+                } // end if
+            } // end for
+        } // end for
+        i++;
+    } // end while
+
+    // record the last card drawn to the player
+    *card = player_card;
+} /* end function playerSimulation */
 
 void hands( int * p, int * d, int deck[][FACES], int * card, int *handFace, int *handSuit, int *dealerFace, int * dealerSuit, int *subscriptPtr1, int *subscriptPtr2, int column, int row, const char *face[], const char *suit[] ) {
     int subscript1 = *subscriptPtr1; // get a subscript1 pointer value
@@ -184,9 +487,10 @@ void hands( int * p, int * d, int deck[][FACES], int * card, int *handFace, int 
     } // end if
 
     if ( subscript1 % 4 == 0 && subscript2 != 0 && subscript2 % 4 == 0 && subscript2 != 0 && dealer ) {
-
-        // get the dealers simulation
-        dealerAutoSimulation( deck, card, dealerFace, dealerSuit, subscript2, column, row, face, suit );
+        // get the player simulation
+        playerSimulation(deck, card, handFace, handSuit, face, suit );
+        // get the dealer's automatic simulation
+        dealerAutoSimulation( deck, card, dealerFace, dealerSuit );
 
         // PLAYER
         checkRank( handFace, handSuit, face, suit );
@@ -226,50 +530,39 @@ void checkHand( int * handFace, int * handSuit, const char * face[], const char 
         puts("");
 } /* end function checkHand */
 
-int rankDisplay( int no_flush, int no_straight, int royal, int pairNumber, int similaryNumber, int pCard, int tCard, int fCard ) {
+void rankDisplay( int no_flush, int no_straight, int royal, int pairNumber, int similaryNumber, int pCard, int tCard, int fCard ) {
     if ( !no_flush || !no_straight || royal ) {
-            printf_s( "%s", "a ");
-            if ( royal && !no_flush ) {
-                printf_s( "%s", "royal flush\n");
-                return 9;
-            } // end if   
-            else if ( !no_straight && !no_flush ) {
-                printf_s( "%s", "straight flush\n");
-                return 8;
-            } // end if    
-            else if ( !no_straight ) {
-                printf_s( "%s", "straight \n");
-                return 4;
-            } // end if    
-            else if ( !no_flush ) {
-                printf_s( "%s", "flush \n");
-                return 5;
-            } // end if   
-        } /* end if */
-        else if (pairNumber == 2 ) {
-            printf_s( "; two pairs \n" ); // two pairs
-            return 2;
+        printf_s( "%s", "a ");
+        if ( royal && !no_flush ) {
+            printf_s( "%s", "royal flush\n");
         } // end if   
-        else if ( similaryNumber ) {
-            if ( pCard && similaryNumber == 1 ) {
-               printf_s( "; one pair \n");
-               return 1; 
-            } // end if   
-            else if ( tCard && similaryNumber == 2 ) {
-                printf_s( "; full house \n" ); 
-                return 6;
-            } // end if             
-            else if ( tCard ) {
-                printf_s( "; three of a kind \n");
-                return 3;
-            } // end if
-            else if ( fCard ) {
-                printf_s( "; Four of a kind \n");
-                return 7;
-            } // end if    
-        } /* end else if */
-
-    return 0; // for a high card
+        else if ( !no_straight && !no_flush ) {
+            printf_s( "%s", "straight flush\n");
+        } // end if    
+        else if ( !no_straight ) {
+            printf_s( "%s", "straight \n");
+        } // end if    
+        else if ( !no_flush ) {
+            printf_s( "%s", "flush \n");
+        } // end if   
+    } /* end if */
+    else if (pairNumber == 2 ) {
+        printf_s( "; two pairs \n" ); // two pairs
+    } // end if   
+    else if ( similaryNumber ) {
+        if ( pCard && similaryNumber == 1 ) {
+           printf_s( "; one pair \n"); 
+        } // end if   
+        else if ( tCard && similaryNumber == 2 ) {
+            printf_s( "; full house \n" ); 
+         } // end if             
+         else if ( tCard ) {
+             printf_s( "; three of a kind \n");
+         } // end if
+         else if ( fCard ) {
+             printf_s( "; Four of a kind \n");
+         } // end if    
+    } /* end else if */
 
 } /* end function rankDisplay */
 
@@ -353,7 +646,7 @@ void tieBreaker( int * handFace1, int * handFace2, int rank ) {
     else  
         rank -= 13;
 
-    void ( * betterTie[ 9 ]) (int * handFace1, int * handFace2 ) = { aHighCard, onePair, twoPair, threeOfAKind, straight, flush,
+    void ( * betterTie[ 9 ]) (int * handFace1, int * handFace2 ) = { highCard, onePair, twoPair, threeOfAKind, straight, flush,
                                                    fullHouse, fourOfAKind, straightFlush };
 
     copy( copyFace1, handFace1);
@@ -367,11 +660,11 @@ void tieBreaker( int * handFace1, int * handFace2, int rank ) {
 
 } /* end function tieCheck */
 
-void aHighCard( int * handFace1, int * handFace2 ) {
+void highCard( int * handFace1, int * handFace2 ) {
     static int subscript = 4;
     if ( handFace1[ subscript ] == handFace2[ subscript ] ) {
         subscript--;
-        aHighCard( handFace1, handFace2 );
+        highCard( handFace1, handFace2 );
     }
     else {
         if ( handFace1[ subscript ] > handFace2[ subscript ] && subscript >= 0) 
@@ -427,7 +720,7 @@ void onePair( int * handFace1, int *handFace2 ) {
     if ( pair1 == pair2 ) {
         sort( copyFace1, HAND );
         sort( copyFace2 , HAND );
-        aHighCard( copyFace1, copyFace2 );
+        highCard( copyFace1, copyFace2 );
     } // end if
 } /* end function onePair */
 
@@ -488,8 +781,8 @@ void twoPair( int * handFace1, int * handFace2 ) {
         if ( pair1_1 < pair2_1 )
             printf_s( "%s", "Hand two is better than hand one\n");
         if ( pair1_1 == pair2_1 ) {
-            kicker1 = highCard(copyFace1, HAND );
-            kicker2 = highCard(copyFace2, HAND );
+            kicker1 = aHighCard(copyFace1, HAND );
+            kicker2 = aHighCard(copyFace2, HAND );
             if ( kicker1 > kicker2 ) 
                 printf_s( "%s", "Hand one is better than hand two\n");
             if ( kicker1 < kicker2 )
@@ -542,15 +835,15 @@ void threeOfAKind( int * handFace1, int * handFace2 ) {
     if ( trips1 < trips2 )
         printf_s( "%s", "Hand two is better than hand one\n");
     if ( trips1 == trips2 )
-        aHighCard(copyFace1, copyFace2);
+        highCard(copyFace1, copyFace2);
 
 } /* end function threeOfAKind */
 
 void straight( int * handFace1, int * handFace2 ) {
     int high1 = 0; // get a high card of hand one
     int high2 = 0; // get a high card of hand two
-    high1 = highCard(handFace1, HAND );
-    high2 = highCard(handFace2, HAND );
+    high1 = aHighCard(handFace1, HAND );
+    high2 = aHighCard(handFace2, HAND );
     if ( high1 > high2 )
         printf_s( "%s", "Hand one is better than hand two\n");
     if ( high1 < high2 )
@@ -561,7 +854,7 @@ void straight( int * handFace1, int * handFace2 ) {
 } /* end function straight */
 
 void flush( int * handFace1, int * handFace2 ) {
-    aHighCard(handFace1, handFace2);
+    highCard(handFace1, handFace2);
 } /* end function flush */
 
 void fullHouse( int * handFace1, int * handFace2 ) {
@@ -659,8 +952,8 @@ void fourOfAKind( int * handFace1, int * handFace2 ) {
     if ( quads1 < quads2 )
         printf_s( "%s", "Hand two is better than hand one\n");
     if ( quads1 == quads2 ) {
-        kicker1 = highCard( copyFace1, HAND );
-        kicker2 = highCard( copyFace2, HAND );
+        kicker1 = aHighCard( copyFace1, HAND );
+        kicker2 = aHighCard( copyFace2, HAND );
         if ( kicker1 > kicker2 )
             printf_s( "%s", "Hand one is better than hand two\n");
         if ( kicker1 < kicker2 )
@@ -673,8 +966,8 @@ void fourOfAKind( int * handFace1, int * handFace2 ) {
 void straightFlush( int * handFace1, int * handFace2 ) {
     int high1 = 0; // get a high card of hand one
     int high2 = 0; // get a high card of hand two
-    high1 = highCard(handFace1, HAND );
-    high2 = highCard(handFace2, HAND );
+    high1 = aHighCard(handFace1, HAND );
+    high2 = aHighCard(handFace2, HAND );
     if ( high1 > high2 )
         printf_s( "%s", "Hand one is better than hand two\n");
     if ( high1 < high2 )
@@ -809,13 +1102,13 @@ int handRanking( int *handFace, int * handSuit ) {
     else if ( my_rank < 14 ) {
         copy(copyFace, handFace);
         cardValue(copyFace );
-        my_rank = highCard( copyFace, HAND );
+        my_rank = aHighCard( copyFace, HAND );
     }     
     // return the rank
     return my_rank;  
 } /* end function handRanking */
 
-int highCard( int * array , size_t size ) {
+int aHighCard( int * array , size_t size ) {
     int high = 0; // get the high card
     for ( size_t i = 0; i < size; i++ ) 
         if ( array[ i ] > high )
@@ -856,7 +1149,7 @@ int noFlush( int * array, size_t size ) {
         return 0;
 } // end function no flush
 
-void copy( int *copyFace, int *handFace ) {
+void copy( int *const copyFace, const int *const handFace ) {
     for ( size_t i = 0; i < HAND; i++ ) {
         copyFace[ i ] = handFace[ i ];
     } /* end for */
