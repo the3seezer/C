@@ -15,7 +15,7 @@ void twoPairDraw( int * handFace, int * draw, int level );
 void lowCardDraw( int * handFace, int * draw , int j, int level ); 
 
 int main( void ) {
-    int handFace[ HAND ] = { 99, 99, 99, 4, 99};
+    int handFace[ HAND ] = { 99, 99, 7, 8, 99};
     int level = 0;
     int drawArray[ DRAWCARDS ] = { -1, -1, -1 };
     int j = 2;
