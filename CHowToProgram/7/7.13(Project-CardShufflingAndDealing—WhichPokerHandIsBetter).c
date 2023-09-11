@@ -6,11 +6,11 @@ theBitRiddler
     Hand ranks and the return value I gave them in the handRanking Function:
     1. royal_flush = 22;
     2. straight_flush = 21;
-    3. four_of_a_kind = 20;
+    3. four_of_a_kind = 20/ Quads;
     4. full_house = 19;
     5. flush = 18;
     6. straight = 17;
-    7. three_of_a_kind = 16;
+    7. three_of_a_kind = 16/ trips;
     8. two_pair = 15;
     9. pair = 14;
     10. a high card 
