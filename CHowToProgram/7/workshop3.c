@@ -10,10 +10,13 @@ theBitRiddler
 #define DIR 4 // direction
 
 void display( char [][ SIZE ]);
-void mazeTraverse( int currentRow, int currentColumn, char [][ SIZE ]);
+void mazeTraverse( int currentRow, int currentColumn, char [][ SIZE ], char [][ SIZE ]);
 int validMove( int, int, char[][ SIZE ]);
+int entry( int, int, char[][ SIZE ], char[][ SIZE ] ); // Find entry and Exit
+void copy( char[][ SIZE ], char [][ SIZE ]);
 
 int main(void) {
+    char copy[ SIZE ][ SIZE ] = {{0}};
     char maze[ SIZE ][ SIZE ] = { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#',
                                   '#', '.', '.', '.', '#', '.', '.', '.', '.', '.', '.', '#',
                                   '.', '.', '#', '.', '#', '.', '#', '#', '#', '#', '.', '#',
@@ -27,30 +30,39 @@ int main(void) {
                                   '#', '.', '.', '.', '.', '.', '.', '#', '.', '.', '.', '#',
                                   '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' };
     display( maze );
-    int currentRow = 4;
-    int currentColumn = 11;
-    // maze[ currentRow][ currentColumn] = 'x';
+    int currentRow = 2;
+    int currentColumn = 0;
+    entry(currentRow, currentColumn, maze, copy );
     
-    mazeTraverse( currentRow, currentColumn, maze );
+    mazeTraverse( currentRow, currentColumn, maze, copy );
 
 } /* end main */
 
-void mazeTraverse( int currentRow, int currentColumn, char mazeWork[][ SIZE ] ) {
+void copy( char copy[][ SIZE ], char maze[][ SIZE ] ) {
+    for ( size_t row = 0; row < SIZE; row++ )
+        for ( size_t column = 0; column < SIZE; column++ )
+        copy [row][column] = maze[row][column];
+} /* end function copy */
+
+int entry( int currentRow, int currentcolumn, char maze[][ SIZE ], char copyMaze[][ SIZE ] ) {
+    copy( copyMaze, maze);
+    // get start 
+    copyMaze[ currentRow ][ currentcolumn ] = 'A'; 
+} /* end function exit */
+
+void mazeTraverse( int currentRow, int currentColumn, char mazeWork[][ SIZE ], char copyWork[][ SIZE ] ) {
+    if ( currentRow == 0 || currentRow == 11 || currentColumn == 0 || currentColumn == 11 && copyWork[ currentRow ][ currentColumn] != 'A') {
+        puts("Success");
+    } // end if
     mazeWork[ currentRow][ currentColumn] = 'x';
     int horizontal[ DIR ] = { 1, 0, -1, 0 }; // east, north, west and south
     int vertical[ DIR ] = { 0, -1, 0, 1 }; // east, north, west and south
     int validDir[ DIR ] = { 0 }; // record valid directions
-    int validRow[ DIR ] = { 0 }; // record valid direction for row
-    int validCol[ DIR ] = { 0 }; // record valid direction for column
     int counter = 0; // counter for valid directions
 
     for ( int i = 0; i < 4; i++ ) { // i for east, north, west or south, respectively
         if ( validMove( currentRow + vertical[ i ], currentColumn + horizontal[ i ], mazeWork ) ) {
             validDir[ counter ] = i;
-            if ( i == 0 || i == 2 )   
-                validCol[ counter ] = i;
-            if ( i == 1 || i == 3 )
-                validRow[ counter ] = i;
             counter++;
         } // end if
     } // end for
@@ -67,11 +79,11 @@ void mazeTraverse( int currentRow, int currentColumn, char mazeWork[][ SIZE ] ) 
         if ( validDir[ counter ] == 1 || validDir[ counter ] == 3 ) {
             currentRow += vertical[ validDir[ counter ] ];
         } // end if
-        mazeTraverse( currentRow, currentColumn, mazeWork);
+        mazeTraverse( currentRow, currentColumn, mazeWork, copyWork);
     } // end if
     else if ( counter > 1 ) {
         for ( int i = 0; i < counter; i++ ) {
-            mazeTraverse( currentRow + vertical[ validDir[ i ] ], currentColumn + horizontal[ validDir[ i ] ], mazeWork );
+            mazeTraverse( currentRow + vertical[ validDir[ i ] ], currentColumn + horizontal[ validDir[ i ] ], mazeWork, copyWork );
         } /* end for */
     } /* end else if */
 } /* end function mazeTraverse */

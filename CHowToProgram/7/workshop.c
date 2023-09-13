@@ -41,7 +41,7 @@ int main(void) {
 void copy( char copy[][ SIZE ], char maze[][ SIZE ] ) {
     for ( size_t row = 0; row < SIZE; row++ )
         for ( size_t column = 0; column < SIZE; column++ )
-            copy [row][column] = maze[row][column];
+        copy [row][column] = maze[row][column];
 } /* end function copy */
 
 int entry( int currentRow, int currentcolumn, char maze[][ SIZE ], char copyMaze[][ SIZE ] ) {
@@ -50,10 +50,7 @@ int entry( int currentRow, int currentcolumn, char maze[][ SIZE ], char copyMaze
     copyMaze[ currentRow ][ currentcolumn ] = 'A'; 
 } /* end function exit */
 
-void mazeTraverse( int currentRow, int currentColumn, char mazeWork[][ SIZE ], char copyWork[][ SIZE ] ) {
-    if ( currentRow == 0 || currentRow == 11 || currentColumn == 0 || currentColumn == 11 && copyWork[ currentRow ][ currentColumn] != 'A') {
-        puts("Success");
-    } // end if
+void mazeTraverse( int currentRow, int currentColumn, char mazeWork[][ SIZE ], char copyWork[][ SIZE ] ) {   
     mazeWork[ currentRow][ currentColumn] = 'x';
     int horizontal[ DIR ] = { 1, 0, -1, 0 }; // east, north, west and south
     int vertical[ DIR ] = { 0, -1, 0, 1 }; // east, north, west and south
@@ -68,6 +65,9 @@ void mazeTraverse( int currentRow, int currentColumn, char mazeWork[][ SIZE ], c
     } // end for
 
     if ( !counter ) {
+        if ( currentRow == 0 || currentRow == 11 || currentColumn == 0 || currentColumn == 11 && copyWork[ currentRow ][ currentColumn] != 'A') {
+        puts("Success");
+        } // end if
         display( mazeWork );
         return ;
     } // end if
