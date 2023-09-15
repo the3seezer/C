@@ -23,7 +23,7 @@ int main( void ) {
                               '#', '.', '.', '.', '#', '.', '.', '.', '.', '.', '.', '#',
                               '.', '.', '#', '.', '#', '.', '#', '#', '#', '#', '.', '#',
                               '#', '#', '#', '.', '#', '.', '.', '.', '.', '#', '.', '#',
-                              '#', '.', '.', '.', '.', '#', '#', '#', '.', '#', '.', '#',
+                              '#', '.', '.', '.', '.', '#', '#', '#', '.', '#', '.', '.',
                               '#', '#', '#', '#', '.', '#', '.', '#', '.', '#', '.', '#',
                               '#', '.', '.', '#', '.', '#', '.', '#', '.', '#', '.', '#',
                               '#', '#', '.', '#', '.', '#', '.', '#', '.', '#', '.', '#',
@@ -55,11 +55,11 @@ void mazeTraversal( char maze[][ 12 ], int xCoord, int yCoord, int direction ) {
     printMaze( maze );
 
     if ( coordAtEdge( xCoord, yCoord ) && xCoord != X_START && yCoord != Y_START ) {
-        printf_s( "%s", "\nMaze successfully exited!\n\n" );
+        printf_s( "\nMaze successfully exited!\n\n" );
         return;
     } // end if
     else if ( xCoord == X_START && yCoord == Y_START && flag == 1 ) {
-        printf_s( "%s", "You arrived back at the starting position\n\n" );
+        printf_s( "You arrived back at the starting position\n\n" );
         return;
     } // end if
     else {
