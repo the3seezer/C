@@ -5,6 +5,7 @@ theBitRiddler
 Maze TRaversal
 */
 #include <stdio.h>
+#include <stdlib.h>
 
 #define DOWN 0
 #define RIGHT 1
@@ -55,11 +56,11 @@ void mazeTraversal( char maze[][ 12 ], int xCoord, int yCoord, int direction ) {
     printMaze( maze );
 
     if ( coordAtEdge( xCoord, yCoord ) && xCoord != X_START && yCoord != Y_START ) {
-        printf_s( "\nMaze successfully exited!\n\n" );
+        printf_s( "%s", "\nMaze successfully exited!\n\n" );
         return;
     } // end if
     else if ( xCoord == X_START && yCoord == Y_START && flag == 1 ) {
-        printf_s( "You arrived back at the starting position\n\n" );
+        printf_s( "%s", "You arrived back at the starting position\n\n" );
         return;
     } // end if
     else {
@@ -111,4 +112,4 @@ int coordAtEdge( int x, int y ) {
     else {
         return 0; // valid move
     } // end else 
-} /* end functio coordAtEdge */
+} /* end function coordAtEdge */
