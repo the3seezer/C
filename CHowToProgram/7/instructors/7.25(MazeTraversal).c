@@ -91,6 +91,7 @@ void mazeTraversal( char maze[][ 12 ], int xCoord, int yCoord, int direction ) {
                     if ( validMove( maze, xCoord, yCoord - 1 ) ) {
                         mazeTraversal( maze, xCoord, yCoord - 1, UP );
                     } // end if
+                    break;
             } // end switch
         } // end for
     } // end else
