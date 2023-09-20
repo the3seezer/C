@@ -21,7 +21,6 @@ int coodsEdge( int row, int col );
 void mazeTraversal( char[][ SIZE ], int xStart, int yStart, int row, int col, int direction );
 void mazeGenerator( char[][ SIZE ], int *xPtr, int *yPtr );
 int main( void ) {
-    srand( time( NULL ) );
     int x = 0;
     int y = 0;
     int xStart = 2;
@@ -47,6 +46,9 @@ void mazeGenerator( char maze[][ SIZE ], int *xPtr, int *yPtr ) {
     int a = 0;
     int ePos = 0; // entry position
     int xPos = 0; // exit position
+
+    srand( time( NULL ) );
+
     // create exit and entry position
     do {
         ePos = rand() % 4;
@@ -114,7 +116,7 @@ void mazeTraversal( char maze[][ SIZE ], int xStart, int yStart, int row, int co
         return ;
     } // end if
     else if ( row == xStart && col == yStart && flag == 1 ) {
-        printf_s( "%s", "Couldn't find an exit!" );
+        printf_s( "%s", "You returned back to the original position\n" );
         return ;
     } // end else if
     else {
