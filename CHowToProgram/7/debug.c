@@ -1,158 +1,189 @@
-/* Exercise 7.25 Solution */
-/* This solution assumes that there is only one */
-/* entrance and one exit for a given maze, and */
-/* these are the only two zeroes on the borders.*/
+/*
+theBitRiddler
+9/20/2023
+12:46 PM
+(Mazes of Any Size)
+*/
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
-#define DOWN 0 /* move down */
-#define RIGHT 1 /* move right */
-#define UP 2 /* move up */
-#define LEFT 3 /* move left */
+#define ROW 10
+#define COL 10
+#define DOWN 0
+#define RIGHT 1
+#define UP 2
+#define LEFT 3
+#define POSSIBLE_DOTS (int) ROW * COL * 2 / 3
 
-#define X_START 2 /* starting X and Y coordinate for maze */
-#define Y_START 0
+void mazeGenerator( char[][ COL ], int *, int * );
+void mazeTraversal( char[][ COL ], const int, const int, int, int, int );
+void printMaze( char[][ COL ]);
+int coordsAreEdge( int, int );
+int validMove( char[][ COL ], int, int );
 
-    /* function prototypes */
-void mazeTraversal(char maze[12][12], int xCoord, int yCoord, int direction);
-void printMaze(const char maze[][12]);
-int validMove(const char maze[][12], int r, int c);
-int coordsAreEdge(int x, int y);
+int main(void) { 
+    int xStart = 0;
+    int yStart = 0;
+    int x = 0;
+    int y = 0;
+    
+    char maze[ ROW ][ COL ];
 
-int main() {
+    // initialize the Maze
+    for ( size_t row = 0; row < ROW; row++ ) {
+        for ( size_t col = 0; col < COL; col++ ) {
+            maze[ row ][ col ] = '#';
+        } // end for
+    } // end for
+    printMaze(maze);
 
-  /* maze grid */
-  char maze[12][12] = {
-      {'1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'},
-      {'1', '0', '0', '0', '1', '0', '0', '0', '0', '0', '0', '1'},
-      {'0', '0', '1', '0', '1', '0', '1', '1', '1', '1', '0', '1'},
-      {'1', '1', '1', '0', '1', '0', '0', '0', '0', '1', '0', '1'},
-      {'1', '0', '0', '0', '0', '1', '1', '1', '0', '1', '0', '0'},
-      {'1', '1', '1', '1', '0', '1', '0', '1', '0', '1', '0', '1'},
-      {'1', '0', '0', '1', '0', '1', '0', '1', '0', '1', '0', '1'},
-      {'1', '1', '0', '1', '0', '1', '0', '1', '0', '1', '0', '1'},
-      {'1', '0', '0', '0', '0', '0', '0', '0', '0', '1', '0', '1'},
-      {'1', '1', '1', '1', '1', '1', '0', '1', '1', '1', '0', '1'},
-      {'1', '0', '0', '0', '0', '0', '0', '1', '0', '0', '0', '1'},
-      {'1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'}};
+    mazeGenerator( maze, &xStart, &yStart );
+    printMaze(maze);
 
-  mazeTraversal(maze, X_START, Y_START, RIGHT);
+    x = xStart;
+    y = yStart;
 
-  return 0; /* indicate successful termination */
+    mazeTraversal( maze, xStart, yStart, x, y, RIGHT );
 
+    return 0;
+    
 } /* end main */
 
-/* Assume that there is exactly 1 entrance and
-exactly 1 exit to the maze. */
-void mazeTraversal(char maze[12][12], int xCoord, int yCoord, int direction) {
-  static int flag = 0; /* starting position flag */
+void mazeTraversal( char maze[][ COL ], const int xCoord, const int yCoord, int row, int col, int direction ) {
+    static int flag = 0;
+    maze[ row ][ col ] = 'X';
+    printMaze( maze );
 
-  maze[xCoord][yCoord] = 'X'; /* mark current point */
-  printMaze(maze);
+    if ( coordsAreEdge( row, col ) && row != xCoord && col != yCoord ) {
+        printf_s( "%s", "You successfully exited the maze\n" );
+        return;
+    } // end if
+    else if ( row == xCoord && col == yCoord && flag == 1 ) {
+        printf_s( "%s", "You returned to the starting point\n" );
+        return;
+    } // end else if
+    else {
+        int move = 0;
+        int count = 0;
 
-  /* if maze completed */
-  if (coordsAreEdge(xCoord, yCoord) && xCoord != X_START && yCoord != Y_START) {
-    printf("\nMaze successfully exited!\n\n");
-    return;
-  } /* end if */
-  else if (xCoord == X_START && yCoord == Y_START && flag == 1) {
-    printf("\nArrived back at the starting location.\n\n");
-    return;
-  }            /* end else if */
-  else {       /* make next move */
-    int move;  /* next move */
-    int count; /* counter */
+        flag = 1;
 
-    flag = 1;
+        for ( move = direction, count = 0; count < 4; count++, move++, move %= 4 )
 
-    /* loop 4 times and find first valid move */
-    for (move = direction, count = 0; count < 4; ++count, ++move, move %= 4) {
+            switch( move ) {
+                case DOWN: 
+                    if ( validMove( maze, row + 1, col ) ) {
+                        mazeTraversal( maze, xCoord, yCoord, row + 1, col, LEFT );
+                    } // end if
+                    break;
+                case RIGHT: 
+                    if ( validMove( maze, row, col + 1 ) ) {
+                        mazeTraversal( maze, xCoord, yCoord, row, col + 1, DOWN );
+                    } // end if
+                    break;
+                case UP: 
+                    if ( validMove( maze, row - 1, col ) ) {
+                        mazeTraversal( maze, xCoord, yCoord, row - 1, col, RIGHT );
+                    } // END IF
+                    break;
+                case LEFT: 
+                    if ( validMove( maze, row, col - 1 ) ) {
+                        mazeTraversal( maze, xCoord, yCoord, row, col - 1, UP );
+                    } // end if
+                    break;
+            } // end switch
 
-      /* choose valid move */
-      switch (move) {
-
-      case DOWN: /* move down */
-
-        /* if move is valid, call mazeTraversal */
-        if (validMove(maze, xCoord + 1, yCoord)) {
-          mazeTraversal(maze, xCoord + 1, yCoord, LEFT);
-          return;
-        } /* end if */
-
-        break; /* exit switch */
-
-      case RIGHT: /* move right */
-        /* if move is valid, call mazeTraversal */
-        if (validMove(maze, xCoord, yCoord + 1)) {
-          mazeTraversal(maze, xCoord, yCoord + 1, DOWN);
-          return;
-        } /* end if */
-
-        break; /* exit switch */
-
-      case UP: /* move up */
-
-        /* if move is valid, call mazeTraversal */
-        if (validMove(maze, xCoord - 1, yCoord)) {
-          mazeTraversal(maze, xCoord - 1, yCoord, RIGHT);
-          return;
-        } /* end if */
-
-        break; /* exit switch */
-
-      case LEFT: /* move left */
-
-        /* if move is valid, call mazeTraversal */
-        if (validMove(maze, xCoord, yCoord - 1)) { /* move left */
-          mazeTraversal(maze, xCoord, yCoord - 1, UP);
-          return;
-        } /* end if */
-
-        break; /* exit switch */
-      }        /* end switch */
-
-    } /* end for */
-
-  } /* end else */
+    } // end else
 
 } /* end function mazeTraversal */
 
-/* validate move */
-int validMove(const char maze[][12], int r, int c) {
-  return (r >= 0 && r <= 11 && c >= 0 && c <= 11 && maze[r][c] != '1');
+int coordsAreEdge( int row, int col ) {
+    if ( ( row == 0 || row == ( ROW - 1 ) ) && ( col >= 0 && col <= ( COL - 1 ) ) )
+        return 1;
+    else if ( ( col == 0 || col == ( COL - 1 ) ) && ( row >= 0 && row <= ( ROW - 1 ) ) )
+        return 1;
+    else  
+        return 0;
+} /* end function coordsAreEdge */
 
+int validMove( char maze[][ COL ], int row, int col ) {
+    return ( row >= 0 && row <= ( ROW - 1 ) && col >= 0 && col <= ( COL - 1 ) && maze[ row ][ col ] == '.' );
 } /* end function validMove */
 
-/* function to check coordinates */
-int coordsAreEdge(int x, int y) {
+void mazeGenerator( char maze[][ COL ], int * xPos, int * yPos ) {
+    int x = 0;
+    int y = 0;
+    int entry = 0;
+    int exit = 0;
+    int a = 0;
 
-  /* if coordinate is not valid */
-  if ((x == 0 || x == 11) && (y >= 0 && y <= 11)) {
-    return 1;
-  } /* end if */
-  else if ((y == 0 || y == 11) && (x >= 0 && x <= 11)) {
-    return 1;
-  }      /* end else if */
-  else { /* coordinate is valid */
-    return 0;
-  } /* end else */
+    srand( time( NULL ) ); 
+    // Randomly create exit and entry points
+    do {
+        entry = rand() % 4;
+        exit = rand() % 4;
+    }
+    while ( entry == exit );
 
-} /* end function coordsAreEdge */
-/* print the current state of the maze */
-void printMaze(const char maze[][12]) {
-  int x; /* row counter */
-  int y; /* column counter */
+    // entry
+    if ( entry == 0 ) {
+      *xPos = 1 + rand() % ( ROW - 2 );
+      *yPos = 0;
+      maze[ *xPos ][ *yPos ] = '.';
+    }
+    else if ( entry == 1) {
+      *xPos = 0;
+      *yPos = 1 + rand() % ( COL - 2 );
+      maze[ *xPos ][ *yPos ] = '.';
+    }
+    else if ( entry == 2 ) {
+      *xPos = 1 + rand() % ( ROW - 2 );
+      *yPos = ( COL - 1 );
+      maze[ *xPos ][ *yPos ] = '.';
+    }
+    else if ( entry == 3 ) {
+      *xPos = ( ROW - 1 );
+      *yPos = 1 + rand() % ( COL - 2 );
+      maze[ *xPos ][ *yPos ] = '.';
+    }
+    printMaze(maze);
 
-  /* iterate through the maze */
-  for (x = 0; x < 12; x++) {
+    // exit
+    if( exit == 0 ) {
+      a = 1 + rand() % ( ROW - 2 );
+      maze[ a ][ 0 ] = '.';
+    }
+    else if ( exit == 1 ) {
+      a = 1 + rand() % ( COL - 2 );
+      maze[ 0 ][ a ] = '.';
+    }
+    else if ( exit == 2 ) {
+      a = 1 + rand() % ( ROW - 2);
+      maze[ a ][ COL - 1 ] = '.';
+    }
+    else if ( exit == 3 ) {
+      a = 1 + rand() % ( COL - 2 );
+      maze[ ROW - 1 ][ a ] = '.';
+    } 
+    printMaze( maze );      
 
-    for (y = 0; y < 12; y++) {
-      printf("%c ", maze[x][y]);
-    } /* end for */
+    for ( size_t count = 0; count < POSSIBLE_DOTS; count++ ) {
+        x = 1 + rand() % ( ROW - 2 );
+        y = 1 + rand() % ( COL - 2 );
+        maze[ x ][ y ] = '.';
+    } // end for 
 
-    printf("\n");
-  } /* end for */
+} /* end function mazeGenerator */
 
-  printf("\nHit return to see next move");
-  getchar();
+void printMaze( char maze[][ COL ]) {
+    // print the maze
+    for ( size_t row = 0; row < ROW; row++ ) {
+        for ( size_t col = 0; col < COL; col++ ) {
+            printf_s( "%c%c", maze[ row ][ col ], col < ( COL - 1 ) ? ' ' : '\n' );
+        } // end for
+        puts("");
+    } // end for 
+    puts("Return to see another move");
+    getchar();
 } /* end function printMaze */

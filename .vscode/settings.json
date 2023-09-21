@@ -5,7 +5,8 @@
         "initializer_list": "c",
         "xiosbase": "c",
         "xstring": "c",
-        "xutility": "c"
+        "xutility": "c",
+        "locale": "c"
     },
     "DockerRun.DisableDockerrc": true,
     "C_Cpp.errorSquiggles": "disabled"

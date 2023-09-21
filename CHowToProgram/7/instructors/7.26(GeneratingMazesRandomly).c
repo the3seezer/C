@@ -50,11 +50,11 @@ void mazeTraversal( char maze[][ 12 ], const int xStart, const int yStart, int r
     printMaze( maze );
 
     if ( coordsAreEdge( row, col ) && row != xStart && col != yStart ) {
-        printf_s( "%s", "You successfully exited the maze\n" );
+        printf_s( "%s", "You successfully exited the maze\n\n" );
         return;
     } // end if
     else if ( row == xStart && col == yStart && flag == 1 ) {
-        printf_s( "%s", "You returned to the starting point\n" );
+        printf_s( "%s", "You returned to the starting point\n\n" );
         return;
     } // end else if
     else {

@@ -2,7 +2,7 @@
 theBitRiddler
 9/6/2023
 10:13 PM
-Character counter
+String Character counter
 */
 #include <stdio.h>
 size_t cCounter( const char * s );

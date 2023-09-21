@@ -112,14 +112,15 @@ void mazeTraversal( char maze[][ SIZE ], int xStart, int yStart, int row, int co
     printMaze(maze);
 
     if ( coodsEdge( row, col ) && row != xStart && col != yStart ) {
-        printf_s( "%s", "You successfully exited the maze\n" );
+        printf_s( "%s", "You successfully exited the maze\n\n" );
         return ;
     } // end if
     else if ( row == xStart && col == yStart && flag == 1 ) {
-        printf_s( "%s", "You returned back to the original position\n" );
+        printf_s( "%s", "You returned back to the original position\n\n" );
         return ;
     } // end else if
     else {
+        
         int move = 0;
         int count = 0;
 
