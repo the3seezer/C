@@ -5,6 +5,7 @@ theBitRiddler
  (Carbon Footprint Calculator)
 */
 #include <stdio.h>
+
 int main(void){
 
 } /* end main */
