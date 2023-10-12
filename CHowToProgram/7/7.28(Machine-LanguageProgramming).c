@@ -22,7 +22,37 @@ theBitRiddler
 #define BRANCHNEG 41 // Branch to a specific location in memory if the accumulator is negative.
 #define BRANCHZERO 42 // Branch to a specific location in memory if the accumulator is zero.
 #define HALT 43 // Halt---i.e., the program has completed its task.
+
+void accumulator( int );
+void validAssign( int* i, int*const mem, int );
+int splt( int * ); // split the instruction; the command and the location
 int main( void ) {
     int memory[ SIZE ] = { 0 };
+    int i = 0; // instruction count
+    while( i < SIZE ) {
+        int cmd = 0;
+        scanf( "%d", &cmd );
+        validAssign( &i, memory, cmd );
+        // split command
+
+
+    } // end while
+    return 0;
 
 } /* end main */
+
+void accumulator( int instr ) {
+
+} /* end function accumulator */
+
+void validAssign( int* i, int*const mem, int cmd ) {
+    while( mem[ *i ] != 0 && *i < SIZE ) {
+        *i++;
+    } // end while 
+    mem[ *i++ ] = cmd;
+    return;
+} /* end function validLocation*/
+
+int splt( int* cmd ) {
+
+} /* end function splt */
