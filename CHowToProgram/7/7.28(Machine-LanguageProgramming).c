@@ -5,6 +5,7 @@ theBitRiddler
  (Machine-Language Programming) 
 */
 #include <stdio.h>
+#define SIZE 100
 // Input/Output operations:
 #define READ 10 // Read a word from the keyboard into a specific location in memory.
 #define WRITE 11 // Write a word from a specific location in memory to the screen.
@@ -22,5 +23,6 @@ theBitRiddler
 #define BRANCHZERO 42 // Branch to a specific location in memory if the accumulator is zero.
 #define HALT 43 // Halt---i.e., the program has completed its task.
 int main( void ) {
-    
+    int memory[ SIZE ] = { 0 };
+
 } /* end main */
