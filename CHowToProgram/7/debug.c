@@ -1,189 +1,102 @@
 /*
 theBitRiddler
-9/20/2023
-12:46 PM
-(Mazes of Any Size)
+10/14/2023
+10:50 AM
+ (Machine-Language Programming) 
 */
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+#define SIZE 100
+// Input/Output operations:
+#define READ 10 // Read a word from the keyboard into a specific location in memory.
+#define WRITE 11 // Write a word from a specific location in memory to the screen.
+// Load/store operations:
+#define LOAD 20 // Load a word from a specific location in memory into the accumulator.
+#define STORE 21 // Store a word from the accumulator into a specific location in memory.
+// Arithmetic operations:
+#define ADD 30 // Add a word from a specific location in memory to the word in the accumulator ( leave the result in the accumulator).
+#define SUBTRACT 31 // Substract a word from a specific location in memory into the word in the accumulator ( leave the result in the accumulator).
+#define DIVIDE 32 // Divide a word from a specific location in memory into the word in the accumulator (leave the result in the accumulator).
+#define MULTIPLY 33 // Multiply a word from a specific location in memory by the word in the accumulator (leave the result in the accumulator).
+// transfer-of-control operations:
+#define BRANCH 40 // Branch to a specific location in a memory.
+#define BRANCHNEG 41 // Branch to a specific location in memory if the accumulator is negative.
+#define BRANCHZERO 42 // Branch to a specific location in memory if the accumulator is zero.
+#define HALT 43 // Halt---i.e., the program has completed its task.
 
-#define ROW 10
-#define COL 10
-#define DOWN 0
-#define RIGHT 1
-#define UP 2
-#define LEFT 3
-#define POSSIBLE_DOTS (int) ROW * COL * 2 / 3
+void accumulator( int, int, int * const, int * const i );
+int splt( int * const, int * const, int * const ); // split the instruction; the command and the location
+int main( void ) {
+    int memory[ SIZE ] = { 0 };
+    int i = 0; // instruction count
+    int inst = 0; // a full instruction
+    int cmd = 0; // a command of the instruction
+    int locatn = 0; // a location of the instruction
+    int accumulator = 0;
+    memory[ 0 ] = +1009;
+    memory[ 1 ] = +1010;
+    memory[ 2 ] = +2009;
+    memory[ 3 ] = +3110;
+    memory[ 4 ] = +4107;
+    memory[ 5 ] = +1109;
+    memory[ 6 ] = +4300;
+    memory[ 7 ] = +1110;
+    memory[ 8 ] = +4300;
+    memory[ 9 ] = +0000;
+    memory[ 10 ] = +0000;
 
-void mazeGenerator( char[][ COL ], int *, int * );
-void mazeTraversal( char[][ COL ], const int, const int, int, int, int );
-void printMaze( char[][ COL ]);
-int coordsAreEdge( int, int );
-int validMove( char[][ COL ], int, int );
-
-int main(void) { 
-    int xStart = 0;
-    int yStart = 0;
-    int x = 0;
-    int y = 0;
-    
-    char maze[ ROW ][ COL ];
-
-    // initialize the Maze
-    for ( size_t row = 0; row < ROW; row++ ) {
-        for ( size_t col = 0; col < COL; col++ ) {
-            maze[ row ][ col ] = '#';
-        } // end for
-    } // end for
-    printMaze(maze);
-
-    mazeGenerator( maze, &xStart, &yStart );
-    printMaze(maze);
-
-    x = xStart;
-    y = yStart;
-
-    mazeTraversal( maze, xStart, yStart, x, y, RIGHT );
-
+    while( i < SIZE && cmd != HALT ) {
+        inst = memory[  i++  ];
+            
+        // split command
+        splt( &inst, &locatn, &cmd ); 
+        switch ( cmd ) {
+            case READ:
+                printf_s( "\t%s", "Enter an integer "); 
+                scanf( "%d", &memory[ locatn ] );
+                break;
+            case WRITE: 
+                printf_s( "\tlocation %d is %d\n", locatn, memory[ locatn ] );
+                break; 
+            case LOAD: 
+                accumulator = memory[ locatn ];
+                break; 
+            case STORE: 
+                memory[ locatn ] = accumulator;
+                break;
+            case ADD:
+                accumulator += memory[ locatn ];
+                break;
+            case SUBTRACT:
+                accumulator -= memory[ locatn ];
+                break;
+            case DIVIDE:
+                accumulator /= memory[ locatn ];
+                break;
+            case MULTIPLY:
+                accumulator *= memory[ locatn ];
+                break;
+            case BRANCH:
+                inst = memory[ i = locatn ];
+                break;
+            case BRANCHNEG:
+                if ( accumulator < 0 ) {
+                    inst = memory[ i = locatn ]; 
+                } // end if
+                break;
+            case BRANCHZERO:
+                if ( accumulator == 0 ) {
+                    inst = memory[ i = locatn ];
+                } // end if
+                break;
+            case HALT:
+                break;
+        } // end switch   
+    } // end while
     return 0;
-    
+
 } /* end main */
 
-void mazeTraversal( char maze[][ COL ], const int xCoord, const int yCoord, int row, int col, int direction ) {
-    static int flag = 0;
-    maze[ row ][ col ] = 'X';
-    printMaze( maze );
-
-    if ( coordsAreEdge( row, col ) && row != xCoord && col != yCoord ) {
-        printf_s( "%s", "You successfully exited the maze\n" );
-        return;
-    } // end if
-    else if ( row == xCoord && col == yCoord && flag == 1 ) {
-        printf_s( "%s", "You returned to the starting point\n" );
-        return;
-    } // end else if
-    else {
-        int move = 0;
-        int count = 0;
-
-        flag = 1;
-
-        for ( move = direction, count = 0; count < 4; count++, move++, move %= 4 )
-
-            switch( move ) {
-                case DOWN: 
-                    if ( validMove( maze, row + 1, col ) ) {
-                        mazeTraversal( maze, xCoord, yCoord, row + 1, col, LEFT );
-                    } // end if
-                    break;
-                case RIGHT: 
-                    if ( validMove( maze, row, col + 1 ) ) {
-                        mazeTraversal( maze, xCoord, yCoord, row, col + 1, DOWN );
-                    } // end if
-                    break;
-                case UP: 
-                    if ( validMove( maze, row - 1, col ) ) {
-                        mazeTraversal( maze, xCoord, yCoord, row - 1, col, RIGHT );
-                    } // END IF
-                    break;
-                case LEFT: 
-                    if ( validMove( maze, row, col - 1 ) ) {
-                        mazeTraversal( maze, xCoord, yCoord, row, col - 1, UP );
-                    } // end if
-                    break;
-            } // end switch
-
-    } // end else
-
-} /* end function mazeTraversal */
-
-int coordsAreEdge( int row, int col ) {
-    if ( ( row == 0 || row == ( ROW - 1 ) ) && ( col >= 0 && col <= ( COL - 1 ) ) )
-        return 1;
-    else if ( ( col == 0 || col == ( COL - 1 ) ) && ( row >= 0 && row <= ( ROW - 1 ) ) )
-        return 1;
-    else  
-        return 0;
-} /* end function coordsAreEdge */
-
-int validMove( char maze[][ COL ], int row, int col ) {
-    return ( row >= 0 && row <= ( ROW - 1 ) && col >= 0 && col <= ( COL - 1 ) && maze[ row ][ col ] == '.' );
-} /* end function validMove */
-
-void mazeGenerator( char maze[][ COL ], int * xPos, int * yPos ) {
-    int x = 0;
-    int y = 0;
-    int entry = 0;
-    int exit = 0;
-    int a = 0;
-
-    srand( time( NULL ) ); 
-    // Randomly create exit and entry points
-    do {
-        entry = rand() % 4;
-        exit = rand() % 4;
-    }
-    while ( entry == exit );
-
-    // entry
-    if ( entry == 0 ) {
-      *xPos = 1 + rand() % ( ROW - 2 );
-      *yPos = 0;
-      maze[ *xPos ][ *yPos ] = '.';
-    }
-    else if ( entry == 1) {
-      *xPos = 0;
-      *yPos = 1 + rand() % ( COL - 2 );
-      maze[ *xPos ][ *yPos ] = '.';
-    }
-    else if ( entry == 2 ) {
-      *xPos = 1 + rand() % ( ROW - 2 );
-      *yPos = ( COL - 1 );
-      maze[ *xPos ][ *yPos ] = '.';
-    }
-    else if ( entry == 3 ) {
-      *xPos = ( ROW - 1 );
-      *yPos = 1 + rand() % ( COL - 2 );
-      maze[ *xPos ][ *yPos ] = '.';
-    }
-    printMaze(maze);
-
-    // exit
-    if( exit == 0 ) {
-      a = 1 + rand() % ( ROW - 2 );
-      maze[ a ][ 0 ] = '.';
-    }
-    else if ( exit == 1 ) {
-      a = 1 + rand() % ( COL - 2 );
-      maze[ 0 ][ a ] = '.';
-    }
-    else if ( exit == 2 ) {
-      a = 1 + rand() % ( ROW - 2);
-      maze[ a ][ COL - 1 ] = '.';
-    }
-    else if ( exit == 3 ) {
-      a = 1 + rand() % ( COL - 2 );
-      maze[ ROW - 1 ][ a ] = '.';
-    } 
-    printMaze( maze );      
-
-    for ( size_t count = 0; count < POSSIBLE_DOTS; count++ ) {
-        x = 1 + rand() % ( ROW - 2 );
-        y = 1 + rand() % ( COL - 2 );
-        maze[ x ][ y ] = '.';
-    } // end for 
-
-} /* end function mazeGenerator */
-
-void printMaze( char maze[][ COL ]) {
-    // print the maze
-    for ( size_t row = 0; row < ROW; row++ ) {
-        for ( size_t col = 0; col < COL; col++ ) {
-            printf_s( "%c%c", maze[ row ][ col ], col < ( COL - 1 ) ? ' ' : '\n' );
-        } // end for
-        puts("");
-    } // end for 
-    puts("Return to see another move");
-    getchar();
-} /* end function printMaze */
+int splt( int* const inst, int * const location, int * const cmd ) {
+    *location = *inst % 100; // get a location
+    *cmd  = * inst / 100; // get a command
+} /* end function splt */
