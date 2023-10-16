@@ -1,101 +1,118 @@
 /*
 theBitRiddler
-9/7/2023
-5:18 PM
- (Maze Traversal)
+10/14/2023
+10:50 AM
+ (Machine-Language Programming) 
 */
 #include <stdio.h>
+#define SIZE 100
+// Input/Output operations:
+#define READ 10 // Read a word from the keyboard into a specific location in memory.
+#define WRITE 11 // Write a word from a specific location in memory to the screen.
+// Load/store operations:
+#define LOAD 20 // Load a word from a specific location in memory into the accumulator.
+#define STORE 21 // Store a word from the accumulator into a specific location in memory.
+// Arithmetic operations:
+#define ADD 30 // Add a word from a specific location in memory to the word in the accumulator ( leave the result in the accumulator).
+#define SUBTRACT 31 // Substract a word from a specific location in memory into the word in the accumulator ( leave the result in the accumulator).
+#define DIVIDE 32 // Divide a word from a specific location in memory into the word in the accumulator (leave the result in the accumulator).
+#define MULTIPLY 33 // Multiply a word from a specific location in memory by the word in the accumulator (leave the result in the accumulator).
+// transfer-of-control operations:
+#define BRANCH 40 // Branch to a specific location in a memory.
+#define BRANCHNEG 41 // Branch to a specific location in memory if the accumulator is negative.
+#define BRANCHZERO 42 // Branch to a specific location in memory if the accumulator is zero.
+#define HALT 43 // Halt---i.e., the program has completed its task.
 
-#define SIZE 12
-#define DIR 4 // direction
-
-void display( char [][ SIZE ]);
-void mazeTraverse( int currentRow, int currentColumn, char [][ SIZE ], char [][ SIZE ]);
-int validMove( int, int, char[][ SIZE ]);
-int entry( int, int, char[][ SIZE ], char[][ SIZE ] ); // Find entry and Exit
-void copy( char[][ SIZE ], char [][ SIZE ]);
-
-int main(void) {
-    char copy[ SIZE ][ SIZE ] = {{0}};
-    char maze[ SIZE ][ SIZE ] = { '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#',
-                                  '#', '.', '.', '.', '#', '.', '.', '.', '.', '.', '.', '#',
-                                  '.', '.', '#', '.', '#', '.', '#', '#', '#', '#', '.', '#',
-                                  '#', '#', '#', '.', '#', '.', '.', '.', '.', '#', '.', '#',
-                                  '#', '.', '.', '.', '.', '#', '#', '#', '.', '#', '.', '.',
-                                  '#', '#', '#', '#', '.', '#', '.', '#', '.', '#', '.', '#',
-                                  '#', '.', '.', '#', '.', '#', '.', '#', '.', '#', '.', '#',
-                                  '#', '#', '.', '#', '.', '#', '.', '#', '.', '#', '.', '#',
-                                  '#', '.', '.', '.', '.', '.', '.', '.', '.', '#', '.', '#',
-                                  '#', '#', '#', '#', '#', '#', '.', '#', '#', '#', '.', '#',
-                                  '#', '.', '.', '.', '.', '.', '.', '#', '.', '.', '.', '#',
-                                  '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#' };
-    display( maze );
-    int currentRow = 2;
-    int currentColumn = 0;
-    entry(currentRow, currentColumn, maze, copy );
+int splt( int * const, int * const, int * const ); // split the instruction; the command and the location
+int main( void ) {
+    int memory[ SIZE ] = { 0 };
+    int i = 0; // instruction count
+    int inst = 0; // a full instruction
+    int cmd = 0; // a command of the instruction
+    int locatn = 0; // a location of the instruction
+    int accumulator = 0;
+    memory[ 0  ] = +1019; // Read a number to define how many numbers to assign, store it to 19 ( The sentinel )
+    memory[ 1  ] = +1033; // Read first number ( largest )
+    memory[ 2  ] = +2019; // load the number
+    memory[ 3  ] = +3219; // divide to get 1
+    memory[ 4  ] = +2120; // store 1 to 20
+    memory[ 5  ] = +2019; // load
+    memory[ 6  ] = +3120; // substract by 1 
+    memory[ 7  ] = +2119; // store to overwrite 19
+    memory[ 8  ] = +4217; // Branchzero to 17
+    memory[ 9  ] = +1034; // Read the second number 
+    memory[ 10 ] = +2033; // load the largest
+    memory[ 11 ] = +3134; // substract the second
+    memory[ 12 ] = +4114; // branchneg to 14 ( if second is larger )
+    memory[ 13 ] = +4016; // branch to 16
+    memory[ 14 ] = +2034; // load the second
+    memory[ 15 ] = +2133; // store to overwrite the first
+    memory[ 16 ] = +4005; // Branch to 5
+    memory[ 17 ] = +1133; // Write the largest
+    memory[ 18 ] = +4300; // HALT
     
-    mazeTraverse( currentRow, currentColumn, maze, copy );
+    memory[ 19 ] = +0000; // SENTINEL
+    memory[ 20 ] = +0000; // 1
+    memory[ 21 ] = +0000; // first number ( The largest )
+    memory[ 22 ] = +0000; // second number
+
+
+    memory[ 33 ] = +0000; // first number ( largest )
+    memory[ 34 ] = +0000; // second number
+
+    while( i < SIZE && cmd != HALT ) {
+        inst = memory[  i++  ];
+            
+        // split command
+        splt( &inst, &locatn, &cmd ); 
+        switch ( cmd ) {
+            case READ:
+                printf_s( "\t%s", "Enter an integer "); 
+                scanf( "%d", &memory[ locatn ] );
+                break;
+            case WRITE: 
+                printf_s( "\tlocation %d\n\tLargest is %d\n", locatn, memory[ locatn ] );
+                break; 
+            case LOAD: 
+                accumulator = memory[ locatn ];
+                break; 
+            case STORE: 
+                memory[ locatn ] = accumulator;
+                break;
+            case ADD:
+                accumulator += memory[ locatn ];
+                break;
+            case SUBTRACT:
+                accumulator -= memory[ locatn ];
+                break;
+            case DIVIDE:
+                accumulator /= memory[ locatn ];
+                break;
+            case MULTIPLY:
+                accumulator *= memory[ locatn ];
+                break;
+            case BRANCH:
+                inst = memory[ i = locatn ];
+                break;
+            case BRANCHNEG:
+                if ( accumulator < 0 ) {
+                    inst = memory[ i = locatn ]; 
+                } // end if
+                break;
+            case BRANCHZERO:
+                if ( accumulator == 0 ) {
+                    inst = memory[ i = locatn ];
+                } // end if
+                break;
+            case HALT:
+                break;
+        } // end switch   
+    } // end while
+    return 0;
 
 } /* end main */
 
-void copy( char copy[][ SIZE ], char maze[][ SIZE ] ) {
-    for ( size_t row = 0; row < SIZE; row++ )
-        for ( size_t column = 0; column < SIZE; column++ )
-        copy [row][column] = maze[row][column];
-} /* end function copy */
-
-int entry( int currentRow, int currentcolumn, char maze[][ SIZE ], char copyMaze[][ SIZE ] ) {
-    copy( copyMaze, maze);
-    // get start 
-    copyMaze[ currentRow ][ currentcolumn ] = 'A'; 
-} /* end function exit */
-
-void mazeTraverse( int currentRow, int currentColumn, char mazeWork[][ SIZE ], char copyWork[][ SIZE ] ) {
-    if ( currentRow == 0 || currentRow == 11 || currentColumn == 0 || currentColumn == 11 && copyWork[ currentRow ][ currentColumn] != 'A') {
-        puts("Success");
-    } // end if
-    mazeWork[ currentRow][ currentColumn] = 'x';
-    int horizontal[ DIR ] = { 1, 0, -1, 0 }; // east, north, west and south
-    int vertical[ DIR ] = { 0, -1, 0, 1 }; // east, north, west and south
-    int validDir[ DIR ] = { 0 }; // record valid directions
-    int counter = 0; // counter for valid directions
-
-    for ( int i = 0; i < 4; i++ ) { // i for east, north, west or south, respectively
-        if ( validMove( currentRow + vertical[ i ], currentColumn + horizontal[ i ], mazeWork ) ) {
-            validDir[ counter ] = i;
-            counter++;
-        } // end if
-    } // end for
-
-    if ( !counter ) {
-        display( mazeWork );
-        return ;
-    } // end if
-    else if ( counter == 1 ) {
-        counter--;
-        if ( validDir[ counter ] == 0 || validDir[ counter ] == 2 ) {
-            currentColumn += horizontal[ validDir[ counter ] ];
-        } // end if
-        if ( validDir[ counter ] == 1 || validDir[ counter ] == 3 ) {
-            currentRow += vertical[ validDir[ counter ] ];
-        } // end if
-        mazeTraverse( currentRow, currentColumn, mazeWork, copyWork);
-    } // end if
-    else if ( counter > 1 ) {
-        for ( int i = 0; i < counter; i++ ) {
-            mazeTraverse( currentRow + vertical[ validDir[ i ] ], currentColumn + horizontal[ validDir[ i ] ], mazeWork, copyWork );
-        } /* end for */
-    } /* end else if */
-} /* end function mazeTraverse */
-
-int validMove( int row, int column, char mazeWork[][ SIZE ]) {
-    return ( row >= 0 && row <= 11 && column >= 0 && column <= 11 && mazeWork[ row ][ column ] == '.' );
-} /* end function validMove */
-
-void display( char mazeWork[][ SIZE ]) {
-    for ( size_t row = 0; row < SIZE; row++ ) {
-        for ( size_t column = 0; column < SIZE; column++ )
-            printf_s( "%c%c", mazeWork[ row ][ column ], column == 11 ? '\n' : ' ' );
-    } // end for
-    puts("\n");
-} /* end function display */
+int splt( int* const inst, int * const location, int * const cmd ) {
+    *location = *inst % 100; // get a location
+    *cmd  = * inst / 100; // get a command
+} /* end function splt */
