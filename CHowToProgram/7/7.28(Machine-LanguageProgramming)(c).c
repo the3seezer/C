@@ -66,7 +66,7 @@ int main( void ) {
                 scanf( "%d", &memory[ locatn ] );
                 break;
             case WRITE: 
-                printf_s( "\tlocation %d\n\tLargest is %d\n", locatn, memory[ locatn ] );
+                printf_s( "\tLargest is %d\n", memory[ locatn ] );
                 break; 
             case LOAD: 
                 accumulator = memory[ locatn ];

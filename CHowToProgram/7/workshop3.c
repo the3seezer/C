@@ -31,37 +31,39 @@ int main( void ) {
     int cmd = 0; // a command of the instruction
     int locatn = 0; // a location of the instruction
     int accumulator = 0;
-    memory[ 0  ] = +1019; // Read a number to define how many numbers to assign, store it to 19 ( The sentinel )
-    memory[ 1  ] = +1033; // Read first number ( largest )
-    memory[ 2  ] = +2019; // load the number
-    memory[ 3  ] = +3219; // divide to get 1
-    memory[ 4  ] = +2120; // store 1 to 20
-    memory[ 5  ] = +2019; // load
-    memory[ 6  ] = +3120; // substract by 1 
-    memory[ 7  ] = +2119; // store to overwrite 19
-    memory[ 8  ] = +4217; // Branchzero to 17
-    memory[ 9  ] = +1034; // Read the second number 
-    memory[ 10 ] = +2033; // load the largest
-    memory[ 11 ] = +3134; // substract the second
-    memory[ 12 ] = +4114; // branchneg to 14 ( if second is larger )
-    memory[ 13 ] = +4016; // branch to 16
-    memory[ 14 ] = +2034; // load the second
-    memory[ 15 ] = +2133; // store to overwrite the first
-    memory[ 16 ] = +4005; // Branch to 5
-    memory[ 17 ] = +1133; // Write the largest
-    memory[ 18 ] = +4300; // HALT
-    
-    memory[ 19 ] = +0000; // SENTINEL
-    memory[ 20 ] = +0000; // 1
-    memory[ 21 ] = +0000; // first number ( The largest )
-    memory[ 22 ] = +0000; // second number
+    memory[ 0  ] = +1061; // Read a number ... ; TOTAL to be, and read six more numbers...
+    memory[ 1  ] = +1062;
+    memory[ 2  ] = +1063;
+    memory[ 3  ] = +1064;
+    memory[ 4  ] = +1065;
+    memory[ 5  ] = +1066;
+    memory[ 6  ] = +1067;
+    memory[ 7  ] = +2061; // load the number
+    memory[ 8  ] = +3261; // divide by it to get 1
+    memory[ 9  ] = +2168; // store 1 
+    memory[ 10 ] = +2068; // load 1
+    memory[ 11 ] = +3068; // add by it to get 2
+    memory[ 12 ] = +3068; // ... 3
+    memory[ 13 ] = +3068; // ... 4
+    memory[ 14 ] = +3068; // ... 5
+    memory[ 15 ] = +3068; // ... 6
+    memory[ 16 ] = +3068; // ... 7
+    memory[ 17 ] = +2169; // store 7 for division to get average
+    memory[ 18 ] = +2061; // load the first number
+    memory[ 19 ] = +3062; // add the rest of the numbers ...
+    memory[ 20 ] = +3063;
+    memory[ 21 ] = +3064;
+    memory[ 22 ] = +3065;
+    memory[ 23 ] = +3066;
+    memory[ 24 ] = +3067;
+    memory[ 25 ] = +2170; // store total
+    memory[ 26 ] = +2070; // load total
+    memory[ 27 ] = +3269; // divide by 7
+    memory[ 28 ] = +2171; // store average
+    memory[ 29 ] = +1171; // Write average
 
-
-    memory[ 33 ] = +0000; // first number ( largest )
-    memory[ 34 ] = +0000; // second number
-
-    while( i < SIZE && cmd != HALT ) {
-        inst = memory[  i++  ];
+    for ( i = 0; i < 30; i++ ) {
+        inst = memory[  i  ];
             
         // split command
         splt( &inst, &locatn, &cmd ); 
@@ -71,7 +73,7 @@ int main( void ) {
                 scanf( "%d", &memory[ locatn ] );
                 break;
             case WRITE: 
-                printf_s( "\tlocation %d\n\tLargest is %d\n", locatn, memory[ locatn ] );
+                printf_s( "\tAverage is %d\n", memory[ locatn ] );
                 break; 
             case LOAD: 
                 accumulator = memory[ locatn ];

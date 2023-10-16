@@ -1,120 +1,120 @@
+/*
+theBitRiddler
+10/14/2023
+10:50 AM
+ (Machine-Language Programming) 
+*/
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+#define SIZE 100
+// Input/Output operations:
+#define READ 10 // Read a word from the keyboard into a specific location in memory.
+#define WRITE 11 // Write a word from a specific location in memory to the screen.
+// Load/store operations:
+#define LOAD 20 // Load a word from a specific location in memory into the accumulator.
+#define STORE 21 // Store a word from the accumulator into a specific location in memory.
+// Arithmetic operations:
+#define ADD 30 // Add a word from a specific location in memory to the word in the accumulator ( leave the result in the accumulator).
+#define SUBTRACT 31 // Substract a word from a specific location in memory into the word in the accumulator ( leave the result in the accumulator).
+#define DIVIDE 32 // Divide a word from a specific location in memory into the word in the accumulator (leave the result in the accumulator).
+#define MULTIPLY 33 // Multiply a word from a specific location in memory by the word in the accumulator (leave the result in the accumulator).
+// transfer-of-control operations:
+#define BRANCH 40 // Branch to a specific location in a memory.
+#define BRANCHNEG 41 // Branch to a specific location in memory if the accumulator is negative.
+#define BRANCHZERO 42 // Branch to a specific location in memory if the accumulator is zero.
+#define HALT 43 // Halt---i.e., the program has completed its task.
 
-#define CARDS 52
-#define SUITS 4
-#define FACES 13
-#define HAND 5
-#define DRAWCARDS 3
-
-void sort( int *copyFace, size_t size );
-void copy( int *copyFace, int *handFace );
-void cardValue( int * handFace );
-void twoPairDraw( int * handFace, int * draw, int level );
-void lowCardDraw( int * handFace, int * draw , int j, int level ); 
-
+int splt( int * const, int * const, int * const ); // split the instruction; the command and the location
 int main( void ) {
-    int handFace[ HAND ] = { 99, 99, 7, 8, 99};
-    int level = 0;
-    int drawArray[ DRAWCARDS ] = { -1, -1, -1 };
-    int j = 2;
+    int memory[ SIZE ] = { 0 };
+    int i = 0; // instruction count
+    int inst = 0; // a full instruction
+    int cmd = 0; // a command of the instruction
+    int locatn = 0; // a location of the instruction
+    int accumulator = 0;
+    memory[ 0  ] = +1061; // Read a number ... ; TOTAL to be, and read six more numbers...
+    memory[ 1  ] = +1062;
+    memory[ 2  ] = +1063;
+    memory[ 3  ] = +1064;
+    memory[ 4  ] = +1065;
+    memory[ 5  ] = +1066;
+    memory[ 6  ] = +1067;
+    memory[ 7  ] = +2061; // load the number
+    memory[ 8  ] = +3261; // divide by it to get 1
+    memory[ 9  ] = +2168; // store 1 
+    memory[ 10 ] = +2068; // load 1
+    memory[ 11 ] = +3068; // add by it to get 2
+    memory[ 12 ] = +3068; // ... 3
+    memory[ 13 ] = +3068; // ... 4
+    memory[ 14 ] = +3068; // ... 5
+    memory[ 15 ] = +3068; // ... 6
+    memory[ 16 ] = +3068; // ... 7
+    memory[ 17 ] = +2169; // store 7 for division to get average
+    memory[ 18 ] = +2061; // load the first number
+    memory[ 19 ] = +3062; // add the rest of the numbers ...
+    memory[ 20 ] = +3063;
+    memory[ 21 ] = +3064;
+    memory[ 22 ] = +3065;
+    memory[ 23 ] = +3066;
+    memory[ 24 ] = +3067;
+    memory[ 25 ] = +2170; // store total
+    memory[ 26 ] = +2070; // load total
+    memory[ 27 ] = +3269; // divide by 7
+    memory[ 28 ] = +2171; // store average
+    memory[ 29 ] = +1171; // Write average
 
-    for ( size_t i = 0; i < HAND; i++ )
-        printf_s( "%d ", handFace[ i ] );
-            puts("");
-    lowCardDraw( handFace, drawArray, j, level );
-
-    for ( size_t i = 0; i < 3; i++ )
-        printf_s( "%d ", drawArray[ i ] );
-
-} // end main
-
-void lowCardDraw( int * handFace, int * draw , int j, int level ) {
-    int smallest = 13; // to find the low card
-    if ( ( level == 0 || level == 1 ) ?  j < 3 : ( level == 2 || level == 4 ) ? j < 1 : j < 2 ) {
-        for ( size_t i = 0; i < HAND; i++ ) 
-            if ( handFace[ i ] < smallest ) { // any card less than ten
-            smallest = handFace[ i ];
-            } // end for
-        for ( size_t i = 0; i < HAND; i++ )
-            if ( handFace[ i ] == smallest ) {
-                if ( handFace[ i ] < 8 ) { // if the card is less than ten
-                    draw[ j++ ] = i;
+    for ( i = 0; i < 30; i++ ) {
+        inst = memory[  i  ];
+            
+        // split command
+        splt( &inst, &locatn, &cmd ); 
+        switch ( cmd ) {
+            case READ:
+                printf_s( "\t%s", "Enter an integer "); 
+                scanf( "%d", &memory[ locatn ] );
+                break;
+            case WRITE: 
+                printf_s( "\tAverage is %d\n", memory[ locatn ] );
+                break; 
+            case LOAD: 
+                accumulator = memory[ locatn ];
+                break; 
+            case STORE: 
+                memory[ locatn ] = accumulator;
+                break;
+            case ADD:
+                accumulator += memory[ locatn ];
+                break;
+            case SUBTRACT:
+                accumulator -= memory[ locatn ];
+                break;
+            case DIVIDE:
+                accumulator /= memory[ locatn ];
+                break;
+            case MULTIPLY:
+                accumulator *= memory[ locatn ];
+                break;
+            case BRANCH:
+                inst = memory[ i = locatn ];
+                break;
+            case BRANCHNEG:
+                if ( accumulator < 0 ) {
+                    inst = memory[ i = locatn ]; 
                 } // end if
-                handFace[ i ] = 99; // to avoid repetition
-            } // end if
-
-        lowCardDraw( handFace, draw, j, level );
-    } // end if
-
-    for ( size_t i = 0; i < HAND; i++ )
-        printf_s( "%d ", handFace[ i ] );
-            puts("");
-} /* end function lowCard */
-
-void twoPairDraw( int * handFace, int * draw, int level ) {
-    int copyFace[ HAND ] = { 0 };
-    int j = 0; // draw counter
-    int same1 = 0;
-    int same2 = 0;
-    copy( copyFace, handFace );
-    cardValue( copyFace );
-
-    for ( size_t count1 = 0; count1 < HAND; count1++ ) {
-        same1 = 0;
-        same2 = 0;
-        for ( size_t count2 = 0; count2 < HAND; count2++ ) {
-            if ( copyFace[ count1 ] == copyFace[ count2 ] && count1 != count2 && copyFace[ count2 ] != 99 ) {
-                same1++;
-                if ( same1 == 1 ) {
-                    copyFace[ count2 ] = 99;
-                } // end if 
-            } // end if
-            if ( copyFace[ count1 ] == copyFace[ count2 ] && count1 != count2 && copyFace[ count2 ] != 99 ) {
-                same2++;
-                if ( same2 == 1 ) {
-                    copyFace[ count2 ] = 99;
+                break;
+            case BRANCHZERO:
+                if ( accumulator == 0 ) {
+                    inst = memory[ i = locatn ];
                 } // end if
-            } // end if
-        } // end for
-        if ( same1 )
-            copyFace[ count1 ] = 99;
-        if ( same2 )
-            copyFace[ count1 ] = 99;
-    } // end for
+                break;
+            case HALT:
+                break;
+        } // end switch   
+    } // end while
+    return 0;
 
-    for ( size_t i = 0; i < HAND; i++ )
-        printf_s( "%d ", copyFace[ i ] );
+} /* end main */
 
-        puts("");
-
-} /* end function twoPairDraw */
-
-void cardValue( int * handFace ) {
-    for ( size_t i = 0; i < HAND; i++ ) {
-        if ( handFace[ i ] == 0 ) 
-            handFace[ i ] = 12;
-        else 
-            --handFace[ i ];
-    } // end for 
-} /* end function cardValue */
-
-void sort( int *copyFace, size_t size ) {
-
-    for ( int pass = 1; pass < size; pass++ ){
-        for ( size_t i = 0; i < size - pass; i++ ) {
-            if ( copyFace[ i ] > copyFace[ i + 1 ]) {
-                int hold = copyFace[ i ];
-                copyFace[ i ] = copyFace[ i + 1 ];
-                copyFace[ i + 1 ] = hold;
-            } /* end if */
-        } /* end for */
-    } /* end for */
-} /* end function sort */
-
-void copy( int *copyFace, int *handFace ) {
-    for ( size_t i = 0; i < HAND; i++ ) {
-        copyFace[ i ] = handFace[ i ];
-    } /* end for */
-} /* end function copy */
+int splt( int* const inst, int * const location, int * const cmd ) {
+    *location = *inst % 100; // get a location
+    *cmd  = * inst / 100; // get a command
+} /* end function splt */

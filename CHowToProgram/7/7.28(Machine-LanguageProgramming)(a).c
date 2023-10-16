@@ -53,7 +53,7 @@ int main( void ) {
                 scanf( "%d", &memory[ locatn ] );
                 break;
             case WRITE: 
-                printf_s( "\tlocation %d\n\tTotal is %d\n", locatn, memory[ locatn ] );
+                printf_s( "\tTotal is %d\n", memory[ locatn ] );
                 break; 
             case LOAD: 
                 accumulator = memory[ locatn ];

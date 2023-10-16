@@ -31,78 +31,39 @@ int main( void ) {
     int cmd = 0; // a command of the instruction
     int locatn = 0; // a location of the instruction
     int accumulator = 0;
+    memory[ 0  ] = +1061; // Read a number ... ; TOTAL to be, and read six more numbers...
+    memory[ 1  ] = +1062;
+    memory[ 2  ] = +1063;
+    memory[ 3  ] = +1064;
+    memory[ 4  ] = +1065;
+    memory[ 5  ] = +1066;
+    memory[ 6  ] = +1067;
+    memory[ 7  ] = +2061; // load the number
+    memory[ 8  ] = +3261; // divide by it to get 1
+    memory[ 9  ] = +2168; // store 1 
+    memory[ 10 ] = +2068; // load 1
+    memory[ 11 ] = +3068; // add by it to get 2
+    memory[ 12 ] = +3068; // ... 3
+    memory[ 13 ] = +3068; // ... 4
+    memory[ 14 ] = +3068; // ... 5
+    memory[ 15 ] = +3068; // ... 6
+    memory[ 16 ] = +3068; // ... 7
+    memory[ 17 ] = +2169; // store 7 for division to get average
+    memory[ 18 ] = +2061; // load the first number
+    memory[ 19 ] = +3062; // add the rest of the numbers ...
+    memory[ 20 ] = +3063;
+    memory[ 21 ] = +3064;
+    memory[ 22 ] = +3065;
+    memory[ 23 ] = +3066;
+    memory[ 24 ] = +3067;
+    memory[ 25 ] = +2170; // store total
+    memory[ 26 ] = +2070; // load total
+    memory[ 27 ] = +3269; // divide by 7
+    memory[ 28 ] = +2171; // store average
+    memory[ 29 ] = +1171; // Write average
 
-    memory[ 0  ] = +1008;
-    memory[ 1  ] = +1009;
-    memory[ 2  ] = +1010;
-    memory[ 3  ] = +1011;
-    memory[ 4  ] = +1012;
-    memory[ 5  ] = +1013;
-    memory[ 6  ] = +1014;
-    memory[ 7  ] = +4015; // Branch to 15
-    memory[ 8  ] = +0000; // Variables ...
-    memory[ 9  ] = +0000;
-    memory[ 10 ] = +0000;
-    memory[ 11 ] = +0000;
-    memory[ 12 ] = +0000;
-    memory[ 13 ] = +0000;
-    memory[ 14 ] = +0000;
-    memory[ 15 ] = +2008; // load to accumulator
-    memory[ 16 ] = +3009; // add to accumulator... Total
-    memory[ 17 ] = +3010;
-    memory[ 18 ] = +3011;
-    memory[ 19 ] = +3012;
-    memory[ 20 ] = +3013;
-    memory[ 21 ] = +3014; // Total
-    memory[ 22 ] = +2150; // Store total to 50 
-    memory[ 23 ] = +2008; // load 
-    memory[ 24 ] = +3208; // divide to get 1
-    memory[ 25 ] = +2151; // store 1 to 51
-    memory[ 26 ] = +2009; // load ...
-    memory[ 27 ] = +3209;
-    memory[ 28 ] = +2152;
-    memory[ 29 ] = +2010; // load ...
-    memory[ 30 ] = +3210;
-    memory[ 31 ] = +2153;
-    memory[ 32 ] = +2011; // load ...
-    memory[ 33 ] = +3211;
-    memory[ 34 ] = +2154;
-    memory[ 35 ] = +2012; // load ...
-    memory[ 36 ] = +3212;
-    memory[ 37 ] = +2155;
-    memory[ 38 ] = +2013; // load ...
-    memory[ 39 ] = +3213;
-    memory[ 40 ] = +2156;
-    memory[ 41 ] = +2014; // load ...
-    memory[ 42 ] = +3214;
-    memory[ 43 ] = +2157; // last 1 stored in 57
-    memory[ 44 ] = +2051; // load 1 to accumulator
-    memory[ 45 ] = +3052; // add 1 to 1 ...
-    memory[ 46 ] = +3053;
-    memory[ 47 ] = +3054;
-    memory[ 48 ] = +3055;
-    memory[ 49 ] = +4058; // Branch to 58
-    memory[ 50 ] = +0000; // ( TOTAL )
-    memory[ 51 ] = +0000;
-    memory[ 52 ] = +0000;
-    memory[ 53 ] = +0000;
-    memory[ 54 ] = +0000;
-    memory[ 55 ] = +0000;
-    memory[ 56 ] = +0000;
-    memory[ 57 ] = +0000;
-    memory[ 58 ] = +3056;
-    memory[ 59 ] = +3057; // last 1 added to get 7
-    memory[ 60 ] = +2166; // store 7 to 66
-    memory[ 61 ] = +2050; // load Total
-    memory[ 62 ] = +3266; // divide by 7 from 66 to get average
-    memory[ 63 ] = +2167; // store average to 67
-    memory[ 64 ] = +1167; // Write average
-    memory[ 65 ] = +4300; // HALT
-    memory[ 66 ] = +0000; // 7
-    memory[ 67 ] = +0000; // average
-
-    for ( i = 0; i <= 65; i++ ) {
-        inst = memory[ i ];
+    for ( i = 0; i < 30; i++ ) {
+        inst = memory[  i  ];
             
         // split command
         splt( &inst, &locatn, &cmd ); 
@@ -112,7 +73,7 @@ int main( void ) {
                 scanf( "%d", &memory[ locatn ] );
                 break;
             case WRITE: 
-                printf_s( "\tlocation %d \n\taverage is %d\n", locatn, memory[ locatn ] );
+                printf_s( "\tAverage is %d\n", memory[ locatn ] );
                 break; 
             case LOAD: 
                 accumulator = memory[ locatn ];
