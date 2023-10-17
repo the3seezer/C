@@ -58,7 +58,6 @@ int main( void ) {
     memory[ 23 ] = +3265; // divide by 7
     memory[ 24 ] = +2166; // store average
     memory[ 25 ] = +1166; // Write the average
-    memory[ 26 ] = +4300; // HALT
 
     memory[ 61 ] = +0000; // first 
     memory[ 62 ] = +0000; // second
@@ -67,7 +66,7 @@ int main( void ) {
     memory[ 65 ] = +0000; // 7
     memory[ 66 ] = +0000; // AVERAGE
 
-    for ( i = 0; i <= 65; i++ ) {
+    for ( i = 0; i <= 25; i++ ) {
         inst = memory[ i ];
             
         // split command
