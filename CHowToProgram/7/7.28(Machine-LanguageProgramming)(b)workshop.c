@@ -52,8 +52,8 @@ int main( void ) {
     memory[ 17 ] = +2064; // load 7
     memory[ 18 ] = +3163; // Substract 1 
     memory[ 19 ] = +2164; // store the results to 7 to overwrite it
-    memory[ 20 ] = +4122; // Branchneg to Where the total is loaded; 22
-    memory[ 21 ] = +4013; // Branch to where the loop begins; 13
+    memory[ 20 ] = +4122; // Branchneg to Where the total is loaded ; 22
+    memory[ 21 ] = +4013; // Branch to where the loop begins ; 13
     memory[ 22 ] = +2061; // load the total
     memory[ 23 ] = +3265; // divide by 7
     memory[ 24 ] = +2166; // store average
