@@ -98,16 +98,16 @@ int main( void ) {
                 accumulator *= memory[ locatn ];
                 break;
             case BRANCH:
-                inst = memory[ i = locatn ];
+                inst = memory[ i = --locatn ];
                 break;
             case BRANCHNEG:
                 if ( accumulator < 0 ) {
-                    inst = memory[ i = locatn ]; 
+                    inst = memory[ i = --locatn ]; 
                 } // end if
                 break;
             case BRANCHZERO:
                 if ( accumulator == 0 ) {
-                    inst = memory[ i = locatn ];
+                    inst = memory[ i = --locatn ];
                 } // end if
                 break;
             case HALT:

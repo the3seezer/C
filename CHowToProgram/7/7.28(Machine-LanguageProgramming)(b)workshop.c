@@ -42,22 +42,21 @@ int main( void ) {
     memory[ 7  ] = +3063; // ... 4
     memory[ 8  ] = +3063; // ... 5
     memory[ 9  ] = +3063; // ... 6
-    memory[ 10 ] = +3063; // ... 7
-    memory[ 11 ] = +2164; // store 7 for termination
-    memory[ 12 ] = +2165; // store 7 for division to get average
-    memory[ 13 ] = +1062; // Read a second number < Loop begins here >
-    memory[ 14 ] = +2061; // load the first number
-    memory[ 15 ] = +3062; // add the second number
-    memory[ 16 ] = +2161; // store the resulting total to the first number to overwrite it
-    memory[ 17 ] = +2064; // load 7
-    memory[ 18 ] = +3163; // Substract 1 
-    memory[ 19 ] = +2164; // store the results to 7 to overwrite it
-    memory[ 20 ] = +4122; // Branchneg to Where the total is loaded ; 22
-    memory[ 21 ] = +4013; // Branch to where the loop begins ; 13
-    memory[ 22 ] = +2061; // load the total
-    memory[ 23 ] = +3265; // divide by 7
-    memory[ 24 ] = +2166; // store average
-    memory[ 25 ] = +1166; // Write the average
+    memory[ 10 ] = +2164; // store 6 for termination
+    memory[ 11 ] = +2165; // store 6 for division to get average
+    memory[ 12 ] = +1062; // Read a second number < Loop begins here >
+    memory[ 13 ] = +2061; // load the first number
+    memory[ 14 ] = +3062; // add the second number
+    memory[ 15 ] = +2161; // store the resulting total to the first number to overwrite it
+    memory[ 16 ] = +2064; // load 7
+    memory[ 17 ] = +3163; // Substract 1 
+    memory[ 18 ] = +2164; // store the results to 7 to overwrite it
+    memory[ 19 ] = +4221; // Branchzero to Where the total is loaded; 21
+    memory[ 20 ] = +4012; // Branch to where the loop begins; 12
+    memory[ 21 ] = +2061; // load the total
+    memory[ 22 ] = +3265; // divide by 7
+    memory[ 23 ] = +2166; // store average
+    memory[ 24 ] = +1166; // Write the average
 
     memory[ 61 ] = +0000; // first < TOTAL >
     memory[ 62 ] = +0000; // second
@@ -98,16 +97,16 @@ int main( void ) {
                 accumulator *= memory[ locatn ];
                 break;
             case BRANCH:
-                inst = memory[ i = locatn ];
+                inst = memory[ i = --locatn ];
                 break;
             case BRANCHNEG:
                 if ( accumulator < 0 ) {
-                    inst = memory[ i = locatn ]; 
+                    inst = memory[ i = --locatn ]; 
                 } // end if
                 break;
             case BRANCHZERO:
                 if ( accumulator == 0 ) {
-                    inst = memory[ i = locatn ];
+                    inst = memory[ i = --locatn ];
                 } // end if
                 break;
             case HALT:
@@ -115,7 +114,6 @@ int main( void ) {
         } // end switch   
     } // end while
     return 0;
-
 } /* end main */
 
 int splt( int* const inst, int * const location, int * const cmd ) {
