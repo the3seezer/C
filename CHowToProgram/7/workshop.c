@@ -24,13 +24,13 @@ theBitRiddler
 #define HALT 43 // Halt---i.e., the program has completed its task.
 
 int splt( int * const, int * const, int * const ); // split the instruction; the command and the location
-int showMemory( int memory[] );
+int dump( int memory[], int accumulator, int i, int inst, int cmd, int locatn );
 int main( void ) {
     int memory[ SIZE ] = { 0 };
-    int i = 0; // instruction count
-    int inst = 0; // a full instruction
-    int cmd = 0; // a command of the instruction
-    int locatn = 0; // a location of the instruction
+    int instructionCounter = 0; // instruction counter
+    int instructionRegister = 0; // instruction register
+    int operationCode = 0; // a command of the instruction
+    int operand = 0; // a location of the instruction
     int accumulator = 0;
 
     memory[ 0  ] = +1061; // Read a number ... ; TOTAL to be
@@ -46,23 +46,19 @@ int main( void ) {
     memory[ 10 ] = +3063; // ... 7
     memory[ 11 ] = +2164; // store 7 for termination
     memory[ 12 ] = +2165; // store 7 for division to get average
-
     memory[ 13 ] = +2064; // load 7 < Loop begins here >
     memory[ 14 ] = +3163; // Substract 1 
     memory[ 15 ] = +2164; // store the results to 7 to overwrite it
-    memory[ 16 ] = +4221; // Branchzero to Where the total is loaded; 22
-
+    memory[ 16 ] = +4222; // Branchzero to Where the total is loaded; 22
     memory[ 17 ] = +1062; // Read a second number 
     memory[ 18 ] = +2061; // load the first number
     memory[ 19 ] = +3062; // add the second number
     memory[ 20 ] = +2161; // store the resulting total to the first number to overwrite it
-    
-    memory[ 21 ] = +4012; // Branch to where the loop begins; 13
+    memory[ 21 ] = +4013; // Branch to where the loop begins; 13
     memory[ 22 ] = +2061; // load the total
     memory[ 23 ] = +3265; // divide by 7
     memory[ 24 ] = +2166; // store average
     memory[ 25 ] = +1166; // Write the average
-
     memory[ 61 ] = +0000; // first < TOTAL >
     memory[ 62 ] = +0000; // second
     memory[ 63 ] = +0000; // 1
@@ -70,65 +66,70 @@ int main( void ) {
     memory[ 65 ] = +0000; // 7
     memory[ 66 ] = +0000; // AVERAGE
 
-    for ( i = 0; i <= 25; i++ ) {
-        inst = memory[ i ];
+    while ( instructionCounter <= 25 ) {
+        instructionRegister = memory[ instructionCounter++ ];
             
         // split command
-        splt( &inst, &locatn, &cmd ); 
-        switch ( cmd ) {
+        splt( &instructionRegister, &operand, &operationCode ); 
+        switch ( operationCode ) {
             case READ:
                 printf_s( "\t%s", "Enter an integer "); 
-                scanf( "%d", &memory[ locatn ] );
+                scanf( "%d", &memory[ operand ] );
                 break;
             case WRITE: 
-                printf_s( "\tAverage is %d\n", memory[ locatn ] );
+                printf_s( "\tAverage is %d\n", memory[ operand ] );
                 break; 
             case LOAD: 
-                accumulator = memory[ locatn ];
+                accumulator = memory[ operand ];
                 break; 
             case STORE: 
-                memory[ locatn ] = accumulator;
+                memory[ operand ] = accumulator;
                 break;
             case ADD:
-                accumulator += memory[ locatn ];
+                accumulator += memory[ operand ];
                 break;
             case SUBTRACT:
-                accumulator -= memory[ locatn ];
+                accumulator -= memory[ operand ];
                 break;
             case DIVIDE:
-                accumulator /= memory[ locatn ];
+                accumulator /= memory[ operand ];
                 break;
             case MULTIPLY:
-                accumulator *= memory[ locatn ];
+                accumulator *= memory[ operand ];
                 break;
             case BRANCH:
-                inst = memory[ i = --locatn ];
+                instructionCounter = operand;
                 break;
             case BRANCHNEG:
                 if ( accumulator < 0 ) {
-                    inst = memory[ i = --locatn ]; 
+                    instructionCounter = operand; 
                 } // end if
                 break;
             case BRANCHZERO:
                 if ( accumulator == 0 ) {
-                    inst = memory[ i = --locatn ];
+                    instructionCounter = operand;
                 } // end if
                 break;
             case HALT:
                 break;
         } // end switch   
     } // end while
-    showMemory( memory );
     return 0;
 } /* end main */
 
-int splt( int* const inst, int * const location, int * const cmd ) {
-    *location = *inst % 100; // get a location
-    *cmd  = * inst / 100; // get a command
+int splt( int* const inst, int * const operand, int * const code ) {
+    *operand = *inst % 100; // get a location
+    *code  = * inst / 100; // get a command
 } /* end function splt */
 
-int showMemory( int memory[] ) {
-    printf_s( "%s", "\t  [ 0 ]  [ 1 ]  [ 2 ]  [ 3 ]  [ 4 ]  [ 5 ]  [ 6 ]  [ 7 ]  [ 8 ]  [ 9 ]\n" );
+int dump( int memory[], int accumulator, int i, int inst, int cmd, int locatn ) {
+    printf_s( "%s%+05d%s%02d%s%+05d%s%02d%s%02d", "REGISTERS: \n"
+            "Accumulator              ", accumulator,
+            "\ninstructionCounter       ", i,
+            "\ninstructionRegister      ", inst,
+            "\noperationCode            ", cmd,
+            "\noperand                  ", locatn );
+    printf_s( "%s", "\n\nMEMORY:\n\t  [ 0 ]  [ 1 ]  [ 2 ]  [ 3 ]  [ 4 ]  [ 5 ]  [ 6 ]  [ 7 ]  [ 8 ]  [ 9 ]\n" );
     int row = 0;
     for ( size_t i = 0; i < SIZE; i++ ) {
         if (i % 10 == 0 ) {
