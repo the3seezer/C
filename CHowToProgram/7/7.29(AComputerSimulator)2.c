@@ -108,80 +108,77 @@ void load( int memory[]) {
     printf_s( "%s", "***    Program loading completed    ***\n");
 } /* end function load */
 
-void execute( int memory[], int * accumulatorP, int * operationCodeP, int * instructionCounterP, int * instructionRegisterP, int * operandP ) {
+void execute( int memory[], int * accumulatorPtr, int * operationCodePtr, int * instructionCounterPtr, int * instructionRegisterPtr, int * operandPtr ) {
     printf_s( "%s", "***    Program execution begins     ***\n");
 
-//    int accumulator = 0;
-//    int operationCode = 0;
-//    int instructionCounter = 0;
-//    int instructionRegister = 0;
-//    int operand = 0;
+    int accumulator = 0;
+    int operationCode = 0;
+    int instructionCounter = 0;
+    int instructionRegister = 0;
+    int operand = 0;
 
-    while ( *operationCodeP != HALT ) {
+    while ( operationCode != HALT ) {
 
-        *instructionRegisterP = memory[ *instructionCounterP ];
+        instructionRegister = memory[ instructionCounter++ ];
             
-        *operationCodeP = *instructionRegisterP / 100;
-        *operandP = *instructionRegisterP % 100;
-        
-        if ( *operationCodeP != HALT )
-        	*instructionCounterP = *instructionCounterP + 1;
+        operationCode = instructionRegister / 100;
+        operand = instructionRegister % 100;
 
-        switch ( *operationCodeP ) {
+        switch ( operationCode ) {
             case READ:
                 printf_s( "\t%s", "Enter an integer "); 
-                scanf( "%d", &memory[ *operandP ] );
+                scanf( "%d", &memory[ operand ] );
                 break;
             case WRITE: 
-                printf_s( "\tNumber is %d\n", memory[ *operandP ] );
+                printf_s( "\tNumber is %d\n", memory[ operand ] );
                 break; 
             case LOAD: 
-                *accumulatorP = memory[ *operandP ];
+                accumulator = memory[ operand ];
                 break; 
             case STORE: 
-                memory[ *operandP ] = *accumulatorP;
+                memory[ operand ] = accumulator;
                 break;
             case ADD:
-                *accumulatorP += memory[ *operandP ];
-                if( invalid( *accumulatorP ) ) {
-                	dump( memory, *accumulatorP, *instructionCounterP - 1,*instructionRegisterP, *operationCodeP, *operandP );
+                accumulator += memory[ operand ];
+                if( invalid( accumulator ) ) {
+                	dump( memory, accumulator, instructionCounter - 1,instructionRegister, operationCode, operand );
 				} // end if
                 break;
             case SUBTRACT:
-                *accumulatorP -= memory[ *operandP ];
-                if( invalid( *accumulatorP ) ) {
-                	dump( memory, *accumulatorP, *instructionCounterP - 1,*instructionRegisterP, *operationCodeP, *operandP );
+                accumulator -= memory[ operand ];
+                if( invalid( accumulator ) ) {
+                	dump( memory, accumulator, instructionCounter - 1,instructionRegister, operationCode, operand );
 				} // end if
                 break;
             case DIVIDE:
-            	if ( memory[ *operandP ] == 0 ) {
+            	if ( memory[ operand ] == 0 ) {
                 	printf_s( "%s", "*** Attempt to divide by zero ***\n"
 							        "*** Simpletron execution abnormally terminated ***\n" );
-					dump( memory, *accumulatorP, *instructionCounterP - 1,*instructionRegisterP, *operationCodeP, *operandP );
+					dump( memory, accumulator, instructionCounter - 1,instructionRegister, operationCode, operand );
 				} // end if
-                *accumulatorP /= memory[ *operandP ];
+                accumulator /= memory[ operand ];
 				
-				if( invalid( *accumulatorP ) ) {
-                	dump( memory, *accumulatorP, *instructionCounterP - 1,*instructionRegisterP, *operationCodeP, *operandP );
+				if( invalid( accumulator ) ) {
+                	dump( memory, accumulator, instructionCounter - 1,instructionRegister, operationCode, operand );
 				} // end if
                 break;
             case MULTIPLY:
-                *accumulatorP *= memory[ *operandP ];
-                if( invalid( *accumulatorP ) ) {
-                	dump( memory, *accumulatorP, *instructionCounterP - 1,*instructionRegisterP, *operationCodeP, *operandP );
+                accumulator *= memory[ operand ];
+                if( invalid( accumulator ) ) {
+                	dump( memory, accumulator, instructionCounter - 1,instructionRegister, operationCode, operand );
 				} // end if
                 break;
             case BRANCH:
-                *instructionCounterP = *operandP;
+                instructionCounter = operand;
                 break;
             case BRANCHNEG:
-                if ( *accumulatorP < 0 ) {
-                    *instructionCounterP = *operandP; 
+                if ( accumulator < 0 ) {
+                    instructionCounter = operand; 
                 } // end if
                 break;
             case BRANCHZERO:
-                if ( *accumulatorP == 0 ) {
-                    *instructionCounterP = *operandP;
+                if ( accumulator == 0 ) {
+                    instructionCounter = operand;
                 } // end if
                 break;
             case HALT:
@@ -190,10 +187,16 @@ void execute( int memory[], int * accumulatorP, int * operationCodeP, int * inst
             default:
             	printf_s( "%s", "*** Attempts to execute an invalid operation code ***\n"
 								"*** Simpletron execution abnormally terminated ***\n" );
-				dump( memory, *accumulatorP, *instructionCounterP - 1,*instructionRegisterP, *operationCodeP, *operandP );
+				dump( memory, accumulator, instructionCounter - 1,instructionRegister, operationCode, operand );
 				break;
         } // end switch   
     } // end while
+    
+    *accumulatorPtr = accumulator;
+    *operationCodePtr = operationCode;
+    *instructionCounterPtr = instructionCounter - 1;
+    *instructionRegisterPtr = instructionRegister;
+    *operandPtr = operand;
 } /* end function execute */
 
 int dump( int memory[], int accumulator, int i, int instReg, int code, int operand ) {

@@ -24,7 +24,8 @@ theBitRiddler
 #define HALT 43 // Halt---i.e., the program has completed its task.
 
 void load( int [] );
-void execute( int []);
+void execute( int [], int *, int *, int *, int *, int * );
+int invalid( int );
 int dump( int memory[], int accumulator, int instructionCounter, int instructionRegistor, int OperationCode, int operand );
 int main( void ) {
     int memory[ SIZE ] = { 0 };
@@ -45,87 +46,146 @@ int main( void ) {
 
     load( memory );
 
-    execute( memory );
+    execute( memory, &accumulator, &operationCode, &instructionCounter, &instructionRegister, &operand );
 
     dump( memory, accumulator, instructionCounter,instructionRegister, operationCode, operand );
 
     return 0;
 } /* end main */
 
+int invalid( int accumulator ) {
+	
+	if ( accumulator > +9999 || accumulator < -9999 ) {
+		printf_s( "%s", "*** Accumulator overflow ***\n"
+						"*** Simpletron execution abnormally terminated ***\n" );
+		} // end if
+		
+	return ( accumulator > +9999 || accumulator < -9999 );
+	
+} /* end function invalid */
+
 void load( int memory[]) {
-    memory[ 0  ] = +1009; // Read a number ... ; TOTAL to be
-    memory[ 1  ] = +1010; // load the number
-    memory[ 2  ] = +2009; // divide by it to get 1
-    memory[ 3  ] = +3110; // store 1 
-    memory[ 4  ] = +4107; // load 1
-    memory[ 5  ] = +1109; // add by it to get 2
-    memory[ 6  ] = +4300; // ... 3
-    memory[ 7  ] = +1110; // ... 4
-    memory[ 8  ] = +4300; // ... 5
-    memory[ 9  ] = +0000; // ... 6
-    memory[ 10 ] = +0000; // ... 7
+    int temp = 0; // Template to check the number before putting it to memory
+    int instructionCounter = 0;
+
+    printf_s( "%02d ? ", instructionCounter );
+    scanf( "%d", &temp );
     
-    printf_s( "%s", "\n***    Program loading completed    ***\n\n\n\n");
+	while ( temp < -9999 || temp > +9999  ) {
+		
+		if ( temp == -99999 ) {
+			printf_s( "%s", "***    Program loading completed    ***\n");
+			return;
+		} // end if
+			
+		printf_s( "%s", "\tNumber should be in range between -9999 and +9999\n" );
+		
+		printf_s( "%02d ? ", instructionCounter );
+    	scanf( "%d", &temp );
+	} // end while
+
+    while( temp != -99999 ) {
+    	memory[ instructionCounter++ ] = temp;
+    	
+        printf_s( "%02d ? ", instructionCounter );
+    	scanf( "%d", &temp );
+    	
+	    while ( temp < -9999 || temp > +9999  ) {
+			
+			if ( temp == -99999 ) {
+				printf_s( "%s", "***    Program loading completed    ***\n");
+				return;
+			} // end if
+				
+			printf_s( "%s", "\tNumber should be in range between -9999 and +9999\n" );
+			
+			printf_s( "%02d ? ", instructionCounter );
+	    	scanf( "%d", &temp );
+		} // end while
+			
+    } // end while
+
+    printf_s( "%s", "***    Program loading completed    ***\n");
 } /* end function load */
 
-void execute( int memory[] ) {
+void execute( int memory[], int * accumulatorP, int * operationCodeP, int * instructionCounterP, int * instructionRegisterP, int * operandP ) {
     printf_s( "%s", "***    Program execution begins     ***\n");
 
-    int accumulator = 0;
-    int operationCode = 0;
-    int instructionCounter = 0;
-    int instructionRegister = 0;
-    int operand = 0;
+    while ( *operationCodeP != HALT ) {
 
-    while ( operationCode != HALT ) {
-
-        instructionRegister = memory[ instructionCounter++ ];
+        *instructionRegisterP = memory[ *instructionCounterP ];
             
-        operationCode = instructionRegister / 100;
-        operand = instructionRegister % 100;
+        *operationCodeP = *instructionRegisterP / 100;
+        *operandP = *instructionRegisterP % 100;
+        
+        if ( *operationCodeP != HALT )
+        	*instructionCounterP = *instructionCounterP + 1;
 
-        switch ( operationCode ) {
+        switch ( *operationCodeP ) {
             case READ:
                 printf_s( "\t%s", "Enter an integer "); 
-                scanf( "%d", &memory[ operand ] );
+                scanf( "%d", &memory[ *operandP ] );
                 break;
             case WRITE: 
-                printf_s( "\tNumber is %d\n", memory[ operand ] );
+                printf_s( "\tNumber is %d\n", memory[ *operandP ] );
                 break; 
             case LOAD: 
-                accumulator = memory[ operand ];
+                *accumulatorP = memory[ *operandP ];
                 break; 
             case STORE: 
-                memory[ operand ] = accumulator;
+                memory[ *operandP ] = *accumulatorP;
                 break;
             case ADD:
-                accumulator += memory[ operand ];
+                *accumulatorP += memory[ *operandP ];
+                if( invalid( *accumulatorP ) ) {
+                	dump( memory, *accumulatorP, *instructionCounterP - 1,*instructionRegisterP, *operationCodeP, *operandP );
+				} // end if
                 break;
             case SUBTRACT:
-                accumulator -= memory[ operand ];
+                *accumulatorP -= memory[ *operandP ];
+                if( invalid( *accumulatorP ) ) {
+                	dump( memory, *accumulatorP, *instructionCounterP - 1,*instructionRegisterP, *operationCodeP, *operandP );
+				} // end if
                 break;
             case DIVIDE:
-                accumulator /= memory[ operand ];
+            	if ( memory[ *operandP ] == 0 ) {
+                	printf_s( "%s", "*** Attempt to divide by zero ***\n"
+							        "*** Simpletron execution abnormally terminated ***\n" );
+					dump( memory, *accumulatorP, *instructionCounterP - 1,*instructionRegisterP, *operationCodeP, *operandP );
+				} // end if
+                *accumulatorP /= memory[ *operandP ];
+				
+				if( invalid( *accumulatorP ) ) {
+                	dump( memory, *accumulatorP, *instructionCounterP - 1,*instructionRegisterP, *operationCodeP, *operandP );
+				} // end if
                 break;
             case MULTIPLY:
-                accumulator *= memory[ operand ];
+                *accumulatorP *= memory[ *operandP ];
+                if( invalid( *accumulatorP ) ) {
+                	dump( memory, *accumulatorP, *instructionCounterP - 1,*instructionRegisterP, *operationCodeP, *operandP );
+				} // end if
                 break;
             case BRANCH:
-                instructionCounter = operand;
+                *instructionCounterP = *operandP;
                 break;
             case BRANCHNEG:
-                if ( accumulator < 0 ) {
-                    instructionCounter = operand; 
+                if ( *accumulatorP < 0 ) {
+                    *instructionCounterP = *operandP; 
                 } // end if
                 break;
             case BRANCHZERO:
-                if ( accumulator == 0 ) {
-                    instructionCounter = operand;
+                if ( *accumulatorP == 0 ) {
+                    *instructionCounterP = *operandP;
                 } // end if
                 break;
             case HALT:
                 printf_s( "%s", "*** Simpletron execution terminated ***\n\n\n");
                 break;
+            default:
+            	printf_s( "%s", "*** Attempts to execute an invalid operation code ***\n"
+								"*** Simpletron execution abnormally terminated ***\n" );
+				dump( memory, *accumulatorP, *instructionCounterP - 1,*instructionRegisterP, *operationCodeP, *operandP );
+				break;
         } // end switch   
     } // end while
 } /* end function execute */
