@@ -24,7 +24,8 @@ theBitRiddler
 #define HALT 43 // Halt---i.e., the program has completed its task.
 
 void load( int [] );
-void execute( int []);
+void execute( int [], int *, int *, int *, int *, int * );
+int invalid( int );
 int dump( int memory[], int accumulator, int instructionCounter, int instructionRegistor, int OperationCode, int operand );
 int main( void ) {
     int memory[ SIZE ] = { 0 };
@@ -45,29 +46,69 @@ int main( void ) {
 
     load( memory );
 
-    execute( memory );
+    execute( memory, &accumulator, &operationCode, &instructionCounter, &instructionRegister, &operand );
 
     dump( memory, accumulator, instructionCounter,instructionRegister, operationCode, operand );
 
     return 0;
 } /* end main */
 
+int invalid( int accumulator ) {
+	
+	if ( accumulator > +9999 || accumulator < -9999 ) {
+		printf_s( "%s", "*** Accumulator overflow ***\n"
+						"*** Simpletron execution abnormally terminated ***\n" );
+		} // end if
+		
+	return ( accumulator > +9999 || accumulator < -9999 );
+	
+} /* end function invalid */
+
 void load( int memory[]) {
-    
+    int temp = 0; // Template to check the number before putting it to memory
     int instructionCounter = 0;
 
     printf_s( "%02d ? ", instructionCounter );
-    scanf( "%d", &memory[ instructionCounter ] );
+    scanf( "%d", &temp );
+    
+	while ( temp < -9999 || temp > +9999  ) {
+		
+		if ( temp == -99999 ) {
+			printf_s( "%s", "***    Program loading completed    ***\n");
+			return;
+		} // end if
+			
+		printf_s( "%s", "\tNumber should be in range between -9999 and +9999\n" );
+		
+		printf_s( "%02d ? ", instructionCounter );
+    	scanf( "%d", &temp );
+	} // end while
 
-    while( memory[ instructionCounter ] != -99999 ) {
-        printf_s( "%02d ? ", instructionCounter + 1 );
-        scanf( "%d", &memory[ ++instructionCounter ] );
+    while( temp != -99999 ) {
+    	memory[ instructionCounter++ ] = temp;
+    	
+        printf_s( "%02d ? ", instructionCounter );
+    	scanf( "%d", &temp );
+    	
+	    while ( temp < -9999 || temp > +9999  ) {
+			
+			if ( temp == -99999 ) {
+				printf_s( "%s", "***    Program loading completed    ***\n");
+				return;
+			} // end if
+				
+			printf_s( "%s", "\tNumber should be in range between -9999 and +9999\n" );
+			
+			printf_s( "%02d ? ", instructionCounter );
+	    	scanf( "%d", &temp );
+		} // end while
+			
     } // end while
 
     printf_s( "%s", "***    Program loading completed    ***\n");
 } /* end function load */
 
-void execute( int memory[] ) {
+void execute( int memory[], int * accumulatorPtr, int * operationCodePtr, int * instructionCounterPtr, int * instructionRegisterPtr, int * operandPtr ) {
     printf_s( "%s", "***    Program execution begins     ***\n");
 
     int accumulator = 0;
@@ -99,15 +140,33 @@ void execute( int memory[] ) {
                 break;
             case ADD:
                 accumulator += memory[ operand ];
+                if( invalid( accumulator ) ) {
+                	dump( memory, accumulator, instructionCounter - 1,instructionRegister, operationCode, operand );
+				} // end if
                 break;
             case SUBTRACT:
                 accumulator -= memory[ operand ];
+                if( invalid( accumulator ) ) {
+                	dump( memory, accumulator, instructionCounter - 1,instructionRegister, operationCode, operand );
+				} // end if
                 break;
             case DIVIDE:
+            	if ( memory[ operand ] == 0 ) {
+                	printf_s( "%s", "*** Attempt to divide by zero ***\n"
+							        "*** Simpletron execution abnormally terminated ***\n" );
+					dump( memory, accumulator, instructionCounter - 1,instructionRegister, operationCode, operand );
+				} // end if
                 accumulator /= memory[ operand ];
+				
+				if( invalid( accumulator ) ) {
+                	dump( memory, accumulator, instructionCounter - 1,instructionRegister, operationCode, operand );
+				} // end if
                 break;
             case MULTIPLY:
                 accumulator *= memory[ operand ];
+                if( invalid( accumulator ) ) {
+                	dump( memory, accumulator, instructionCounter - 1,instructionRegister, operationCode, operand );
+				} // end if
                 break;
             case BRANCH:
                 instructionCounter = operand;
@@ -125,8 +184,19 @@ void execute( int memory[] ) {
             case HALT:
                 printf_s( "%s", "*** Simpletron execution terminated ***\n\n\n");
                 break;
+            default:
+            	printf_s( "%s", "*** Attempts to execute an invalid operation code ***\n"
+								"*** Simpletron execution abnormally terminated ***\n" );
+				dump( memory, accumulator, instructionCounter - 1,instructionRegister, operationCode, operand );
+				break;
         } // end switch   
     } // end while
+    
+    *accumulatorPtr = accumulator;
+    *operationCodePtr = operationCode;
+    *instructionCounterPtr = instructionCounter - 1;
+    *instructionRegisterPtr = instructionRegister;
+    *operandPtr = operand;
 } /* end function execute */
 
 int dump( int memory[], int accumulator, int i, int instReg, int code, int operand ) {

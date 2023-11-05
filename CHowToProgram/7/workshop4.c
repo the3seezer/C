@@ -23,91 +23,188 @@ theBitRiddler
 #define BRANCHZERO 42 // Branch to a specific location in memory if the accumulator is zero.
 #define HALT 43 // Halt---i.e., the program has completed its task.
 
-int splt( int * const, int * const, int * const ); // split the instruction; the command and the location
+void load( int [] );
+void execute( int []);
+int invalid( int );
+int dump( int memory[], int accumulator, int instructionCounter, int instructionRegistor, int OperationCode, int operand );
 int main( void ) {
     int memory[ SIZE ] = { 0 };
-    int i = 0; // instruction count
-    int inst = 0; // a full instruction
-    int cmd = 0; // a command of the instruction
-    int locatn = 0; // a location of the instruction
+    int instructionCounter = 0; // instruction counter
+    int instructionRegister = 0; // instruction register
+    int operationCode = 0; // a command of the instruction
+    int operand = 0; // a location of the instruction
     int accumulator = 0;
-    memory[ 0  ] = +1019; // Read a number to define how many numbers to assign, store it to 19 ( The sentinel )
-    memory[ 1  ] = +1021; // Read first number ( largest )
-    memory[ 2  ] = +2019; // load the number
-    memory[ 3  ] = +3219; // divide to get 1
-    memory[ 4  ] = +2120; // store 1 to 20
-    memory[ 5  ] = +2019; // load
-    memory[ 6  ] = +3120; // substract by 1 
-    memory[ 7  ] = +2119; // store to overwrite 19
-    memory[ 8  ] = +4217; // Branchzero to 17
-    memory[ 9  ] = +1022; // Read the second number 
-    memory[ 10 ] = +2021; // load the largest
-    memory[ 11 ] = +3122; // substract the second
-    memory[ 12 ] = +4114; // branchneg to 14 ( if second is larger )
-    memory[ 13 ] = +4016; // branch to 16
-    memory[ 14 ] = +2022; // load the second
-    memory[ 15 ] = +2121; // store to overwrite the first
-    memory[ 16 ] = +4005; // Branch to 5
-    memory[ 17 ] = +1121; // Write the largest
-    memory[ 18 ] = +4300; // HALT
-    memory[ 19 ] = +0000; // SENTINEL
-    memory[ 20 ] = +0000; // 1
-    memory[ 21 ] = +0000; // first number ( The largest )
-    memory[ 22 ] = +0000; // second number
 
-    while( i < SIZE && cmd != HALT ) {
-        inst = memory[  i++  ];
+    printf_s( "%s", "***            Welcome to Simpletron            ***\n"
+                    "***                                             ***\n"
+                    "***  Please enter your program one instruction  ***\n"
+                    "***  (or data word) at a time. I will type the  ***\n"
+                    "***  location number and a question mark (?).   ***\n"
+                    "***  You then type the word for that location.  ***\n"
+                    "***  Type the sentinel -99999 to stop entering  ***\n"
+                    "***  your program.                              ***\n");
+
+    load( memory );
+
+    execute( memory );
+
+    dump( memory, accumulator, instructionCounter,instructionRegister, operationCode, operand );
+
+    return 0;
+} /* end main */
+
+int invalid( int accumulator ) {
+	
+	if ( accumulator > +9999 || accumulator < -9999 ) {
+		printf_s( "%s", "*** Accumulator overflow ***\n"
+						"*** Simpletron execution abnormally terminated ***\n" );
+		} // end if
+		
+	return ( accumulator > +9999 || accumulator < -9999 );
+	
+} /* end function invalid */
+
+void load( int memory[]) {
+    int temp = 0; // Template to check the number before putting it to memory
+    int instructionCounter = 0;
+
+    printf_s( "%02d ? ", instructionCounter );
+    scanf( "%d", &temp );
+    
+	while ( temp < -9999 || temp > +9999  ) {
+		
+		if ( temp == -99999 ) {
+			printf_s( "%s", "***    Program loading completed    ***\n");
+			return;
+		} // end if
+			
+		printf_s( "%s", "\tNumber should be in range between -9999 and +9999\n" );
+		
+		printf_s( "%02d ? ", instructionCounter );
+    	scanf( "%d", &temp );
+	} // end while
+
+    while( temp != -99999 ) {
+    	memory[ instructionCounter++ ] = temp;
+    	
+        printf_s( "%02d ? ", instructionCounter );
+    	scanf( "%d", &temp );
+    	
+	    while ( temp < -9999 || temp > +9999  ) {
+			
+			if ( temp == -99999 ) {
+				printf_s( "%s", "***    Program loading completed    ***\n");
+				return;
+			} // end if
+				
+			printf_s( "%s", "\tNumber should be in range between -9999 and +9999\n" );
+			
+			printf_s( "%02d ? ", instructionCounter );
+	    	scanf( "%d", &temp );
+		} // end while
+			
+    } // end while
+
+    printf_s( "%s", "***    Program loading completed    ***\n");
+} /* end function load */
+
+void execute( int memory[] ) {
+    printf_s( "%s", "***    Program execution begins     ***\n");
+
+    int accumulator = 0;
+    int operationCode = 0;
+    int instructionCounter = 0;
+    int instructionRegister = 0;
+    int operand = 0;
+
+    while ( operationCode != HALT ) {
+
+        instructionRegister = memory[ instructionCounter++ ];
             
-        // split command
-        splt( &inst, &locatn, &cmd ); 
-        switch ( cmd ) {
+        operationCode = instructionRegister / 100;
+        operand = instructionRegister % 100;
+
+        switch ( operationCode ) {
             case READ:
                 printf_s( "\t%s", "Enter an integer "); 
-                scanf( "%d", &memory[ locatn ] );
+                scanf( "%d", &memory[ operand ] );
                 break;
             case WRITE: 
-                printf_s( "\tlocation %d\n\tLargest is %d\n", locatn, memory[ locatn ] );
+                printf_s( "\tNumber is %d\n", memory[ operand ] );
                 break; 
             case LOAD: 
-                accumulator = memory[ locatn ];
+                accumulator = memory[ operand ];
                 break; 
             case STORE: 
-                memory[ locatn ] = accumulator;
+                memory[ operand ] = accumulator;
                 break;
             case ADD:
-                accumulator += memory[ locatn ];
+                accumulator += memory[ operand ];
+                if( invalid( accumulator ) ) {
+                	dump( memory, accumulator, instructionCounter - 1,instructionRegister, operationCode, operand );
+				} // end if
                 break;
             case SUBTRACT:
-                accumulator -= memory[ locatn ];
+                accumulator -= memory[ operand ];
+                if( invalid( accumulator ) ) {
+                	dump( memory, accumulator, instructionCounter - 1,instructionRegister, operationCode, operand );
+				} // end if
                 break;
             case DIVIDE:
-                accumulator /= memory[ locatn ];
+                accumulator /= memory[ operand ];
+                if ( memory[ operand ] == 0 ) {
+                	printf_s( "%s", "*** Attempt to divide by zero ***\n"
+							        "*** Simpletron execution abnormally terminated ***\n" );
+					dump( memory, accumulator, instructionCounter - 1,instructionRegister, operationCode, operand );
+				} // end if
+				
+				if( invalid( accumulator ) ) {
+                	dump( memory, accumulator, instructionCounter - 1,instructionRegister, operationCode, operand );
+				} // end if
                 break;
             case MULTIPLY:
-                accumulator *= memory[ locatn ];
+                accumulator *= memory[ operand ];
+                if( invalid( accumulator ) ) {
+                	dump( memory, accumulator, instructionCounter - 1,instructionRegister, operationCode, operand );
+				} // end if
                 break;
             case BRANCH:
-                inst = memory[ i = locatn ];
+                instructionCounter = operand;
                 break;
             case BRANCHNEG:
                 if ( accumulator < 0 ) {
-                    inst = memory[ i = locatn ]; 
+                    instructionCounter = operand; 
                 } // end if
                 break;
             case BRANCHZERO:
                 if ( accumulator == 0 ) {
-                    inst = memory[ i = locatn ];
+                    instructionCounter = operand;
                 } // end if
                 break;
             case HALT:
+                printf_s( "%s", "*** Simpletron execution terminated ***\n\n\n");
                 break;
         } // end switch   
     } // end while
-    return 0;
+} /* end function execute */
 
-} /* end main */
+int dump( int memory[], int accumulator, int i, int instReg, int code, int operand ) {
+    printf_s( "%s%+05d%s%02d%s%+05d%s%02d%s%02d", "REGISTERS: \n"
+            "Accumulator              ", accumulator,
+            "\ninstructionCounter       ", i,
+            "\ninstructionRegister      ", instReg,
+            "\noperationCode            ", code,
+            "\noperand                  ", operand );
 
-int splt( int* const inst, int * const location, int * const cmd ) {
-    *location = *inst % 100; // get a location
-    *cmd  = * inst / 100; // get a command
-} /* end function splt */
+    printf_s( "%s", "\n\nMEMORY:\n\t  [ 0 ]  [ 1 ]  [ 2 ]  [ 3 ]  [ 4 ]  [ 5 ]  [ 6 ]  [ 7 ]  [ 8 ]  [ 9 ]\n" );
+    int row = 0;
+    for ( size_t i = 0; i < SIZE; i++ ) {
+        if (i % 10 == 0 ) {
+            printf_s( "\n[ %d%s ]    ", row, (i == 0) ? " " : "" );
+            row += 10;
+        } // end if
+        printf_s( "%+05d  ", memory[ i ] );
+    } // end for
+
+    puts("");
+} /* end function showMemory */

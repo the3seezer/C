@@ -64,8 +64,7 @@ void load( int memory[]) {
     memory[ 8  ] = +4300; // ... 5
     memory[ 9  ] = +0000; // ... 6
     memory[ 10 ] = +0000; // ... 7
-    memory[ 11 ] = -99999; // store 7 for termination
-
+    
     printf_s( "%s", "\n***    Program loading completed    ***\n\n\n\n");
 } /* end function load */
 
