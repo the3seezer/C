@@ -56,8 +56,7 @@ int main( void ) {
 int invalid( int accumulator ) {
 	
 	if ( accumulator > +9999 || accumulator < -9999 ) {
-		printf_s( "%s", "*** Accumulator overflow ***\n"
-						"*** Simpletron execution abnormally terminated ***\n" );
+		printf_s( "%s", "*** Accumulator overflow ***\n" );
 		} // end if
 		
 	return ( accumulator > +9999 || accumulator < -9999 );
@@ -116,6 +115,7 @@ void execute( int memory[], int * accumulatorPtr, int * operationCodePtr, int * 
     int instructionCounter = 0;
     int instructionRegister = 0;
     int operand = 0;
+    int errorFlag = 0;
 
     while ( operationCode != HALT ) {
 
@@ -142,30 +142,34 @@ void execute( int memory[], int * accumulatorPtr, int * operationCodePtr, int * 
                 accumulator += memory[ operand ];
                 if( invalid( accumulator ) ) {
                 	dump( memory, accumulator, instructionCounter - 1,instructionRegister, operationCode, operand );
+                	errorFlag = 1;
 				} // end if
                 break;
             case SUBTRACT:
                 accumulator -= memory[ operand ];
                 if( invalid( accumulator ) ) {
                 	dump( memory, accumulator, instructionCounter - 1,instructionRegister, operationCode, operand );
+                	errorFlag = 1;
 				} // end if
                 break;
             case DIVIDE:
             	if ( memory[ operand ] == 0 ) {
-                	printf_s( "%s", "*** Attempt to divide by zero ***\n"
-							        "*** Simpletron execution abnormally terminated ***\n" );
+                	printf_s( "%s", "*** Attempt to divide by zero ***\n" );
 					dump( memory, accumulator, instructionCounter - 1,instructionRegister, operationCode, operand );
+					errorFlag = 1;
 				} // end if
                 accumulator /= memory[ operand ];
 				
 				if( invalid( accumulator ) ) {
                 	dump( memory, accumulator, instructionCounter - 1,instructionRegister, operationCode, operand );
+                	errorFlag = 1;
 				} // end if
                 break;
             case MULTIPLY:
                 accumulator *= memory[ operand ];
                 if( invalid( accumulator ) ) {
                 	dump( memory, accumulator, instructionCounter - 1,instructionRegister, operationCode, operand );
+                	errorFlag = 1;
 				} // end if
                 break;
             case BRANCH:
@@ -182,12 +186,15 @@ void execute( int memory[], int * accumulatorPtr, int * operationCodePtr, int * 
                 } // end if
                 break;
             case HALT:
-                printf_s( "%s", "*** Simpletron execution terminated ***\n\n\n");
+            	if ( errorFlag )
+            		printf_s( "%s", "*** Simpletron execution abnormally terminated ***\n");
+            	else
+                	printf_s( "%s", "*** Simpletron execution terminated ***\n");
                 break;
             default:
-            	printf_s( "%s", "*** Attempts to execute an invalid operation code ***\n"
-								"*** Simpletron execution abnormally terminated ***\n" );
+            	printf_s( "%s", "*** Attempts to execute an invalid operation code ***\n" );
 				dump( memory, accumulator, instructionCounter - 1,instructionRegister, operationCode, operand );
+				errorFlag = 1;
 				break;
         } // end switch   
     } // end while
