@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/ABC/Codes/C/CHowToProgram/7/instructors",
-      "program": "c:/ABC/Codes/C/CHowToProgram/7/instructors/build/Debug/outDebug",
+      "cwd": "c:/ABC/Codes/C/CHowToProgram/7",
+      "program": "c:/ABC/Codes/C/CHowToProgram/7/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
