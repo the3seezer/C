@@ -3,7 +3,7 @@ theBitRiddler
 7/10/2023
 12:10 AM
 Demonstrating an array of pointers to functions.
-*/
+*
 #include <stdio.h>
 
 void function1( int a );

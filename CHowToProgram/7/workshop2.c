@@ -146,7 +146,7 @@ void execute( int * memory, int * acPtr, int * icPtr, int * irPtr, int * opCodeP
                     *acPtr = temp;
                     ++( *icPtr );
                 } // end else
-
+                break;
             case BRANCH:
                 *icPtr = *opPtr;
                 break;
@@ -227,7 +227,7 @@ void dump( int * memory, int accumulator, int instructionCounter, int instructio
     for ( size_t i = 0; i < SIZE; i++ ) {
 
         if ( i % 10 == 0 ) {
-            printf_s( "\n%02d ", i );
+            printf_s( "\n%03d ", i );
         } // end if
 
         printf_s( "%+05d ", memory[ i ] );
