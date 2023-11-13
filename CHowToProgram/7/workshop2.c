@@ -8,11 +8,11 @@ theBitRiddler
 #include <math.h>
 
 #define SIZE 1000
-#define TRUE 1
+#define TRUE 1 
 #define FALSE 0
 #define SENTINEL -99999
-#define READ 10
-#define WRITE 11
+#define READ 10 // A
+#define WRITE 11 // B
 #define LOAD 20
 #define STORE 21
 #define ADD 30
@@ -218,7 +218,7 @@ void dump( int * memory, int accumulator, int instructionCounter, int instructio
      "REGISTERs", "accumulator", accumulator, "instructionCounter", instructionCounter, "instructionRegister", instructionRegister, 
      "operationCode", operationCode, "operand", operand );
 
-     printf_s( "%s\n", "MEMORY" );
+     printf_s( "%s\n ", "MEMORY" );
 
      for ( int i = 0; i <= 9; i++ ) {
         printf_s( "%5d ", i );
