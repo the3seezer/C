@@ -10,22 +10,24 @@ theBitRiddler
 #define SIZE 1000
 #define TRUE 1 
 #define FALSE 0
-#define SENTINEL -99999
+#define SENTINEL -1048575 // -1869F
 #define READ 10 // A
 #define WRITE 11 // B
-#define LOAD 20
-#define STORE 21
-#define ADD 30
-#define SUBSTRACT 31
-#define DIVIDE 32
-#define MULTIPLY 33
-#define MOD 34 // Remainder instruction
-#define POW 35 // Exponentiations
+#define LOAD 20 // 14
+#define STORE 21 // 15
 
-#define BRANCH 40
-#define BRANCHNEG 41
-#define BRANCHZERO 42
-#define HALT 43
+#define ADD 30 // 1E
+#define SUBSTRACT 31 // 1F
+#define DIVIDE 32 // 20
+#define MULTIPLY 33 // 21
+#define MOD 34 // 22 Remainder instruction
+#define POW 35 // 23 Exponentiations
+#define NEWL 36 // 24 New line
+
+#define BRANCH 40 // 28
+#define BRANCHNEG 41 // 29
+#define BRANCHZERO 42 // 2A
+#define HALT 43 // 2B
 
 int validWord( int word );
 void load( int * loadMemory );
@@ -52,8 +54,8 @@ void execute( int * memory, int * acPtr, int * icPtr, int * irPtr, int * opCodeP
     int temp = 0;
 
     *irPtr = memory[ *icPtr ];
-    *opCodePtr = *irPtr / 100;
-    *opPtr = *irPtr % 100;
+    *opCodePtr = *irPtr / 256;
+    *opPtr = *irPtr % 256;
 
     while ( *opCodePtr != HALT && fatal != TRUE ) {
 
@@ -147,6 +149,8 @@ void execute( int * memory, int * acPtr, int * icPtr, int * irPtr, int * opCodeP
                     ++( *icPtr );
                 } // end else
                 break;
+            case NEWL:
+                printf_s( "%s", "\n" );
             case BRANCH:
                 *icPtr = *opPtr;
                 break;
@@ -173,8 +177,8 @@ void execute( int * memory, int * acPtr, int * icPtr, int * irPtr, int * opCodeP
         } // end switch
 
          *irPtr = memory[ *icPtr ];
-        *opCodePtr = *irPtr / 100;
-        *opPtr = *irPtr % 100;   
+        *opCodePtr = *irPtr / 256;
+        *opPtr = *irPtr % 256;   
     } // end while
     printf_s( "%s", "Simpletron execution terminated\n");
 } /* end function execute */
@@ -186,26 +190,26 @@ void load( int * loadMemory ) {
                     "*** (or data word) at a time. I will type the ***\n"
                     "*** location number and a question mark (?). ***\n"
                     "*** You then type the word for that location. ***\n"
-                    "*** Type the sentinel -99999 to stop entering ***\n"
+                    "*** Type the sentinel -FFFFF to stop entering ***\n"
                     "*** your program.                             ***\n" );
     long instruction = 0;
     int i = 0;// indexing variable
 
     printf_s( "%s", "00 ? ");
 
-    scanf( "%ld", &instruction );
+    scanf( "%lx", &instruction );
 
     while ( instruction != SENTINEL ) {
 
         if ( !validWord( instruction ) ) {
-            printf_s( "%s", "Number out of range please enter again ");
+            printf_s( "%s", "Number out of range please enter again \n");
         } // end if
         else {
             loadMemory[ i++ ] = instruction;
         } // end else
 
         printf_s( "%02d ? ", i );
-        scanf( "%ld", &instruction );
+        scanf( "%lx", &instruction );
         
     } // end while
 
@@ -239,6 +243,6 @@ void dump( int * memory, int accumulator, int instructionCounter, int instructio
 
 int validWord( int word ) {
 
-    return ( word >= -9999 && word <= 9999 );
+    return ( word >= -65535 && word <= 65535 );
 
 } /* end function validWord */

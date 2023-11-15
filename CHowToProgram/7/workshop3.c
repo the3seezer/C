@@ -1,190 +1,248 @@
 /*
 theBitRiddler
-10/14/2023
-10:50 AM
- (Machine-Language Programming) 
+11/7/2023
+2:28 AM
+ (Modifications to the Simpletron Simulator)
 */
 #include <stdio.h>
-#define SIZE 100
-// Input/Output operations:
-#define READ 10 // Read a word from the keyboard into a specific location in memory.
-#define WRITE 11 // Write a word from a specific location in memory to the screen.
-// Load/store operations:
-#define LOAD 20 // Load a word from a specific location in memory into the accumulator.
-#define STORE 21 // Store a word from the accumulator into a specific location in memory.
-// Arithmetic operations:
-#define ADD 30 // Add a word from a specific location in memory to the word in the accumulator ( leave the result in the accumulator).
-#define SUBTRACT 31 // Substract a word from a specific location in memory into the word in the accumulator ( leave the result in the accumulator).
-#define DIVIDE 32 // Divide a word from a specific location in memory into the word in the accumulator (leave the result in the accumulator).
-#define MULTIPLY 33 // Multiply a word from a specific location in memory by the word in the accumulator (leave the result in the accumulator).
-// transfer-of-control operations:
-#define BRANCH 40 // Branch to a specific location in a memory.
-#define BRANCHNEG 41 // Branch to a specific location in memory if the accumulator is negative.
-#define BRANCHZERO 42 // Branch to a specific location in memory if the accumulator is zero.
-#define HALT 43 // Halt---i.e., the program has completed its task.
+#include <math.h>
 
-void load( int [] );
-void execute( int [], int *, int *, int *, int *, int * );
-int invalid( int );
-int dump( int memory[], int accumulator, int instructionCounter, int instructionRegistor, int OperationCode, int operand );
+#define SIZE 1000
+#define TRUE 1 
+#define FALSE 0
+#define SENTINEL -1048575 // -1869F
+#define READ 10 // A
+#define WRITE 11 // B
+#define LOAD 20 // 14
+#define STORE 21 // 15
+
+#define ADD 30 // 1E
+#define SUBSTRACT 31 // 1F
+#define DIVIDE 32 // 20
+#define MULTIPLY 33 // 21
+#define MOD 34 // 22 Remainder instruction
+#define POW 35 // 23 Exponentiations
+#define NEWL 36 // 24 New line
+
+#define BRANCH 40 // 28
+#define BRANCHNEG 41 // 29
+#define BRANCHZERO 42 // 2A
+#define HALT 43 // 2B
+
+int validWord( int word );
+void load( int * loadMemory );
+void execute( int * memory, int * acPtr, int * icPtr, int * irPtr, int * opCodePtr, int * opPtr );
+void dump( int * memory, int accumulator, int instructionCounter, int instructionRegister, int operationCode, int operand );
 int main( void ) {
     int memory[ SIZE ] = { 0 };
-    int instructionCounter = 0; // instruction counter
-    int instructionRegister = 0; // instruction register
-    int operationCode = 0; // a command of the instruction
-    int operand = 0; // a location of the instruction
-    int accumulator = 0;
-
-    printf_s( "%s", "***            Welcome to Simpletron            ***\n"
-                    "***                                             ***\n"
-                    "***  Please enter your program one instruction  ***\n"
-                    "***  (or data word) at a time. I will type the  ***\n"
-                    "***  location number and a question mark (?).   ***\n"
-                    "***  You then type the word for that location.  ***\n"
-                    "***  Type the sentinel -99999 to stop entering  ***\n"
-                    "***  your program.                              ***\n");
+    int ac = 0; // accumulator
+    int ic = 0; // instruction counter
+    int ir = 0; // instruction register
+    int opCode = 0; // operation Code
+    int operand = 0; // operand
 
     load( memory );
-
-    execute( memory, &accumulator, &operationCode, &instructionCounter, &instructionRegister, &operand );
-
-    dump( memory, accumulator, instructionCounter,instructionRegister, operationCode, operand );
+    execute( memory, &ac, &ic, &ir, &opCode, &operand );
+    dump( memory, ac, ic, ir, opCode, operand);
 
     return 0;
-} /* end main */
+} /* end main */ 
 
-int invalid( int accumulator ) {
-	
-	if ( accumulator > +9999 || accumulator < -9999 ) {
-		printf_s( "%s", "*** Accumulator overflow ***\n"
-						"*** Simpletron execution abnormally terminated ***\n" );
-		} // end if
-		
-	return ( accumulator > +9999 || accumulator < -9999 );
-	
-} /* end function invalid */
+void execute( int * memory, int * acPtr, int * icPtr, int * irPtr, int * opCodePtr, int * opPtr ) {
+    printf_s( "%s", "Program execution begins \n");
+    int fatal = FALSE; // fatal error flag
+    int temp = 0;
 
-void load( int memory[]) {
-    memory[ 0  ] = +1009; // Read a number ... ; TOTAL to be
-    memory[ 1  ] = +1010; // load the number
-    memory[ 2  ] = +2009; // divide by it to get 1
-    memory[ 3  ] = +3110; // store 1 
-    memory[ 4  ] = +4107; // load 1
-    memory[ 5  ] = +1109; // add by it to get 2
-    memory[ 6  ] = +4300; // ... 3
-    memory[ 7  ] = +1110; // ... 4
-    memory[ 8  ] = +4300; // ... 5
-    memory[ 9  ] = +0000; // ... 6
-    memory[ 10 ] = +0000; // ... 7
+    *irPtr = memory[ *icPtr ];
+    *opCodePtr = *irPtr / 256;
+    *opPtr = *irPtr % 256;
 
-    printf_s( "%s", "***    Program loading completed    ***\n");
-} /* end function load */
+    while ( *opCodePtr != HALT && fatal != TRUE ) {
 
-void execute( int memory[], int * accumulatorP, int * operationCodeP, int * instructionCounterP, int * instructionRegisterP, int * operandP ) {
-    printf_s( "%s", "***    Program execution begins     ***\n");
-
-//    int accumulator = 0;
-//    int operationCode = 0;
-//    int instructionCounter = 0;
-//    int instructionRegister = 0;
-//    int operand = 0;
-
-    while ( *operationCodeP != HALT ) {
-
-        *instructionRegisterP = memory[ *instructionCounterP ];
-            
-        *operationCodeP = *instructionRegisterP / 100;
-        *operandP = *instructionRegisterP % 100;
-        
-        if ( *operationCodeP != HALT )
-        	*instructionCounterP = *instructionCounterP + 1;
-
-        switch ( *operationCodeP ) {
+        switch ( *opCodePtr ) {
             case READ:
-                printf_s( "\t%s", "Enter an integer "); 
-                scanf( "%d", &memory[ *operandP ] );
+                printf_s( "%s", "Enter an integer ");
+                scanf( "%d", &temp );
+
+                while ( !validWord( temp ) ) {
+                    printf_s( "%s", "Number out of range please enter again ");
+                    scanf( "%d", &temp );
+                } // end while
+                
+                memory[ *opPtr ] = temp;
+                ++( *icPtr );
                 break;
-            case WRITE: 
-                printf_s( "\tNumber is %d\n", memory[ *operandP ] );
-                break; 
-            case LOAD: 
-                *accumulatorP = memory[ *operandP ];
-                break; 
-            case STORE: 
-                memory[ *operandP ] = *accumulatorP;
+            case WRITE:
+                printf_s( "Content is %d\n", memory[ *opPtr ] );
+                ++( *icPtr );
+                break;
+            case LOAD:
+                *acPtr = memory[ *opPtr ];
+                ++( *icPtr );
+                break;
+            case STORE:
+                memory[ *opPtr ] = *acPtr;
+                ++( *icPtr );
                 break;
             case ADD:
-                *accumulatorP += memory[ *operandP ];
-                if( invalid( *accumulatorP ) ) {
-                	dump( memory, *accumulatorP, *instructionCounterP - 1,*instructionRegisterP, *operationCodeP, *operandP );
-				} // end if
+                temp = *acPtr + memory[ *opPtr ];
+
+                if ( !validWord( temp ) ) {
+                    printf_s( "%s", "FATAL ERROR, Accumulator overflow\n"
+                                    "Simpletron execution abnormally terminated\n" );
+                    fatal = TRUE;
+                } // end if
+                else {
+                    *acPtr = temp;
+                    ++( *icPtr );
+                } // end else
                 break;
-            case SUBTRACT:
-                *accumulatorP -= memory[ *operandP ];
-                if( invalid( *accumulatorP ) ) {
-                	dump( memory, *accumulatorP, *instructionCounterP - 1,*instructionRegisterP, *operationCodeP, *operandP );
-				} // end if
+            case SUBSTRACT:
+                temp = *acPtr - memory[ *opPtr ];
+
+                if ( !validWord( temp ) ) {
+                    printf_s( "%s", "FATAL ERROR, Accumulator underflow\n"
+                                    "Simpletron execution abnormally terminated\n" );
+                    fatal = TRUE;
+                } // end if
+                else {
+                    *acPtr = temp;
+                    ++( *icPtr );
+                } // end else
                 break;
             case DIVIDE:
-            	if ( memory[ *operandP ] == 0 ) {
-                	printf_s( "%s", "*** Attempt to divide by zero ***\n"
-							        "*** Simpletron execution abnormally terminated ***\n" );
-					dump( memory, *accumulatorP, *instructionCounterP - 1,*instructionRegisterP, *operationCodeP, *operandP );
-				} // end if
-                *accumulatorP /= memory[ *operandP ];
-				
-				if( invalid( *accumulatorP ) ) {
-                	dump( memory, *accumulatorP, *instructionCounterP - 1,*instructionRegisterP, *operationCodeP, *operandP );
-				} // end if
+                if ( memory[ *opPtr ] == 0 ) {
+                    printf_s( "%s", "FATAL ERROR, Division by zero\n"  
+                                    "Simpletron execution abnormally terminated\n" );
+                    fatal = TRUE;
+                } // end if
+                else {
+                    *acPtr /= memory[ *opPtr ];
+                    ++( *icPtr );
+                } // end else
                 break;
             case MULTIPLY:
-                *accumulatorP *= memory[ *operandP ];
-                if( invalid( *accumulatorP ) ) {
-                	dump( memory, *accumulatorP, *instructionCounterP - 1,*instructionRegisterP, *operationCodeP, *operandP );
-				} // end if
+                temp = *acPtr * memory[ *opPtr ];
+                if ( !validWord( temp ) ) {
+                    printf_s( "%s", "FATAL ERROR, Accumulator overflow\n"
+                                    "Simpletron execution abnormally terminated\n" );
+                    fatal = TRUE;
+                } // end if
+                else {
+                    *acPtr = temp;
+                    ++( *icPtr );
+                } // end else
                 break;
+            case MOD:
+                *acPtr %= memory[ *opPtr ];
+                ++( *icPtr );
+                break;
+            case POW:
+                temp = ( int ) pow( *acPtr, memory[ *opPtr ] );
+                if ( !validWord( temp ) ) {
+                    printf_s( "%s", "FATAL ERROR, Accumulator overflow\n"
+                                    "Simpletron execution abnormally terminated\n" );
+                    fatal = TRUE;
+                } // end if
+                else {
+                    *acPtr = temp;
+                    ++( *icPtr );
+                } // end else
+                break;
+            case NEWL:
+                printf_s( "%s", "\n" );
             case BRANCH:
-                *instructionCounterP = *operandP;
+                *icPtr = *opPtr;
                 break;
             case BRANCHNEG:
-                if ( *accumulatorP < 0 ) {
-                    *instructionCounterP = *operandP; 
+                if ( *acPtr < 0 ) {
+                    *icPtr = *opPtr;
                 } // end if
+                else {
+                    ++( *icPtr );
+                } // end else
                 break;
             case BRANCHZERO:
-                if ( *accumulatorP == 0 ) {
-                    *instructionCounterP = *operandP;
+                if ( *acPtr == 0 ) {
+                    *icPtr = *opPtr;
                 } // end if
-                break;
-            case HALT:
-                printf_s( "%s", "*** Simpletron execution terminated ***\n\n\n");
+                else {
+                    ++( *icPtr );
+                } // end else
                 break;
             default:
-            	printf_s( "%s", "*** Attempts to execute an invalid operation code ***\n"
-								"*** Simpletron execution abnormally terminated ***\n" );
-				dump( memory, *accumulatorP, *instructionCounterP - 1,*instructionRegisterP, *operationCodeP, *operandP );
-				break;
-        } // end switch   
+                printf_s( "%s", "FATAL ERROR, invalid operation Code\n"
+                                "Simpletron execution abnormally terminated\n" );
+                break;
+        } // end switch
+
+         *irPtr = memory[ *icPtr ];
+        *opCodePtr = *irPtr / 256;
+        *opPtr = *irPtr % 256;   
     } // end while
+    printf_s( "%s", "Simpletron execution terminated\n");
 } /* end function execute */
 
-int dump( int memory[], int accumulator, int i, int instReg, int code, int operand ) {
-    printf_s( "%s%+05d%s%02d%s%+05d%s%02d%s%02d", "REGISTERS: \n"
-            "Accumulator              ", accumulator,
-            "\ninstructionCounter       ", i,
-            "\ninstructionRegister      ", instReg,
-            "\noperationCode            ", code,
-            "\noperand                  ", operand );
+void load( int * loadMemory ) {
+    printf_s( "%s", "*** Welcome to Simpletron ***\n"
+                    "***                                          ***\n"
+                    "*** Please enter your program one instruction ***\n"
+                    "*** (or data word) at a time. I will type the ***\n"
+                    "*** location number and a question mark (?). ***\n"
+                    "*** You then type the word for that location. ***\n"
+                    "*** Type the sentinel -FFFFF to stop entering ***\n"
+                    "*** your program.                             ***\n" );
+    long instruction = 0;
+    int i = 0;// indexing variable
 
-    printf_s( "%s", "\n\nMEMORY:\n\t  [ 0 ]  [ 1 ]  [ 2 ]  [ 3 ]  [ 4 ]  [ 5 ]  [ 6 ]  [ 7 ]  [ 8 ]  [ 9 ]\n" );
-    int row = 0;
-    for ( size_t i = 0; i < SIZE; i++ ) {
-        if (i % 10 == 0 ) {
-            printf_s( "\n[ %d%s ]    ", row, (i == 0) ? " " : "" );
-            row += 10;
+    printf_s( "%s", "00 ? ");
+
+    scanf( "%lx", &instruction );
+
+    while ( instruction != SENTINEL ) {
+
+        if ( !validWord( instruction ) ) {
+            printf_s( "%s", "Number out of range please enter again \n");
         } // end if
-        printf_s( "%+05d  ", memory[ i ] );
+        else {
+            loadMemory[ i++ ] = instruction;
+        } // end else
+
+        printf_s( "%02d ? ", i );
+        scanf( "%lx", &instruction );
+        
+    } // end while
+
+    printf_s( "%s", "Program loading completed\n" );
+
+} /* end function load */
+
+void dump( int * memory, int accumulator, int instructionCounter, int instructionRegister, int operationCode, int operand ) {
+    printf_s( "%s\n%-23s%+05d\n%-23s%5.2d\n%-23s%+05d\n%-23s%5.2d\n%-23s%5.2d\n",
+     "REGISTERs", "accumulator", accumulator, "instructionCounter", instructionCounter, "instructionRegister", instructionRegister, 
+     "operationCode", operationCode, "operand", operand );
+
+     printf_s( "%s\n ", "MEMORY" );
+
+     for ( int i = 0; i <= 9; i++ ) {
+        printf_s( "%5d ", i );
+     } // end for
+
+    for ( size_t i = 0; i < SIZE; i++ ) {
+
+        if ( i % 10 == 0 ) {
+            printf_s( "\n%03d ", i );
+        } // end if
+
+        printf_s( "%+05d ", memory[ i ] );
+
     } // end for
 
-    puts("");
-} /* end function showMemory */
+    printf_s( "%s", "\n" );
+} /* end function dump */
+
+int validWord( int word ) {
+
+    return ( word >= -65535 && word <= 65535 );
+
+} /* end function validWord */
