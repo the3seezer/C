@@ -95,7 +95,6 @@ void mazeTraversal( char maze[][ 12 ], int xCoord, int yCoord, int direction ) {
             } // end switch
         } // end for
     } // end else
-
 } /* end function mazeTraversal */
 
 int validMove( char maze[][ 12 ], int r, int c ) {

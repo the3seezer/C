@@ -151,6 +151,8 @@ void execute( int * memory, int * acPtr, int * icPtr, int * irPtr, int * opCodeP
                 break;
             case NEWL:
                 printf_s( "%s", "\n" );
+                ++( *icPtr );
+                break;
             case BRANCH:
                 *icPtr = *opPtr;
                 break;
