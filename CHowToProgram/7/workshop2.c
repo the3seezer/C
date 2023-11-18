@@ -51,7 +51,7 @@ int main( void ) {
 void execute( int * memory, int * acPtr, int * icPtr, int * irPtr, int * opCodePtr, int * opPtr ) {
     printf_s( "%s", "Program execution begins \n");
     int fatal = FALSE; // fatal error flag
-    int temp = 0;
+    double temp = 0;
 
     *irPtr = memory[ *icPtr ];
     *opCodePtr = *irPtr / 256;
@@ -62,11 +62,11 @@ void execute( int * memory, int * acPtr, int * icPtr, int * irPtr, int * opCodeP
         switch ( *opCodePtr ) {
             case READ:
                 printf_s( "%s", "Enter an integer ");
-                scanf( "%d", &temp );
+                scanf( "%lf", &temp );
 
                 while ( !validWord( temp ) ) {
                     printf_s( "%s", "Number out of range please enter again ");
-                    scanf( "%d", &temp );
+                    scanf( "%lf", &temp );
                 } // end while
                 
                 memory[ *opPtr ] = temp;
