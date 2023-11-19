@@ -10,7 +10,7 @@ theBitRiddler
 #define SIZE 1000
 #define TRUE 1 
 #define FALSE 0
-#define SENTINEL -1048575 // -1869F
+#define SENTINEL -1048575 // -FFFFF
 #define READ 10 // A
 #define WRITE 11 // B
 #define LOAD 20 // 14
@@ -186,11 +186,11 @@ void execute( int * memory, int * acPtr, int * icPtr, int * irPtr, int * opCodeP
 } /* end function execute */
 
 void load( int * loadMemory ) {
-    printf_s( "%s", "*** Welcome to Simpletron ***\n"
-                    "***                                          ***\n"
+    printf_s( "%s", "***       Welcome to Simpletron               ***\n"
+                    "***                                           ***\n"
                     "*** Please enter your program one instruction ***\n"
                     "*** (or data word) at a time. I will type the ***\n"
-                    "*** location number and a question mark (?). ***\n"
+                    "*** location number and a question mark (?).  ***\n"
                     "*** You then type the word for that location. ***\n"
                     "*** Type the sentinel -FFFFF to stop entering ***\n"
                     "*** your program.                             ***\n" );

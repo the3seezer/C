@@ -10,7 +10,7 @@ theBitRiddler
 #define SIZE 1000
 #define TRUE 1 
 #define FALSE 0
-#define SENTINEL -1048575 // -1869F
+#define SENTINEL -1048575 // -FFFFF
 #define READ 10 // A
 #define WRITE 11 // B
 #define LOAD 20 // 14
@@ -29,13 +29,13 @@ theBitRiddler
 #define BRANCHZERO 42 // 2A
 #define HALT 43 // 2B
 
-int validWord( int word );
-void load( int * loadMemory );
-void execute( int * memory, int * acPtr, int * icPtr, int * irPtr, int * opCodePtr, int * opPtr );
-void dump( int * memory, int accumulator, int instructionCounter, int instructionRegister, int operationCode, int operand );
+int validWord( double word );
+void load( double * loadMemory );
+void execute( double * memory, double * acPtr, int * icPtr, int * irPtr, int * opCodePtr, int * opPtr );
+void dump( double * memory, double accumulator, int instructionCounter, int instructionRegister, int operationCode, int operand );
 int main( void ) {
-    int memory[ SIZE ] = { 0 };
-    int ac = 0; // accumulator
+    double memory[ SIZE ] = { 0 };
+    double ac = 0; // accumulator
     int ic = 0; // instruction counter
     int ir = 0; // instruction register
     int opCode = 0; // operation Code
@@ -48,10 +48,11 @@ int main( void ) {
     return 0;
 } /* end main */ 
 
-void execute( int * memory, int * acPtr, int * icPtr, int * irPtr, int * opCodePtr, int * opPtr ) {
+void execute( double * memory, double * acPtr, int * icPtr, int * irPtr, int * opCodePtr, int * opPtr ) {
     printf_s( "%s", "Program execution begins \n");
     int fatal = FALSE; // fatal error flag
-    int temp = 0;
+    double temp = 0;
+    int tempInt = 0; 
 
     *irPtr = memory[ *icPtr ];
     *opCodePtr = *irPtr / 256;
@@ -62,18 +63,18 @@ void execute( int * memory, int * acPtr, int * icPtr, int * irPtr, int * opCodeP
         switch ( *opCodePtr ) {
             case READ:
                 printf_s( "%s", "Enter an integer ");
-                scanf( "%d", &temp );
+                scanf( "%lf", &temp );
 
                 while ( !validWord( temp ) ) {
                     printf_s( "%s", "Number out of range please enter again ");
-                    scanf( "%d", &temp );
+                    scanf( "%lf", &temp );
                 } // end while
                 
                 memory[ *opPtr ] = temp;
                 ++( *icPtr );
                 break;
             case WRITE:
-                printf_s( "Content is %d\n", memory[ *opPtr ] );
+                printf_s( "Content is %10.3lf\n", memory[ *opPtr ] );
                 ++( *icPtr );
                 break;
             case LOAD:
@@ -134,11 +135,13 @@ void execute( int * memory, int * acPtr, int * icPtr, int * irPtr, int * opCodeP
                 } // end else
                 break;
             case MOD:
-                *acPtr %= memory[ *opPtr ];
+                tempInt = ( int ) *acPtr;
+                tempInt %= ( int ) memory[ *opPtr ];
+                *acPtr = ( double ) tempInt;
                 ++( *icPtr );
                 break;
             case POW:
-                temp = ( int ) pow( *acPtr, memory[ *opPtr ] );
+                temp = pow( *acPtr, memory[ *opPtr ] );
                 if ( !validWord( temp ) ) {
                     printf_s( "%s", "FATAL ERROR, Accumulator overflow\n"
                                     "Simpletron execution abnormally terminated\n" );
@@ -185,12 +188,12 @@ void execute( int * memory, int * acPtr, int * icPtr, int * irPtr, int * opCodeP
     printf_s( "%s", "Simpletron execution terminated\n");
 } /* end function execute */
 
-void load( int * loadMemory ) {
-    printf_s( "%s", "*** Welcome to Simpletron ***\n"
-                    "***                                          ***\n"
+void load( double * loadMemory ) {
+    printf_s( "%s", "***         Welcome to Simpletron             ***\n"
+                    "***                                           ***\n"
                     "*** Please enter your program one instruction ***\n"
                     "*** (or data word) at a time. I will type the ***\n"
-                    "*** location number and a question mark (?). ***\n"
+                    "*** location number and a question mark (?).  ***\n"
                     "*** You then type the word for that location. ***\n"
                     "*** Type the sentinel -FFFFF to stop entering ***\n"
                     "*** your program.                             ***\n" );
@@ -219,15 +222,15 @@ void load( int * loadMemory ) {
 
 } /* end function load */
 
-void dump( int * memory, int accumulator, int instructionCounter, int instructionRegister, int operationCode, int operand ) {
-    printf_s( "%s\n%-23s%+05d\n%-23s%5.2d\n%-23s%+05d\n%-23s%5.2d\n%-23s%5.2d\n",
+void dump( double * memory, double accumulator, int instructionCounter, int instructionRegister, int operationCode, int operand ) {
+    printf_s( "%s\n%-23s%+010.3lf\n%-23s%10.3d\n%-23s%+010d\n%-23s%10.2d\n%-23s%10.2d\n",
      "REGISTERs", "accumulator", accumulator, "instructionCounter", instructionCounter, "instructionRegister", instructionRegister, 
      "operationCode", operationCode, "operand", operand );
 
      printf_s( "%s\n ", "MEMORY" );
 
      for ( int i = 0; i <= 9; i++ ) {
-        printf_s( "%5d ", i );
+        printf_s( "%5d      ", i );
      } // end for
 
     for ( size_t i = 0; i < SIZE; i++ ) {
@@ -236,14 +239,14 @@ void dump( int * memory, int accumulator, int instructionCounter, int instructio
             printf_s( "\n%03d ", i );
         } // end if
 
-        printf_s( "%+05d ", memory[ i ] );
+        printf_s( "%+010.3lf ", memory[ i ] );
 
     } // end for
 
     printf_s( "%s", "\n" );
 } /* end function dump */
 
-int validWord( int word ) {
+int validWord( double word ) {
 
     return ( word >= -65535 && word <= 65535 );
 
