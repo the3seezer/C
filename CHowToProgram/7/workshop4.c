@@ -1,210 +1,321 @@
-/*
-theBitRiddler
-10/14/2023
-10:50 AM
- (Machine-Language Programming) 
-*/
 #include <stdio.h>
-#define SIZE 100
-// Input/Output operations:
-#define READ 10 // Read a word from the keyboard into a specific location in memory.
-#define WRITE 11 // Write a word from a specific location in memory to the screen.
-// Load/store operations:
-#define LOAD 20 // Load a word from a specific location in memory into the accumulator.
-#define STORE 21 // Store a word from the accumulator into a specific location in memory.
-// Arithmetic operations:
-#define ADD 30 // Add a word from a specific location in memory to the word in the accumulator ( leave the result in the accumulator).
-#define SUBTRACT 31 // Substract a word from a specific location in memory into the word in the accumulator ( leave the result in the accumulator).
-#define DIVIDE 32 // Divide a word from a specific location in memory into the word in the accumulator (leave the result in the accumulator).
-#define MULTIPLY 33 // Multiply a word from a specific location in memory by the word in the accumulator (leave the result in the accumulator).
-// transfer-of-control operations:
-#define BRANCH 40 // Branch to a specific location in a memory.
-#define BRANCHNEG 41 // Branch to a specific location in memory if the accumulator is negative.
-#define BRANCHZERO 42 // Branch to a specific location in memory if the accumulator is zero.
-#define HALT 43 // Halt---i.e., the program has completed its task.
+#include <math.h>
 
-void load( int [] );
-void execute( int []);
-int invalid( int );
-int dump( int memory[], int accumulator, int instructionCounter, int instructionRegistor, int OperationCode, int operand );
+#define SIZE 1000 // 3E8
+#define TRUE 1
+#define FALSE 0
+#define SENTINAL -16777215  // -FFFFFF
+#define READ 10 // A
+#define WRITE 11 // B
+#define CIN 12  // C  : In put a string
+#define COUT 13 // D : output a string
+#define LOAD 20 // 14
+#define STORE 21 // 15
+#define ADD 30 // 1E
+#define SUBSTRACT 31 // 1F
+#define DIVIDE 32 // 20
+#define MULTIPLY  33 // 21
+#define MOD 34 // 22 : Remainder
+#define POW 35 // 23 : Power
+#define NEWL 36 // 24 : A new line
+#define BRANCH 40 // 28
+#define BRANCHNEG 41 // 29
+#define BRANCHZERO 42 // 2A
+#define HALT 43 // 2B
+
+void load( double *loadMemory );
+void execute( double *memory, double *acPtr, int *icPtr, int *irPtr, int *opCodePtr, int *opPtr );
+void dump( double *memory, double accumulator, int instructionCounter, int instructionRegister, int operationCode, int operand );
+int validWord( double word );
+int cCount( char * s );
+int input( int i, double memory[], int len, char * s );
+int output( int i, double memory[] ); 
+
 int main( void ) {
-    int memory[ SIZE ] = { 0 };
-    int instructionCounter = 0; // instruction counter
-    int instructionRegister = 0; // instruction register
-    int operationCode = 0; // a command of the instruction
-    int operand = 0; // a location of the instruction
-    int accumulator = 0;
-
-    printf_s( "%s", "***            Welcome to Simpletron            ***\n"
-                    "***                                             ***\n"
-                    "***  Please enter your program one instruction  ***\n"
-                    "***  (or data word) at a time. I will type the  ***\n"
-                    "***  location number and a question mark (?).   ***\n"
-                    "***  You then type the word for that location.  ***\n"
-                    "***  Type the sentinel -99999 to stop entering  ***\n"
-                    "***  your program.                              ***\n");
+    double memory[ SIZE ] = { 0 };
+    double accumulator = 0;
+    int instructionCounter = 0;
+    int instructionRegister = 0;
+    int operationCode = 0;
+    int operand = 0;
 
     load( memory );
-
-    execute( memory );
-
-    dump( memory, accumulator, instructionCounter,instructionRegister, operationCode, operand );
+    execute( memory, &accumulator, &instructionCounter, &instructionRegister, &operationCode, &operand );
+    dump( memory, accumulator, instructionCounter, instructionRegister, operationCode, operand );
 
     return 0;
 } /* end main */
 
-int invalid( int accumulator ) {
-	
-	if ( accumulator > +9999 || accumulator < -9999 ) {
-		printf_s( "%s", "*** Accumulator overflow ***\n"
-						"*** Simpletron execution abnormally terminated ***\n" );
-		} // end if
-		
-	return ( accumulator > +9999 || accumulator < -9999 );
-	
-} /* end function invalid */
+void dump( double *memory, double accumulator, int instructionCounter, int instructionRegister, int operationCode, int operand ) {
+    printf_s( "%s\n%-23s%+010.3lf\n%-23s%10.3d\n%-23s%+010d\n%-23s%10.2d\n%-23s%10.2d\n",
+    "REGISTERs", "accumulator", accumulator, "instructionCounter", instructionCounter, "instructionRegister", instructionRegister, 
+    "operationCode", operationCode, "operand", operand );
 
-void load( int memory[]) {
-    int temp = 0; // Template to check the number before putting it to memory
-    int instructionCounter = 0;
+    printf_s( "%s\n ", "MEMORY" );
 
-    printf_s( "%02d ? ", instructionCounter );
-    scanf( "%d", &temp );
-    
-	while ( temp < -9999 || temp > +9999  ) {
-		
-		if ( temp == -99999 ) {
-			printf_s( "%s", "***    Program loading completed    ***\n");
-			return;
-		} // end if
-			
-		printf_s( "%s", "\tNumber should be in range between -9999 and +9999\n" );
-		
-		printf_s( "%02d ? ", instructionCounter );
-    	scanf( "%d", &temp );
-	} // end while
-
-    while( temp != -99999 ) {
-    	memory[ instructionCounter++ ] = temp;
-    	
-        printf_s( "%02d ? ", instructionCounter );
-    	scanf( "%d", &temp );
-    	
-	    while ( temp < -9999 || temp > +9999  ) {
-			
-			if ( temp == -99999 ) {
-				printf_s( "%s", "***    Program loading completed    ***\n");
-				return;
-			} // end if
-				
-			printf_s( "%s", "\tNumber should be in range between -9999 and +9999\n" );
-			
-			printf_s( "%02d ? ", instructionCounter );
-	    	scanf( "%d", &temp );
-		} // end while
-			
-    } // end while
-
-    printf_s( "%s", "***    Program loading completed    ***\n");
-} /* end function load */
-
-void execute( int memory[] ) {
-    printf_s( "%s", "***    Program execution begins     ***\n");
-
-    int accumulator = 0;
-    int operationCode = 0;
-    int instructionCounter = 0;
-    int instructionRegister = 0;
-    int operand = 0;
-
-    while ( operationCode != HALT ) {
-
-        instructionRegister = memory[ instructionCounter++ ];
-            
-        operationCode = instructionRegister / 100;
-        operand = instructionRegister % 100;
-
-        switch ( operationCode ) {
-            case READ:
-                printf_s( "\t%s", "Enter an integer "); 
-                scanf( "%d", &memory[ operand ] );
-                break;
-            case WRITE: 
-                printf_s( "\tNumber is %d\n", memory[ operand ] );
-                break; 
-            case LOAD: 
-                accumulator = memory[ operand ];
-                break; 
-            case STORE: 
-                memory[ operand ] = accumulator;
-                break;
-            case ADD:
-                accumulator += memory[ operand ];
-                if( invalid( accumulator ) ) {
-                	dump( memory, accumulator, instructionCounter - 1,instructionRegister, operationCode, operand );
-				} // end if
-                break;
-            case SUBTRACT:
-                accumulator -= memory[ operand ];
-                if( invalid( accumulator ) ) {
-                	dump( memory, accumulator, instructionCounter - 1,instructionRegister, operationCode, operand );
-				} // end if
-                break;
-            case DIVIDE:
-                accumulator /= memory[ operand ];
-                if ( memory[ operand ] == 0 ) {
-                	printf_s( "%s", "*** Attempt to divide by zero ***\n"
-							        "*** Simpletron execution abnormally terminated ***\n" );
-					dump( memory, accumulator, instructionCounter - 1,instructionRegister, operationCode, operand );
-				} // end if
-				
-				if( invalid( accumulator ) ) {
-                	dump( memory, accumulator, instructionCounter - 1,instructionRegister, operationCode, operand );
-				} // end if
-                break;
-            case MULTIPLY:
-                accumulator *= memory[ operand ];
-                if( invalid( accumulator ) ) {
-                	dump( memory, accumulator, instructionCounter - 1,instructionRegister, operationCode, operand );
-				} // end if
-                break;
-            case BRANCH:
-                instructionCounter = operand;
-                break;
-            case BRANCHNEG:
-                if ( accumulator < 0 ) {
-                    instructionCounter = operand; 
-                } // end if
-                break;
-            case BRANCHZERO:
-                if ( accumulator == 0 ) {
-                    instructionCounter = operand;
-                } // end if
-                break;
-            case HALT:
-                printf_s( "%s", "*** Simpletron execution terminated ***\n\n\n");
-                break;
-        } // end switch   
-    } // end while
-} /* end function execute */
-
-int dump( int memory[], int accumulator, int i, int instReg, int code, int operand ) {
-    printf_s( "%s%+05d%s%02d%s%+05d%s%02d%s%02d", "REGISTERS: \n"
-            "Accumulator              ", accumulator,
-            "\ninstructionCounter       ", i,
-            "\ninstructionRegister      ", instReg,
-            "\noperationCode            ", code,
-            "\noperand                  ", operand );
-
-    printf_s( "%s", "\n\nMEMORY:\n\t  [ 0 ]  [ 1 ]  [ 2 ]  [ 3 ]  [ 4 ]  [ 5 ]  [ 6 ]  [ 7 ]  [ 8 ]  [ 9 ]\n" );
-    int row = 0;
-    for ( size_t i = 0; i < SIZE; i++ ) {
-        if (i % 10 == 0 ) {
-            printf_s( "\n[ %d%s ]    ", row, (i == 0) ? " " : "" );
-            row += 10;
-        } // end if
-        printf_s( "%+05d  ", memory[ i ] );
+    for ( int i = 0; i <= 9; i++ ) {
+        printf_s( "%5d      ", i );
     } // end for
 
-    puts("");
-} /* end function showMemory */
+    for ( size_t i = 0; i < SIZE; i++ ) {
+
+        if ( i % 10 == 0 ) {
+            printf_s( "\n%03d ", i );
+        } // end if
+
+        printf_s( "%+010.3lf ", memory[ i ] );
+
+    } // end for
+
+    printf_s( "%s", "\n" );
+} /* end function execute */
+
+void execute( double *memory, double *acPtr, int *icPtr, int *irPtr, int *opCodePtr, int *opPtr ) {
+    printf_s( "%s", "*** Program execution begins ***\n");
+    int fatal = FALSE; // fatal error flag 
+    double temp = 0; 
+    int len = 0;
+
+    *irPtr = memory[ *icPtr ];
+    *opCodePtr = *irPtr / 4096;
+    *opPtr = *irPtr % 4096;
+
+    while ( *opCodePtr != HALT && fatal != TRUE ) {
+
+        switch ( *opCodePtr ) {
+            case READ:
+                printf_s( "%s", "Enter an integer ");
+                scanf( "%lf", &temp );
+
+                while ( !validWord( temp ) ) {
+                    printf_s( "%s", "Number out of range please enter again " );
+                    scanf( "%lf", &temp );
+                } // end while
+
+                memory[ *opPtr ] = temp;
+                ++( *icPtr );
+                break;
+            case WRITE:
+                printf_s( "Content is %lf\n", memory[ *opPtr ] );
+                ++( *icPtr );
+                break;
+            case CIN:
+                puts( "Enter a string : ");
+                char string[ 100 ];
+                gets( string );
+                len = cCount( string );
+                input( *opPtr, memory, len, string );
+                *icPtr = 1.5 + ( len - 1 ) / 2;
+                break;
+            case COUT:
+                len = output( *opPtr, memory );
+                *icPtr = 1.5 + ( len - 1 ) / 2;
+                break;
+            case LOAD:
+                *acPtr = memory[ *opPtr ];
+                ++( *icPtr );
+                break;
+            case STORE: 
+                memory[ *opPtr ] = *acPtr;
+                ++( *icPtr );
+                break;
+            case ADD:
+                temp = *acPtr + memory[ *opPtr ];
+
+                if ( !validWord( temp ) ) {
+                    printf_s( "%s", "*** FATAL ERROR, accumulator overflow          ***\n"
+                                    "*** Simpletron execution abnormally terminated ***\n" );
+                    fatal = TRUE;
+                } // end if
+                else {
+                    *acPtr = temp;
+                    ++( *icPtr );
+                } // end else
+                break;
+            case SUBSTRACT:
+                temp = *acPtr - memory[ *opPtr ];
+
+                if ( !validWord( temp ) ) {
+                    printf_s( "%s", "*** FATAL ERROR, accumulator overflow          ***\n"
+                                    "*** Simpletron execution abnormally terminated ***\n" );
+                    fatal = TRUE;
+                } // end if
+                else {
+                    *acPtr = temp;
+                    ++( *icPtr );
+                } // end else
+                break;
+            case DIVIDE:
+                if ( memory[ *opPtr ] == 0 ) {
+                    printf_s( "%s", "*** FATAL ERROR, attempt to divide by zero ***\n"
+                                    "*** Simpletron execution abnormally terminated ***\n" );
+                    fatal = TRUE;
+                } // end if
+                else {
+                    *acPtr /= memory[ *opPtr ];
+                    ++( *icPtr );
+                } // end else
+                break;
+            case MULTIPLY:
+                temp = *acPtr * memory[ *opPtr ];
+
+                if ( !validWord( temp ) ) {
+                    printf_s( "%s", "*** FATAL ERROR, accumulator overflow          ***\n"
+                                    "*** Simpletron execution abnormally terminated ***\n" );
+                    fatal = TRUE;
+                } // end if
+                else {
+                    *acPtr = temp;
+                    ++( *icPtr );
+                } // end else
+                break;
+            case MOD:
+                temp = *acPtr;
+                temp = ( int ) temp % ( int ) memory[ *opPtr ];
+                *acPtr = ( double ) temp;
+                ++( *icPtr );
+                break;
+            case POW:
+                temp = pow( *acPtr, memory[ *opPtr ] );
+                if ( !validWord( temp ) ) {
+                    printf_s( "%s", "*** FATAL ERROR, accumulator overflow          ***\n"
+                                    "*** Simpletron execution abnormally terminated ***\n" );
+                    fatal = TRUE;
+                } // end if
+                else {
+                    *acPtr = temp;
+                    ++( *icPtr );
+                } // end else
+                break;
+            case NEWL:
+                printf_s( "%s", "\n" );
+                ++( *icPtr );
+                break;
+            case BRANCH:
+                *icPtr = *opPtr;
+                break;
+            case BRANCHNEG:
+                if ( *acPtr < 0 ) {
+                    *icPtr = *opPtr;
+                } // end if
+                else {
+                    ++( *icPtr );
+                } // end else
+                break;
+            case BRANCHZERO:
+                if ( *acPtr == 0 ) {
+                    *icPtr = *opPtr;
+                } // end if
+                else {
+                    ++( *icPtr );
+                } // end else
+                break;
+            default:
+                printf_s( "%s", "*** FATAL ERROR, invalid operation Code detected ***\n"
+                                "*** simpletron execution abnormally terminated   ***\n" );
+                fatal = TRUE;
+                break;
+        } // end switch
+
+        *irPtr = memory[ *icPtr ];
+        *opCodePtr = *irPtr / 4096;
+        *opPtr = *irPtr % 4096;
+    } // end while
+
+    if ( !fatal )
+        printf_s( "%s", "*** Simpletron execution terminated ***\n" );
+} /* end function execute */
+
+void load( double *loadMemory ) {
+    long int instruction = 0;
+    int i = 0; // indexing variable
+
+    printf_s( "%s\n\n%s\n%s\n%s\n%s\n%s\n%s\n",
+     "***           Welcome to Simpletron            ***",
+     "*** Please enter your program one instruction  ***",
+     "*** (or data word) at a time. I will type the  ***",
+     "*** location number and a question mark (?).   ***",
+     "*** You then type the word for that location.  ***",
+     "*** Type the sentinel -FFFFFF to stop entering ***",
+     "*** your program.                              ***" );
+
+    printf_s( "%s", "00 ? " );
+    scanf( "%lx", &instruction );
+
+    while ( instruction != SENTINAL ) {
+
+        if ( !validWord( instruction ) ) {
+            printf_s( "%s", "Number out of range please enter again \n");
+        } // end if
+        else {
+            loadMemory[ i++ ] = instruction;
+        } // end else
+
+        printf_s( "%02d ? ", i );
+        scanf( "%lx", &instruction );
+        
+    } // end while
+
+    printf_s( "%s", "*** Program loading completed ***\n" );
+} /* end function load */
+
+int validWord( double word ) {
+    return word >= -1048575 && word <= 1048575; // FFFFF
+} /* end function validWord */
+
+int cCount( char * s ) {
+    int x = 0;
+    for ( x = 0; *s != '\0'; s++ ) {
+        ++x;
+    } // end for
+    return x;
+} /* end function cCount */
+
+int input( int i, double memory[], int len, char * s ) {
+
+    memory[ i ] = len * 1000; // introduce the size of the string
+    memory[ i ] += ( int ) * s;
+    s++; len--; i++; // move to the other location of pointer, reduce the string length and move to the other location
+
+    for ( ; len ; i++ ) {
+        if ( *s != '\0' ) {
+            memory[ i ] = 1000 * ( int ) * s;
+            s++; len--;
+        } // end if
+        if ( *s != '\0' ) {
+            memory[ i ] += ( int ) * s;
+            s++; len--;
+        } // end if  
+    } // end while
+    return 0;
+} /* end function input */
+
+int output( int i, double memory[] ) {
+    int len = 0;
+    int lenth = 0; // To return 
+    int temp = 0;
+
+    len = memory[ i ] / 1000;
+    lenth = len;
+
+    temp = ( int ) memory[ i ] % 1000;
+    putchar( ( char ) temp );
+
+    i++; len--; // move to the other location and reduce the string length
+
+    // Output the characters
+    while( len ) {
+        temp = ( int ) memory[ i ] / 1000;
+        if ( ( char ) temp != '\0' ) {
+            putchar( ( char ) temp );
+            len--;
+        } // end if
+        temp = ( int ) memory[ i ] % 1000; 
+        if ( ( char ) temp != '\0' ) {
+            putchar( ( char ) temp );
+            len--;
+        } // end if
+        i++;
+    } // end len
+    return lenth;
+} /* end function output */

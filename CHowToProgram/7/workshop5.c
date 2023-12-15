@@ -10,9 +10,13 @@ int main( void ) {
     double memory[ SIZE ];
     char string[ 100 ];
 
-    gets( string );
+    // gets( string );
     // string[ 0 ] = 'B'; string[ 1 ] = 'a'; string[ 2 ] = 'c'; string[ 3 ] = 'h'; string[ 4 ] = 'u';
     // string[ 5 ] = ' '; string[ 6 ] = 'A'; 
+    int count = 0;
+    while ( string[ count ] != '\0' ) {
+        scanf( "%c" , &string[ count++ ]);
+    } // end while
 
     int len = cCount( string );
 
