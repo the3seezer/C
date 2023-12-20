@@ -116,10 +116,10 @@ void execute( double *memory, double *acPtr, int *icPtr, int *irPtr, int *opCode
                 len = cCount( string );
                 input( *opPtr, memory, len, string );
                 sub = *opPtr + 1.5 + ( len - 1 ) / 2;
-                if ( memory[ sub ] != 0 && *icPtr == *opPtr )
+                if ( memory[ sub ] != 0 && *icPtr == *opPtr ) // This condition is completely not necessary
                     *icPtr += 1.5 + ( len - 1 ) / 2;
                 else
-                    ++( *icPtr );
+                    ++( *icPtr ); // This statement is necessary
                 break;
             case COUT:
                 puts( "String output : " );
