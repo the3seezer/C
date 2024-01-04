@@ -1,0 +1,764 @@
+#VRML_SIM R2021a utf8
+WorldInfo {
+  basicTimeStep 16
+  coordinateSystem "NUE"
+}
+Viewpoint {
+  orientation -0.7008337002186433 0.686762627442399 0.19284506264422993 0.7292304271240363
+  position 2.676489167695004 3.3268620114479264 4.912417162217457
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Floor {
+  size 3.5 3.5
+  tileSize 0.25 0.25
+}
+E-puck {
+  translation 1.57042 0 0.289783
+  controller "epuck_the_maze_runner"
+}
+DEF MAZE_WALL119 Solid {
+  translation 0.125 0.025 -0.25
+  children [
+    DEF MAZE_WALL1_SHAPE Shape {
+      appearance PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.25 0.05 0.01
+      }
+    }
+  ]
+  name "solid(46)"
+  boundingObject USE MAZE_WALL1_SHAPE
+}
+DEF MAZE_WALL118 Solid {
+  translation 0.125 0.025 0.75
+  children [
+    DEF MAZE_WALL1_SHAPE Shape {
+      appearance PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.25 0.05 0.01
+      }
+    }
+  ]
+  name "solid(45)"
+  boundingObject USE MAZE_WALL1_SHAPE
+}
+DEF MAZE_WALL117 Solid {
+  translation 0.125 0.025 0.25
+  children [
+    DEF MAZE_WALL1_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.25 0.05 0.01
+      }
+    }
+  ]
+  name "solid(43)"
+  boundingObject USE MAZE_WALL1_SHAPE
+}
+DEF MAZE_WALL021 Solid {
+  translation 0.25 0.025 0.125
+  children [
+    DEF MAZE_WALL_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.01 0.05 0.75
+      }
+    }
+  ]
+  name "solid(42)"
+  boundingObject USE MAZE_WALL_SHAPE
+}
+DEF MAZE_WALL020 Solid {
+  translation 0 0.025 0.375
+  children [
+    DEF MAZE_WALL_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.01 0.05 0.75
+      }
+    }
+  ]
+  name "solid(41)"
+  boundingObject USE MAZE_WALL_SHAPE
+}
+DEF MAZE_WALL019 Solid {
+  translation -1.25 0.025 -1
+  children [
+    DEF MAZE_WALL_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.01 0.05 0.5
+      }
+    }
+  ]
+  name "solid(40)"
+  boundingObject USE MAZE_WALL_SHAPE
+}
+DEF MAZE_WALL018 Solid {
+  translation -0.75 0.025 -1
+  children [
+    DEF MAZE_WALL_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.01 0.05 1
+      }
+    }
+  ]
+  name "solid(39)"
+  boundingObject USE MAZE_WALL_SHAPE
+}
+DEF MAZE_WALL116 Solid {
+  translation -1.125 0.025 -1
+  children [
+    DEF MAZE_WALL1_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.25 0.05 0.01
+      }
+    }
+  ]
+  name "solid(38)"
+  boundingObject USE MAZE_WALL1_SHAPE
+}
+DEF MAZE_WALL017 Solid {
+  translation -0.5 0.025 0.25
+  children [
+    DEF MAZE_WALL_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.01 0.05 1
+      }
+    }
+  ]
+  name "solid(37)"
+  boundingObject USE MAZE_WALL_SHAPE
+}
+DEF MAZE_WALL016 Solid {
+  translation -0.5 0.025 1.375
+  children [
+    DEF MAZE_WALL_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.01 0.05 0.25
+      }
+    }
+  ]
+  name "solid(36)"
+  boundingObject USE MAZE_WALL_SHAPE
+}
+DEF MAZE_WALL015 Solid {
+  translation -1 0.025 0
+  children [
+    DEF MAZE_WALL_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.01 0.05 0.5
+      }
+    }
+  ]
+  name "solid(35)"
+  boundingObject USE MAZE_WALL_SHAPE
+}
+DEF MAZE_WALL115 Solid {
+  translation -0.625 0.025 0.25
+  children [
+    DEF MAZE_WALL1_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.25 0.05 0.01
+      }
+    }
+  ]
+  name "solid(33)"
+  boundingObject USE MAZE_WALL1_SHAPE
+}
+DEF MAZE_WALL114 Solid {
+  translation -0.5 0.025 1.25
+  children [
+    DEF MAZE_WALL1_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 1.5 0.05 0.01
+      }
+    }
+  ]
+  name "solid(32)"
+  boundingObject USE MAZE_WALL1_SHAPE
+}
+DEF MAZE_WALL013 Solid {
+  translation -1.25 0.025 0.875
+  children [
+    DEF MAZE_WALL_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.01 0.05 0.25
+      }
+    }
+  ]
+  name "solid(31)"
+  boundingObject USE MAZE_WALL_SHAPE
+}
+DEF MAZE_WALL014 Solid {
+  translation -1.25 0.025 0.125
+  children [
+    DEF MAZE_WALL_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.01 0.05 0.25
+      }
+    }
+  ]
+  name "solid(34)"
+  boundingObject USE MAZE_WALL_SHAPE
+}
+DEF MAZE_WALL113 Solid {
+  translation -0.875 0.025 0.75
+  children [
+    DEF MAZE_WALL1_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.25 0.05 0.01
+      }
+    }
+  ]
+  name "solid(44)"
+  boundingObject USE MAZE_WALL1_SHAPE
+}
+DEF MAZE_WALL112 Solid {
+  translation 0.25 0.025 1
+  children [
+    DEF MAZE_WALL1_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.5 0.05 0.01
+      }
+    }
+  ]
+  name "solid(29)"
+  boundingObject USE MAZE_WALL1_SHAPE
+}
+DEF MAZE_WALL111 Solid {
+  translation 0.375 0.025 -0.75
+  children [
+    DEF MAZE_WALL1_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 1.25 0.05 0.01
+      }
+    }
+  ]
+  name "solid(28)"
+  boundingObject USE MAZE_WALL1_SHAPE
+}
+DEF MAZE_WALL012 Solid {
+  translation 0.75 0.025 0
+  children [
+    DEF MAZE_WALL_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.01 0.05 1.5
+      }
+    }
+  ]
+  name "solid(27)"
+  boundingObject USE MAZE_WALL_SHAPE
+}
+DEF MAZE_WALL110 Solid {
+  translation 1 0.025 1.25
+  children [
+    DEF MAZE_WALL1_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.5 0.05 0.01
+      }
+    }
+  ]
+  name "solid(26)"
+  boundingObject USE MAZE_WALL1_SHAPE
+}
+DEF MAZE_WALL011 Solid {
+  translation 1.25 0.025 0
+  children [
+    DEF MAZE_WALL_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.01 0.05 2.5
+      }
+    }
+  ]
+  name "solid(25)"
+  boundingObject USE MAZE_WALL_SHAPE
+}
+DEF MAZE_WALL19 Solid {
+  translation 0.375 0.025 -1.25
+  children [
+    DEF MAZE_WALL1_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 1.75 0.05 0.01
+      }
+    }
+  ]
+  name "solid(24)"
+  boundingObject USE MAZE_WALL1_SHAPE
+}
+DEF MAZE_WALL18 Solid {
+  translation -1.125 0.025 -0.25
+  children [
+    DEF MAZE_WALL1_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.75 0.05 0.01
+      }
+    }
+  ]
+  name "solid(23)"
+  boundingObject USE MAZE_WALL1_SHAPE
+}
+DEF MAZE_WALL17 Solid {
+  translation 0 0.025 -0.5
+  children [
+    DEF MAZE_WALL1_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 1 0.05 0.01
+      }
+    }
+  ]
+  name "solid(22)"
+  boundingObject USE MAZE_WALL1_SHAPE
+}
+DEF MAZE_WALL16 Solid {
+  translation 0.75 0.025 1
+  children [
+    DEF MAZE_WALL1_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.5 0.05 0.01
+      }
+    }
+  ]
+  name "solid(21)"
+  boundingObject USE MAZE_WALL1_SHAPE
+}
+DEF MAZE_WALL15 Solid {
+  translation -1.25 0.025 -0.5
+  children [
+    DEF MAZE_WALL1_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.5 0.05 0.01
+      }
+    }
+  ]
+  name "solid(20)"
+  boundingObject USE MAZE_WALL1_SHAPE
+}
+DEF MAZE_WALL14 Solid {
+  translation -0.875 0.025 1
+  children [
+    DEF MAZE_WALL1_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 1.25 0.05 0.01
+      }
+    }
+  ]
+  name "solid(19)"
+  boundingObject USE MAZE_WALL1_SHAPE
+}
+DEF MAZE_WALL13 Solid {
+  translation -1.25 0.025 0.5
+  children [
+    DEF MAZE_WALL1_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.5 0.05 0.01
+      }
+    }
+  ]
+  name "solid(18)"
+  boundingObject USE MAZE_WALL1_SHAPE
+}
+DEF MAZE_WALL12 Solid {
+  translation 0.375 0.025 -1
+  children [
+    DEF MAZE_WALL1_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 1.25 0.05 0.01
+      }
+    }
+  ]
+  name "solid(17)"
+  boundingObject USE MAZE_WALL1_SHAPE
+}
+DEF MAZE_WALL010 Solid {
+  translation -1 0.025 -0.875
+  children [
+    DEF MAZE_WALL_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.01 0.05 0.75
+      }
+    }
+  ]
+  name "solid(16)"
+  boundingObject USE MAZE_WALL_SHAPE
+}
+DEF MAZE_WALL09 Solid {
+  translation -0.75 0.025 0.25
+  children [
+    DEF MAZE_WALL_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.01 0.05 1
+      }
+    }
+  ]
+  name "solid(15)"
+  boundingObject USE MAZE_WALL_SHAPE
+}
+DEF MAZE_WALL08 Solid {
+  translation 0.5 0.025 1.25
+  children [
+    DEF MAZE_WALL_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.01 0.05 0.5
+      }
+    }
+  ]
+  name "solid(14)"
+  boundingObject USE MAZE_WALL_SHAPE
+}
+DEF MAZE_WALL07 Solid {
+  translation 0.5 0.025 0.125
+  children [
+    DEF MAZE_WALL_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.01 0.05 1.25
+      }
+    }
+  ]
+  name "solid(13)"
+  boundingObject USE MAZE_WALL_SHAPE
+}
+DEF MAZE_WALL06 Solid {
+  translation -0.25 0.025 0.125
+  children [
+    DEF MAZE_WALL_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.01 0.05 1.25
+      }
+    }
+  ]
+  name "solid(11)"
+  boundingObject USE MAZE_WALL_SHAPE
+}
+DEF MAZE_WALL05 Solid {
+  translation -0.5 0.025 -1
+  children [
+    DEF MAZE_WALL_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.01 0.05 1
+      }
+    }
+  ]
+  name "solid(12)"
+  boundingObject USE MAZE_WALL_SHAPE
+}
+DEF MAZE_WALL04 Solid {
+  translation 1 0.025 0
+  children [
+    DEF MAZE_WALL_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.01 0.05 2
+      }
+    }
+  ]
+  name "solid(10)"
+  boundingObject USE MAZE_WALL_SHAPE
+}
+DEF MAZE_WALL03 Solid {
+  translation -1.5 0.025 -1.25
+  children [
+    DEF MAZE_WALL_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.01 0.05 0.5
+      }
+    }
+  ]
+  name "solid(9)"
+  boundingObject USE MAZE_WALL_SHAPE
+}
+DEF MAZE_WALL02 Solid {
+  translation -1.5 0.025 0.375
+  children [
+    DEF MAZE_WALL_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.01 0.05 2.25
+      }
+    }
+  ]
+  name "solid(8)"
+  boundingObject USE MAZE_WALL_SHAPE
+}
+DEF MAZE_WALL01 Solid {
+  translation 1.5 0.025 -1
+  children [
+    DEF MAZE_WALL_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.01 0.05 1
+      }
+    }
+  ]
+  name "solid(7)"
+  boundingObject USE MAZE_WALL_SHAPE
+}
+DEF MAZE_WALL0 Solid {
+  translation 1.5 0.025 0.625
+  children [
+    DEF MAZE_WALL_SHAPE Shape {
+      appearance DEF MAZE_WALL_APPEAR PBRAppearance {
+        baseColor 0 0 1
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.01 0.05 1.75
+      }
+    }
+  ]
+  name "solid(4)"
+  boundingObject USE MAZE_WALL_SHAPE
+}
+DEF MAZE_WALL1 Solid {
+  translation 0 0.025 1.5
+  children [
+    DEF MAZE_WALL1_SHAPE Shape {
+      appearance USE MAZE_WALL_APPEAR
+      geometry Box {
+        size 3 0.05 0.01
+      }
+    }
+  ]
+  name "solid(5)"
+  boundingObject USE MAZE_WALL1_SHAPE
+}
+DEF MAZE_WALL11 Solid {
+  translation 0 0.025 -1.5
+  children [
+    USE MAZE_WALL1_SHAPE
+  ]
+  name "solid(6)"
+  boundingObject USE MAZE_WALL1_SHAPE
+}
+DEF WALL0 Solid {
+  translation 0 0.05 -1.75
+  children [
+    DEF WALL_SHAPE Shape {
+      appearance PBRAppearance {
+        baseColor 0.5 0.5 0.5
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 3.5 0.1 0.01
+      }
+    }
+  ]
+  boundingObject USE WALL_SHAPE
+}
+DEF WALL2 Solid {
+  translation 0 0.05 1.75
+  children [
+    USE WALL_SHAPE
+  ]
+  name "solid(1)"
+  boundingObject USE WALL_SHAPE
+}
+DEF WALL1 Solid {
+  translation 1.75 0.05 0
+  rotation 0 1 0 1.57
+  children [
+    USE WALL_SHAPE
+  ]
+  name "solid(2)"
+  boundingObject USE WALL_SHAPE
+}
+DEF WALL3 Solid {
+  translation -1.75 0.05 0
+  rotation 0 1 0 1.57
+  children [
+    USE WALL_SHAPE
+  ]
+  name "solid(3)"
+  boundingObject USE WALL_SHAPE
+}

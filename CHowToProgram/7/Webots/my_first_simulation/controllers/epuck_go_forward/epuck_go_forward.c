@@ -1,9 +1,9 @@
 /*
  * File:          epuck_go_forward.c
- * Date:
- * Description:
- * Author:
- * Modifications:
+ * Date:          12/17/2023 7:45 PM
+ * Description:   just moving forward
+ * Author:        theBitRiddler
+ * Modifications: 
  */
 
 /*

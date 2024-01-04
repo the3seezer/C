@@ -14,51 +14,15 @@ TexturedBackgroundLight {
 Floor {
   size 1 1
 }
-WoodenBox {
-  translation 0.221235 0.0498038 0.30383
-  rotation -5.20837e-18 1 -4.09838e-18 2.09439
-  size 0.1 0.1 0.1
-  mass 0.2
-}
-WoodenBox {
-  translation -0.305491 0.0498038 -0.233039
-  rotation -1.43004e-18 1 -5.60971e-18 -2.8797953071795863
-  name "wooden box(2)"
-  size 0.1 0.1 0.1
-  mass 0.2
-}
-WoodenBox {
-  translation 0.274058 0.0498038 -0.190623
-  rotation 7.5745e-20 1 -6.21202e-18 -2.3561953071795863
-  name "wooden box(1)"
-  size 0.1 0.1 0.1
-  mass 0.2
-}
-E-puck {
-  controller "epuck_go_forward"
-}
-Solid {
-  translation 0 0.2 -0.2
-  children [
-    Shape {
-      appearance PBRAppearance {
-        roughness 1
-        metalness 0
-      }
-      geometry DEF BALL_GEOMETRY Sphere {
-        radius 0.05
-        subdivision 2
-      }
-    }
-  ]
-  boundingObject USE BALL_GEOMETRY
-  physics Physics {
-  }
-}
-Solid {
+DEF WALL0 Solid {
   translation 0.5 0.05 0
   children [
     DEF WALL_SHAPE Shape {
+      appearance PBRAppearance {
+        baseColor 0 0 1
+        roughness 0.5
+        metalness 0
+      }
       geometry Box {
         size 0.01 0.1 1
       }
@@ -67,7 +31,7 @@ Solid {
   name "solid(1)"
   boundingObject USE WALL_SHAPE
 }
-Solid {
+DEF WALL2 Solid {
   translation -0.5 0.05 0
   children [
     Shape {
@@ -77,7 +41,7 @@ Solid {
   name "solid(2)"
   boundingObject USE WALL_SHAPE
 }
-Solid {
+DEF WALL1 Solid {
   translation 0 0.05 0.5
   rotation 0 1 0 1.57
   children [
@@ -88,7 +52,7 @@ Solid {
   name "solid(3)"
   boundingObject USE WALL_SHAPE
 }
-Solid {
+DEF WALL3 Solid {
   translation 0 0.05 -0.5
   rotation 0 1 0 1.57
   children [
