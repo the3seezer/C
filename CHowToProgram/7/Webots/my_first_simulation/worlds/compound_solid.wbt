@@ -9,7 +9,7 @@ WorldInfo {
 }
 Viewpoint {
   orientation -0.6828056199544824 0.7033875325212465 0.19754104498115657 0.7483443513148068
-  position 1.0146290892012548 1.3898502538614057 1.9886886565771327
+  position 0.5284817688368856 0.8387188194830748 1.1722543263365575
 }
 TexturedBackground {
 }
@@ -120,6 +120,10 @@ DEF DUMBBELL Solid {
     DEF GO Group {
       children [
         Shape {
+          appearance DEF COLOR PBRAppearance {
+            roughness 1
+            metalness 0
+          }
           geometry Cylinder {
             height 0.1
             radius 0.01
@@ -129,6 +133,7 @@ DEF DUMBBELL Solid {
           translation 0 0.05 0
           children [
             Shape {
+              appearance USE COLOR
               geometry Sphere {
                 radius 0.03
                 subdivision 2
@@ -140,6 +145,7 @@ DEF DUMBBELL Solid {
           translation 0 -0.05 0
           children [
             Shape {
+              appearance USE COLOR
               geometry Sphere {
                 radius 0.03
                 subdivision 2

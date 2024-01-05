@@ -4,8 +4,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation -0.6828056199544824 0.7033875325212465 0.19754104498115657 0.7483443513148068
-  position 1.0146290892012548 1.3898502538614057 1.9886886565771327
+  orientation -0.6830334694600254 0.7030344495320613 0.19800970271315527 0.748
+  position 1.01 1.39 1.99
 }
 TexturedBackground {
 }
@@ -62,4 +62,109 @@ DEF WALL3 Solid {
   ]
   name "solid(4)"
   boundingObject USE WALL_SHAPE
+}
+Robot {
+  translation 0 0.04 0
+  children [
+    DEF BODY Shape {
+      appearance PBRAppearance {
+        baseColor 1 0 0
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.1 0.05 0.2
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0.06 0 0.05
+      }
+      device [
+        RotationalMotor {
+        }
+      ]
+      endPoint DEF WHEEL1 Solid {
+        translation 0.06 0 0.05
+        rotation 0 0 1 1.5708
+        children [
+          DEF WHEEL Shape {
+            appearance PBRAppearance {
+              baseColor 0 1 0
+              roughness 1
+              metalness 0
+            }
+            geometry Cylinder {
+              height 0.02
+              radius 0.04
+            }
+          }
+        ]
+        name "wheel1"
+        boundingObject USE WHEEL
+        physics DEF WHEEL_PH Physics {
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor -0.06 0 0.05
+      }
+      device [
+        RotationalMotor {
+        }
+      ]
+      endPoint DEF WHEEL2 Solid {
+        translation -0.06 0 0.05
+        rotation 0 0 1 1.5708
+        children [
+          USE WHEEL
+        ]
+        name "wheel2"
+        boundingObject USE WHEEL
+        physics USE WHEEL_PH
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0.06 0 -0.05
+      }
+      device [
+        RotationalMotor {
+        }
+      ]
+      endPoint DEF WHEEL3 Solid {
+        translation 0.06 0 -0.05
+        rotation 0 0 1 1.5708
+        children [
+          USE WHEEL
+        ]
+        name "wheel3"
+        boundingObject USE WHEEL
+        physics USE WHEEL_PH
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor -0.06 0 -0.05
+      }
+      device [
+        RotationalMotor {
+        }
+      ]
+      endPoint DEF WHEEL4 Solid {
+        translation -0.06 0 -0.05
+        rotation 0 0 1 1.5708
+        children [
+          USE WHEEL
+        ]
+        name "wheel4"
+        boundingObject USE WHEEL
+        physics USE WHEEL_PH
+      }
+    }
+  ]
+  boundingObject USE BODY
+  physics Physics {
+  }
 }
