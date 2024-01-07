@@ -82,6 +82,7 @@ Robot {
       }
       device [
         RotationalMotor {
+          name "wheel1"
         }
       ]
       endPoint DEF WHEEL1 Solid {
@@ -112,6 +113,7 @@ Robot {
       }
       device [
         RotationalMotor {
+          name "wheel2"
         }
       ]
       endPoint DEF WHEEL2 Solid {
@@ -131,6 +133,7 @@ Robot {
       }
       device [
         RotationalMotor {
+          name "wheel3"
         }
       ]
       endPoint DEF WHEEL3 Solid {
@@ -150,6 +153,7 @@ Robot {
       }
       device [
         RotationalMotor {
+          name "wheel4"
         }
       ]
       endPoint DEF WHEEL4 Solid {
@@ -163,8 +167,43 @@ Robot {
         physics USE WHEEL_PH
       }
     }
+    DEF DS_LEFT DistanceSensor {
+      translation 0.03 0 0.1
+      rotation 0 1 0 -1.27
+      children [
+        DEF DS_BODY Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 1
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "ds_left"
+      boundingObject USE DS_BODY
+      physics DEF DS_PH Physics {
+      }
+    }
+    DEF DS_RIGHT DistanceSensor {
+      translation -0.03 0 0.1
+      rotation 0 1 0 -1.87
+      children [
+        USE DS_BODY
+      ]
+      name "ds_right"
+      boundingObject USE DS_BODY
+      physics USE DS_PH
+    }
   ]
   boundingObject USE BODY
   physics Physics {
   }
+  controller "four_wheeled_collision_avoidance"
+}
+FourWheelsRobot {
+  translation 0.38 0.04 0
+  controller "four_wheeled_collision_avoidance"
 }

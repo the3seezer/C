@@ -1,0 +1,18 @@
+#VRML_SIM R2021a utf8
+
+WorldInfo {
+  CoordinateSytem "NUE"
+  basicTimeStep 16
+}
+Viewpoint {
+  orientation -1 1 0.5 0.785
+  position 0.9 1 1.5
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorTileSize 0.25 0.25
+  wallHeight 0.05
+}

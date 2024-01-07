@@ -6,5 +6,7 @@ Webots
 */
 #include <stdio.h>
 int main( void ) {
-    
-}
+    /* 
+        please visit the webots directory present in this directory
+    */
+} /* end main */
