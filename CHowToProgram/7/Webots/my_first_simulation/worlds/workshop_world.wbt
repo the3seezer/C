@@ -1,37 +1,146 @@
 #VRML_SIM R2021a utf8
-WorldInfo {
+DEF ta WorldInfo {
   basicTimeStep 16
   coordinateSystem "NUE"
 }
 Viewpoint {
   orientation -0.6666666666666666 0.6666666666666666 0.3333333333333333 0.785
-  position 0.9 1 1.5
+  position 0.9949647671377776 1.2573862424949525 1.8551388981128132
 }
 TexturedBackground {
 }
 TexturedBackgroundLight {
 }
-RectangleArena {
-  floorTileSize 0.25 0.25
-  wallHeight 0.05
+Floor {
+  size 1 1
+  tileSize 0.25 0.25
+}
+DEF WALL1 Solid {
+  translation 0.5 0.025 0
+  children [
+    DEF WALL_BODY Shape {
+      appearance PBRAppearance {
+        baseColor 0 0 1
+        roughness 0.5
+        metalness 0
+      }
+      geometry Box {
+        size 0.01 0.05 1
+      }
+    }
+  ]
+  boundingObject USE WALL_BODY
+}
+DEF WALL2 Solid {
+  translation 0 0.025 0.5
+  rotation 0 1 0 1.57
+  children [
+    USE WALL_BODY
+  ]
+  boundingObject USE WALL_BODY
+}
+DEF WALL3 Solid {
+  translation -0.5 0.025 0
+  children [
+    USE WALL_BODY
+    Shape {
+    }
+  ]
+  boundingObject USE WALL_BODY
+}
+DEF WALL4 Solid {
+  translation 0 0.025 -0.5
+  rotation 0 1 0 1.57
+  children [
+    USE WALL_BODY
+  ]
+  boundingObject USE WALL_BODY
 }
 WoodenBox {
-  translation 0 0.05 -0.3
+  translation 0.3 0.05 0.25
   rotation 0 1 0 0.785
   size 0.1 0.1 0.1
   mass 0.2
 }
 WoodenBox {
-  translation 0.3 0.05 0.34
-  rotation 0 1 0 0.5
+  translation -0.3 0.05 0.3
+  rotation 0 1 0 0.785
   size 0.1 0.1 0.1
   mass 0.2
 }
 WoodenBox {
-  translation -0.25 0.05 0.28
-  rotation 0 1 0 0.3
+  translation 0 0.05 -0.25
   size 0.1 0.1 0.1
   mass 0.2
 }
 E-puck {
+  controller "workshop_epuck_avoid_collision"
+}
+DEF BALL Solid {
+  translation 0.3 0.3 0
+  children [
+    DEF BALL_BODY Shape {
+      appearance PBRAppearance {
+        baseColorMap ImageTexture {
+          url [
+            "textures/red_brick_wall.jpg"
+          ]
+        }
+        roughness 1
+        metalness 0
+      }
+      geometry Sphere {
+        radius 0.05
+        subdivision 2
+      }
+    }
+  ]
+  boundingObject USE BALL_BODY
+  physics Physics {
+  }
+}
+DEF DUMBBELL Solid {
+  translation 0 0.03 0.3
+  rotation 0 0 1 1.57
+  children [
+    DEF GO Group {
+      children [
+        Shape {
+          appearance DEF HANDLE_APPR PBRAppearance {
+            metalness 0
+          }
+          geometry Cylinder {
+            height 0.1
+            radius 0.01
+          }
+        }
+        Transform {
+          translation 0 0.05 0
+          children [
+            Shape {
+              appearance USE HANDLE_APPR
+              geometry DEF WEIGHT_SPH Sphere {
+                radius 0.03
+                subdivision 2
+              }
+            }
+          ]
+        }
+        Transform {
+          translation 0 -0.05 0
+          children [
+            Shape {
+              appearance USE HANDLE_APPR
+              geometry USE WEIGHT_SPH
+            }
+          ]
+        }
+      ]
+    }
+  ]
+  boundingObject USE GO
+  physics Physics {
+    density -1
+    mass 2
+  }
 }

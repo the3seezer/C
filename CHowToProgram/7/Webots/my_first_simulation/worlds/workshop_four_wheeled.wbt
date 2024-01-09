@@ -1,0 +1,196 @@
+#VRML_SIM R2021a utf8
+WorldInfo {
+  basicTimeStep 16
+  coordinateSystem "NUE"
+}
+Viewpoint {
+  orientation -0.6666666666666666 0.6666666666666666 0.3333333333333333 0.785
+  position 0.8 0.9 1.5
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Floor {
+  size 1 1
+  tileSize 0.25 0.25
+}
+DEF WALL1 Solid {
+  translation 0.5 0.0125 0
+  children [
+    DEF WALL_BODY Shape {
+      appearance PBRAppearance {
+        baseColor 0 0 1
+        roughness 0.5
+        metalness 0
+      }
+      geometry Box {
+        size 0.01 0.08 1
+      }
+    }
+  ]
+  boundingObject USE WALL_BODY
+}
+DEF WALL2 Solid {
+  translation -0.5 0.0125 0
+  children [
+    USE WALL_BODY
+  ]
+  boundingObject USE WALL_BODY
+}
+DEF WALL3 Solid {
+  translation 0 0.0125 0.5
+  rotation 0 1 0 1.57
+  children [
+    USE WALL_BODY
+  ]
+  boundingObject USE WALL_BODY
+}
+DEF WALL4 Solid {
+  translation 0 0.0125 -0.5
+  rotation 0 1 0 1.57
+  children [
+    USE WALL_BODY
+  ]
+  boundingObject USE WALL_BODY
+}
+Robot {
+  translation 0 0.04 0
+  children [
+    DEF BODY Shape {
+      appearance PBRAppearance {
+        baseColor 1 0 0
+        roughness 1
+        metalness 0
+      }
+      geometry Box {
+        size 0.1 0.05 0.2
+      }
+    }
+    DEF WHEEL1 HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0.06 0 0.05
+      }
+      device [
+        RotationalMotor {
+          name "wheel1"
+        }
+      ]
+      endPoint Solid {
+        translation 0.06 0 0.05
+        rotation 0 0 1 1.57
+        children [
+          DEF WHEEL_BODY Shape {
+            appearance DEF WHEEL_APPR PBRAppearance {
+              baseColor 0 1 0
+              roughness 1
+              metalness 0
+            }
+            geometry Cylinder {
+              height 0.02
+              radius 0.04
+            }
+          }
+        ]
+        boundingObject USE WHEEL_BODY
+        physics DEF WHEEL_PH Physics {
+        }
+      }
+    }
+    DEF WHEEL2 HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor -0.06 0 0.05
+      }
+      device [
+        RotationalMotor {
+          name "wheel2"
+        }
+      ]
+      endPoint Solid {
+        translation -0.06 0 0.05
+        rotation 0 0 1 1.57
+        children [
+          USE WHEEL_BODY
+        ]
+        boundingObject USE WHEEL_BODY
+        physics USE WHEEL_PH
+      }
+    }
+    DEF WHEEL3 HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0.06 0 -0.05
+      }
+      device [
+        RotationalMotor {
+          name "wheel3"
+        }
+      ]
+      endPoint Solid {
+        translation 0.06 0 -0.05
+        rotation 0 0 1 1.57
+        children [
+          USE WHEEL_BODY
+        ]
+        boundingObject USE WHEEL_BODY
+        physics USE WHEEL_PH
+      }
+    }
+    DEF WHEEL4 HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor -0.06 0 -0.05
+      }
+      device [
+        RotationalMotor {
+          name "wheel4"
+        }
+      ]
+      endPoint Solid {
+        translation -0.06 0 -0.05
+        rotation 0 0 1 1.57
+        children [
+          USE WHEEL_BODY
+        ]
+        boundingObject USE WHEEL_BODY
+        physics USE WHEEL_PH
+      }
+    }
+    DistanceSensor {
+      translation 0.03 0 0.1
+      rotation 0 1 0 -1.27
+      children [
+        DEF SENSOR_BODY Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 1
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "ds1"
+      boundingObject USE SENSOR_BODY
+      physics DEF DS_PH Physics {
+      }
+    }
+    DistanceSensor {
+      translation -0.03 0 0.1
+      rotation 0 1 0 4.41
+      children [
+        USE SENSOR_BODY
+      ]
+      name "ds2"
+      boundingObject USE SENSOR_BODY
+      physics USE DS_PH
+    }
+  ]
+  boundingObject USE BODY
+  physics Physics {
+  }
+  controller "workshop_four_wheels_collision_avoidance"
+}
+Workshop_four_wheeled {
+  translation 0.3 0.04 -0.25
+  rotation 0 1 0 3.14
+}
