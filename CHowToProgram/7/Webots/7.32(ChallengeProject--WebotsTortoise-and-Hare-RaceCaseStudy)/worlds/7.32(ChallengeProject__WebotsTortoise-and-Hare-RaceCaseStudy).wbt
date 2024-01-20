@@ -3,11 +3,22 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation -0.7 0.7 0.2 0.75
-  position 1.2 1.6 2.3
-
+  orientation -0.3998130560796111 0.6901904834406186 0.6031472595944433 9.13449689147977e-06
+  position -1.1102230246251565e-16 0.20000000000000018 6.5
 }
 TexturedBackground {
 }
 TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 8 21
+  wallHeight 0.04
+}
+DEF TORTOISE E-puck {
+  translation -0.5 0 5
+  controller "snapper_bunny_controller"
+}
+DEF HARE Spot {
+  translation 0.5 0.606 5.42
+  controller "snapper_bunny_controller"
 }
