@@ -6,7 +6,8 @@
     "xiosbase": "c",
     "xstring": "c",
     "xutility": "c",
-    "locale": "c"
+    "locale": "c",
+    "8.2B.C": "cpp"
   },
   "DockerRun.DisableDockerrc": true,
   "C_Cpp.errorSquiggles": "disabled",
