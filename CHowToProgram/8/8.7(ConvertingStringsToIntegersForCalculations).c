@@ -6,29 +6,22 @@
 */
 #include <stdio.h>
 #include <stdlib.h>
-#define NUM 4
 #define SIZE 20
 int main( void ) {
-    int numbers[NUM] = { 0 };
-    int total = 0;
-    char * numStr[ NUM ] = { "" };
-    char * numPtr[ NUM ] = { NULL };
+    long int a = 0, b = 0, c = 0, d = 0; // The integers
+    char * aPtr = NULL, *bPtr = NULL, *cPtr = NULL, *dPtr = NULL; // The end pointers
+    char aStr[SIZE] = "", bStr[SIZE] = "", cStr[SIZE] = "", dStr[SIZE] = ""; // The strings
 
     puts("Enter four strings representing integers" );
 
-    for ( size_t i = 0; i < NUM; ++i ) {
-        printf( "%s", "Enter an integer string: " );
-        scanf( "%s", &numStr[ i ] );
-        puts("");
-    } // end for
+    scanf( "%s%s%s%s", aStr, bStr, cStr, dStr );
+    
+    a = strtol( aStr, &aPtr, 0 );
+    b = strtol( bStr, &bPtr, 0 );
+    c = strtol( cStr, &cPtr, 0 );
+    d = strtol( dStr, &dPtr, 0 );
 
-    for ( size_t i = 0; i < NUM; i++ )
-        numbers[ i ] = strtol( numStr[ i ], &numPtr[ i ], 0 );
-
-    for ( size_t i = 0; i < NUM; i++ )
-        total += numbers[i];
-
-    printf( "The sum of the integers is %d\n", total );
+    printf( "The sum of the integers is %ld\n", a + b + c + d );
 
     return 0;
 
