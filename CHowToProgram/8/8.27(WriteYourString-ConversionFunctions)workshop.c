@@ -16,33 +16,29 @@ double strTod( const char * s, char ** endPtr ) {
     int i = 0; // counter
     double num = 0; // a number to be extrated from a string
     int d = 0; // a decimal flag
+    int endP = 0; // the end pointer flag
     endPtr = &s;
 
     while ( s[ i ] != '\0' ) {
-
         // check if it's a digit
         if( ((int)s[i]) >= 48 && ((int)s[i]) <= 57 ) {
             if ( d == 0 ) {
                 num *= 10;
-                num += ((int)s[0] - 48 );
-
-                // assign the pointer to a next location
-                ++( *endPtr );
+                num += ((int)s[i] - 48 );
             } // end if
             else {
-                num += ( ((int)s[0] - 48 ) / pow( 10, d++ ) );
-
-                // assign the pointer to a next location
-                ++( *endPtr );
+                num += ( ((int)s[i] - 48 ) / pow( 10, d++ ) );
             } // end if
   
         } // end if
-        else if( num && s[0] == '.' && d == 0 ) {
+        else if( num && s[i] == '.' && d == 0 ) {
             d = 1;
-
-            // assign the pointer to a next location
-            ++( *endPtr );
+            endPtr = &s[i];
         } // end else if
+        else if( num && !endP ) {
+            endPtr = &s[i];
+            endP = 1;
+        } // end else
 
        i++; 
     } // end while

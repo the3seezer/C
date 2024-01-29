@@ -9,7 +9,6 @@
 #include<string.h>
 int main( void ) {
     char text[3][100] = {'\0'};    // line of text input by user
-    char *searchPtr = "";          // Pointer to search return
     int alCount[123] = {0};       // alphabet counter
     int i = 0;                      // loop counter
     int j = 0;                      // loop counter
@@ -21,31 +20,16 @@ int main( void ) {
 
     // loop through all the characters
     for ( i = 0; i < 3; i++ ) {
-        // convert all characters to lowercase
-        for ( j = 0; text[i][j] != '\0'; j++ ) { 
+
+        for ( j = 0; text[i][j] != '\0'; j++ ) {
+            // convert all characters to lowercase
             text[i][j] = tolower( text[i][j] );
+            // count the alphabet
+            if ( isalpha( text[i][j] ) )
+                ++alCount[ (int) text[i][j] ];
+
         } // end for
     } // end for
-
-    // take each character to search
-    for ( j = 97; j < 123; j++ )
-        // loop through three lines of text
-        for ( i = 0; i < 3; i++ ) {
-            // set pointer to the first element of a line of text
-            searchPtr = &text[i][0];
-            // search each character in a text line
-            while ( searchPtr != NULL ) {
-                searchPtr = strchr( searchPtr, j );
-                if ( searchPtr ) {
-                    ++alCount[ ( int ) *searchPtr ];
-                } // end if
-                else {
-                    break;
-                } // end else
-                ++searchPtr;
-            } // end while
-
-        } // end for
 
     // Display the alphabets
     printf( "%s\n", "There are: " );

@@ -25,7 +25,7 @@ int main( void ) {
     "toupper( \'%c\' ) = ", toupper( c ),
     "isspace( \'%c\' ) = ", isspace( c ),
     "iscntrl( \'%c\' ) = ", iscntrl( c ),
-    "ispunct( \'%s\' ) = ", ispunct( c ),
+    "ispunct( \'%c\' ) = ", ispunct( c ),
     "isprint( \'%c\' ) = ", isprint( c ),
     "isgraph( \'%c\' ) = ", isgraph( c ) );
 } /* end main */
