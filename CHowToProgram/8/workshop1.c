@@ -4,7 +4,7 @@ double strTod( const char *, char ** );
 long strTol( const char *, char **, int );
 unsigned long strToul( const char *, char **, int );
 int main( void ) {
-    char * string = "8829.778ABC";
+    char * string = "8827899.778ABC";
     char * sPtr = "";
     double number = 0;
     number = strTod( string, &sPtr );
@@ -20,6 +20,16 @@ double strTod( const char * s, char ** endPtr ) {
 
     while ( s[ i ] != '\0' ) {
 
+        // Break a string if it does'nt start with digit character or digits are over
+        if ( !((int)s[ 0 ] >= 48 && (int)s[ 0 ] <= 57) && s[ 0 ] != '.' && s[ 0 ] != ' ' )
+            break;
+        // skip the spaces
+        if ( s[ 0 ] == ' ' ) {
+            // assign the pointer to a next location
+            ++( *endPtr );
+            i--; // prevent the location from double skipping
+        } // end if
+
         // check if it's a digit
         if( ((int)s[i]) >= 48 && ((int)s[i]) <= 57 ) {
             if ( d == 0 ) {
@@ -28,12 +38,14 @@ double strTod( const char * s, char ** endPtr ) {
 
                 // assign the pointer to a next location
                 ++( *endPtr );
+                i--; // prevent the location from double skipping
             } // end if
             else {
                 num += ( ((int)s[0] - 48 ) / pow( 10, d++ ) );
 
                 // assign the pointer to a next location
                 ++( *endPtr );
+                i--; // prevent the location from double skipping
             } // end if
   
         } // end if
@@ -42,12 +54,13 @@ double strTod( const char * s, char ** endPtr ) {
 
             // assign the pointer to a next location
             ++( *endPtr );
+            i--; // prevent the location from double skipping
         } // end else if
 
        i++; 
     } // end while
 
-    return num;
+    return num ? num : 0.00;
 } /* end function strTod */
 long strTol( const char * s, char ** endPtr, int base ) {
 

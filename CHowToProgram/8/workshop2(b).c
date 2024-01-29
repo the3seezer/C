@@ -4,7 +4,7 @@ double strTod( const char *, char ** );
 long strTol( const char *, char **, int );
 unsigned long strToul( const char *, char **, int );
 int main( void ) {
-    char * string = " bachu8827899.778ABC";
+    char * string = " bachu889.78ABC";
     char * sPtr = "";
     double number = 0;
     number = strTod( string, &sPtr );
