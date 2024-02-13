@@ -72,6 +72,5 @@ int main( void ) {
     printf_s( "  %p", nPtr );
     nPtr -= 4;
     printf_s( "  %p", nPtr );
-
-
+    
 }

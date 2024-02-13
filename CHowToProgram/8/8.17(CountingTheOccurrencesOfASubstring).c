@@ -7,7 +7,7 @@ int main( void ) {
     int count = 0;          // search string counter
     int i = 0;              // loop counter
 
-    // Enter lines of text
+    // Enter 4 lines of text
     printf( "%s\n", "Enter three lines of text: " );
     for ( i = 0; i <= 3; i++ ) {
         printf( "%s\n", "Enter a line of text..." );

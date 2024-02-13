@@ -1,0 +1,7 @@
+7.32 ( the webots environment. get to know webots better...)
+8.29workshop && 8.29 ( instructors manual ): NOTE; I only rearranged the statement to solve the problem!!!; compare the two files
+8.31 (instructors manual ): the strTok function only worked on one step: when I inserted NULL it didn't burge!
+8.32 (instructors manual ): how to copy data types other than characters: with more than one byte 
+8:35 (instructors manual ): Couldn't understand type-Justified better. I'll have to see word Processing and understand it
+
+NOTE: Where are built in functions located in the compiler

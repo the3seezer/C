@@ -7,7 +7,8 @@
     "xstring": "c",
     "xutility": "c",
     "locale": "c",
-    "8.2B.C": "cpp"
+    "8.2B.C": "cpp",
+    "algorithm": "c"
   },
   "DockerRun.DisableDockerrc": true,
   "C_Cpp.errorSquiggles": "disabled",
