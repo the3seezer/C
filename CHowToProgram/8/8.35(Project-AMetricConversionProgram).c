@@ -2,24 +2,13 @@
     theBitRiddler
     2/9/2024
     9:46 PM
-    8.35 (Project: A Metric Conversion Program) 
-Metric System
-length   // millimeter = 0.0394inch, centimeter = 0.394 inch, kilometer = 0.6214 mile 
-Area    // square_meter = 0.025 acre    // hectare = 2.472 acres, square_kilometer = 0.386 square miles 
-weight   // gram = 15.43 grains, kilogram = 2.205 pounds, tonne = 19.688 hundredweight        
-Capacity     // centiliter = 0.018 pint / 0.021 US pint, liter = 1.76 pints / 2.1 US pints, 1 liter = 1000 cubic centimeters  
-Imperial System
-length       // inch = 25.4 millimeters, yard = 0.914 meter, mile = 1.609 kilometers  
-Area     // sq_inch = 6.452 sq centimeters( cm^2), sq_mile = 259 hectares, sq_yard = 0.836 sq meter, sq_mile = 2.59 sq kilometers / 259 hectares
-weight     // ounce = 28.35 grams, ton = 1016.04 kilograms
-British capacity     // pint = 0.568 liter, gallon = 4.546 liters, 1 pint = 568.2613 cubic centimeters, 1 pint = 1.20095 us pint
-American Capacity    // us_pint = 0.473 liter, us_gallon = 3.785 liters, 1 us pint = 473.1765 cubic centimeters
+    8.35 (Project: A Metric Conversion Program)
 */
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
-char * recon( const char * , const char *[][10], int*,  int * );
+char * recon( const char * , const char *[][10], int*,  int *, char ** );
 double convert( const double [][10], double[][10], int, int, int, int );
 void transfer( const double [][10], double[][10], int *, int *, const int );
 int main( void ) {
@@ -32,7 +21,7 @@ int main( void ) {
         { "cubic millimeter", "cubic centimeter", "cubic decimeter", "cubic meter", "cubic decameter", "cubic hectometer", "cubic kilometer", "", "", "" },
 
         { "inch", "feet", "yard", "furlong", "mile", "", "", "", "", "" },
-        { "square inch", "square feet", "square yard" "square furlong", "square mile", "", "", "", "", "" },
+        { "square inch", "square feet", "square yard", "square furlong", "square mile", "", "", "", "", "" },
         { "square yard", "acre", "square mile", "", "", "", "", "", "", "" },
         { "grain", "ounce", "pound", "stone", "hundredweight", "ton", "", "", "", "" },
         { "fluid ounce", "pint", "quart", "gallon", "", "", "", "", "", "" },
@@ -43,8 +32,8 @@ int main( void ) {
         { 100, 100, 100, 100, 100, 100, 1, 0, 0, 0 },
         { 100, 100, 100, 1, 0, 0, 0, 0, 0, 0 },
         { 10, 10, 10, 10, 10, 10, 1000, 1, 0, 0 },
-        { 1000000, 1000000, 1000000, 1000000, 1000000, 1000000, 1, 0, 0, 0 },
-        { 1000000, 1000000, 1000000, 1000000, 1000000, 1000000, 1, 0, 0, 0 },
+        { 10, 10, 10, 10, 10, 10, 1, 0, 0, 0 },
+        { 1000, 1000, 1000, 1000, 1000, 1000, 1, 0, 0, 0 },
 
         { 12, 3, 220, 8, 1, 0, 0, 0, 0, 0 },
         { 144, 9, 48400, 64, 1, 0, 0, 0, 0, 0 },
@@ -53,8 +42,8 @@ int main( void ) {
         { 20, 2, 4, 1, 0, 0, 0, 0, 0, 0 },
         { 16, 2, 4, 1, 0, 0, 0, 0, 0, 0 }
     };
-    double values[12][10] = {{0.0},{0.0},{0.0},{0.0},{0.0},{0.0},{0.0},{0.0},{0.0},{0.0},{0.0},{0.0}};
-    char request[100] = "How many kilometers are in 1 miles?"; // question/ request input by user
+    double values[12][10] = {{0.0}, {0.0}, {0.0}, {0.0}, {0.0}, {0.0}, {0.0}, {0.0}, {0.0}, {0.0}, {0.0}, {0.0}};
+    char request[100] = ""; // question/ request input by user
     char *unitPtr = "";
     char *unit1 = "";  // unit one
     char *unit2 = "";  // unit two
@@ -62,6 +51,7 @@ int main( void ) {
     char * rem = "";     // remainder on the strtod function
     char * tokenPtr = "";     // token pointer
     char * unit1Ptr = "";   // first unit pointer
+    char * tempUnit1 = "";  // first unit temp
     char * unit2Ptr = "";     // second unit pointer
     int i = 0, j = 0, k = 0; // counter of standards
     int a = 0;  // first unit identity recorder
@@ -69,9 +59,9 @@ int main( void ) {
     int c = 0;  // first unit position recorder
     int d = 0;  // second unit position recorder
     
-    // proMpt a user to enter a question
-    // printf( "%s\n", "Enter your request: \n (use simple grammar, use 'us' for united states,\n use meter and liter not metre or litre\n use digit for values and avoid abbreviations ): " );
-    // fgets( request, 100, stdin );
+    // prompt a user to enter a question
+    printf( "%s\n", "Enter your request: \n (use simple grammar, use 'us' for united states,\n use meter and liter not metre or litre\n use plurar 'ares' to distinguish it from are\n use digit for values and avoid abbreviations ): " );
+    fgets( request, 100, stdin );
 
     // change the request to lowercase
     for ( size_t i = 0; request[i] != '\0'; i++ ) {
@@ -88,7 +78,7 @@ int main( void ) {
 
     // extract the first unit and identify the unit
     while ( i < 12 ) {
-        if ( ( unit1 = recon( request, standards, &i, &j ) ) != NULL )
+        if ( ( unit1 = recon( request, standards, &i, &j, &tempUnit1 ) ) != NULL )
             break;
         i++;
     } // end while
@@ -117,7 +107,7 @@ int main( void ) {
     // extract the second unit
     j++; // get to the second position
     while ( i < 12 ) {
-        if ( ( unit2 = recon( request, standards, &i, &j ) ) != NULL )
+        if ( ( unit2 = recon( request, standards, &i, &j, &tempUnit1 ) ) != NULL )
             break;
         i++;
     } // end while
@@ -153,7 +143,12 @@ int main( void ) {
         
         // Then convert the transferred value
         value = convert( standard_values, values, a, c, b, d );
-        printf( "\nANS: %lf %s%s", value, strcmp( unit2, "feet" ) == 0 ? value > 1 ? unit2 : "foot" : unit2, strcmp( unit2, "feet" ) == 0 ? "" : value > 1 ? "s": "" );
+        // display the results
+        if ( strcmp( unit2, "ares") != 0 )
+            printf( "\nANS: %lf %s%s", value, strcmp( unit2, "feet" ) == 0 ? value > 1 ? unit2 : "foot" : unit2, strcmp( unit2, "feet" ) == 0 ? "" : value > 1 ? "s": "" );
+        else
+            printf( "\nANS: %lf %s", value, value > 1 ? "ares" : "are" );
+
     } // end if
     else {
         values[b][d] = value; // convert to first unit
@@ -164,7 +159,12 @@ int main( void ) {
         
         // Then convert the transferred value
         value = convert( standard_values, values, b, d, a, c );
-        printf( "\nANS: %lf %s%s", value, strcmp( unit1, "feet" ) == 0 ? value > 1 ? unit1 : "foot" : unit1, strcmp( unit1, "feet" ) == 0 ? "" : value > 1 ? "s": "" );
+        // display the results
+        if ( strcmp( unit1, "ares" ) != 0 )
+            printf( "\nANS: %lf %s%s", value, strcmp( unit1, "feet" ) == 0 ? value > 1 ? unit1 : "foot" : unit1, strcmp( unit1, "feet" ) == 0 ? "" : value > 1 ? "s": "" );
+        else 
+            printf( "\nANS: %lf %s", value, value > 1 ? "ares" : "are" );
+
     } // end else
     return 0; // indicate termination successful
 } /* end main */
@@ -194,7 +194,7 @@ void transfer( const double sv[][10], double v[][10], int * i, int * j, const in
         else if ( *i == 1 && m == 8 ) {
             f = 2;  // standard unit position of metric area: square meter
             t = 0;  // ... position for square yard
-            sCFT = 1/0.836;  // 1 square meter == 1/ 0.836 square yard
+            sCFT = 1/0.836;  // 1 square meter == 1 / 0.836 square yard
         } // end else if
         else if ( *i == 2 && m == 7 ) {
             f = 0; // standard unit position of metric area: square meter
@@ -233,7 +233,7 @@ void transfer( const double sv[][10], double v[][10], int * i, int * j, const in
             t = 2;  // standard unit position of metric area: square meter
             sCFT = 0.836;  // 1 square yard == 0.836 square meter
         } // end else if
-        else if ( *i == 8 && m == 2 ) {  // if *i == 8 && m == 2
+        else if ( *i == 8 && m == 2 ) {  
             f = 0; // position of square yard
             t = 0; // standard unit position of metric area: square meter
             sCFT = 0.836; // 1 square yard == 0.836 square meter
@@ -252,23 +252,23 @@ void transfer( const double sv[][10], double v[][10], int * i, int * j, const in
     else if ( *i == 3 && m == 9 ) { // metric weight to imperial weight conversion
         f = 3; // position of gram
         t = 1;  // position of ounce
-        sCFT = 1/28.35; // 1 gram = 1/28.35 ounce
+        sCFT = 1/28.34952; // 1 gram = 1/28.35 ounce
     } // end else if
     else if ( *i == 9 && m == 3 ) { // imperial weight to metric weight conversion
         f = 1;  // position of ounce
         t = 3;   // position of gram
-        sCFT = 28.35;   // 1 ounce == 28.35 grams
+        sCFT = 28.34952;   // 1 ounce == 28.35 grams
     } // end else if
     else if ( ( *i == 4 || *i == 5 ) && ( m == 10 || m == 11 || m == 4 || m == 5 ) ) { // metric capacity to imperial capacity conversion or metric to metric capacity
         if ( *i == 4 && m == 10 ) {
             f = 3; // position of liter
             t = 1; // position for pint
-            sCFT = 1/0.568; // 1 liter = 1/0.568 pint
+            sCFT = 1/0.568261; // 1 liter = 1/0.568 pint
         } // end if
         else if ( *i == 4 && m == 11 ) {
             f = 3; // position for liter
             t = 1;  // position for us pint
-            sCFT = 1/0.473; // 1 liter = 1/0.473 us pint
+            sCFT = 1/0.473176; // 1 liter = 1/0.473 us pint
         } // end else if
         else if ( *i == 5 && m == 10 ) {
             f = 1; // position for cubic centimeter
@@ -288,14 +288,14 @@ void transfer( const double sv[][10], double v[][10], int * i, int * j, const in
         else if ( *i == 5 && m == 4 ) {
             f = 1;  // position for cubic centimeter
             t = 3;  // position for liter
-            sCFT = 1/1000;  // 1 cubic centimeter = 1/1000 liter
+            sCFT = 0.001;  // 1 cubic centimeter = 1/1000 liter
         } // end else if
     } // end else if
     else if ( (*i == 10 || *i == 11) && (m == 4 || m == 5 || m == 10 || m == 11 ) ) {  // imperial capacity to metric capacity conversion or imperial to imperial
         if ( *i == 10 && m == 4 ) {
             f = 1; // position for pint
             t = 3; // position of liter
-            sCFT = 0.568; // 1 pint = 0.568 liter
+            sCFT = 0.568261; // 1 pint = 0.568 liter
         } // end if
         else if ( *i == 10 && m == 5 ) {
             f = 1;  // position for pint
@@ -305,9 +305,9 @@ void transfer( const double sv[][10], double v[][10], int * i, int * j, const in
         else if ( *i == 11 && m == 4 ) {
             f = 1;  // position for us pint
             t = 3; // position for liter
-            sCFT = 0.473; // 1 us pint = 0.473 liter
+            sCFT = 0.473176; // 1 us pint = 0.473 liter
         } // end else if
-        else if ( *i == 11 && m == 5 ) { // if 
+        else if ( *i == 11 && m == 5 ) { 
             f = 1;  // position for us pint
             t = 1;  // position for cubic centimeter
             sCFT = 473.1765; // 1 us pint = 473.1765 cubic centimeters
@@ -327,7 +327,7 @@ void transfer( const double sv[][10], double v[][10], int * i, int * j, const in
     // convert to the standard unit value of froUnit
     sVF = convert( sv, v, *i, *j, *i, f );
     // transfer to the toUnit 
-    v[*i = m][*j = t] = sVF * sCFT; 
+    v[*i = m][*j = t] = sVF * sCFT;
 
     return; // indicate termination successful
 } /* end function transfer */
@@ -351,13 +351,11 @@ double convert(const double sv[][10], double v[][10], int i, int j, int m, int n
     return toUnit;
 } /* end function convert */
 // identify a unit
-char * recon( const char * request, const char * std[][10], int * sub, int * sub2 ) {
+char * recon( const char * request, const char * std[][10], int * sub, int * sub2, char ** tempUnit1 ) {
     char * unit = "";
     char * ptr = "";
-    char * ptr2 = "";
     int i = 0;  // unit controller
     int j = 0;  // unit position controller
-    size_t k = 0;       // pointer unit skipper
     
     i = *sub;
     for ( ; i < 12; i++ ) {
@@ -366,33 +364,82 @@ char * recon( const char * request, const char * std[][10], int * sub, int * sub
         else
             j = *sub2;
 
-        for ( ; j < 10; j++ ) {
+         for ( ; j < 10; j++ ) {
             if ( ( (ptr = strstr( request, std[i][j] ) ) != NULL) && *std[i][j] != '\0' ) {
                 // whatch if there is a space after a unit and there isn't any letter joined
-                if ( !isalpha( *( --ptr ) ) || isblank( *ptr )  ) {
-                    ++ptr; // restore the pointer's location
-                    unit = std[i][j];
-                    *sub = i;
-                    *sub2 = j;
-                    return unit;
-                } // end if
-                else if ( isalpha( *( ptr ) ) ) { 
-                    ++ptr; // restore the pointer's location
-                    // reallocate the position
-                    while( std[i][j][k] != '\0' ) {
-                        k++; ptr++;
-                    } // end while
-                    if( ( ptr2 = strstr( ptr, std[i][j] ) ) != NULL ) {
-                        // whatch if there is a space after a unit and there isn't any letter joined
-                        if ( !isalpha( *( --ptr2 ) ) || isblank( *ptr2 )  ) {
-                            ++ptr2;
+                if ( !isalpha( *( --ptr ) ) ) {
+                    if ( isblank( *ptr ) ) {
+                        if ( ( strncmp( (ptr -= 6 ), "square", 6 ) != 0 && strstr( std[i][j], "square" ) == NULL ) && ( strncmp( ++ptr, "cubic", 5 ) != 0 && strstr( std[i][j], "cubic" ) == NULL ) &&
+                        ( strncmp( ptr, "fluid", 5 ) != 0 && strstr( std[i][j], "fluid" ) == NULL ) && ( strncmp( (ptr+=3), "us", 2 ) != 0 && strstr( std[i][j], "us" ) == NULL ) &&
+                        ( strncmp( (ptr-=6), "us fluid", 8 ) != 0 && strstr( std[i][j], "us fluid" ) == NULL ) ) { // exclude units with "square"/"cubic"/... before them and have no "square"/"cubic"/... in them
                             unit = std[i][j];
                             *sub = i;
                             *sub2 = j;
                             return unit;
                         } // end if
+                        else {  // include the excluded units
+                            if ( strstr( std[i][j], "square" ) != NULL ) {  
+                                unit = std[i][j];
+                                if ( strcmp( unit, *tempUnit1 ) != 0 ) { // as long as the first unit is not equal to the second
+                                    *sub = i;
+                                    *sub2 = j;
+                                    *tempUnit1 = unit;
+                                    return unit;
+                                } // end if
+                            }   // end if
+                            else if ( strstr( std[i][j], "cubic" ) != NULL ) {
+                                unit = std[i][j];
+                                if ( strcmp( unit, *tempUnit1 ) != 0 ) { // as long as the first unit is not equal to the second
+                                    *sub = i;
+                                    *sub2 = j;
+                                    *tempUnit1 = unit;
+                                    return unit;
+                                } // end if
+                            }   // end else if
+                            else if ( strstr( std[i][j], "us fluid" ) != NULL ) {
+                                unit = std[i][j];
+                                if ( strcmp( unit, *tempUnit1 ) != 0 ) { // as long as the first unit is not equal to the second
+                                    *sub = i;
+                                    *sub2 = j;
+                                    *tempUnit1 = unit;
+                                    return unit;
+                                } // end if
+                            }   // end else if
+                            else if ( strstr( std[i][j], "us" ) != NULL ) {
+                                unit = std[i][j];
+                                if ( strcmp( unit, *tempUnit1 ) != 0 ) { // as long as the first unit is not equal to the second
+                                    *sub = i;
+                                    *sub2 = j;
+                                    *tempUnit1 = unit;
+                                    return unit;
+                                } // end if
+                            }   // end else if
+                            else if ( strstr( std[i][j], "fluid" ) != NULL ) {
+                                unit = std[i][j];
+                                ptr = strstr( request, std[i][j] );
+                                if ( strcmp( unit, *tempUnit1 ) != 0 && strncmp( (ptr-=3), "us", 2 ) != 0 ) { // as long as the first unit is not equal to the second and exclude 'us'
+                                    *sub = i;
+                                    *sub2 = j;
+                                    *tempUnit1 = unit;
+                                    return unit;
+                                } // end if
+                            }   // end else if
+                        } // end else
                     } // end if
-                } // end else if
+                } // end if
+                else {  // distinguish btn meter, liter and kilometer....
+                    ptr++;  // restore it's original location
+                    // move over the current unit location in the text to another location in the text to look for the unit in std
+                    for ( size_t k = 0; std[i][j][k] != '\0'; k++ ) {
+                        k++; ptr++;
+                    } // end for
+                    if ( strstr( ptr, std[i][j] ) != NULL && strstr( std[i][j], "cubic" ) == NULL ) {
+                        unit = std[i][j];
+                        *sub = i;
+                        *sub2 = j;
+                        return unit;
+                    }  // end if
+                }   // end else
             } // end if
         } // end for
     } // end for
