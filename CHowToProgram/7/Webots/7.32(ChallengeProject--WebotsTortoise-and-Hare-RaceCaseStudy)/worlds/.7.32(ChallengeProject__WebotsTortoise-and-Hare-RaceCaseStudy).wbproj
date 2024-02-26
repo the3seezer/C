@@ -5,7 +5,7 @@ sceneTreePerspectives: 000000ff0000000100000002000000c0000000fc01000000060100000
 maximizedDockId: -1
 centralWidgetVisible: 1
 orthographicViewHeight: 1
-textFiles: 2 "controllers/bunny_controller/bunny_controller.c" "controllers/snapper_controller/snapper_controller.c" "controllers/snapper_bunny_controller/snapper_bunny_controller.c" "controllers/workshop/workshop.c" "controllers/workshop2/workshop2.c" "controllers/workshop3/workshop3.c"
+textFiles: 0 "controllers/bunny_controller/bunny_controller.c" "controllers/snapper_controller/snapper_controller.c" "controllers/snapper_bunny_controller/snapper_bunny_controller.c" "controllers/workshop/workshop.c" "controllers/workshop2/workshop2.c" "controllers/workshop3/workshop3.c"
 consoles: Console:All:All
 renderingDevicePerspectives: Spot:left flank camera;0;0.0462963;0;0
 renderingDevicePerspectives: Spot:left head camera;0;0.0462963;0;0
