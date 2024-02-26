@@ -61,7 +61,7 @@ int main( void ) {
     // printf( "%s\n", "Enter your recipe" );
     // gets( recipe );
     // printf( "%s: ", "Enter your substitution type" );
-    gets( subType );
+    // gets( subType );
 
     strcpy( recTemp, recipe );   // use a template
     token = strtok( recTemp, " .;:" ); 
