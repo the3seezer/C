@@ -1,4 +1,7 @@
+
 7.32 ( the webots environment. get to know webots better...)
+
+INSTRUCTOR'S MANUAL
 8.29workshop && 8.29 ( instructor's manual ): NOTE; I only rearranged the statement to solve the problem!!!; compare the two files
 8.31 (instructor's manual ): the strTok function only worked on one step: when I inserted NULL it didn't burge!
 8.32 (instructor's manual ): how to copy data types other than characters: with more than one byte 

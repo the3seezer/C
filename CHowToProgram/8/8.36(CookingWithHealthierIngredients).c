@@ -55,6 +55,8 @@ int main( void ) {
     char * divide = "";         // a denominator of an ingredient
     char wordM[15] = "";     // measurents in words: cup, teaspoon ...
     char uncharted[80] = "";      // contain all unkown ingredients
+    int knownflag = 0;        // unknown flga
+    int unknownflag = 0;    // unknown flag
     double ing_value = 0;   // ingredient value
     double ingIV = 0;   // ingredient ideal value
     size_t i = 0;   // controller
@@ -67,6 +69,7 @@ int main( void ) {
     gets( recipe );
     printf( "%s ", "Enter your substitution type\n 1 High cholesterol\n 2 Loosing Weight\n 3 All :\n ?" );
     scanf( "%d", &subType );
+
     if ( subType == 1 ) {
         subUnits[0]++, subUnits[1]++, subUnits[4]++, subUnits[6]++, subUnits[7]++, subUnits[8]++, subUnits[9]++;
     } // end if
@@ -81,7 +84,7 @@ int main( void ) {
     strcpy( recTemp, recipe );   // use a template
     token = strtok( recTemp, " ;:" ); 
     while( token != NULL ) { 
-        // search for a comma
+        
         if ( strtod( token, &tokenRem ) > 0 ) {
             ing_value = strtod( token, &tokenRem );  // take the value if found
             mflag++;
@@ -94,7 +97,7 @@ int main( void ) {
         if ( strstr( token, "cup" ) != NULL || strstr( token, "teaspoon" ) != NULL || strstr( token, "tablespoon" ) != NULL ) {
             strcpy( wordM, token );
             mflag++;
-        }   // end if       
+        }   // end if     
 
         // get the ingredients names
         for ( ; i < SIZE && mflag == 0; i++ ) {
@@ -103,56 +106,71 @@ int main( void ) {
                 break;
             // find the first name of the ingredient and the second name   
             if( strstr( token, ingredients[i][0] ) != NULL && *firstName == '\0' ) {
-                if ( !mkflag ) {
-                    strcpy( firstName, ingredients[i][0] ); // copy firstName
-                    if ( strcmp( ingredients[i][0], "milk" ) == 0 ) {
+                if ( !mkflag ) { // if milk flag is zero
+                    strcpy( firstName, ingredients[i][0] );  // copy firstName
+                    if ( strcmp( ingredients[i][0], "milk" ) == 0 ) { // flag mkflag if first milk detected
                         mkflag++;
                     } // end if
                     break;
                 } // end if
-                else if ( mkflag ) {
-                    // copy others other than milk
-                    if ( strcmp( ingredients[i][0], "milk" ) != 0 )
+                else if ( mkflag ) { // if mild flag is positive
+                    // copy firstName other than milk 
+                    if ( strcmp( ingredients[i][0], "milk" ) != 0 ) {
                         strcpy( firstName, ingredients[i][0] );
+                        break;
+                    } // end if
+                    // copy firstName if it's a second milk detected    
                     if ( strcmp( ingredients[i][0], "milk" ) == 0 ) {
                         strcpy( firstName, ingredients[i = 8][0] ); 
                         mkflag--;
+                        break;
                     }   // end if
-                    break;
+                    
                 }   // end if
             }   // end if
-            if ( strstr( token, ingredients[i][1] ) != NULL && *secondName == '\0' && *firstName != '\0' ) {
+            if ( strstr( token, ingredients[i][1] ) != NULL && *secondName == '\0' && *firstName != '\0' ) { 
                 strcpy( secondName, ingredients[i][1] );
                 break;
             } // end if
         }   // end for
 
-        // correct the ingredients incase they are unknown
-        if ( !mflag ) { // if a token is not a measurement word
+        // look for unknown token other than the measurement standards
+        for ( size_t i = 0; i < SIZE; i++ ) {
+            for ( size_t j = 0; j < 2 && !mflag && *ingredients[i][j] != '\0'; j++ ) {
+                if ( strstr( token, ingredients[i][j] ) != NULL ) {
+                    knownflag = 1;
+                    break;
+                } // end if
+                else if ( i == (SIZE - 1) && j == 1 && !knownflag ) {
+                    unknownflag = 1;
+                } // end if
+            } // end for
+            if (knownflag)
+                break;
+        } // end for
+
+        // correct the ingredients incase it's unknown; 
+        if ( strcmp( token, "," ) != 0 && strcmp( token, "." ) != 0 )
             strcat( strcat( uncharted, " " ), token );
-        } // end if
         
         // check the ingredients and find their substitution
         if ( ( cFlag = strstr( token, "," ) ) != NULL || ( cFlag = strstr( token, "." ) ) != NULL ) {  // look for a comma, process the current ingredient
             // process the current ingredient for substitution
-            ingIV = ing_value / ing_sv[i];  // get the ingredient's ideal value
-            // display the substitution
-            if ( subUnits[i] && strstr( firstName, ingredients[i][0]) != NULL && strstr( secondName, ingredients[i][1]) != NULL ) { // substitute the ingredient
-                substituteDisplay( sub_sv, substitutions, ingIV, i );
-            }  // end if    
-            else if ( !subUnits[i] && strstr( firstName, ingredients[i][0]) != NULL && strstr( secondName, ingredients[i][1]) != NULL ) { // don't substitute the ingredient
-                if ( ing_value > 0 )    // print if value greater than zero
-                    printf( " %.3lf", ing_value );
-                // print the word measurement and the names of the ingredient    
-                printf( " %s%s %s %s", wordM, ing_value > 1 ? "s" : "", firstName, secondName );
-            } // end else
-            else {  // if the unit is not descovered
-                if ( ing_value )
-                    printf( " %.3lf", ing_value );
-                if ( *wordM != '\0' )  
-                    printf( " %s%s", wordM, ing_value > 1 ? "s" : "" );
-                if ( *uncharted != '\0' )
-                    printf( " %s", uncharted );
+            if ( !unknownflag ) {
+                ingIV = ing_value / ing_sv[i];  // get the ingredient's ideal value
+                // display the substitution
+                if ( subUnits[i] && strstr( firstName, ingredients[i][0]) != NULL && strstr( secondName, ingredients[i][1]) != NULL ) { // substitute the ingredient
+                    substituteDisplay( sub_sv, substitutions, ingIV, i );
+                }  // end if    
+                else if ( !subUnits[i] && strstr( firstName, ingredients[i][0]) != NULL && strstr( secondName, ingredients[i][1]) != NULL ) { // don't substitute the ingredient
+                    if ( ing_value > 0 )    // print if value greater than zero
+                        printf( " %.3lf", ing_value );
+                    // print the word measurement and the names of the ingredient    
+                    printf( " %s%s %s %s", wordM, ing_value > 1 ? "s" : "", firstName, secondName );
+                } // end else
+            } // end if
+            else {  // if knownflag is negative
+                printf( " %s", uncharted );
             } // end if
 
             // prepare the search for the next ingredient
@@ -162,15 +180,21 @@ int main( void ) {
             // clear the names and prepare for the next ingredient
             memset( firstName, '\0', 11 );
             memset( secondName, '\0', 11 );
+            if (!unknownflag) {
+                printf( "%s", cFlag ); // print the available comma or period before clearing
+            } // end if
             ing_value = 0;
-            printf( "%s", cFlag ); // print the available comma or period before clearing
+            unknownflag = 0;
             *cFlag = '\0';
             memset( wordM, '\0', 15 );
             memset( uncharted, '\0', 80 );
+
         }   // end if
 
         // clear the measurement flag
         mflag = 0;
+        // clear the known flag
+        knownflag = 0;
 
         if ( i == SIZE ) { // clear the search controller if it reaches the end
             i = 0;
