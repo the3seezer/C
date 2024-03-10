@@ -13,9 +13,9 @@
 int main( void ) {
     double spamScore = 0;
     char * spams[SPAMS] = {
-        "are", "excited", "won", "win", "get", "offer", "have", "rich", "never", "miss",
-        "opportunity", "mining", "you", "binance", "invest", "reach", "call", "email", "find", "follow",
-        "cost", "profit", "bound", "limit", "no", "us", "subscribe", "register", "buy", "welcome"
+        "are", "binance", "bound", "buy", "call", "cost", "email", "excited", "find", "follow", "get", "have", "invest",
+        "limit", "miss", "mining", "never", "no", "opportunity", "offer",
+        "profit", "reach", "register", "rich", "subscribe", "us", "welcome", "win", "won", "you"
     };
 
     // get the email message
