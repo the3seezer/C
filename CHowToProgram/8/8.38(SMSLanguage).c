@@ -5,8 +5,16 @@
     SMS Language
 */
 #include <stdio.h>
+
+#define SIZE 160
+#define LONG 320
+
+void sToL( char * ); // short to long converter
+void lToS( char * ); // long to short converter
+void (* method[2] )( char * ) = { sToL, lToS }; // The pointer to our functions
+
 int main(void) {
-    const char * SMSWords[188] = {
+    const char * SMSWords[189] = {
         "&", "=", ">", "<", "#", "x", "/", "@",
         "404", "401k",
         "Acct", "Ad", "AFAIK", "Approx", "APR", "ASAP", 
@@ -38,7 +46,7 @@ int main(void) {
         "p",
         "P&L", "PDF", "Pkg", "PLS", "PLZ", 
         "PM", "PMO", "PO", "POS", "PR",
-        "prob", "PTO",
+        "prob", "probs", "PTO",
         "q", "R&D",
         "Q1", "Q2", "Q3", "Q4", 
         "QA", "QoS", "QTY", 
@@ -55,7 +63,7 @@ int main(void) {
         "WB", "WBU", "wrt",
         "YW", "Yr.", "yrs", "YTD" 
     };
-     const char * SMSTranslations[188][3] = {
+    const char * SMSTranslations[189][3] = {
         {"and", "", ""}, {"is", "are", ""}, {"more than", "", ""}, {"less than", "", ""}, {"number", "", ""}, {"times", "", ""}, {"/", "", ""}, {"at", "", ""},
         {"error 404 - not found", "lost", "confused"}, {"US retirement savings plan", "", ""},
         {"account", "", ""}, {"advertisement", "", ""}, {"as far as I know", "", ""}, {"approximately", "", ""}, {"annual percentage rate", "", ""}, {"as soon as possible", "", ""}, 
@@ -87,7 +95,7 @@ int main(void) {
         {"after", "", ""},
         {"profit and loss", "", ""}, {"portable document format", "", ""}, {"package", "", ""}, {"please", "", ""}, {"please", "", ""}, 
         {"private message", "project manager", "" }, {"project management office", "", ""}, {"purchase order", "", ""}, {"parent over shoulder", "", ""}, {"public relation", "", ""},
-        {"problem", "", ""}, {"paid time off", "", ""}, 
+        {"problem", "", ""}, {"problems", "", ""}, {"paid time off", "", ""}, 
         {"every", "", ""}, {"research and development", "", ""},
         {"first quarter", "", ""}, {"second quarter", "", ""}, {"third quarter", "", ""}, {"fourth quarter", "", ""},
         {"quality assurance", "", ""}, {"quality of service", "", ""}, {"quantity", "", ""}, 
@@ -103,6 +111,26 @@ int main(void) {
         {"Work From Home", "", ""}, {"with", "", ""}, {"within", "", ""}, {"without", "", ""}, 
         {"welcome back", "", ""}, {"what about you", "", ""}, {"with respect to", "", ""},
         {"you're welcome", "", ""}, {"year", "", ""}, {"years", "", ""}, {"year-to-date", "", ""}  
-     };
+    };
+    char mi[SIZE] = ""; // message input by user
+    char mo[LONG] = ""; // message output 
+    int m = 0;          // the method of conversion
+
+    // Enter your message
+    printf( "%s :\n", "Enter your message" );
+    gets(mi);
+    // Choose method of conversion
+    printf( "%s", "\nChoose a method: \n 1 - Short message to long\n 2 - long message to short\n? " );
+    scanf( "%d", &m );
+    // Call the function pointer to the function menu
+    (*method[m - 1]) (mi);
 
 } /* end main */
+// convert the short message to long message
+void sToL( char * message ) {
+
+} /* end function sToL */
+// convert the long message to short message
+void lToS( char * message ) {
+
+} /* end function lToS */
