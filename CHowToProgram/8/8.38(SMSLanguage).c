@@ -5,16 +5,23 @@
     SMS Language
 */
 #include <stdio.h>
+#include <ctype.h>
+#include <string.h>
 
 #define SIZE 160
 #define LONG 320
+#define WORDS 189
 
-void sToL( char * ); // short to long converter
-void lToS( char * ); // long to short converter
-void (* method[2] )( char * ) = { sToL, lToS }; // The pointer to our functions
+enum Status {
+    FOUND, UNFOUND, MANY
+};
+
+void sToL( char *, const char * [], const char *[][3]); // short to long converter
+void lToS( char *, const char * [], const char *[][3]); // long to short converter
+void (* method[2] )( char *, const char * [], const char *[][3] ) = { sToL, lToS }; // The pointer to our functions
 
 int main(void) {
-    const char * SMSWords[189] = {
+    const char * SMSWords[WORDS] = {
         "&", "=", ">", "<", "#", "x", "/", "@",
         "404", "401k",
         "Acct", "Ad", "AFAIK", "Approx", "APR", "ASAP", 
@@ -63,7 +70,7 @@ int main(void) {
         "WB", "WBU", "wrt",
         "YW", "Yr.", "yrs", "YTD" 
     };
-    const char * SMSTranslations[189][3] = {
+    const char * SMSTranslations[WORDS][3] = {
         {"and", "", ""}, {"is", "are", ""}, {"more than", "", ""}, {"less than", "", ""}, {"number", "", ""}, {"times", "", ""}, {"/", "", ""}, {"at", "", ""},
         {"error 404 - not found", "lost", "confused"}, {"US retirement savings plan", "", ""},
         {"account", "", ""}, {"advertisement", "", ""}, {"as far as I know", "", ""}, {"approximately", "", ""}, {"annual percentage rate", "", ""}, {"as soon as possible", "", ""}, 
@@ -113,24 +120,86 @@ int main(void) {
         {"you're welcome", "", ""}, {"year", "", ""}, {"years", "", ""}, {"year-to-date", "", ""}  
     };
     char mi[SIZE] = ""; // message input by user
-    char mo[LONG] = ""; // message output 
     int m = 0;          // the method of conversion
 
     // Enter your message
     printf( "%s :\n", "Enter your message" );
     gets(mi);
-    // Choose method of conversion
-    printf( "%s", "\nChoose a method: \n 1 - Short message to long\n 2 - long message to short\n? " );
-    scanf( "%d", &m );
+
+    // Choose a method of conversion
+    do {
+        printf( "%s", "\nChoose a method: \n 1 - Short message to long\n 2 - long message to short\n? " );
+        scanf( "%d", &m );
+    } while ( m < 1 || m > 2 );
+
     // Call the function pointer to the function menu
-    (*method[m - 1]) (mi);
+    (*method[m - 1]) (mi, SMSWords, SMSTranslations );
 
+    return 0; // indicate successful termination
 } /* end main */
+
 // convert the short message to long message
-void sToL( char * message ) {
+void sToL( char * message, const char * SMSWd[], const char * TWd[][3] ) {
+    enum Status WordStatus = UNFOUND;
+    char * tokenPtr = "";
+    char wordTemp[20] = "";
+    int choice = 0;
 
+    tokenPtr = strtok( message, " ,:;?!" );
+
+    while( tokenPtr != NULL ) {
+        WordStatus = UNFOUND;   // Restart a search for every token
+
+        // identify the word/token
+        for ( size_t i = 0; i < WORDS; i++ ) {
+            // convert the standard word to small case letters 
+            strcpy( wordTemp, SMSWd[i] );
+            // convert token to lowercase
+            for ( size_t i = 0; tokenPtr[i] != '\0'; i++ ) {
+                tokenPtr[i] = tolower( tokenPtr[i] );
+            } // end for
+            // convert standart word to lowercase
+            for ( size_t i = 0; wordTemp[i] != '\0'; i++ ) {
+                wordTemp[i] = tolower( wordTemp[i] );
+            } // end for
+
+            if ( strcmp( tokenPtr, wordTemp ) == 0 ) { // if SMS word is identified
+                // identify the number of options
+                for (size_t j ; *TWd[i][j] != '\0'; j++ )
+                    if ( j > 0 ) WordStatus = MANY; else WordStatus = FOUND;
+
+                // Display the long message
+                if ( WordStatus == FOUND ) { // if only one option is found
+                    printf("%s%s", " ", TWd[i][0] ); 
+                } // end if
+                else if ( WordStatus == MANY ) { // if more than one option is found
+                    // Display the options
+                    int j = 0;
+                    do {
+                        printf( "\n%s\n", "Choose one option: ");
+                        for( j = 0; *TWd[i][j] != '\0'; j++ ) {
+                            printf( "%d: %s\n", j + 1, TWd[i][j] );
+                        } // end for
+                        scanf( "%d", &choice ); // choose one option
+                    } while ( choice > j || choice < 1 );
+
+                    // display the choice
+                    printf( "%s%s", " ", TWd[i][choice - 1] );
+                } // end else
+                break;
+            } // end if
+        } // end for
+
+        // Display the same word if not identified
+        if ( WordStatus == UNFOUND ) {
+            printf( "%s%s", " ", tokenPtr );
+        } // end if
+
+        tokenPtr = strtok( NULL, " ,:;?!" );
+    } // end while
 } /* end function sToL */
-// convert the long message to short message
-void lToS( char * message ) {
 
+// convert the long message to short message
+void lToS( char * message, const char * SMSWd[], const char * TWd[][3] ) {
+    
 } /* end function lToS */
