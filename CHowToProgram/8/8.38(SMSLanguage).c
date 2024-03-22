@@ -10,15 +10,15 @@
 
 #define SIZE 160
 #define LONG 320
-#define WORDS 189
+#define WORDS 190
 
 enum Status {
-    FOUND, UNFOUND, MANY
+    FOUND, UNFOUND, MANY, ANTIPUNCT, PUNCT, UNCHOSEN
 };
 
-void sToL( char *, const char * [], const char *[][3]); // short to long converter
-void lToS( char *, const char * [], const char *[][3]); // long to short converter
-void (* method[2] )( char *, const char * [], const char *[][3] ) = { sToL, lToS }; // The pointer to our functions
+void sToL( char *, const char * [], const char *[][3], char * ); // short to long converter
+void lToS( char *, const char * [], const char *[][3], char * ); // long to short converter
+void (* method[2] )( char *, const char * [], const char *[][3], char * ) = { sToL, lToS }; // The pointer to our functions
 
 int main(void) {
     const char * SMSWords[WORDS] = {
@@ -28,7 +28,7 @@ int main(void) {
         "b/c", "B2B", "B4", "B4N", 
         "BA", "BBL", "BBS", "bkgd",
         "BRB", "BS", "BTW", "btwn", 
-        "C&B", "C&S",
+        "C","C&B", "C&S",
         "CEO", "CC", "cf", "CFO", "Co.", "COO", "COOP", "Corp.",
         "cp",
         "CRM", "CSR", "ct", "CTO",
@@ -77,7 +77,7 @@ int main(void) {
         {"because", "", ""}, {"business to business", "", ""}, {"before", "", ""}, {"bye for now", "", ""}, 
         {"Bachelor of Business Administration Degree", "", ""}, {"be back later", "", ""}, {"be back soon", "", ""}, {"background", "", ""}, 
         {"be right back", "", ""}, {"Bachelor of Science Degree", "", ""}, {"by the way", "", ""}, {"between", "", ""},
-        {"compensation and benefit", "", ""}, {"client and server", "", ""},
+        {"see", "", ""},{"compensation and benefit", "", ""}, {"client and server", "", ""},
         {"Chief Executive Officer", "", ""}, {"Carbon Copy", "", ""}, {"compare", "", ""}, {"Chief Financial Officer", "", ""}, {"company", "", ""}, {"Chief Operating Officer", "", ""}, {"continuity of operations planning", "", ""}, {"corporation", "", ""}, 
         {"compare", "", ""},
         {"customer relationship management", "", ""}, {"customer sales representative", "", ""}, {"contrast", "", ""}, {"Chief Technical Officer", "", ""},
@@ -120,10 +120,11 @@ int main(void) {
         {"you're welcome", "", ""}, {"year", "", ""}, {"years", "", ""}, {"year-to-date", "", ""}  
     };
     char mi[SIZE] = ""; // message input by user
+    char show[LONG] = ""; // Translated output by the program
     int m = 0;          // the method of conversion
 
     // Enter your message
-    printf( "%s :\n", "Enter your message" );
+    printf( "%s \n", "Enter your message, Not greater than 160 letters: " );
     gets(mi);
 
     // Choose a method of conversion
@@ -133,22 +134,31 @@ int main(void) {
     } while ( m < 1 || m > 2 );
 
     // Call the function pointer to the function menu
-    (*method[m - 1]) (mi, SMSWords, SMSTranslations );
+    (*method[m - 1]) (mi, SMSWords, SMSTranslations, show );
+
+    // Display the results
+    printf( "\n\n%c%s", toupper(show[1]), &show[2] );
 
     return 0; // indicate successful termination
 } /* end main */
 
 // convert the short message to long message
-void sToL( char * message, const char * SMSWd[], const char * TWd[][3] ) {
+void sToL( char * message, const char * SMSWd[], const char * TWd[][3], char * show ) {
     enum Status WordStatus = UNFOUND;
+    enum Status PunctStatus = ANTIPUNCT;
     char * tokenPtr = "";
+    char * tokenTempPtr = ""; // token pointer temp
+    char subShow[30] = "";    // a part of the message
+    char punct[20] = ""; // copy the punctuations
     char wordTemp[20] = "";
     int choice = 0;
 
-    tokenPtr = strtok( message, " ,:;?!" );
+    tokenPtr = strtok( message, " " );
 
     while( tokenPtr != NULL ) {
         WordStatus = UNFOUND;   // Restart a search for every token
+        PunctStatus = ANTIPUNCT;  // look for punctions after a similary letter
+        memset( punct, '\0', 20 ); // clear the punct for every punctions to come to be recorded
 
         // identify the word/token
         for ( size_t i = 0; i < WORDS; i++ ) {
@@ -165,41 +175,122 @@ void sToL( char * message, const char * SMSWd[], const char * TWd[][3] ) {
 
             if ( strcmp( tokenPtr, wordTemp ) == 0 ) { // if SMS word is identified
                 // identify the number of options
-                for (size_t j ; *TWd[i][j] != '\0'; j++ )
-                    if ( j > 0 ) WordStatus = MANY; else WordStatus = FOUND;
+                for (size_t j = 0; *TWd[i][j] != '\0'; j++ ) {
+                    if ( j > 0 ) {
+                        WordStatus = MANY;
+                    } // end if
+                    else {
+                        WordStatus = FOUND;
+                    } // end else
+                } // end for
 
-                // Display the long message
+                // Get the long word/message
                 if ( WordStatus == FOUND ) { // if only one option is found
-                    printf("%s%s", " ", TWd[i][0] ); 
+                    sprintf( subShow, "%s%s", " ", TWd[i][0] ); 
+                    strcat( show, subShow );
                 } // end if
                 else if ( WordStatus == MANY ) { // if more than one option is found
                     // Display the options
                     int j = 0;
                     do {
-                        printf( "\n%s\n", "Choose one option: ");
+                        printf( "\n\n%s\n%s\n", tokenPtr, "Choose one option: (0 to choose nothing): ");
                         for( j = 0; *TWd[i][j] != '\0'; j++ ) {
                             printf( "%d: %s\n", j + 1, TWd[i][j] );
                         } // end for
                         scanf( "%d", &choice ); // choose one option
-                    } while ( choice > j || choice < 1 );
+                    } while ( choice > j || choice < 0 );
 
-                    // display the choice
-                    printf( "%s%s", " ", TWd[i][choice - 1] );
+                    if ( choice == 0 ){
+                        WordStatus = UNFOUND;
+                        PunctStatus = UNCHOSEN;
+                    } // end if
+
+                    // get the choice
+                    if ( WordStatus != UNFOUND ) {
+                        sprintf( subShow, "%s%s%s", " ", TWd[i][choice - 1], punct );
+                        strcat( show, subShow );
+                    } // end if
                 } // end else
                 break;
             } // end if
+            else if ( (tokenTempPtr = strstr( tokenPtr, wordTemp )) != NULL ) { // if a standard word is found in the token
+                if ( tokenPtr == tokenTempPtr ) { // if they are on the same pointer
+                    int l = 0,m = 0; // controllers around the pointer 
+                    for ( l = 0, m = 0; tokenPtr[l] != '\0'; ) { // loop through the token
+                        if ( tokenPtr[l] == wordTemp[l]) { // go beyond the similarities
+                            l++; m++;
+                        } // end if
+                        else if( ispunct( tokenPtr[m] ) ) { // confirm that the rest is just punctuations
+                            PunctStatus = PUNCT;
+                            m++;
+                        } // end else if
+                        else if ( !ispunct( tokenPtr[m] ) ) { // if not then they are not similary
+                            break;
+                        } // end else if
+                    } // end for
+
+                    // if they are similary get the punctiations AND word is found
+                    if ( PunctStatus == PUNCT ) {
+                        WordStatus = FOUND;
+                        strcpy( punct, &tokenPtr[l] );
+                    } // end if
+
+                    // if word is found start the process done in option A
+                    if ( WordStatus == FOUND ) {
+                        // identify the number of options
+                        for (size_t j = 0; *TWd[i][j] != '\0'; j++ ) {
+                            if ( j > 0 ) {
+                                WordStatus = MANY;
+                            } // end if
+                            else {
+                                WordStatus = FOUND;
+                            } // end else
+                        } // end for
+
+                        // get the long word
+                        if ( WordStatus == FOUND ) { // if only one option is found
+                            sprintf( subShow, "%s%s%s", " ", TWd[i][0], punct );
+                            strcat( show, subShow );
+                        } // end if
+                        else if ( WordStatus == MANY ) { // if more than one option is found
+                            // Display the options
+                            int j = 0;
+                            do {
+                                printf( "\n\n %s\n%s\n", tokenPtr, "Choose one option:(0 to choose nothing) ");
+                                for( j = 0; *TWd[i][j] != '\0'; j++ ) {
+                                    printf( "%d: %s\n", j + 1, TWd[i][j] );
+                                } // end for
+                                scanf( "%d", &choice ); // choose one option
+                            } while ( choice > j || choice < 0 );
+
+                            if ( choice == 0 ){
+                                WordStatus = UNFOUND;
+                                PunctStatus = UNCHOSEN;
+                            } // end if
+
+                            // get the choice
+                            if ( WordStatus != UNFOUND ) {
+                                sprintf( subShow, "%s%s%s", " ", TWd[i][choice - 1], punct );
+                                strcat( show, subShow );
+                            } // end if
+                        } // end else
+                        break;
+                    } // end if
+                } // end if
+            } // end else if
         } // end for
 
-        // Display the same word if not identified
+        // get the same word if not identified
         if ( WordStatus == UNFOUND ) {
-            printf( "%s%s", " ", tokenPtr );
+            sprintf( subShow, "%s%s%s", " ", tokenPtr, ( *punct != '\0' && PunctStatus != UNCHOSEN )? punct : "" );
+            strcat( show, subShow );
         } // end if
 
-        tokenPtr = strtok( NULL, " ,:;?!" );
+        tokenPtr = strtok( NULL, " " );
     } // end while
 } /* end function sToL */
 
 // convert the long message to short message
-void lToS( char * message, const char * SMSWd[], const char * TWd[][3] ) {
+void lToS( char * message, const char * SMSWd[], const char * TWd[][3], char * show ) {
     
 } /* end function lToS */
