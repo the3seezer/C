@@ -9,11 +9,12 @@
 #include <string.h>
 
 #define SIZE 160
-#define LONG 320
+#define LONG 3200
 #define WORDS 190
 
 enum Status {
-    FOUND, UNFOUND, MANY, ANTIPUNCT, PUNCT, UNCHOSEN
+    FOUND, UNFOUND, MANY, ANTIPUNCT, PUNCT, UNCHOSEN, SPACE, NOSPACE, MOSPACE,
+    FULLSTOP, NORMAL
 };
 
 void sToL( char *, const char * [], const char *[][3], char * ); // short to long converter
@@ -83,7 +84,7 @@ int main(void) {
         {"customer relationship management", "", ""}, {"customer sales representative", "", ""}, {"contrast", "", ""}, {"Chief Technical Officer", "", ""},
         {"see you", "", ""}, {"see you later", "", ""}, {"see you tomorrow", "", ""}, 
         {"department", "", ""}, {"division", "", ""},
-        {"for example", "", ""}, {"Eastern Standard Time"}, {"email service provider", "", ""},
+        {"for example", "", ""}, {"Eastern Standard Time", "", ""}, {"email service provider", "", ""},
         {"end of day", "", ""}, {"each", "", ""}, {"each", "", ""}, {"end of month", "end of message", ""}, {"end of thread", "", ""}, {"end of year", "", ""}, {"enterprise resource planning", "", ""},
         {"frequently", "often", ""}, {"frequently asked question", "", ""}, {"face to face", "", ""}, 
         {"forward", "", ""}, {"for what it's worth", "", ""}, {"for your information", "", ""}, 
@@ -92,7 +93,7 @@ int main(void) {
         {"human resources", "", ""}, {"headquarters", "", ""}, {"that is", "", ""},
         {"in a meeting", "", ""}, {"I see", "", ""}, {"I don't care", "", ""}, {"i don't know", "", ""}, {"instant message", "", ""},
         {"in my opinion", "in memory of", "international maritime organization" }, {"in my humble opinion", "", ""}, {"incorporated", "", ""}, {"in real life", "", ""}, {"International Organization for Standardization", "", ""}, {"Information Technology", "", ""}, {"just kidding", "", ""}, 
-        {"just kidding", "", ""}, {"junior"}, {"keep it simple stupid", "", ""}, {"key performance indicator", "", ""}, {"key result area", "", ""}, {"learning and development", "", ""}, 
+        {"just kidding", "", ""}, {"junior", "", ""}, {"keep it simple stupid", "", ""}, {"key performance indicator", "", ""}, {"key result area", "", ""}, {"learning and development", "", ""}, 
         {"late", "", ""}, {"later", "", ""}, {"pound", "", ""}, {"limited liability company", "", ""}, {"laughing my ass Off", "", ""}, {"let me know", "", ""}, 
         {"laugh out loud", "", ""}, {"no problem", "", ""}, {"no reply necessary", "", ""}, {"Oh, I see", "", ""}, 
         {"on-the-job training", "", ""}, {"online training", "", ""}, {"oh my god", "", ""}, {"on my way", "", ""},
@@ -111,7 +112,7 @@ int main(void) {
         {"someone", "", ""}, {"something", "", ""}, {"specific, measureable, attainable, realistic, and time-bound", "specific, measureable, achievable, realistic, and time-bound", ""}, {"social network site", "", ""}, {"Small Office", "Home Office", ""}, {"straight out of the box", "", ""}, 
         {"immediately", "", ""}, {"strengths, weaknesses, opportunities, threats", "", ""},
         {"temporary secretary", "", ""}, {"though", "", ""}, {"through", "", ""},
-        {"thanks", "", ""}, {"too much information", "", ""}, {"talk to you later"}, {"talk to you soon"}, 
+        {"thanks", "", ""}, {"too much information", "", ""}, {"talk to you later", "", ""}, {"talk to you soon", "", ""}, 
         {"you", "", ""}, {"versus", "against", ""},
         {"Virtual Class", "", ""}, {"Virtual learning environment", "", ""}, {"Vice President", "", ""}, {"Virtual private network", "", ""}, {"virtual worker", "", ""}, {"virtual worker at virtual workplace", "", ""},
         {"Work At Home", "", ""}, {"Web-based training", "", ""}, {"What's in it for me", "", ""},
@@ -122,9 +123,10 @@ int main(void) {
     char mi[SIZE] = ""; // message input by user
     char show[LONG] = ""; // Translated output by the program
     int m = 0;          // the method of conversion
+    enum Status MessageStatus = FULLSTOP;
 
     // Enter your message
-    printf( "%s \n", "Enter your message, Not greater than 160 letters: " );
+    printf( "%s \n", "Enter your message: (Not greater than 160 letters ). " );
     gets(mi);
 
     // Choose a method of conversion
@@ -136,11 +138,86 @@ int main(void) {
     // Call the function pointer to the function menu
     (*method[m - 1]) (mi, SMSWords, SMSTranslations, show );
 
+    // Format the results
+    for( size_t i = 0; show[i] != '\0'; i++ ) {
+        // Convert a first letter in the sentence to uppercase
+        if ( isalpha( show[i] ) && MessageStatus == FULLSTOP ) {
+            show[i] = toupper( show[i] );
+            MessageStatus = NORMAL;
+        } // end if
+        // look for a full stop
+        if ( show[i] == 46 ) {
+            MessageStatus = FULLSTOP;
+        } // end if
+    } // end for
+    
     // Display the results
-    printf( "\n\n%c%s", toupper(show[1]), &show[2] );
+    printf( "%s", show );
 
     return 0; // indicate successful termination
 } /* end main */
+
+// convert the long message to short message
+void lToS( char * message, const char * SMSWd[], const char * TWd[][3], char * show ) {
+    char * messagePtr = ""; // message pointer
+    char wordTemp[200] = ""; // template to the standard long word
+    enum Status SpaceStatus = NOSPACE;
+
+    // convert the message to lowercase
+    for ( size_t i = 0; message[i] != '\0'; i++ ) {
+        message[i] = tolower( message[i] );
+    } // end for
+
+    // find the words
+    for ( size_t i = 0; i < WORDS; i++ ) {
+        for ( size_t j = 0; j < 3; j++ ) {
+            // copy the standard word 
+            strcpy( wordTemp, TWd[i][j] );
+            // convert standart word to lowercase
+            for ( size_t i = 0; wordTemp[i] != '\0'; i++ ) {
+                wordTemp[i] = tolower( wordTemp[i] );
+            } // end for
+            // identify the words and manipulate the string
+            if ( ( messagePtr = strstr( message, wordTemp ) ) != NULL && *wordTemp != '\0' && ( messagePtr[strlen(wordTemp)] == ' ' || ispunct(messagePtr[strlen(wordTemp)]) ) ) { // if the words are found
+                --messagePtr;
+                if ( !isgraph( *messagePtr ) ) { // if there is a space before it.
+                    ++messagePtr;
+                    // set that location with empty spaces
+                    memset( messagePtr, ' ', strlen( wordTemp ) );
+                    // Add the short message to that location
+                    for ( size_t l = 0; SMSWd[i][l] != '\0'; l++ ) {
+                        messagePtr[l] = SMSWd[i][l];
+                    } // end for
+                    i = 0;
+                    break;
+                } // end if
+                else {
+                    ++messagePtr;
+                } // end else
+            } // end if
+        } // end for
+    } // end for
+
+    // Remove unwanted spaces
+    for ( size_t i = 0, j = 0; message[i] != '\0'; i++ ) {
+        // look for a space
+        if ( isspace( message[i] ) ) {
+            if ( SpaceStatus == SPACE ) {
+                SpaceStatus = MOSPACE;
+            } // end if
+            else if ( SpaceStatus == NOSPACE )
+                SpaceStatus = SPACE;
+        } // end if
+        else {
+            SpaceStatus = NOSPACE;
+        } // end else
+
+        // Take the short message
+        if ( SpaceStatus != MOSPACE ) {
+            show[j++] = message[i];
+        } // end if
+    } // end while
+} /* end function lToS */
 
 // convert the short message to long message
 void sToL( char * message, const char * SMSWd[], const char * TWd[][3], char * show ) {
@@ -173,6 +250,7 @@ void sToL( char * message, const char * SMSWd[], const char * TWd[][3], char * s
                 wordTemp[i] = tolower( wordTemp[i] );
             } // end for
 
+            // identify the word
             if ( strcmp( tokenPtr, wordTemp ) == 0 ) { // if SMS word is identified
                 // identify the number of options
                 for (size_t j = 0; *TWd[i][j] != '\0'; j++ ) {
@@ -289,8 +367,3 @@ void sToL( char * message, const char * SMSWd[], const char * TWd[][3], char * s
         tokenPtr = strtok( NULL, " " );
     } // end while
 } /* end function sToL */
-
-// convert the long message to short message
-void lToS( char * message, const char * SMSWd[], const char * TWd[][3], char * show ) {
-    
-} /* end function lToS */
