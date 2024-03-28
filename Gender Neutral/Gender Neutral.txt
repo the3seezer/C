@@ -1,20 +1,20 @@
-Folks, folx, or everybody instead of guys or ladies/gentleman
-Humankind instead of mankind
-People instead of man/men
-Members of Congress instead of congressmen
-Councilperson instead of councilman/councilwoman
-First-year student instead of freshman
-Machine-made, synthetic, or artificial instead of man-made
-Parent or pibling instead of mother/father
-Child instead of son/daughter
-Kiddo instead of boy/girl
-Sibling instead of sister/brother
-Nibling instead of niece/nephew
-Partner, significant other, or spouse instead of girlfriend/boyfriend or wife/husband
-Flight attendant instead of steward/stewardess
-Salesperson or sales representative instead of salesman/saleswoman
-Server instead of waiter/waitress
-Firefighter instead of fireman
+Folks, folx, or everybody - guys / ladies/gentleman
+Humankind - mankind
+People - man/men
+Members of Congress - congressmen
+Councilperson - councilman/councilwoman
+First-year student - freshman
+Machine-made, synthetic, / artificial - man-made
+Parent / pibling - mother/father
+Child - son/daughter
+Kiddo - boy/girl
+Sibling - sister/brother
+Nibling - niece/nephew
+Partner, significant other, / spouse - girlfriend/boyfriend or wife/husband
+Flight attendant - steward/stewardess
+Salesperson or sales representative - salesman/saleswoman
+Server - waiter/waitress
+Firefighter - fireman
 
 Businessman → Businessperson, business representative
 Chairman/chairwoman → Chairperson, chair
