@@ -8,25 +8,28 @@
 */
 int main( void ) {
     const char * american[3000][2] = {
-        {"a", "indefinite article A1"}, {"an", "indefinite article A1"},
-        {"abandon", "v. B2"},
-        {"ability", "n. A2"},
-        {"able ", "adj. A2"},
-        {"about", "prep., adv. A1"},
-        {"above", "prep., adv. A1"},
-        {"abroad", "adv. B2"},
-        {"absolute", "adj. B2"},
-        {"absolutely", "adv. B1"},
-        {"academic", "adj. B1"},
-        {"accept", "v. A2"},
-        {"acceptable", "adj. B2"},
-        {"access", "n., v. B1"},
-        {"accident", "n. A2"},
-        {"accompany", "v. B2"},
-        {"according to", "prep. A2"},
-        {"account", "n. B1, v. B2"},
-        {"accurate", "adj. B2"},
-        {"accuse", "v. B2"},
+        © Oxford University Press 1 / 11
+The Oxford 3000™ (American English)
+The Oxford 3000 is the list of the 3000 most important words to learn in English, from A1 to B2 level.
+a, an indefinite article A1
+abandon v. B2
+ability n. A2
+able adj. A2
+about prep., adv. A1
+above prep., adv. A1
+abroad adv. B2
+absolute adj. B2
+absolutely adv. B1
+academic adj.B1
+accept v. A2
+acceptable adj. B2
+access n., v. B1
+accident n. A2
+accompany v. B2
+according to prep. A2
+account n. B1, v. B2
+accurate adj. B2
+accuse v. B2
 achieve v. A2
 achievement n. B1
 acknowledge v. B2
