@@ -5,7 +5,7 @@
 
 */
 int main(void) {
-    const char * american[5000] = {
+    const char * american[2000] = {
         © Oxford University Press 1 / 8
 The Oxford 5000™ (American English)
 The Oxford 5000 is an expanded core word list for advanced learners of English. As well as the Oxford
