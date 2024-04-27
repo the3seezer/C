@@ -2,13 +2,14 @@
     theBitRiddler
     4/17/2024
     3:44 PM
+    (Project-A Crossword Puzzle Generator)
 
 */
 int main(void) {
-    const char * the[2000] = {
+    const char * the[2000][2] = {
         © Oxford University Press 1 / 8
-The Oxford 5000™
-The Oxford 5000 is an expanded core word list for advanced learners of English. As well as the Oxford
+The 5000™
+The 5000 is an expanded core word list for advanced learners of English. As well as the Oxford
 3000, it includes an additional 2000 words for learners at B2-C1 level, which are listed here.
 abolish v. C1
 abortion n. C1

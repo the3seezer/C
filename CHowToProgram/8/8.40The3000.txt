@@ -7,7 +7,7 @@
     The 3000 is the list of the 3000 most important words to learn in English, from A1 to B2 level.
 */
 int main( void ) {
-    const char * the[3000][2] = {
+    const char * the[3001][2] = {
         © Oxford University Press 1 / 11
 The Oxford 3000™
 The Oxford 3000 is the list of the 3000 most important words to learn in English, from A1 to B2 level.
