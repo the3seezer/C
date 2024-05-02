@@ -1166,65 +1166,65 @@ int main( void ) {
         {"gap", "n. A2"},
         {"garage", "n. B1"},
         {"garden", "n. A1"},
+        {"gas", "n. A2"},
+        {"gate", "n. A2"},
+        {"gather", "v. B1"},
+        {"general", "adj. A2"},
+        {"generally", "adv. B1"},
+        {"generate", "v. B2"},
+        {"generation", "n. B1"},
+        {"generous", "adj. B1"},
+        {"genre", "n. B2"},
+        {"gentle", "adj. B1"},
+        {"gentleman", "n. B1"},
+        {"geography", "n. A1"},
+        {"get", "v. A1"},
+        {"ghost", "n. B1"},
+        {"giant", "adj., n. B1"},
+        {"gift", "n. A2"},
+        {"girl", "n. A1"},
+        {"girlfriend", "n. A1"},
+        {"give", "v. A1"},
+        {"glad", "adj. B1"},
+        {"glass", "n. A1"},
+        {"global", "adj. B1"},
+        {"glove", "n. B1"},
+        {"go", "v. A1, n. B1"},
+        {"goal", "n. A2"},
+        {"god", "n. A2"},
+        {"gold", "n., adj. A2"},
+        {"golf", "n. A2"},
+        {"good", "adj. A1, n. A2"},
+        {"goodbye", "exclam./n. A1"},
+        {"goods", "n. B1"},
+        {"govern", "v. B2"},
+        {"government", "n. A2"},
+        {"grab", "v. B2"},
+        {"grade", "n. B1, v. B2"},
+        {"gradually", "adv. B2"},
+        {"graduate", "n., v. B1"},
+        {"grain", "n. B1"},
+        {"grand", "adj. B2"},
+        {"grandfather", "n. A1"},
+        {"grandmother", "n. A1"},
+        {"grandparent", "n. A1"},
+        {"grant", "v., n. B2"},
+        {"grass", "n. A2"},
+        {"grateful", "adj. B1"},
+        {"great", "adj. A1"},
+        {"green", "adj., n. A1"},
+        {"greet", "v. A2"},
+        {"grey", "adj., n. A1"},
+        {"ground", "n. A2"},
+        {"group", "n. A1"},
+        {"grow", "v. A1"},
+        {"growth", "n. B1"},
+        {"guarantee", "v., n. B2"},
+        {"guard", "n., v. B1"},
+        {"guess", "v., n. A1"},
+        {"guest", "n. A2"},
+        {"guide", "n., v. A2"},
         {"", ""},
-gas n. A2
-gate n. A2
-gather v. B1
-general adj. A2
-generally adv. B1
-generate v. B2
-generation n. B1
-generous adj. B1
-genre n. B2
-gentle adj. B1
-gentleman n. B1
-geography n. A1
-get v. A1
-ghost n. B1
-giant adj., n. B1
-gift n. A2
-girl n. A1
-girlfriend n. A1
-give v. A1
-glad adj. B1
-glass n. A1
-global adj. B1
-glove n. B1
-go v. A1, n. B1
-goal n. A2
-god n. A2
-gold n., adj. A2
-golf n. A2
-good adj. A1, n. A2
-goodbye exclam./n. A1
-goods n. B1
-govern v. B2
-government n. A2
-grab v. B2
-grade n. B1, v. B2
-gradually adv. B2
-graduate n., v. B1
-grain n. B1
-grand adj. B2
-grandfather n. A1
-grandmother n. A1
-grandparent n. A1
-grant v., n. B2
-grass n. A2
-grateful adj. B1
-great adj. A1
-green adj., n. A1
-greet v. A2
-grey adj., n. A1
-ground n. A2
-group n. A1
-grow v. A1
-growth n. B1
-guarantee v., n. B2
-guard n., v. B1
-guess v., n. A1
-guest n. A2
-guide n., v. A2
 guilty adj. B1
 guitar n. A1
 gun n. A2
