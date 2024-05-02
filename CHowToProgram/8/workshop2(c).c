@@ -1,210 +1,161 @@
 /*
     theBitRiddler
-    2/19/2024
-    1:23 PM
-    8.36 (Cooking with Healthier Ingredients)
-    1 cup sour cream, 1 cup milk, 1 teaspoon lemon juice, 1 cup sugar, 1 cup butter, 1 cup flour, 1 cup mayonnaise, 1 egg, 1 cup milk, 1/4 cup oil, white bread
-
-    "1 cup sour cream",         "1 cup yogurt",
-    "1 cup milk",               "1/2 cup evaporated milk and 1/2 cup water",
-    "1 teaspoon lemon juice",   "1/2 teaspoon vinegar",
-    "1 cup sugar",              "1/2 cup honey, 1 cup molasses or 1/4 cup agave nectar",
-    "1 cup butter",             "1 cup margarine or yogurt",
-    "1 cup flour",              "1 cup rye or rice flour",
-    "1 cup mayonnaise",         "1 cup cottage cheese or 1/8 cup mayonnaise and 7/8 cup yogurt",
-    "1 egg",                    "2 tablespoons cornstarch, arrowroot flour or potato starch or 2 egg whites or 1/2 of a large banana (mashed)",
-    "1 cup milk",               "1 cup soy milk",
-    "1/4 cup oil",              "1/4 cup applesauce",
-    "white bread"               "whole-grain bread"         
+    3/23/2024
+    5:08 PM
+    8.39 (Gender Neutrality) 
 */
 #include <stdio.h>
-#include <stdlib.h>
+#include <ctype.h>
 #include <string.h>
-#define SIZE 11
-void substituteDisplay( const double [][3], const char *[][8], double, size_t );
-int main( void ) {
-    const char * ingredients[SIZE][2] = {
-        { "sour", "cream" }, { "milk", "" }, { "lemon", "juice" }, { "sugar", "" }, { "butter", "" },
-        { "flour", "" }, { "mayonnaise", "" }, { "egg", "" }, { "milk", "" }, { "oil", "" }, { "white", "bread" }
+
+#define WORDS 53
+#define SIZE 200
+#define OUT 300
+
+enum Status {
+    FOUND, UNFOUND
+};
+
+char * neutralize( char *, const char * [][3], const char * [], char * );
+int compare( char *, const char *, char[] );
+
+int	main(void) {
+    const char * gender[WORDS][3] = {
+        {"Actor", "Actress", ""},
+        {"Boy", "girl", ""}, {"boy", "girl", ""}, {"Boyfriend", "girlfriend", ""}, {"Boyfriend", "girlfriend", ""},
+        {"Businessman", "", ""}, {"Businessman", "", ""},
+        {"Chairman", "chairwoman", ""}, {"Chairman", "chairwoman", ""},
+        {"Congressman", "", ""}, {"congressmen", "", ""},
+        {"councilman", "councilwoman", ""},
+        {"Dear Sir", "", ""},
+        {"Dude", "", ""}, {"Dude", "", ""},
+        {"Fireman", "", ""}, {"Foreman", "", ""},
+        {"Freshman", "", ""},
+        {"Granddaughter", "Grandson", ""},
+        {"Grandma", "grandpa", ""},
+        {"Husband", "wife", ""},
+        {"Kinsmen", "", ""}, 
+        {"Ladies", "Gentlemen", ""}, {"everybody", "guys", ""}, {"Ladies and Gentlemen", "", ""}, 
+        {"Maiden name", "", ""}, 
+        {"Maid", "", ""}, {"Mailman", "", ""}, {"Mailman", "", ""},
+        {"men", "women", ""},
+        {"Man", "woman", "" }, {"Man", "woman", "" }, {"Man up", "", ""},
+        {"Mankind", "", ""},
+        {"Man-made", "", ""}, {"Man-made", "", ""}, {"Man-made", "", ""}, 
+        {"Manned", "", ""}, {"Manpower", "", ""}, {"Manpower", "", ""},
+        {"Mother", "father", ""}, {"mother", "father", ""},
+        {"niece", "nephew", ""},
+        {"Policeman", "", ""},
+        {"Salesman", "", ""}, {"salesman", "saleswoman", ""},
+        {"Sister", "brother", ""}, {"son", "daughter", ""},
+        {"Stewardess", "steward", ""},
+        {"The common man", "", ""},
+        {"Upperclassman", "", ""},
+        {"Waiter", "waitress", ""}, {"wife", "husband", ""}    
     };
-    const double ing_sv[SIZE] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.25, 1 };    // ingredient standard values
-    const char * substitutions[SIZE][8] = {
-        { "cup", "yogurt", "", "", "", "", "", "" },
-        { "cup", "evaporated milk", "and", "cup", "water", "", "", "" },
-        { "teaspoon", "vinegar", "", "", "", "", "", "" }, 
-        { "cup", "honey", ",", "cup", "molasses", "or", "cup", "agave nectar" }, 
-        { "cup", "margarine or yogurt", "", "", "", "", "", "" },
-        { "cup", "rye or rice flour", "", "", "", "", "", "" }, 
-        { "cup", "cottage cheese", "or", "cup", "mayonnaise", "and", "cup", "yogurt" },
-        { "tablespoon", "cornstarch, arrowroot flour or potato starch", "or", "egg whites", "or", "of a large banana (mashed)", "", "" }, 
-        { "cup", "soy milk", "", "", "", "", "", "" }, 
-        { "cup", "applesauce", "", "", "", "", "", "" }, 
-        { "whole-grain bread", "", "", "", "", "", "", "" }
+    const char * neutral[WORDS] = {
+        "Performer",
+        "Child", "Kiddo", "Partner", "significant other",
+        "Businessperson", "business representative",
+        "Chairperson", "chair",
+        "Legislator", "Members of Congress",
+        "Councilperson",
+        "Dear",
+        "Friend", "person",
+        "Firefighter", "Foreperson",
+        "First-year student",
+        "Grandchild",
+        "Grandparent",
+        "Spouse",
+        "Relatives", 
+        "Folks", "folx", "everyone", 
+        "Family name",
+        "Housekeeper", "Letter carrier" , "postal worker",
+        "People",
+        "Person", "adult", "Toughen up",
+        "Humankind", 
+        "Synthetic", "Machine-made", "artificial",
+        "Crewed", "Workforce", "workers",
+        "Parent", "pibling",
+        "Nibling",
+        "Police officer",
+        "Salesperson", "sales representative",
+        "Sibling", "Child",
+        "Flight attendant",
+        "The average person",
+        "Third-year or above",
+        "Server", "spouse" 
     };
-    const double sub_sv[SIZE][3] = {
-        { 1, 0, 0}, { 0.5, 0.5, 0 }, { 0.5, 0, 0 }, { 0.5, 1, 0.25 }, { 1, 0, 0 }, { 1, 0, 0 }, 
-        { 1, 0.125, 0.875 }, { 2, 2, 0.5 }, { 1, 0, 0 }, { 0.25, 0, 0 }, { 1, 0, 0 } 
-    };  // substitutions standard values
-    char recipe[320] = " 1 cup sour cream, 8 cakes, 1 cup milk, 1 teaspoon lemon juice, 1 cup sugar, 1 cup butter, 1 cup flour, 1 cup mayonnaise, 1 egg, 1 cup milk, 1/4 cup oil, white bread.";
-    char recTemp[320] = "";  // recipe template
-    char * token = "";
-    char * tokenRem = "";
-    char * cFlag = "";       // comma flag
-    char firstName[11] = "";      // first name of the ingredient
-    char secondName[11] = "";     // second name of the ingredient 
-    char * divide = "";         // a denominator of an ingredient
-    char wordM[15] = "";     // measurents in words: cup, teaspoon ...
-    char uncharted[80] = "";      // contain all unkown ingredients
-    double ing_value = 0;   // ingredient value
-    double ingIV = 0;   // ingredient ideal value
-    size_t i = 0;   // controller
-    int mflag = 0;  // measurement flag 
-    int mkflag = 0; // milk flag
-    int subType = 0;    // 0 == all, 
-    int subUnits[SIZE] = {0};  // units of substitution to be selected
-    
-    // printf( "%s\n", "Enter your recipe" );
-    // gets( recipe );
-    // printf( "%s ", "Enter your substitution type\n 1 High cholesterol\n 2 Loosing Weight\n 3 All :\n ?" );
-    // scanf( "%d", &subType );
-    subType = 3;
-    if ( subType == 1 ) {
-        subUnits[0]++, subUnits[1]++, subUnits[4]++, subUnits[6]++, subUnits[7]++, subUnits[8]++, subUnits[9]++;
-    } // end if
-    if ( subType == 2 ) {
-        subUnits[3]++;
-    } // end if
-    if ( subType == 3 ) {
-        for ( size_t i = 0; i < SIZE; i++ )
-            subUnits[i]++;
-    }   // end if
+    char state[SIZE] = "";  // statement input by user
+    char message[OUT] = ""; // statement output by program
+    char * tokenPtr = "";   // token pointer
 
-    strcpy( recTemp, recipe );   // use a template
-    token = strtok( recTemp, " ;:" ); 
-    while( token != NULL ) { 
-        // search for a comma
-        if ( strtod( token, &tokenRem ) > 0 ) {
-            ing_value = strtod( token, &tokenRem );  // take the value if found
-            mflag++;
-            // if a token is a fraction
-            if ( ( divide = strstr( token, "/" ) ) != NULL ) {
-                ing_value /= strtod( ++divide, &tokenRem );
-            } // end if
-        } // end if
-        // get the word measurement; cup, teaspoon, tablespoon ...
-        if ( strstr( token, "cup" ) != NULL || strstr( token, "teaspoon" ) != NULL || strstr( token, "tablespoon" ) != NULL ) {
-            strcpy( wordM, token );
-            mflag++;
-        }   // end if     
+    // enter your statement
+    printf( "%s", "Enter your statement: " );
+    gets(state);
 
-        // get the ingredients names
-        for ( ; i < SIZE && mflag == 0; i++ ) {
-            // break if token is comma
-            if ( strcmp( token, "," ) == 0 )
-                break;
-            // find the first name of the ingredient and the second name   
-            if( strstr( token, ingredients[i][0] ) != NULL && *firstName == '\0' ) {
-                if ( !mkflag ) {
-                    strcpy( firstName, ingredients[i][0] ); // copy firstName
-                    if ( strcmp( ingredients[i][0], "milk" ) == 0 ) {
-                        mkflag++;
-                    } // end if
-                    break;
-                } // end if
-                else if ( mkflag ) {
-                    // copy others other than milk
-                    if ( strcmp( ingredients[i][0], "milk" ) != 0 )
-                        strcpy( firstName, ingredients[i][0] );
-                    if ( strcmp( ingredients[i][0], "milk" ) == 0 ) {
-                        strcpy( firstName, ingredients[i = 8][0] ); 
-                        mkflag--;
-                    }   // end if
-                    break;
-                }   // end if
-            }   // end if
-            if ( strstr( token, ingredients[i][1] ) != NULL && *secondName == '\0' && *firstName != '\0' ) {
-                strcpy( secondName, ingredients[i][1] );
-                break;
-            } // end if
-        }   // end for
+    tokenPtr = strtok( state, " " );
 
-        // correct the ingredients incase they are unknown
-        if ( !mflag && strcmp( token, "," ) != 0 && strcmp( token, "." ) != 0 )
-            strcat( strcat( uncharted, " " ), token );
-        
-        // check the ingredients and find their substitution
-        if ( ( cFlag = strstr( token, "," ) ) != NULL || ( cFlag = strstr( token, "." ) ) != NULL ) {  // look for a comma, process the current ingredient
-            // process the current ingredient for substitution
-            ingIV = ing_value / ing_sv[i];  // get the ingredient's ideal value
-            // display the substitution
-            if ( subUnits[i] && strstr( firstName, ingredients[i][0]) != NULL && strstr( secondName, ingredients[i][1]) != NULL ) { // substitute the ingredient
-                substituteDisplay( sub_sv, substitutions, ingIV, i );
-            }  // end if    
-            else if ( !subUnits[i] && strstr( firstName, ingredients[i][0]) != NULL && strstr( secondName, ingredients[i][1]) != NULL ) { // don't substitute the ingredient
-                if ( ing_value > 0 )    // print if value greater than zero
-                    printf( " %.3lf", ing_value );
-                // print the word measurement and the names of the ingredient    
-                printf( " %s%s %s %s", wordM, ing_value > 1 ? "s" : "", firstName, secondName );
-            } // end else
-            else if ( strstr( uncharted, ingredients[i][0]) == NULL || strstr( uncharted, ingredients[i][1]) == NULL ) {  // if the unit is not descovered
-                if ( ing_value )
-                    printf( " %.3lf", ing_value );
-                if ( *wordM != '\0' )  
-                    printf( " %s%s", wordM, ing_value > 1 ? "s" : "" );
-                if ( *uncharted != '\0' )
-                    printf( " %s", uncharted );
+    while( tokenPtr != NULL ) {
+        // neutralize the token if possible
+        neutralize( tokenPtr, gender, neutral, message );
 
-            } // end if
+        tokenPtr = strtok( NULL, " ");
+    } // end while
 
-            // prepare the search for the next ingredient
-            if ( *firstName != '\0' || *secondName != '\0' )
-                i = 0;  // prepare the controller for another search
-
-            // clear the names and prepare for the next ingredient
-            memset( firstName, '\0', 11 );
-            memset( secondName, '\0', 11 );
-            ing_value = 0;
-            printf( "%s", cFlag ); // print the available comma or period before clearing
-            *cFlag = '\0';
-            memset( wordM, '\0', 15 );
-            memset( uncharted, '\0', 80 );
-
-        }   // end if
-
-        // clear the measurement flag
-        mflag = 0;
-
-        if ( i == SIZE ) { // clear the search controller if it reaches the end
-            i = 0;
-        } // end if
-
-        // move to another token
-        token = strtok( NULL, " ;:" );
-    }   // end while 
+    // display the results
+    printf( "%s", message );
 
     return 0; // indicate successful termination
-}   /* end main */
+} /* end main */
 
-void substituteDisplay( const double sub_sv[][3], const char * substitutions[][8], double ingIV, size_t i ) {
-    double subIV = 0;   // substitution ideal value
+char * neutralize( char * token, const char * specific[][3], const char * neutral[], char * message ) {
+    char punct[50] = ""; // punctuations collector
+    enum Status UnkownWord = UNFOUND;  // if unkown word isn't found
 
-    printf( "%s", "\n" );
-    for ( size_t j = 0, k = 0; j < 8 && *substitutions[i][j] != '\0'; j++ ) {
-        // get the substitute ideal value
-        subIV = ingIV * sub_sv[i][k];
-        // display the value
-        if ( subIV )
-            printf( " %.3lf", subIV );
-        // display the word measurements
-        if ( strcmp( substitutions[i][j], "cup" ) == 0 || strcmp( substitutions[i][j], "teaspoon" ) == 0 || strcmp( substitutions[i][j], "tablespoon" ) == 0 )
-            printf( " %s%s", substitutions[i][j++], subIV > 1 ? "s" : "" );      
-        // display the substitution's names
-        printf( " %s", substitutions[i][j++]);  // look for what's next after the substitution ( j++ )
-        // move to another substitution standard values
-        if ( strcmp( substitutions[i][j], "and" ) == 0 || strcmp( substitutions[i][j], "or" ) == 0 || strcmp( substitutions[i][j], "," ) == 0 ) {
-            k++;
-            printf( " %s", substitutions[i][j] );
-        }   // end if
+    // loop through gender specific array to compare with the words
+    for ( size_t i = 0; i < WORDS; i++ ) {
+        for ( size_t j = 0; j < 3 && *specific[i][j] != '\0'; j++ ) {
+            // search and neutralize if possible
+            if ( compare( token, specific[i][j], punct ) ) { // if it's just a token 
+                // neutralize
+                strcat( message, " " );
+                strcat( message, neutral[i] );
+                // clear the compound words
+                return message;  // terminate 
+            } // end if
+            else {
+                // collect the words unknown to compound 
+                if ( UnkownWord == UNFOUND ) { 
+                    UnkownWord = FOUND;
+                } // end if
+            } // end else
+        } // end for
     } // end for
-        
-} /* end function substitute */
+
+    // if unkown word is found
+    if ( UnkownWord == FOUND ) {
+        strcat( message, " " );
+        strcat( message, token );
+        return message;
+    } // end if
+
+} /* end function neutralize */
+
+int compare( char * words, const char * specific, char punct[50] ) {
+    char specificTemp[50] = "";
+    strcpy( specificTemp, specific );
+
+    for ( size_t i = 0; words[i] != '\0' || specificTemp[i] != '\0'; i++ ) {
+        // turn each letter to lowercase
+        words[i] = tolower( words[i]);
+        specificTemp[i] = tolower( specificTemp[i] );
+    } // end for
+
+    // if it's a straight match
+    if ( strcmp( words, specificTemp ) == 0 ) {
+        return 1;
+    } // end if
+
+    return 0; // if word was never found
+} /* end function compare */

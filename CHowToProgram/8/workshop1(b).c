@@ -1,205 +1,275 @@
 /*
     theBitRiddler
-    3/6/2024
-    9:41 PM
-    SMS Language
+    3/23/2024
+    5:08 PM
+    8.39 (Gender Neutrality) 
 */
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
 
-#define SIZE 160
-#define LONG 320
-#define WORDS 189
+#define WORDS 61
+#define COMPOUND 10
+#define SIZE 200
+#define OUT 300
 
 enum Status {
-    FOUND, UNFOUND, MANY
+    FOUND, UNFOUND
 };
 
-void sToL( char *, const char * [], const char *[][3]); // short to long converter
-void lToS( char *, const char * [], const char *[][3]); // long to short converter
-void (* method[2] )( char *, const char * [], const char *[][3] ) = { sToL, lToS }; // The pointer to our functions
+char * tokenNeutralize( char *, const char * [][3], const char * [], char * );
+char * compNeutralize( char *, const char * [], const char * [], char * );
+int compare( char *, const char *, char[] );
+void toLowercase( char * );
+void format( char * );
 
-int main(void) {
-    const char * SMSWords[WORDS] = {
-        "&", "=", ">", "<", "#", "x", "/", "@",
-        "404", "401k",
-        "Acct", "Ad", "AFAIK", "Approx", "APR", "ASAP", 
-        "b/c", "B2B", "B4", "B4N", 
-        "BA", "BBL", "BBS", "bkgd",
-        "BRB", "BS", "BTW", "btwn", 
-        "C&B", "C&S",
-        "CEO", "CC", "cf", "CFO", "Co.", "COO", "COOP", "Corp.",
-        "cp",
-        "CRM", "CSR", "ct", "CTO",
-        "CU", "CUL8R", "CYT", 
-        "Dept.", "DIV", 
-        "e.g.", "EST", "ESP",
-        "EOD", "ea", "Ea.", "EOM", "EOT", "EOY", "ERP",
-        "f", "FAQ", "F2F", 
-        "FWD", "FWIW", "FYI", 
-        "G2G", "GDP", "govt", "Govt.",
-        "hv", "HAND", 
-        "HR", "HQ", "i.e.",
-        "IAM", "IC", "IDC", "IDK", "IM",
-        "IMO", "IMHO", "Inc.", "IRL", "ISO", "IT", "J/K", 
-        "JK", "Jr.", "KISS", "KPI", "KRA", "L&D",  
-        "L8", "L8R", "Lb.", "LLC", "LMAO", "LMK", 
-        "LOL", "NP", "NRN", "OIC", 
-        "OJT", "OLT", "OMG", "OMW",
-        "OTP", "MTD",
-        "Max", "MBA", "MBO", "Memo", "Mfg", "min", "Min.", "Mo", "mpt",
-        "N.B.", "No", "NSFW", "NWR",
-        "p",
-        "P&L", "PDF", "Pkg", "PLS", "PLZ", 
-        "PM", "PMO", "PO", "POS", "PR",
-        "prob", "probs", "PTO",
-        "q", "R&D",
-        "Q1", "Q2", "Q3", "Q4", 
-        "QA", "QoS", "QTY", 
-        "RACI", "re:", "Re", "Recd.", "RFP", 
-        "ROFL", "ROI", "ROTFL", "ROWE",
-        "s/o", "s/t", "SMART", "SNS", "SOHO", "SOOB",
-        "STAT", "SWOT",
-        "Temp", "tho", "thro",
-        "THX", "TMI", "TTYL", "TTYS", 
-        "U", "vs",
-        "VC", "VLE", "VP", "VPN", "VW", "VWVW",
-        "WAH", "WBT", "WIIFM",
-        "WFH", "W/", "w/i", "W/O",
-        "WB", "WBU", "wrt",
-        "YW", "Yr.", "yrs", "YTD" 
+int	main(void) {
+    const char * gender[WORDS][3] = {
+        {"Actor", "Actress", ""},
+        {"Boys", "girls", ""}, {"boy", "girl", ""}, {"boy", "girl", ""}, {"Boyfriend", "girlfriend", ""}, {"Boyfriend", "girlfriend", ""},
+        {"Businessman", "", ""}, {"Businessman", "", ""}, {"Businessmen", "", ""},
+        {"Chairman", "chairwoman", ""}, {"Chairman", "chairwoman", ""}, {"Chairmen", "chairwomen", ""},
+        {"Congressman", "", ""}, {"congressmen", "", ""},
+        {"councilman", "councilwoman", ""}, {"councilmen", "councilwomen", ""},
+        {"Sir", "", ""},
+        {"Dude", "", ""}, {"Dude", "", ""},
+        {"Fireman", "", ""}, {"Firemen", "", ""}, {"Foreman", "", ""}, {"Foremen", "", ""},
+        {"Freshman", "", ""}, {"Freshmen", "", ""},
+        {"Granddaughter", "Grandson", ""},
+        {"Grandma", "grandpa", ""},
+        {"Husband", "wife", ""},
+        {"Kinsmen", "", ""}, 
+        {"Ladies", "Gentlemen", ""}, {"everybody", "guys", ""},   
+        {"Maid", "", ""}, {"Mailman", "", ""}, {"Mailman", "", ""}, {"Mailmen", "", ""},
+        {"men", "women", ""},
+        {"Man", "woman", "" }, {"Man", "woman", "" }, 
+        {"Mankind", "", ""},
+        {"Man-made", "", ""}, {"Man-made", "", ""}, {"Man-made", "", ""}, 
+        {"Manned", "", ""}, {"Manpower", "", ""}, {"Manpower", "", ""},
+        {"Mother", "father", ""}, {"mother", "father", ""},
+        {"niece", "nephew", ""},
+        {"Policeman", "", ""}, {"policemen", "", ""},
+        {"Salesman", "", ""}, {"salesman", "saleswoman", ""}, {"salesmen", "saleswomen", ""},
+        {"Sister", "brother", ""}, {"sons", "daughters", ""}, {"son", "daughter", ""},
+        {"Stewardess", "steward", ""}, 
+        {"Upperclassman", "", ""}, {"Upperclassmen", "", ""},
+        {"Waiter", "waitress", ""}, {"wives", "", ""}    
     };
-    const char * SMSTranslations[WORDS][3] = {
-        {"and", "", ""}, {"is", "are", ""}, {"more than", "", ""}, {"less than", "", ""}, {"number", "", ""}, {"times", "", ""}, {"/", "", ""}, {"at", "", ""},
-        {"error 404 - not found", "lost", "confused"}, {"US retirement savings plan", "", ""},
-        {"account", "", ""}, {"advertisement", "", ""}, {"as far as I know", "", ""}, {"approximately", "", ""}, {"annual percentage rate", "", ""}, {"as soon as possible", "", ""}, 
-        {"because", "", ""}, {"business to business", "", ""}, {"before", "", ""}, {"bye for now", "", ""}, 
-        {"Bachelor of Business Administration Degree", "", ""}, {"be back later", "", ""}, {"be back soon", "", ""}, {"background", "", ""}, 
-        {"be right back", "", ""}, {"Bachelor of Science Degree", "", ""}, {"by the way", "", ""}, {"between", "", ""},
-        {"compensation and benefit", "", ""}, {"client and server", "", ""},
-        {"Chief Executive Officer", "", ""}, {"Carbon Copy", "", ""}, {"compare", "", ""}, {"Chief Financial Officer", "", ""}, {"company", "", ""}, {"Chief Operating Officer", "", ""}, {"continuity of operations planning", "", ""}, {"corporation", "", ""}, 
-        {"compare", "", ""},
-        {"customer relationship management", "", ""}, {"customer sales representative", "", ""}, {"contrast", "", ""}, {"Chief Technical Officer", "", ""},
-        {"see you", "", ""}, {"see you later", "", ""}, {"see you tomorrow", "", ""}, 
-        {"department", "", ""}, {"division", "", ""},
-        {"for example", "", ""}, {"Eastern Standard Time"}, {"email service provider", "", ""},
-        {"end of day", "", ""}, {"each", "", ""}, {"each", "", ""}, {"end of month", "end of message", ""}, {"end of thread", "", ""}, {"end of year", "", ""}, {"enterprise resource planning", "", ""},
-        {"frequently", "often", ""}, {"frequently asked question", "", ""}, {"face to face", "", ""}, 
-        {"forward", "", ""}, {"for what it's worth", "", ""}, {"for your information", "", ""}, 
-        {"got to go", "", ""}, {"gross domestic product", "", ""}, {"government", "", ""}, {"government", "", ""},
-        {"have", "", ""}, {"have a nice day", "", ""}, 
-        {"human resources", "", ""}, {"headquarters", "", ""}, {"that is", "", ""},
-        {"in a meeting", "", ""}, {"I see", "", ""}, {"I don't care", "", ""}, {"i don't know", "", ""}, {"instant message", "", ""},
-        {"in my opinion", "in memory of", "international maritime organization" }, {"in my humble opinion", "", ""}, {"incorporated", "", ""}, {"in real life", "", ""}, {"International Organization for Standardization", "", ""}, {"Information Technology", "", ""}, {"just kidding", "", ""}, 
-        {"just kidding", "", ""}, {"junior"}, {"keep it simple stupid", "", ""}, {"key performance indicator", "", ""}, {"key result area", "", ""}, {"learning and development", "", ""}, 
-        {"late", "", ""}, {"later", "", ""}, {"pound", "", ""}, {"limited liability company", "", ""}, {"laughing my ass Off", "", ""}, {"let me know", "", ""}, 
-        {"laugh out loud", "", ""}, {"no problem", "", ""}, {"no reply necessary", "", ""}, {"Oh, I see", "", ""}, 
-        {"on-the-job training", "", ""}, {"online training", "", ""}, {"oh my god", "", ""}, {"on my way", "", ""},
-        {"on the phone", "", ""}, {"month-to-date", "", ""},
-        {"maximum", "most", ""}, {"Master of Business Administration Degree", "", ""}, {"management by objectives", "", ""}, {"memorandum", "", ""}, {"manufacturing", "", ""}, {"minimum", "least", ""}, {"minimum", "least", ""}, {"month", "", ""}, {"important", "", ""},
-        {"note well", "", ""}, {"number", "", ""}, {"not safe for work", "", ""}, {"not work related", "", ""},
-        {"after", "", ""},
-        {"profit and loss", "", ""}, {"portable document format", "", ""}, {"package", "", ""}, {"please", "", ""}, {"please", "", ""}, 
-        {"private message", "project manager", "" }, {"project management office", "", ""}, {"purchase order", "", ""}, {"parent over shoulder", "", ""}, {"public relation", "", ""},
-        {"problem", "", ""}, {"problems", "", ""}, {"paid time off", "", ""}, 
-        {"every", "", ""}, {"research and development", "", ""},
-        {"first quarter", "", ""}, {"second quarter", "", ""}, {"third quarter", "", ""}, {"fourth quarter", "", ""},
-        {"quality assurance", "", ""}, {"quality of service", "", ""}, {"quantity", "", ""}, 
-        {"responsible, accountable, consulted, informed", "", ""}, {"regarding", "", ""}, {"in regards to", "regarding", ""}, {"received", "", ""}, {"request for proposal", "", ""}, 
-        {"rolling On the floor Laughing", "", ""}, {"return on investment", "", ""}, {"rolling on the floor laughing", "", ""}, {"results only work environment", "", ""},
-        {"someone", "", ""}, {"something", "", ""}, {"specific, measureable, attainable, realistic, and time-bound", "specific, measureable, achievable, realistic, and time-bound", ""}, {"social network site", "", ""}, {"Small Office", "Home Office", ""}, {"straight out of the box", "", ""}, 
-        {"immediately", "", ""}, {"strengths, weaknesses, opportunities, threats", "", ""},
-        {"temporary secretary", "", ""}, {"though", "", ""}, {"through", "", ""},
-        {"thanks", "", ""}, {"too much information", "", ""}, {"talk to you later"}, {"talk to you soon"}, 
-        {"you", "", ""}, {"versus", "against", ""},
-        {"Virtual Class", "", ""}, {"Virtual learning environment", "", ""}, {"Vice President", "", ""}, {"Virtual private network", "", ""}, {"virtual worker", "", ""}, {"virtual worker at virtual workplace", "", ""},
-        {"Work At Home", "", ""}, {"Web-based training", "", ""}, {"What's in it for me", "", ""},
-        {"Work From Home", "", ""}, {"with", "", ""}, {"within", "", ""}, {"without", "", ""}, 
-        {"welcome back", "", ""}, {"what about you", "", ""}, {"with respect to", "", ""},
-        {"you're welcome", "", ""}, {"year", "", ""}, {"years", "", ""}, {"year-to-date", "", ""}  
+    const char * compGender[COMPOUND] = {
+        "boys and girls", "common man", "common men",
+        "Dear Sir", "Ladies and Gentlemen", "Maiden name", "Man up",
+        "man and woman", "men and women", "sons and daughters"
     };
-    char mi[SIZE] = ""; // message input by user
-    int m = 0;          // the method of conversion
+    const char * neutral[WORDS] = {
+        "Performer",
+        "Children", "Kiddo", "child", "Partner", "significant other",
+        "Businessperson", "business representative", "Businesspeople",
+        "Chairperson", "chair", "chairpeople",
+        "Legislator", "Members of Congress",
+        "Councilperson", "councilpeople",
+        "Dear",
+        "Friend", "person",
+        "Firefighter", "firefighters", "Foreperson", "forepeople",
+        "First-year student", "first-year students",
+        "Grandchild",
+        "Grandparent",
+        "Spouse",
+        "Relatives", 
+        "Folks", "folx",  
+        "Housekeeper", "Letter carrier" , "postal worker", "letter carriers",
+        "People",
+        "Person", "adult", 
+        "Humankind", 
+        "Synthetic", "Machine-made", "artificial",
+        "Crewed", "Workforce", "workers",
+        "Parent", "pibling",
+        "Nibling",
+        "Police officer", "police officers",
+        "Salesperson", "sales representative", "salespeople",
+        "Sibling", "Children", "child",
+        "Flight attendant",
+        "Third-year or above", "Third-years or above",
+        "Server", "spouses" 
+    };
+    const char * compNeutral[COMPOUND] = {
+        "children", "average person", "average people",
+        "Dear", "everyone", "Family name", "Toughen up",
+        "person", "people", "children" 
+    };
+    char state[SIZE] = "";  // statement input by user
+    char statement[OUT] = "";
+    char message[OUT] = ""; // statement output by program
+    char * tokenPtr = "";   // token pointer
 
-    // Enter your message
-    printf( "%s :\n", "Enter your message, Not greater than 160 letters: " );
-    gets(mi);
+    // enter your statement
+    printf( "%s", "Enter your statement: " );
+    gets(state);
 
-    // Choose a method of conversion
-    do {
-        printf( "%s", "\nChoose a method: \n 1 - Short message to long\n 2 - long message to short\n? " );
-        scanf( "%d", &m );
-    } while ( m < 1 || m > 2 );
+    // Replacement neutralizing way for compound gender specific words
+    compNeutralize( state, compGender, compNeutral, statement );
 
-    // Call the function pointer to the function menu
-    (*method[m - 1]) (mi, SMSWords, SMSTranslations );
+    // token neutralizing way for non-compound gender specific words
+    tokenPtr = strtok( statement, " " );
+
+    while( tokenPtr != NULL ) {
+        // neutralize the token if possible
+        tokenNeutralize( tokenPtr, gender, neutral, message );
+
+        tokenPtr = strtok( NULL, " ");
+    } // end while
+
+    // format your content
+    format( message );
+
+    // display the results
+    printf( "%s", message );
 
     return 0; // indicate successful termination
 } /* end main */
 
-// convert the short message to long message
-void sToL( char * message, const char * SMSWd[], const char * TWd[][3] ) {
-    enum Status WordStatus = UNFOUND;
-    char * tokenPtr = "";
-    char wordTemp[20] = "";
-    int choice = 0;
+void format( char * message ) {
+    enum Status Fullstop = FOUND;
+    // convert to lowercase
+    toLowercase( message );
+    
+    // Convert the first letter in each sentense to uppercase
+    for ( size_t i = 0; message[i] != '\0'; i++ ) {
+        
+        if ( message[i] == 46 ) {
+            Fullstop = FOUND;
+        } // end if
+        
+        if ( isalpha( message[i] ) && Fullstop == FOUND ) {
+            message[i] = toupper( message[i] );
+            Fullstop = UNFOUND;
+        } // end if
+    } // end for
 
-    tokenPtr = strtok( message, " ,:;?!" );
+} /* end function format */
+char * compNeutralize( char * comment, const char * specific[], const char * neutral[], char * message ) {
+    char * specificPtr = ""; // pointer of a gender specific word at the comment 
+    char specificTemp[50] = ""; // gender specific template
+    char preComment[SIZE] = ""; // words before the given gender specific word
+    enum Status SpecificStatus = UNFOUND;
+    // convert comment to lowercase
+    toLowercase( comment );
 
-    while( tokenPtr != NULL ) {
-        WordStatus = UNFOUND;   // Restart a search for every token
+    // loop through compound gender specific words
+    for ( size_t i = 0; i < COMPOUND; i++ ) {
+        // copy a gender specific word to a template
+        strcpy( specificTemp, specific[i] );
+        // convert the template to lowercase
+        toLowercase( specificTemp );
 
-        // identify the word/token
-        for ( size_t i = 0; i < WORDS; i++ ) {
-            // convert the standard word to small case letters 
-            strcpy( wordTemp, SMSWd[i] );
-            // convert token to lowercase
-            for ( size_t i = 0; tokenPtr[i] != '\0'; i++ ) {
-                tokenPtr[i] = tolower( tokenPtr[i] );
-            } // end for
-            // convert standart word to lowercase
-            for ( size_t i = 0; wordTemp[i] != '\0'; i++ ) {
-                wordTemp[i] = tolower( wordTemp[i] );
-            } // end for
+        // search and replace
+        if ( ( specificPtr = strstr( comment, specificTemp ) ) != NULL ) { // if a gender specific word is found
+            SpecificStatus = FOUND;
+            // get a preComment
+            int j = 0; // location controller
+            while ( comment < specificPtr ) {
+                preComment[j] = *comment;
+                // increment both preComment and the comment
+                j++; comment++;
+            } // end while
+            // concatenate the preComment to message
+            strcat( message, preComment );
 
-            if ( strcmp( tokenPtr, wordTemp ) == 0 ) { // if SMS word is identified
-                // identify the number of options
-                for (size_t j ; *TWd[i][j] != '\0'; j++ )
-                    if ( j > 0 ) WordStatus = MANY; else WordStatus = FOUND;
+            // concatenate the gender neutral word
+            strcat( message, neutral[i] );
 
-                // Display the long message
-                if ( WordStatus == FOUND ) { // if only one option is found
-                    printf("%s%s", " ", TWd[i][0] ); 
+            // get a postComment
+            j = strlen( specificTemp ); // use the specificTemp size to get the exact location
+            while ( j ) {
+                comment++;
+                j--;
+            } // end while
+            // concatenate the postComment to message
+            strcat( message, comment );
+
+        } // end if
+    } // end for
+
+    if ( SpecificStatus == FOUND )
+        return message;
+    else {
+        strcpy( message, comment );
+        return message;
+    } // end else
+} /* end function compNeutralize */
+
+char * tokenNeutralize( char * token, const char * specific[][3], const char * neutral[], char * message ) {
+    char punct[50] = ""; // punctuations collector
+
+    // loop through gender specific array to compare with the words
+    for ( size_t i = 0; i < WORDS; i++ ) {
+        for ( size_t j = 0; j < 3 && *specific[i][j] != '\0'; j++ ) {
+            // search and neutralize if possible
+            if ( compare( token, specific[i][j], punct ) ) { 
+                // neutralize
+                strcat( message, " " );
+                strcat( message, neutral[i] );
+                if ( punct[0] != '\0' ) {
+                    strcat( message, punct );
                 } // end if
-                else if ( WordStatus == MANY ) { // if more than one option is found
-                    // Display the options
-                    int j = 0;
-                    do {
-                        printf( "\n\n %s\n%s\n", tokenPtr, "Choose one option: ");
-                        for( j = 0; *TWd[i][j] != '\0'; j++ ) {
-                            printf( "%d: %s\n", j + 1, TWd[i][j] );
-                        } // end for
-                        scanf( "%d", &choice ); // choose one option
-                    } while ( choice > j || choice < 1 );
-
-                    // display the choice
-                    printf( "%s%s", " ", TWd[i][choice - 1] );
-                } // end else
-                break;
+                return message;  // terminate 
             } // end if
         } // end for
+    } // end for
 
-        // Display the same word if not identified
-        if ( WordStatus == UNFOUND ) {
-            printf( "%s%s", " ", tokenPtr );
-        } // end if
+    // unfound
+    strcat( message, " " );
+    strcat( message, token );
+    return message;
 
-        tokenPtr = strtok( NULL, " ,:;?!" );
-    } // end while
-} /* end function sToL */
+} /* end function tokenNeutralize */
 
-// convert the long message to short message
-void lToS( char * message, const char * SMSWd[], const char * TWd[][3] ) {
-    
-} /* end function lToS */
+int compare( char * words, const char * specific, char punct[] ) {
+    char specificTemp[50] = ""; // a template for specific since specific is constant
+    enum Status ComparisonStatus = UNFOUND;
+    enum Status EsStatus = UNFOUND;
+
+    strcpy( specificTemp, specific );
+
+    // turn words and specificTemp to lowercase
+    toLowercase( words );
+    toLowercase( specificTemp );
+
+    // if it's a straight match
+    if ( strcmp( words, specificTemp ) == 0 ) {
+        return 1;
+    } // end if
+    else if ( strstr( words, specificTemp ) != NULL ) { // find punctuations and prular signs
+        for ( size_t i = strlen(specificTemp); words[i] != '\0'; i++ ) {
+            
+            if ( ispunct( words[i]) || words[i] == 's' || ( words[i] == 'e' && words[i + 1] == 's') ) {
+                if ( words[i] == 'e' && words[i + 1] == 's') {
+                    strcat( punct, "s" );
+                    EsStatus = FOUND;
+                } // end if
+                else if( words[i] == 's' && EsStatus == UNFOUND ) {
+                    strncat( punct, &words[i], 1 );
+                } // end if
+                else if ( ispunct( words[i] ) ) {
+                    strncat( punct, &words[i], 1 );
+                } // end else if
+
+                ComparisonStatus = FOUND;
+            } // end if
+            else {
+                return 0;
+            } // end else
+        } // end for 
+    } // end else if
+
+    if ( ComparisonStatus == FOUND )
+        return 1;
+
+    return 0; // if word was never found
+} /* end function compare */
+
+void toLowercase( char * words ) {
+    for ( size_t i = 0; words[i] != '\0'; i++ ) {
+        // turn each letter to lowercase
+        words[i] = tolower( words[i] );
+    } // end for
+} /* end function toLowercase */
