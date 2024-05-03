@@ -1224,72 +1224,72 @@ int main( void ) {
         {"guess", "v., n. A1"},
         {"guest", "n. A2"},
         {"guide", "n., v. A2"},
+        {"guilty", "adj. B1"},
+        {"guitar", "n. A1"},
+        {"gun", "n. A2"},
+        {"guy", "n. A2"},
+        {"gym", "n. A1"},
+        {"habit", "n. A2"},
+        {"hair", "n. A1"},
+        {"half", "n., det./pron. A1, adv. A2"},
+        {"hall", "n. A2"},
+        {"hand", "n. A1, v. B1"},
+        {"handle", "v., n. B2"},
+        {"hang", "v. B1"},
+        {"happen", "v. A1"},
+        {"happily", "adv. A2"},
+        {"happiness", "n. B1"},
+        {"happy", "adj. A1"},
+        {"hard", "adj., adv. A1"},
+        {"hardly", "adv. B1"},
+        {"harm", "n., v. B2"},
+        {"harmful", "adj. B2"},
+        {"hat", "n. A1"},
+        {"hate", "v. A1, n. B1"},
+        {"have", "v. A1, auxiliary v. A2"},
+        {"have to", "modal v. A1"},
+        {"he", "pron. A1"},
+        {"head", "n. A1, v. B1"},
+        {"headache", "n. A2"},
+        {"headline", "n. B1"},
+        {"health", "n. A1"},
+        {"healthy", "adj. A1"},
+        {"hear", "v. A1"},
+        {"hearing", "n. B2"},
+        {"heart", "n. A2"},
+        {"heat", "n., v. A2"},
+        {"heating", "n. B1"},
+        {"heaven", "n. B2"},
+        {"heavily", "adv. B1"},
+        {"heavy", "adj. A2"},
+        {"heel", "n. B2"},
+        {"height", "n. A2"},
+        {"helicopter", "n. B1"},
+        {"hell", "n. B2"},
+        {"hello", "exclam./n. A1"},
+        {"help", "v., n. A1"},
+        {"helpful", "adj. A2"},
+        {"her", "pron., det. A1"},
+        {"here", "adv. A1"},
+        {"hero", "n. A2"},
+        {"hers", "pron. A2"},
+        {"herself", "pron. A2"},
+        {"hesitate", "v. B2"},
+        {"hey", "exclam. A1"},
+        {"hi", "exclam. A1"},
+        {"hide", "v. A2"},
+        {"high", "adj. A1, adv. A2, n. B2"},
+        {"highlight", "v., n. B1"},
+        {"highly", "adv. B1"},
+        {"hill", "n. A2"},
+        {"him", "pron. A1"},
+        {"himself", "pron. A2"},
+        {"hire", "v. B1, n. B2"},
+        {"his", "det. A1, pron. A2"},
+        {"historic", "adj. B1"},
+        {"historical", "adj. B1"},
+        {"history", "n. A1"},
         {"", ""},
-guilty adj. B1
-guitar n. A1
-gun n. A2
-guy n. A2
-gym n. A1
-habit n. A2
-hair n. A1
-half n., det./pron. A1, adv. A2
-hall n. A2
-hand n. A1, v. B1
-handle v., n. B2
-hang v. B1
-happen v. A1
-happily adv. A2
-happiness n. B1
-happy adj. A1
-hard adj., adv. A1
-hardly adv. B1
-harm n., v. B2
-harmful adj. B2
-hat n. A1
-hate v. A1, n. B1
-have v. A1, auxiliary v. A2
-have to modal v. A1
-he pron. A1
-head n. A1, v. B1
-headache n. A2
-headline n. B1
-health n. A1
-healthy adj. A1
-hear v. A1
-hearing n. B2
-heart n. A2
-heat n., v. A2
-heating n. B1
-heaven n. B2
-heavily adv. B1
-heavy adj. A2
-heel n. B2
-height n. A2
-helicopter n. B1
-hell n. B2
-hello exclam./n. A1
-help v., n. A1
-helpful adj. A2
-her pron., det. A1
-here adv. A1
-hero n. A2
-hers pron. A2
-herself pron. A2
-hesitate v. B2
-hey exclam. A1
-hi exclam. A1
-hide v. A2
-high adj. A1, adv. A2, n. B2
-highlight v., n. B1
-highly adv. B1
-hill n. A2
-him pron. A1
-himself pron. A2
-hire v. B1, n. B2
-his det. A1, pron. A2
-historic adj. B1
-historical adj. B1
-history n. A1
 hit v., n. A2
 hobby n. A1
 hockey n. A2
