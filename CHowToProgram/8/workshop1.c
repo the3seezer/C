@@ -1289,945 +1289,952 @@ int main( void ) {
         {"historic", "adj. B1"},
         {"historical", "adj. B1"},
         {"history", "n. A1"},
-        {"", ""},
-hit v., n. A2
-hobby n. A1
-hockey n. A2
-hold v. A2, n. B2
-hole n. A2
-holiday n. A1
-hollow adj. B2
-holy adj. B2
-home n., adv. A1, adj. A2
-homework n. A1
-honest adj. B1
-honour n., v. B2
-hope v. A1, n. A2
-horrible adj. B1
-horror n. B1
-horse n. A1
-hospital n. A1
-host n. B1, v. B2
-hot adj. A1
-hotel n. A1
-hour n. A1
-house n. A1, v. B2
-household n. B2
-housing n. B2
-how adv. A1
-however adv. A1
-huge adj. A2
-human adj., n. A2
-humorous adj. B2
-humour n. B2
-hundred number A1
-hungry adj. A1
-hunt v. B1, n. B2
-hunting n. B2
-hurricane n. B1
-hurry n., v. B1
-hurt v., adj. A2, n. B2
-husband n. A1
-I pron. A1
-ice n. A1
-ice cream n. A1
-idea n. A1
-ideal adj. A2, n. B2
-identify v. A2
-identity n. B1
-if conj. A1
-ignore v. B1
-ill adj. A2
-illegal adj. B1
-illness n. A2
-illustrate v. B2
-illustration n. B2
-image n. A2
-imaginary adj. B1
-imagination n. B2
-imagine v. A1
-immediate adj. B1
-immediately adv. A2
-immigrant n. B1
-impact n., v. B1
-impatient adj. B2
-imply v. B2
-import n., v. B1
-importance n. B1
-important adj. A1
-impose v. B2
-impossible adj. A2
-impress v. B2
-impressed adj. B2
-impression n. B1
-impressive adj. B1
-improve v. A1
-improvement n. B1
-in prep., adv. A1
-inch n. B2
-incident n. B2
-include v. A1
-included adj. A2
-including prep. A2
-income n. B2
-increase v., n. A2
-increasingly adv. B2
-incredible adj. A2
-incredibly adv. B1
-indeed adv. B1
-independent adj. A2
-indicate v. B1
-indirect adj. B1
-individual n., adj. A2
-indoor adj. B1
-indoors adv. B1
-industrial adj. B2
-industry n. A2
-infection n. B2
-influence n., v. B1
-inform v. B2
-informal adj. A2
-information n. A1
-ingredient n. B1
-initial adj. B2
-initially adv. B2
-initiative n. B2
-injure v. B1
-injured adj. B1
-injury n. A2
-© Oxford University Press The Oxford 3000™ 6 / 11
-inner adj. B2
-innocent adj. B1
-insect n. A2
-inside prep., adv., n., adj. A2
-insight n. B2
-insist v. B2
-inspire v. B2
-install v. B2
-instance n. B2
-instead adv. A2
-institute n. B2
-institution n. B2
-instruction n. A2
-instructor n. A2
-instrument n. A2
-insurance n. B2
-intelligence n. B1
-intelligent adj. A2
-intend v. B1
-intended adj. B2
-intense adj. B2
-intention n. B1
-interest n., v. A1
-interested adj. A1
-interesting adj. A1
-internal adj. B2
-international adj. A2
-internet n. A1
-interpret v. B2
-interrupt v. B2
-interview n., v. A1
-into prep. A1
-introduce v. A1
-introduction n. A2
-invent v. A2
-invention n. A2
-invest v. B1
-investigate v. B1
-investigation n. B2
-investment n. B2
-invitation n. A2
-invite v. A2
-involve v. A2
-involved adj. B1
-iron n., v. B1
-island n. A1
-issue n. B1, v. B2
-IT n. B1
-it pron. A1
-item n. A2
-its det. A1
-itself pron. A2
-jacket n. A1
-jam n. A2
-January n. A1
-jazz n. A2
-jeans n. A1
-jewellery n. A2
-job n. A1
-join v. A1
-joke n., v. A2
-journal n. B1
-journalist n. A2
-journey n. A1
-joy n. B2
-judge n., v. B1
-judgement n. B2
-juice n. A1
-July n. A1
-jump v., n. A2
-June n. A1
-junior adj. B2
-just adv. A1
-justice n. B2
-justify v. B2
-keen adj. B1
-keep v. A1
-key n., adj. A1, v. B1
-keyboard n. B1
-kick v., n. B1
-kid n. A2
-kill v. A2
-killing n. B1
-kilometre n. A1
-kind (type) n. A1
-kind (caring) adj. B1
-king n. A2
-kiss v., n. B1
-kitchen n. A1
-knee n. A2
-knife n. A2
-knock v. A2, n. B1
-know v. A1
-knowledge n. A2
-lab n. A2
-label n., v. B1
-laboratory n. B1
-labour n. B2
-lack n., v. B1
-lady n. A2
-lake n. A2
-lamp n. A2
-land n. A1, v. A2
-landscape n. B2
-language n. A1
-laptop n. A2
-large adj. A1
-largely adv. B2
-last1 (final) det. A1, adv., n. A2
-last1 (taking time) v. A2
-late adj., adv. A1
-later adv. A1, adj. A2
-latest adj. B1, n. B2
-laugh v., n. A1
-laughter n. A2
-launch v., n. B2
-law n. A2
-lawyer n. A2
-lay v. B1
-layer n. B1
-lazy adj. A2
-lead1 v. A2, n. B1
-leader n. A2
-leadership n. B2
-leading adj. B1
-leaf n. B1
-league n. B2
-lean v. B2
-learn v. A1
-learning n. A2
-least det./pron., adv. A2
-leather n. B1
-leave v. A1, n. B2
-lecture n., v. A2
-left adj., adv., n. A1
-leg n. A1
-legal adj. B1
-leisure n. B1
-lemon n. A2
-lend v. A2
-length n. B1
-less det./pron., adv. A2
-lesson n. A1
-let v. A1
-letter n. A1
-level n. A2, adj. B1, v. B2
-library n. A1
-licence n. B2
-lie1 v. A1
-lie2 (tell a lie) v., n. B1
-life n. A1
-lifestyle n. A2
-lift v., n. A2
-light (from the sun/a lamp) n.,
-adj. A1, v. A2
-light (not heavy) adj. A2
-like (similar) prep. A1
-like (find sb/sth pleasant) v. A1,
-n. B1
-likely adj. A2
-limit n., v. B1
-limited adj. B2
-line n. A1, v. B2
-link n., v. A2
-lion n. A1
-lip n. B1
-liquid n., adj. B1
-list n., v. A1
-listen v. A1
-listener n. A2
-literature n. B1
-little adj., det./pron. A1, adv. A2
-live1 v. A1
-live2 adj., adv. B1
-lively adj. B2
-living adj., n. B1
-load n., v. B2
-loan n. B2
-local adj. A1, n. B1
-locate v. B1
-located adj. B1
-location n. B1
-lock v., n. A2
-logical adj. B2
-lonely adj. B1
-long1 adj., adv. A1
-long-term adj., adv. B2
-look v. A1, n. A2
-loose adj. B2
-lord n. B2
-lorry n. A2
-lose v. A1
-loss n. B1
-lost adj. A2
-lot pron., det., adv. A1
-loud adj., adv. A2
-loudly adv. A2
-love n., v. A1
-lovely adj. A2
-low adj., adv. A2, n. B2
-lower v. B2
-luck n. A2
-lucky adj. A2
-lunch n. A1
-lung n. B2
-luxury n. B1
-machine n. A1
-mad adj. B1
-magazine n. A1
-magic n., adj. B1
-mail n., v. A2
-main adj. A1
-mainly adv. B1
-maintain v. B2
-major adj. A2
-majority n. B2
-make v. A1, n. B2
-male adj., n. A2
-mall n. B1
-man n. A1
-manage v. A2
-management n. B1
-manager n. A2
-manner n. A2
-many det./pron. A1
-map n. A1, v. B2
-March n. A1
-mark v., n. A2
-market n. A1, v. B1
-marketing n. B1
-marriage n. B1
-married adj. A1
-marry v. A2
-mass n., adj. B2
-massive adj. B2
-master n., v. B2
-match (contest/correspond) n.,
-v. A1
-matching adj. B2
-material n. A2, adj. B2
-mathematics n. A2
-maths n. A2
-matter n., v. A2
-maximum adj., n. B2
-May n. A1
-may modal v. A2
-maybe adv. A1
-me pron. A1
-meal n. A1
-mean v. A1
-meaning n. A1
-means n. B2
-meanwhile adv. B1
-measure v., n. B1
-measurement n. B2
-meat n. A1
-media n. A2
-medical adj. A2
-medicine n. A2
-medium adj. B1, n. B2
-meet v. A1
-meeting n. A1
-melt v. B2
-member n. A1
-memory n. A2
-mental adj. B1
-mention v. A2, n. B1
-menu n. A1
-mess n., v. B1
-message n. A1
-metal n. A2
-method n. A2
-metre n. A1
-middle n., adj. A2
-midnight n. A1
-might modal v. A2
-mild adj. B1
-mile n. A1
-military adj., n. B2
-milk n. A1
-© Oxford University Press The Oxford 3000™ 7 / 11
-million number A1
-mind n., v. A2
-mine (belongs to me) pron. A2
-mine (hole in the ground) n. B1
-mineral n. B2
-minimum adj., n. B2
-minister n. B2
-minor adj. B2
-minority n. B2
-minute1 n. A1
-mirror n. A2
-miss v. A1
-missing adj. A2
-mission n. B2
-mistake n. A1, v. B2
-mix v., n. B1
-mixed adj. B2
-mixture n. B1
-mobile adj., n. A2
-model n. A1, v. B2
-modern adj. A1
-modify v. B2
-moment n. A1
-Monday n. A1
-money n. A1
-monitor n., v. B2
-monkey n. A2
-month n. A1
-mood n. B1
-moon n. A2
-moral adj., n. B2
-more det./pron., adv. A1
-morning n. A1
-most det./pron., adv. A1
-mostly adv. A2
-mother n. A1
-motor n., adj. B2
-motorcycle n. A2
-mount v. B2
-mountain n. A1
-mouse n. A1
-mouth n. A1
-move v. A1, n. B1
-movement n. A2
-movie n. A1
-much det./pron., adv. A1
-mud n. B1
-multiple adj. B2
-multiply v. B2
-mum n. A1
-murder n., v. B1
-muscle n. B1
-museum n. A1
-music n. A1
-musical adj. A2, n. B1
-musician n. A2
-must modal v. A1
-my det. A1
-myself pron. A2
-mysterious adj. B2
-mystery n. B1
-nail n. B1
-name n., v. A1
-narrative n., adj. B1
-narrow adj. A2, v. B2
-nation n. B1
-national adj. A2, n. B2
-native adj., n. B1
-natural adj. A1
-naturally adv. B1
-nature n. A2
-near prep., adj., adv. A1
-nearly adv. A2
-neat adj. B2
-necessarily adv. B1
-necessary adj. A2
-neck n. A2
-need v. A1, n. A2, modal v. B1
-needle n. B1
-negative adj. A1, n. B2
-neighbour n. A1
-neighbourhood n. B1
-neither det./pron. A2, adv. B1
-nerve n. B2
-nervous adj. A2
-net n. B1
-network n. A2
-never adv. A1
-nevertheless adv. B2
-new adj. A1
-news n. A1
-newspaper n. A1
-next adj., adv. A1, n. B1
-next to prep. A1
-nice adj. A1
-night n. A1
-nightmare n. B2
-nine number A1
-nineteen number A1
-ninety number A1
-no exclam., det. A1
-no one pron. A1
-nobody pron. A1
-noise n. A2
-noisy adj. A2
-none pron. A2
-nor conj./adv. B1
-normal adj. A2, n. B1
-normally adv. A2
-north n., adj., adv. A1
-northern adj. B1
-nose n. A1
-not adv. A1
-note n. A1, v. B1
-nothing pron. A1
-notice v., n. A2
-notion n. B2
-novel n. A2
-November n. A1
-now adv. A1, conj. B1
-nowhere adv. A2
-nuclear adj. B1
-number n. A1, v. A2
-numerous adj. B2
-nurse n. A1
-nut n. A2
-obey v. B2
-object n. A1, v. B2
-objective n., adj. B2
-obligation n. B2
-observation n. B2
-observe v. B2
-obtain v. B2
-obvious adj. B1
-obviously adv. B1
-occasion n. B1
-occasionally adv. B2
-occur v. B1
-ocean n. A2
-o’clock adv. A1
-October n. A1
-odd adj. B1
-of prep. A1
-off adv., prep. A1
-offence n. B2
-offend v. B2
-offensive adj. B2
-offer v., n. A2
-office n. A1
-officer n. A2
-official adj. B1, n. B2
-often adv. A1
-oh exclam. A1
-oil n. A2
-OK exclam., adj./adv. A1
-old adj. A1
-old-fashioned adj. B1
-on prep., adv. A1
-once adv. A1, conj. B1
-one number/det., pron. A1
-onion n. A1
-online adj., adv. A1
-only adj., adv. A1
-onto prep. A2
-open adj., v. A1
-opening n. B2
-operate v. B2
-operation n. B1
-opinion n. A1
-opponent n. B2
-opportunity n. A2
-oppose v. B2
-opposed adj. B2
-opposite adj., adv., prep., n. A1
-opposition n. B2
-option n. A2
-or conj. A1
-orange n., adj. A1
-order n., v. A1
-ordinary adj. A2
-organ n. B2
-organization n. A2
-organize v. A2
-organized adj. B1
-organizer n. B1
-origin n. B2
-original adj. A2, n.B1
-originally adv. B1
-other adj./pron. A1
-otherwise adv. B2
-ought modal v. B1
-our det. A1
-ours pron. B1
-ourselves pron. A2
-out adv./prep. A1
-outcome n. B2
-outdoor adj. B1
-outdoors adv. B1
-outer adj. B2
-outline n., v. B2
-outside adv. A1, prep., noun., adj.
-A2
-oven n. A2
-over prep., adv. A1
-overall adj., adv. B2
-owe v. B2
-own adj./pron. A1, v. A2
-owner n. A2
-pace n., v. B2
-pack v. A2, n. B1
-package n. B1, v. B2
-page n. A1
-pain n. A2
-painful adj. B1
-paint v., n. A1
-painter n. A2
-painting n. A1
-pair n. A1
-palace n. A2
-pale adj. B1
-pan n. B1
-panel n. B2
-pants n. A2
-paper n. A1
-paragraph n. A1
-parent n. A1
-park n., v. A1
-parking n. A2
-parliament n. B2
-part n. A1
-participant n. B2
-participate v. B1
-particular adj. A2
-particularly adv. B1
-partly adv. B2
-partner n. A1
-party n. A1
-pass v. A2, n. B1
-passage n. B2
-passenger n. A2
-passion n. B1
-passport n. A1
-past adj., n., prep. A1, adv. A2
-path n. B1
-patient n. A2, adj. B2
-pattern n. A2
-pay v. A1, n. A2
-payment n. B1
-peace n. A2
-peaceful adj. B1
-pen n. A1
-pencil n. A1
-penny n. A2
-pension1 n. B2
-people n. A1
-pepper n. A1
-per prep. A2
-per cent n., adj./adv. A2
-percentage n. B1
-perfect adj. A1
-perfectly adv. B1
-perform v. A2
-performance n. B1
-perhaps adv. A2
-period n. A1
-permanent adj. B2
-permission n. A2
-permit v., n. B2
-person n. A1
-personal adj. A1
-personality n. A2
-personally adv. B1
-perspective n. B2
-persuade v. B1
-pet n. A2
-petrol n. A2
-phase n. B2
-phenomenon n. B2
-philosophy n. B2
-phone n., v. A1
-© Oxford University Press The Oxford 3000™ 8 / 11
-photo n. A1
-photograph n. A1, v. A2
-photographer n. B1
-photography n. B1
-phrase n. A1
-physical adj. A2
-physics n. A2
-piano n. A1
-pick v. A2, n. B2
-picture n. A1, v. B2
-piece n. A1
-pig n. A1
-pile n., v. B2
-pilot n. A2
-pin n., v. B1
-pink adj., n. A1
-pipe n. B1
-pitch n. B2
-place n. A1, v. B1
-plain adj. B2
-plan n., v. A1
-plane n. A1
-planet n. A2
-planning n. B1
-plant n. A1, v. A2
-plastic n., adj. A2
-plate n. A2
-platform n. A2
-play v., n. A1
-player n. A1
-pleasant adj. B1
-please exclam. A1, v. A2
-pleased adj. A2
-pleasure n. B1
-plenty pron. B1
-plot n. B1, v. B2
-plus1 prep. B1, adj., conj., n. B2
-pocket n. A2
-poem n. B1
-poet n. B1
-poetry n. B1
-point n. A1, v. B1
-pointed adj. B2
-poison n., v. B1
-poisonous adj. B1
-police n. A1
-policeman n. A1
-policy n. B1
-polite adj. A2
-political adj. B1
-politician n. B1
-politics n. B1
-pollution n. A2
-pool n. A1
-poor adj. A1
-pop n., adj. A2
-popular adj. A1
-popularity n. B2
-population n. A2
-port n. B1
-portrait n. B1
-pose v. B2
-position n. A2, v. B2
-positive adj. A1, n. B2
-possess v. B2
-possession n. A2
-possibility n. A2
-possible adj. A1
-possibly adv. B1
-post n., v. A1
-poster n. A2
-pot n. B1
-potato n. A1
-potential adj., n. B2
-pound n. A1
-pour v. B1
-poverty n. B1
-powder n. B1
-power n. A2, v. B2
-powerful adj. B1
-practical adj. B1
-practice n. A1
-practise v. A1
-praise n., v. B2
-pray v. B1
-prayer n. B1
-predict v. A2
-prediction n. B1
-prefer v. A1
-pregnant adj. B2
-preparation n. B2
-prepare v. A1
-prepared adj. B1
-presence n. B2
-present adj., n. A1, v. A2
-presentation n. B1
-preserve v. B2
-president n. A2
-press v., n. B1
-pressure n. B1
-pretend v. B1
-pretty adj., adv. A1
-prevent v. A2
-previous adj. B1
-previously adv. B1
-price n. A1, v. B2
-priest n. B1
-primary adj. B1
-prime adj. B2
-prince n. B1
-princess n. B1
-principle n. B2
-print v. A2, n. B2
-printer n. A2
-printing n. B1
-priority n. B2
-prison n. A2
-prisoner n. B1
-privacy n. B2
-private adj. B1
-prize n. A2
-probably adv. A1
-problem n. A1
-procedure n. B2
-process n. A2, v. B2
-produce v. A2, v. B2
-producer n. B1
-product n. A1
-production n. B1
-profession n. B1
-professional adj. A2, n. B2
-professor n. A2
-profile n. A2
-profit n. B1
-program n. A2, v. B1
-programme n. A1
-progress n. A2, v. B2
-project n. A1, v. B2
-promise v., n. A2
-promote v. B1
-pronounce v. A2
-proof n. B2
-proper adj. B1
-properly adv. B1
-property n. B1
-proposal n. B2
-propose v. B2
-prospect n. B2
-protect v. A2
-protection n. B2
-protest n., v. B1
-proud adj. B1
-prove v. B1
-provide v. A2
-psychologist n. B2
-psychology n. B2
-pub n. A2
-public adj., n. A2
-publication n. B2
-publish v. A2
-pull v. A2, n. B1
-punish v. B1
-punishment n. B1
-pupil n. B2
-purchase n., v. B2
-pure adj. B2
-purple adj., n. A1
-purpose n. A2
-pursue v. B2
-push v. A2, n. B1
-put v. A1
-qualification n. B1
-qualified adj. B1
-qualify v. B1
-quality n. A2
-quantity n. A2
-quarter n. A1
-queen n. A2
-question n. A1, v. A2
-queue n., v. B1
-quick adj. A1
-quickly adv. A1
-quiet adj. A1
-quietly adv. A2
-quit v. B1
-quite adv. A1
-quotation n. B1
-quote v., n. B1
-race (competition) n., v. A2
-race (people) n. B1
-racing n. B1
-radio n. A1
-railway n. A2
-rain n., v. A1
-raise v. A2
-range n. B1, v. B2
-rank n., v. B2
-rapid adj. B2
-rapidly adv. B2
-rare adj. B1
-rarely adv. B1
-rate n. A2, v. B2
-rather adv. A2
-raw adj. B2
-reach v. A2, n. B2
-react v. A2
-reaction n. B1
-read v. A1
-reader n. A1
-reading n. A1
-ready adj. A1
-real adj. A1
-realistic adj. B2
-reality n. B1
-realize v. A2
-really adv. A1
-reason n. A1
-reasonable adj. B2
-recall v. B2
-receipt n. B1
-receive v. A2
-recent adj. A2
-recently adv. A2
-reception n. A2
-recipe n. A2
-recognize v. A2
-recommend v. A2
-recommendation n. B1
-record n., v. A2
-recording n. A2
-recover v. B2
-recycle v. A2
-red adj., n. A1
-reduce v. A2
-reduction n. B2
-refer v. A2
-reference n. B1
-reflect v. B1
-refuse1 v. A2
-regard v., n. B2
-region n. A2
-regional adj. B2
-register v., n. B2
-regret v., n. B2
-regular adj. A2
-regularly adv. B1
-regulation n. B2
-reject v. B1
-relate v. B1
-related adj. B1
-relation n. B1
-relationship n. A2
-relative adj., n. B1
-relatively adv. B2
-relax v. A1
-relaxed adj. B1
-relaxing adj. B1
-release v., n. B1
-relevant adj. B2
-reliable adj. B1
-relief n. B2
-religion n. B1
-religious adj. B1
-rely v. B2
-remain v. B1
-remark n., v. B2
-remember v. A1
-remind v. B1
-remote adj. B1
-remove v. A2
+        {"hit", "v., n. A2"},
+        {"hobby", "n. A1"},
+        {"hockey", "n. A2"},
+        {"hold", "v. A2, n. B2"},
+        {"hole", "n. A2"},
+        {"holiday", "n. A1"},
+        {"hollow", "adj. B2"},
+        {"holy", "adj. B2"},
+        {"home", "n., adv. A1, adj. A2"},
+        {"homework", "n. A1"},
+        {"honest", "adj. B1"},
+        {"honour", "n., v. B2"},
+        {"hope", "v. A1, n. A2"},
+        {"horrible", "adj. B1"},
+        {"horror", "n. B1"},
+        {"horse", "n. A1"},
+        {"hospital", "n. A1"},
+        {"host", "n. B1, v. B2"},
+        {"hot", "adj. A1"},
+        {"hotel", "n. A1"},
+        {"hour", "n. A1"},
+        {"house", "n. A1, v. B2"},
+        {"household", "n. B2"},
+        {"housing", "n. B2"},
+        {"how", "adv. A1"},
+        {"however", "adv. A1"},
+        {"huge", "adj. A2"},
+        {"human", "adj., n. A2"},
+        {"humorous", "adj. B2"},
+        {"humour", "n. B2"},
+        {"hundred", "number A1"},
+        {"hungry", "adj. A1"},
+        {"hunt", "v. B1, n. B2"},
+        {"hunting", "n. B2"},
+        {"hurricane", "n. B1"},
+        {"hurry", "n., v. B1"},
+        {"hurt", "v., adj. A2, n. B2"},
+        {"husband", "n. A1"},
+
+        {"I", "pron. A1"},
+        {"ice", "n. A1"},
+        {"ice cream", "n. A1"},
+        {"idea", "n. A1"},
+        {"ideal", "adj. A2, n. B2"},
+        {"identify", "v. A2"},
+        {"identity", "n. B1"},
+        {"if", "conj. A1"},
+        {"ignore", "v. B1"},
+        {"ill", "adj. A2"},
+        {"illegal", "adj. B1"},
+        {"illness", "n. A2"},
+        {"illustrate", "v. B2"},
+        {"illustration", "n. B2"},
+        {"image", "n. A2"},
+        {"imaginary", "adj. B1"},
+        {"imagination", "n. B2"},
+        {"imagine", "v. A1"},
+        {"immediate", "adj. B1"},
+        {"immediately", "adv. A2"},
+        {"immigrant", "n. B1"},
+        {"impact", "n., v. B1"},
+        {"impatient", "adj. B2"},
+        {"imply", "v. B2"},
+        {"import", "n., v. B1"},
+        {"importance", "n. B1"},
+        {"important", "adj. A1"},
+        {"impose", "v. B2"},
+        {"impossible", "adj. A2"},
+        {"impress", "v. B2"},
+        {"impressed", "adj. B2"},
+        {"impression", "n. B1"},
+        {"impressive", "adj. B1"},
+        {"improve", "v. A1"},
+        {"improvement", "n. B1"},
+        {"in", "prep., adv. A1"},
+        {"inch", "n. B2"},
+        {"incident", "n. B2"},
+        {"include", "v. A1"},
+        {"included", "adj. A2"},
+        {"including", "prep. A2"},
+        {"income", "n. B2"},
+        {"increase", "v., n. A2"},
+        {"increasingly", "adv. B2"},
+        {"incredible", "adj. A2"},
+        {"incredibly", "adv. B1"},
+        {"indeed", "adv. B1"},
+        {"independent", "adj. A2"},
+        {"indicate", "v. B1"},
+        {"indirect", "adj. B1"},
+        {"individual", "n., adj. A2"},
+        {"indoor", "adj. B1"},
+        {"indoors", "adv. B1"},
+        {"industrial", "adj. B2"},
+        {"industry", "n. A2"},
+        {"infection", "n. B2"},
+        {"influence", "n., v. B1"},
+        {"inform", "v. B2"},
+        {"informal", "adj. A2"},
+        {"information", "n. A1"},
+        {"ingredient", "n. B1"},
+        {"initial", "adj. B2"},
+        {"initially", "adv. B2"},
+        {"initiative", "n. B2"},
+        {"injure", "v. B1"},
+        {"injured", "adj. B1"},
+        {"injury", "n. A2"},
+ 
+
+        {"inner", "adj. B2"},
+        {"innocent", "adj. B1"},
+        {"insect", "n. A2"},
+        {"inside", "prep., adv., n., adj. A2"},
+        {"insight", "n. B2"},
+        {"insist", "v. B2"},
+        {"inspire", "v. B2"},
+        {"install", "v. B2"},
+        {"instance", "n. B2"},
+        {"instead", "adv. A2"},
+        {"institute", "n. B2"},
+        {"institution", "n. B2"},
+        {"instruction", "n. A2"},
+        {"instructor", "n. A2"},
+        {"instrument", "n. A2"},
+        {"insurance", "n. B2"},
+        {"intelligence", "n. B1"},
+        {"intelligent", "adj. A2"},
+        {"intend", "v. B1"},
+        {"intended", "adj. B2"},
+        {"intense", "adj. B2"},
+        {"intention", "n. B1"},
+        {"interest", "n., v. A1"},
+        {"interested", "adj. A1"},
+        {"interesting", "adj. A1"},
+        {"internal", "adj. B2"},
+        {"international", "adj. A2"},
+        {"internet", "n. A1"},
+        {"interpret", "v. B2"},
+        {"interrupt", "v. B2"},
+        {"interview", "n., v. A1"},
+        {"into", "prep. A1"},
+        {"introduce", "v. A1"},
+        {"introduction", "n. A2"},
+        {"invent", "v. A2"},
+        {"invention", "n. A2"},
+        {"invest", "v. B1"},
+        {"investigate", "v. B1"},
+        {"investigation", "n. B2"},
+        {"investment", "n. B2"},
+        {"invitation", "n. A2"},
+        {"invite", "v. A2"},
+        {"involve", "v. A2"},
+        {"involved", "adj. B1"},
+        {"iron", "n., v. B1"},
+        {"island", "n. A1"},
+        {"issue", "n. B1, v. B2"},
+        {"IT", "n. B1"},
+        {"it", "pron. A1"},
+        {"item", "n. A2"},
+        {"its", "det. A1"},
+        {"itself", "pron. A2"},
+
+        {"jacket", "n. A1"},
+        {"jam", "n. A2"},
+        {"January", "n. A1"},
+        {"jazz", "n. A2"},
+        {"jeans", "n. A1"},
+        {"jewellery", "n. A2"},
+        {"job", "n. A1"},
+        {"join", "v. A1"},
+        {"joke", "n., v. A2"},
+        {"journal", "n. B1"},
+        {"journalist", "n. A2"},
+        {"journey", "n. A1"},
+        {"joy", "n. B2"},
+        {"judge", "n., v. B1"},
+        {"judgement", "n. B2"},
+        {"juice", "n. A1"},
+        {"July", "n. A1"},
+        {"jump", "v., n. A2"},
+        {"June", "n. A1"},
+        {"junior", "adj. B2"},
+        {"just", "adv. A1"},
+        {"justice", "n. B2"},
+        {"justify", "v. B2"},
+ 
+        {"keen", "adj. B1"},
+        {"keep", "v. A1"},
+        {"key", "n., adj. A1, v. B1"},
+        {"keyboard", "n. B1"},
+        {"kick", "v., n. B1"},
+        {"kid", "n. A2"},
+        {"kill", "v. A2"},
+        {"killing", "n. B1"},
+        {"kilometre", "n. A1"},
+        {"kind", "(type) n. A1"},
+        {"kind", "(caring) adj. B1"},
+        {"king", "n. A2"},
+        {"kiss", "v., n. B1"},
+        {"kitchen", "n. A1"},
+        {"knee", "n. A2"},
+        {"knife", "n. A2"},
+        {"knock", "v. A2, n. B1"},
+        {"know", "v. A1"},
+        {"knowledge", "n. A2"},
+
+        {"lab", "n. A2"},
+        {"label", "n., v. B1"},
+        {"laboratory", "n. B1"},
+        {"labour", "n. B2"},
+        {"lack", "n., v. B1"},
+        {"lady", "n. A2"},
+        {"lake", "n. A2"},
+        {"lamp", "n. A2"},
+        {"land", "n. A1, v. A2"},
+        {"landscape", "n. B2"},
+        {"language", "n. A1"},
+        {"laptop", "n. A2"},
+        {"large", "adj. A1"},
+        {"largely", "adv. B2"},
+        {"last1", "(final) det. A1, adv., n. A2"},
+        {"last1", "(taking time) v. A2"},
+        {"late", "adj., adv. A1"},
+        {"later", "adv. A1, adj. A2"},
+        {"latest", "adj. B1, n. B2"},
+        {"laugh", "v., n. A1"},
+        {"laughter", "n. A2"},
+        {"launch", "v., n. B2"},
+        {"law", "n. A2"},
+        {"lawyer", "n. A2"},
+        {"lay", "v. B1"},
+        {"layer", "n. B1"},
+        {"lazy", "adj. A2"},
+        {"lead1", "v. A2, n. B1"},
+        {"leader", "n. A2"},
+        {"leadership", "n. B2"},
+        {"leading", "adj. B1"},
+        {"leaf", "n. B1"},
+        {"league", "n. B2"},
+        {"lean", "v. B2"},
+        {"learn", "v. A1"},
+        {"learning", "n. A2"},
+        {"least", "det./pron., adv. A2"},
+        {"leather", "n. B1"},
+        {"leave", "v. A1, n. B2"},
+        {"lecture", "n., v. A2"},
+        {"left", "adj., adv., n. A1"},
+        {"leg", "n. A1"},
+        {"legal", "adj. B1"},
+        {"leisure", "n. B1"},
+        {"lemon", "n. A2"},
+        {"lend", "v. A2"},
+        {"length", "n. B1"},
+        {"less", "det./pron., adv. A2"},
+        {"lesson", "n. A1"},
+        {"let", "v. A1"},
+        {"letter", "n. A1"},
+        {"level", "n. A2, adj. B1, v. B2"},
+        {"library", "n. A1"},
+        {"licence", "n. B2"},
+        {"lie1", "v. A1"},
+        {"lie2", "(tell a lie) v., n. B1"},
+        {"life", "n. A1"},
+        {"lifestyle", "n. A2"},
+        {"lift", "v., n. A2"},
+        {"light", "(from the sun/a lamp) n., adj. A1, v. A2"},
+        {"light", "(not heavy) adj. A2"},
+        {"like", "(similar) prep. A1"},
+        {"like", "(find sb/sth pleasant) v. A1, n. B1"},
+        {"likely", "adj. A2"},
+        {"limit", "n., v. B1"},
+        {"limited", "adj. B2"},
+        {"line", "n. A1, v. B2"},
+        {"link", "n., v. A2"},
+        {"lion", "n. A1"},
+        {"lip", "n. B1"},
+        {"liquid", "n., adj. B1"},
+        {"list", "n., v. A1"},
+        {"listen", "v. A1"},
+        {"listener", "n. A2"},
+        {"literature", "n. B1"},
+        {"little", "adj., det./pron. A1, adv. A2"},
+        {"live1", "v. A1"},
+        {"live2", "adj., adv. B1"},
+        {"lively", "adj. B2"},
+        {"living", "adj., n. B1"},
+        {"load", "n., v. B2"},
+        {"loan", "n. B2"},
+        {"local", "adj. A1, n. B1"},
+        {"locate", "v. B1"},
+        {"located", "adj. B1"},
+        {"location", "n. B1"},
+        {"lock", "v., n. A2"},
+        {"logical", "adj. B2"},
+        {"lonely", "adj. B1"},
+        {"long1", "adj., adv. A1 long-term adj., adv. B2"},
+        {"look", "v. A1, n. A2"},
+        {"loose", "adj. B2"},
+        {"lord", "n. B2"},
+        {"lorry", "n. A2"},
+        {"lose", "v. A1"},
+        {"loss", "n. B1"},
+        {"lost", "adj. A2"},
+        {"lot", "pron., det., adv. A1"},
+        {"loud", "adj., adv. A2"},
+        {"loudly", "adv. A2"},
+        {"love", "n., v. A1"},
+        {"lovely", "adj. A2"},
+        {"low", "adj., adv. A2, n. B2"},
+        {"lower", "v. B2"},
+        {"luck", "n. A2"},
+        {"lucky", "adj. A2"},
+        {"lunch", "n. A1"},
+        {"lung", "n. B2"},
+        {"luxury", "n. B1"},
+ 
+        {"machine", "n. A1"},
+        {"mad", "adj. B1"},
+        {"magazine", "n. A1"},
+        {"magic", "n., adj. B1"},
+        {"mail", "n., v. A2"},
+        {"main", "adj. A1"},
+        {"mainly", "adv. B1"},
+        {"maintain", "v. B2"},
+        {"major", "adj. A2"},
+        {"majority", "n. B2"},
+        {"make", "v. A1, n. B2"},
+        {"male", "adj., n. A2"},
+        {"mall", "n. B1"},
+        {"man", "n. A1"},
+        {"manage", "v. A2"},
+        {"management", "n. B1"},
+        {"manager", "n. A2"},
+        {"manner", "n. A2"},
+        {"many", "det./pron. A1"},
+        {"map", "n. A1, v. B2"},
+        {"March", "n. A1"},
+        {"mark", "v., n. A2"},
+        {"market", "n. A1, v. B1"},
+        {"marketing", "n. B1"},
+        {"marriage", "n. B1"},
+        {"married", "adj. A1"},
+        {"marry", "v. A2"},
+        {"mass", "n., adj. B2"},
+        {"massive", "adj. B2"},
+        {"master", "n., v. B2"},
+        {"match", "(contest/correspond) n., v. A1"},
+        {"matching", "adj. B2"},
+        {"material", "n. A2, adj. B2"},
+        {"mathematics", "n. A2"},
+        {"maths", "n. A2"},
+        {"matter", "n., v. A2"},
+        {"maximum", "adj., n. B2"},
+        {"May", "n. A1"},
+        {"may", "modal v. A2"},
+        {"maybe", "adv. A1"},
+        {"me", "pron. A1"},
+        {"meal", "n. A1"},
+        {"mean", "v. A1"},
+        {"meaning", "n. A1"},
+        {"means", "n. B2"},
+        {"meanwhile", "adv. B1"},
+        {"measure", "v., n. B1"},
+        {"measurement", "n. B2"},
+        {"meat", "n. A1"},
+        {"media", "n. A2"},
+        {"medical", "adj. A2"},
+        {"medicine", "n. A2"},
+        {"medium", "adj. B1, n. B2"},
+        {"meet", "v. A1"},
+        {"meeting", "n. A1"},
+        {"melt", "v. B2"},
+        {"member", "n. A1"},
+        {"memory", "n. A2"},
+        {"mental", "adj. B1"},
+        {"mention", "v. A2, n. B1"},
+        {"menu", "n. A1"},
+        {"mess", "n., v. B1"},
+        {"message", "n. A1"},
+        {"metal", "n. A2"},
+        {"method", "n. A2"},
+        {"metre", "n. A1"},
+        {"middle", "n., adj. A2"},
+        {"midnight", "n. A1"},
+        {"might", "modal v. A2"},
+        {"mild", "adj. B1"},
+        {"mile", "n. A1"},
+        {"military", "adj., n. B2"},
+        {"milk", "n. A1"},
+ 
+
+        {"million", "number A1"},
+        {"mind", "n., v. A2"},
+        {"mine", "(belongs to me) pron. A2"},
+        {"mine", "(hole in the ground) n. B1"},
+        {"mineral", "n. B2"},
+        {"minimum", "adj., n. B2"},
+        {"minister", "n. B2"},
+        {"minor", "adj. B2"},
+        {"minority", "n. B2"},
+        {"minute1", "n. A1"},
+        {"mirror", "n. A2"},
+        {"miss", "v. A1"},
+        {"missing", "adj. A2"},
+        {"mission", "n. B2"},
+        {"mistake", "n. A1, v. B2"},
+        {"mix", "v., n. B1"},
+        {"mixed", "adj. B2"},
+        {"mixture", "n. B1"},
+        {"mobile", "adj., n. A2"},
+        {"model", "n. A1, v. B2"},
+        {"modern", "adj. A1"},
+        {"modify", "v. B2"},
+        {"moment", "n. A1"},
+        {"Monday", "n. A1"},
+        {"money", "n. A1"},
+        {"monitor", "n., v. B2"},
+        {"monkey", "n. A2"},
+        {"month", "n. A1"},
+        {"mood", "n. B1"},
+        {"moon", "n. A2"},
+        {"moral", "adj., n. B2"},
+        {"more", "det./pron., adv. A1"},
+        {"morning", "n. A1"},
+        {"most", "det./pron., adv. A1"},
+        {"mostly", "adv. A2"},
+        {"mother", "n. A1"},
+        {"motor", "n., adj. B2"},
+        {"motorcycle", "n. A2"},
+        {"mount", "v. B2"},
+        {"mountain", "n. A1"},
+        {"mouse", "n. A1"},
+        {"mouth", "n. A1"},
+        {"move", "v. A1, n. B1"},
+        {"movement", "n. A2"},
+        {"movie", "n. A1"},
+        {"much", "det./pron., adv. A1"},
+        {"mud", "n. B1"},
+        {"multiple", "adj. B2"},
+        {"multiply", "v. B2"},
+        {"mum", "n. A1"},
+        {"murder", "n., v. B1"},
+        {"muscle", "n. B1"},
+        {"museum", "n. A1"},
+        {"music", "n. A1"},
+        {"musical", "adj. A2, n. B1"},
+        {"musician", "n. A2"},
+        {"must", "modal v. A1"},
+        {"my", "det. A1"},
+        {"myself", "pron. A2"},
+        {"mysterious", "adj. B2"},
+        {"mystery", "n. B1"},
+ 
+        {"nail", "n. B1"},
+        {"name", "n., v. A1"},
+        {"narrative", "n., adj. B1"},
+        {"narrow", "adj. A2, v. B2"},
+        {"nation", "n. B1"},
+        {"national", "adj. A2, n. B2"},
+        {"native", "adj., n. B1"},
+        {"natural", "adj. A1"},
+        {"naturally", "adv. B1"},
+        {"nature", "n. A2"},
+        {"near", "prep., adj., adv. A1"},
+        {"nearly", "adv. A2"},
+        {"neat", "adj. B2"},
+        {"necessarily", "adv. B1"},
+        {"necessary", "adj. A2"},
+        {"neck", "n. A2"},
+        {"need", "v. A1, n. A2, modal v. B1"},
+        {"needle", "n. B1"},
+        {"negative", "adj. A1, n. B2"},
+        {"neighbour", "n. A1"},
+        {"neighbourhood", "n. B1"},
+        {"neither", "det./pron. A2, adv. B1"},
+        {"nerve", "n. B2"},
+        {"nervous", "adj. A2"},
+        {"net", "n. B1"},
+        {"network", "n. A2"},
+        {"never", "adv. A1"},
+        {"nevertheless", "adv. B2"},
+        {"new", "adj. A1"},
+        {"news", "n. A1"},
+        {"newspaper", "n. A1"},
+        {"next", "adj., adv. A1, n. B1"},
+        {"next to", "prep. A1"},
+        {"nice", "adj. A1"},
+        {"night", "n. A1"},
+        {"nightmare", "n. B2"},
+        {"nine", "number A1"},
+        {"nineteen", "number A1"},
+        {"ninety", "number A1"},
+        {"no", "exclam., det. A1"},
+        {"no one", "pron. A1"},
+        {"nobody", "pron. A1"},
+        {"noise", "n. A2"},
+        {"noisy", "adj. A2"},
+        {"none", "pron. A2"},
+        {"nor", "conj./adv. B1"},
+        {"normal", "adj. A2, n. B1"},
+        {"normally", "adv. A2"},
+        {"north", "n., adj., adv. A1"},
+        {"northern", "adj. B1"},
+        {"nose", "n. A1"},
+        {"not", "adv. A1"},
+        {"note", "n. A1, v. B1"},
+        {"nothing", "pron. A1"},
+        {"notice", "v., n. A2"},
+        {"notion", "n. B2"},
+        {"novel", "n. A2"},
+        {"November", "n. A1"},
+        {"now", "adv. A1, conj. B1"},
+        {"nowhere", "adv. A2"},
+        {"nuclear", "adj. B1"},
+        {"number", "n. A1, v. A2"},
+        {"numerous", "adj. B2"},
+        {"nurse", "n. A1"},
+        {"nut", "n. A2"},
+ 
+        {"obey", "v. B2"},
+        {"object", "n. A1, v. B2"},
+        {"objective", "n., adj. B2"},
+        {"obligation", "n. B2"},
+        {"observation", "n. B2"},
+        {"observe", "v. B2"},
+        {"obtain", "v. B2"},
+        {"obvious", "adj. B1"},
+        {"obviously", "adv. B1"},
+        {"occasion", "n. B1"},
+        {"occasionally", "adv. B2"},
+        {"occur", "v. B1"},
+        {"ocean", "n. A2"},
+        {"o'clock", "adv. A1"},
+        {"October", "n. A1"},
+        {"odd", "adj. B1"},
+        {"of", "prep. A1"},
+        {"off", "adv., prep. A1"},
+        {"offence", "n. B2"},
+        {"offend", "v. B2"},
+        {"offensive", "adj. B2"},
+        {"offer", "v., n. A2"},
+        {"office", "n. A1"},
+        {"officer", "n. A2"},
+        {"official", "adj. B1, n. B2"},
+        {"often", "adv. A1"},
+        {"oh", "exclam. A1"},
+        {"oil", "n. A2"},
+        {"OK", "exclam., adj./adv. A1"},
+        {"old", "adj. A1"},
+        {"old-fashioned", "adj. B1"},
+        {"on", "prep., adv. A1"},
+        {"once", "adv. A1, conj. B1"},
+        {"one", "number/det., pron. A1"},
+        {"onion", "n. A1"},
+        {"online", "adj., adv. A1"},
+        {"only", "adj., adv. A1"},
+        {"onto", "prep. A2"},
+        {"open", "adj., v. A1"},
+        {"opening", "n. B2"},
+        {"operate", "v. B2"},
+        {"operation", "n. B1"},
+        {"opinion", "n. A1"},
+        {"opponent", "n. B2"},
+        {"opportunity", "n. A2"},
+        {"oppose", "v. B2"},
+        {"opposed", "adj. B2"},
+        {"opposite", "adj., adv., prep., n. A1"},
+        {"opposition", "n. B2"},
+        {"option", "n. A2"},
+        {"or", "conj. A1"},
+        {"orange", "n., adj. A1"},
+        {"order", "n., v. A1"},
+        {"ordinary", "adj. A2"},
+        {"organ", "n. B2"},
+        {"organization", "n. A2"},
+        {"organize", "v. A2"},
+        {"organized", "adj. B1"},
+        {"organizer", "n. B1"},
+        {"origin", "n. B2"},
+        {"original", "adj. A2, n. B1"},
+        {"originally", "adv. B1"},
+        {"other", "adj./pron. A1"},
+        {"otherwise", "adv. B2"},
+        {"ought", "modal v. B1"},
+        {"our", "det. A1"},
+        {"ours", "pron. B1"},
+        {"ourselves", "pron. A2"},
+        {"out", "adv./prep. A1"},
+        {"outcome", "n. B2"},
+        {"outdoor", "adj. B1"},
+        {"outdoors", "adv. B1"},
+        {"outer", "adj. B2"},
+        {"outline", "n., v. B2"},
+        {"outside", "adv. A1, prep., noun., adj. A2"},
+        {"oven", "n. A2"},
+        {"over", "prep., adv. A1"},
+        {"overall", "adj., adv. B2"},
+        {"owe", "v. B2"},
+        {"own", "adj./pron. A1, v. A2"},
+        {"owner", "n. A2"},
+        {"pace", "n., v. B2"},
+        {"pack", "v. A2, n. B1"},
+        {"package", "n. B1, v. B2"},
+        {"page", "n. A1"},
+        {"pain", "n. A2"},
+        {"painful", "adj. B1"},
+        {"paint", "v., n. A1"},
+        {"painter", "n. A2"},
+        {"painting", "n. A1"},
+        {"pair", "n. A1"},
+        {"palace", "n. A2"},
+        {"pale", "adj. B1"},
+        {"pan", "n. B1"},
+        {"panel", "n. B2"},
+        {"pants", "n. A2"},
+        {"paper", "n. A1"},
+        {"paragraph", "n. A1"},
+        {"parent", "n. A1"},
+        {"park", "n., v. A1"},
+        {"parking", "n. A2"},
+        {"parliament", "n. B2"},
+        {"part", "n. A1"},
+        {"participant", "n. B2"},
+        {"participate", "v. B1"},
+        {"particular", "adj. A2"},
+        {"particularly", "adv. B1"},
+        {"partly", "adv. B2"},
+        {"partner", "n. A1"},
+        {"party", "n. A1"},
+        {"pass", "v. A2, n. B1"},
+        {"passage", "n. B2"},
+        {"passenger", "n. A2"},
+        {"passion", "n. B1"},
+        {"passport", "n. A1"},
+        {"past", "adj., n., prep. A1, adv. A2"},
+        {"path", "n. B1"},
+        {"patient", "n. A2, adj. B2"},
+        {"pattern", "n. A2"},
+        {"pay", "v. A1, n. A2"},
+        {"payment", "n. B1"},
+        {"peace", "n. A2"},
+        {"peaceful", "adj. B1"},
+        {"pen", "n. A1"},
+        {"pencil", "n. A1"},
+        {"penny", "n. A2"},
+        {"pension1", "n. B2"},
+        {"people", "n. A1"},
+        {"pepper", "n. A1"},
+        {"per", "prep. A2"},
+        {"per cent", "n., adj./adv. A2"},
+        {"percentage", "n. B1"},
+        {"perfect", "adj. A1"},
+        {"perfectly", "adv. B1"},
+        {"perform", "v. A2"},
+        {"performance", "n. B1"},
+        {"perhaps", "adv. A2"},
+        {"period", "n. A1"},
+        {"permanent", "adj. B2"},
+        {"permission", "n. A2"},
+        {"permit", "v., n. B2"},
+        {"person", "n. A1"},
+        {"personal", "adj. A1"},
+        {"personality", "n. A2"},
+        {"personally", "adv. B1"},
+        {"perspective", "n. B2"},
+        {"persuade", "v. B1"},
+        {"pet", "n. A2"},
+        {"petrol", "n. A2"},
+        {"phase", "n. B2"},
+        {"phenomenon", "n. B2"},
+        {"philosophy", "n. B2"},
+        {"phone", "n., v. A1"},
+ 
+
+        {"photo", "n. A1"},
+        {"photograph", "n. A1, v. A2"},
+        {"photographer", "n. B1"},
+        {"photography", "n. B1"},
+        {"phrase", "n. A1"},
+        {"physical", "adj. A2"},
+        {"physics", "n. A2"},
+        {"piano", "n. A1"},
+        {"pick", "v. A2, n. B2"},
+        {"picture", "n. A1, v. B2"},
+        {"piece", "n. A1"},
+        {"pig", "n. A1"},
+        {"pile", "n., v. B2"},
+        {"pilot", "n. A2"},
+        {"pin", "n., v. B1"},
+        {"pink", "adj., n. A1"},
+        {"pipe", "n. B1"},
+        {"pitch", "n. B2"},
+        {"place", "n. A1, v. B1"},
+        {"plain", "adj. B2"},
+        {"plan", "n., v. A1"},
+        {"plane", "n. A1"},
+        {"planet", "n. A2"},
+        {"planning", "n. B1"},
+        {"plant", "n. A1, v. A2"},
+        {"plastic", "n., adj. A2"},
+        {"plate", "n. A2"},
+        {"platform", "n. A2"},
+        {"play", "v., n. A1"},
+        {"player", "n. A1"},
+        {"pleasant", "adj. B1"},
+        {"please", "exclam. A1, v. A2"},
+        {"pleased", "adj. A2"},
+        {"pleasure", "n. B1"},
+        {"plenty", "pron. B1"},
+        {"plot", "n. B1, v. B2"},
+        {"plus1", "prep. B1, adj., conj., n. B2"},
+        {"pocket", "n. A2"},
+        {"poem", "n. B1"},
+        {"poet", "n. B1"},
+        {"poetry", "n. B1"},
+        {"point", "n. A1, v. B1"},
+        {"pointed", "adj. B2"},
+        {"poison", "n., v. B1"},
+        {"poisonous", "adj. B1"},
+        {"police", "n. A1"},
+        {"policeman", "n. A1"},
+        {"policy", "n. B1"},
+        {"polite", "adj. A2"},
+        {"political", "adj. B1"},
+        {"politician", "n. B1"},
+        {"politics", "n. B1"},
+        {"pollution", "n. A2"},
+        {"pool", "n. A1"},
+        {"poor", "adj. A1"},
+        {"pop", "n., adj. A2"},
+        {"popular", "adj. A1"},
+        {"popularity", "n. B2"},
+        {"population", "n. A2"},
+        {"port", "n. B1"},
+        {"portrait", "n. B1"},
+        {"pose", "v. B2"},
+        {"position", "n. A2, v. B2"},
+        {"positive", "adj. A1, n. B2"},
+        {"possess", "v. B2"},
+        {"possession", "n. A2"},
+        {"possibility", "n. A2"},
+        {"possible", "adj. A1"},
+        {"possibly", "adv. B1"},
+        {"post", "n., v. A1"},
+        {"poster", "n. A2"},
+        {"pot", "n. B1"},
+        {"potato", "n. A1"},
+        {"potential", "adj., n. B2"},
+        {"pound", "n. A1"},
+        {"pour", "v. B1"},
+        {"poverty", "n. B1"},
+        {"powder", "n. B1"},
+        {"power", "n. A2, v. B2"},
+        {"powerful", "adj. B1"},
+        {"practical", "adj. B1"},
+        {"practice", "n. A1"},
+        {"practise", "v. A1"},
+        {"praise", "n., v. B2"},
+        {"pray", "v. B1"},
+        {"prayer", "n. B1"},
+        {"predict", "v. A2"},
+        {"prediction", "n. B1"},
+        {"prefer", "v. A1"}, 
+        {"pregnant", "adj. B2"},
+        {"preparation", "n. B2"},
+        {"prepare", "v. A1"},
+        {"prepared", "adj. B1"},
+        {"presence", "n. B2"},
+        {"present", "adj., n. A1, v. A2"},
+        {"presentation", "n. B1"},
+        {"preserve", "v. B2"},
+        {"president", "n. A2"},
+        {"press", "v., n. B1"},
+        {"pressure", "n. B1"},
+        {"pretend", "v. B1"},
+        {"pretty", "adj., adv. A1"},
+        {"prevent", "v. A2"},
+        {"previous", "adj. B1"},
+        {"previously", "adv. B1"},
+        {"price", "n. A1, v. B2"},
+        {"priest", "n. B1"},
+        {"primary", "adj. B1"},
+        {"prime", "adj. B2"},
+        {"prince", "n. B1"},
+        {"princess", "n. B1"},
+        {"principle", "n. B2"},
+        {"print", "v. A2, n. B2"},
+        {"printer", "n. A2"},
+        {"printing", "n. B1"},
+        {"priority", "n. B2"},
+        {"prison", "n. A2"},
+        {"prisoner", "n. B1"},
+        {"privacy", "n. B2"},
+        {"private", "adj. B1"},
+        {"prize", "n. A2"},
+        {"probably", "adv. A1"},
+        {"problem", "n. A1"},
+        {"procedure", "n. B2"},
+        {"process", "n. A2, v. B2"},
+        {"produce", "v. A2, v. B2"},
+        {"producer", "n. B1"},
+        {"product", "n. A1"},
+        {"production", "n. B1"},
+        {"profession", "n. B1"},
+        {"professional", "adj. A2, n. B2"},
+        {"professor", "n. A2"},
+        {"profile", "n. A2"},
+        {"profit", "n. B1"},
+        {"program", "n. A2, v. B1"},
+        {"programme", "n. A1"},
+        {"progress", "n. A2, v. B2"},
+        {"project", "n. A1, v. B2"},
+        {"promise", "v., n. A2"},
+        {"promote", "v. B1"},
+        {"pronounce", "v. A2"},
+        {"proof", "n. B2"},
+        {"proper", "adj. B1"},
+        {"properly", "adv. B1"},
+        {"property", "n. B1"},
+        {"proposal", "n. B2"},
+        {"propose", "v. B2"},
+        {"prospect", "n. B2"},
+        {"protect", "v. A2"},
+        {"protection", "n. B2"},
+        {"protest", "n., v. B1"},
+        {"proud", "adj. B1"},
+        {"prove", "v. B1"},
+        {"provide", "v. A2"},
+        {"psychologist", "n. B2"},
+        {"psychology", "n. B2"},
+        {"pub", "n. A2"},
+        {"public", "adj., n. A2"},
+        {"publication", "n. B2"},
+        {"publish", "v. A2"},
+        {"pull", "v. A2, n. B1"},
+        {"punish", "v. B1"},
+        {"punishment", "n. B1"},
+        {"pupil", "n. B2"},
+        {"purchase", "n., v. B2"},
+        {"pure", "adj. B2"},
+        {"purple", "adj., n. A1"},
+        {"purpose", "n. A2"},
+        {"pursue", "v. B2"},
+        {"push", "v. A2, n. B1"},
+        {"put", "v. A1"},
+ 
+        {"qualification", "n. B1"},
+        {"qualified", "adj. B1"},
+        {"qualify", "v. B1"},
+        {"quality", "n. A2"},
+        {"quantity", "n. A2"},
+        {"quarter", "n. A1"},
+        {"queen", "n. A2"},
+        {"question", "n. A1, v. A2"},
+        {"queue", "n., v. B1"},
+        {"quick", "adj. A1"},
+        {"quickly", "adv. A1"},
+        {"quiet", "adj. A1"},
+        {"quietly", "adv. A2"},
+        {"quit", "v. B1"},
+        {"quite", "adv. A1"},
+        {"quotation", "n. B1"},
+        {"quote", "v., n. B1"},
+ 
+        {"race", "(competition) n., v. A2"},
+        {"race", "(people) n. B1"},
+        {"racing", "n. B1"},
+        {"radio", "n. A1"},
+        {"railway", "n. A2"},
+        {"rain", "n., v. A1"},
+        {"raise", "v. A2"},
+        {"range", "n. B1, v. B2"},
+        {"rank", "n., v. B2"},
+        {"rapid", "adj. B2"},
+        {"rapidly", "adv. B2"},
+        {"rare", "adj. B1"},
+        {"rarely", "adv. B1"},
+        {"rate", "n. A2, v. B2"},
+        {"rather", "adv. A2"},
+        {"raw", "adj. B2"},
+        {"reach", "v. A2, n. B2"},
+        {"react", "v. A2"},
+        {"reaction", "n. B1"},
+        {"read", "v. A1"},
+        {"reader", "n. A1"},
+        {"reading", "n. A1"},
+        {"ready", "adj. A1"},
+        {"real", "adj. A1"},
+        {"realistic", "adj. B2"},
+        {"reality", "n. B1"},
+        {"realize", "v. A2"},
+        {"really", "adv. A1"},
+        {"reason", "n. A1"},
+        {"reasonable", "adj. B2"},
+        {"recall", "v. B2"},
+        {"receipt", "n. B1"},
+        {"receive", "v. A2"},
+        {"recent", "adj. A2"},
+        {"recently", "adv. A2"},
+        {"reception", "n. A2"},
+        {"recipe", "n. A2"},
+        {"recognize", "v. A2"},
+        {"recommend", "v. A2"},
+        {"recommendation", "n. B1"},
+        {"record", "n., v. A2"},
+        {"recording", "n. A2"},
+        {"recover", "v. B2"},
+        {"recycle", "v. A2"},
+        {"red", "adj., n. A1"},
+        {"reduce", "v. A2"},
+        {"reduction", "n. B2"},
+        {"refer", "v. A2"},
+        {"reference", "n. B1"},
+        {"reflect", "v. B1"},
+        {"refuse1", "v. A2"},
+        {"regard", "v., n. B2"},
+        {"region", "n. A2"},
+        {"regional", "adj. B2"},
+        {"register", "v., n. B2"},
+        {"regret", "v., n. B2"},
+        {"regular", "adj. A2"},
+        {"regularly", "adv. B1"},
+        {"regulation", "n. B2"},
+        {"reject", "v. B1"},
+        {"relate", "v. B1"},
+        {"related", "adj. B1"},
+        {"relation", "n. B1"},
+        {"relationship", "n. A2"},
+        {"relative", "adj., n. B1"},
+        {"relatively", "adv. B2"},
+        {"relax", "v. A1"},
+        {"relaxed", "adj. B1"},
+        {"relaxing", "adj. B1"},
+        {"release", "v., n. B1"},
+        {"relevant", "adj. B2"},
+        {"reliable", "adj. B1"},
+        {"relief", "n. B2"},
+        {"religion", "n. B1"},
+        {"religious", "adj. B1"},
+        {"rely", "v. B2"},
+        {"remain", "v. B1"},
+        {"remark", "n., v. B2"},
+        {"remember", "v. A1"},
+        {"remind", "v. B1"},
+        {"remote", "adj. B1"},
+        {"remove", "v. A2"},
+        {"", ""}, 
 rent n., v. B1
 repair v. A2, n. B1
 repeat v. A1, n. B1
