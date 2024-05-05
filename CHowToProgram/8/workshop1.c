@@ -2234,142 +2234,143 @@ int main( void ) {
         {"remind", "v. B1"},
         {"remote", "adj. B1"},
         {"remove", "v. A2"},
-        {"", ""}, 
-rent n., v. B1
-repair v. A2, n. B1
-repeat v. A1, n. B1
-repeated adj. B1
-replace v. A2
-reply v., n. A2
-report n. A1, v. A2
-reporter n. A2
-represent v. B1
-representative n., adj. B2
-© Oxford University Press The Oxford 3000™ 9 / 11
-reputation n. B2
-request n. A2, v. B1
-require v. B1
-requirement n. B2
-rescue v., n. B2
-research n., v. A2
-researcher n. A2
-reservation n. B1
-reserve n., v. B2
-resident n., adj. B2
-resist v. B2
-resolve v. B2
-resort n. B2
-resource n. B1
-respect n., v. B1
-respond v. A2
-response n. A2
-responsibility n. B1
-responsible adj. B1
-rest (remaining part) n. A2
-rest (sleep/relax) n., v. A2
-restaurant n. A1
-result n. A1, v. B1
-retain v. B2
-retire v. B1
-retired adj. B1
-return v., n. A1
-reveal v. B2
-review n., v. A2
-revise v. B1
-revolution n. B2
-reward n., v. B2
-rhythm n. B2
-rice n. A1
-rich adj. A1
-rid v. B2
-ride v. A1, n. A2
-right adj., adv., n. A1
-ring1 n. A2
-ring2 v. A2, n. B1
-rise v. A2, n. B1
-risk n., v. B1
-river n. A1
-road n. A1
-robot n. B1
-rock (stone) n. A2
-rock (music) n. A2
-role n. A2
-roll v., n. B1
-romantic adj. B1
-roof n. A2
-room n. A1
-root n. B2
-rope n. B1
-rough adj. B1
-round adj., adv., prep. A2, n. B2
-route n. A2
-routine n. A1, adj. B2
-row1 n. B1
-royal adj. B1
-rub v. B2
-rubber n., adj. B2
-rubbish n. A2
-rude adj. A2
-rugby n. B1
-rule n. A1, v. B1
-run v. A1, n. A2
-runner n. A2
-running n. A2
-rural adj. B2
-rush v., n. B2
-sad adj. A1
-sadly adv. A2
-safe adj. A2
-safety n. B1
-sail v. A2, n. B1
-sailing n. A2
-sailor n. B1
-salad n. A1
-salary n. A2
-sale n. A2
-salt n. A1
-same adj., pron., adv. A1
-sample n. B1, v. B2
-sand n. B1
-sandwich n. A1
-satellite n. B2
-satisfied adj. B2
-satisfy v. B2
-Saturday n. A1
-sauce n. A2
-save v. A2
-saving n. B2
-say v. A1
-scale n. B2
-scan v. B1
-scared adj. A2
-scary adj. A2
-scene n. A2
-schedule n. A2, v. B2
-scheme n. B2
-school n. A1
-science n. A1
-scientific adj. B1
-scientist n. A1
-score v., n. A2
-scream v., n. B2
-screen n. A2, v. B2
-script n. B1
-sculpture n. B1
-sea n. A1
-search n., v. A2
-season n. A2
-seat n. A2, v. B2
-second1 (next after the first) det./
-number A1, adv. A2
-second1 (unit of time) n. A1
-secondary adj. B1
-secondly adv. A2
-secret adj., n. A2
-secretary n. A2
-section n. A1
-sector n. B2
-secure v., adj. B2
+        {"rent", "n., v. B1"}, 
+        {"repair", "v. A2, n. B1"},
+        {"repeat", "v. A1, n. B1"},
+        {"repeated", "adj. B1"},
+        {"replace", "v. A2"},
+        {"reply", "v., n. A2"},
+        {"report", "n. A1, v. A2"},
+        {"reporter", "n. A2"},
+        {"represent", "v. B1"},
+        {"representative", "n., adj. B2"},
+
+
+        {"reputation", "n. B2"},
+        {"request", "n. A2, v. B1"},
+        {"require", "v. B1"},
+        {"requirement", "n. B2"},
+        {"rescue", "v., n. B2"},
+        {"research", "n., v. A2"},
+        {"researcher", "n. A2"},
+        {"reservation", "n. B1"},
+        {"reserve", "n., v. B2"},
+        {"resident", "n., adj. B2"},
+        {"resist", "v. B2"},
+        {"resolve", "v. B2"},
+        {"resort", "n. B2"},
+        {"resource", "n. B1"},
+        {"respect", "n., v. B1"},
+        {"respond", "v. A2"},
+        {"response", "n. A2"},
+        {"responsibility", "n. B1"},
+        {"responsible", "adj. B1"},
+        {"rest", "(remaining part) n. A2"},
+        {"rest", "(sleep/relax) n., v. A2"},
+        {"restaurant", "n. A1"},
+        {"result", "n. A1, v. B1"},
+        {"retain", "v. B2"},
+        {"retire", "v. B1"},
+        {"retired", "adj. B1"},
+        {"return", "v., n. A1"},
+        {"reveal", "v. B2"},
+        {"review", "n., v. A2"},
+        {"revise", "v. B1"},
+        {"revolution", "n. B2"},
+        {"reward", "n., v. B2"},
+        {"rhythm", "n. B2"},
+        {"rice", "n. A1"},
+        {"rich", "adj. A1"},
+        {"rid", "v. B2"},
+        {"ride", "v. A1, n. A2"},
+        {"right", "adj., adv., n. A1"},
+        {"ring1", "n. A2"},
+        {"ring2", "v. A2, n. B1"},
+        {"rise", "v. A2, n. B1"},
+        {"risk", "n., v. B1"},
+        {"river", "n. A1"},
+        {"road", "n. A1"},
+        {"robot", "n. B1"},
+        {"rock", "(stone) n. A2"},
+        {"rock", "(music) n. A2"},
+        {"role", "n. A2"},
+        {"roll", "v., n. B1"},
+        {"romantic", "adj. B1"},
+        {"roof", "n. A2"},
+        {"room", "n. A1"},
+        {"root", "n. B2"},
+        {"rope", "n. B1"},
+        {"rough", "adj. B1"},
+        {"round", "adj., adv., prep. A2, n. B2"},
+        {"route", "n. A2"},
+        {"routine", "n. A1, adj. B2"},
+        {"row1", "n. B1"},
+        {"royal", "adj. B1"},
+        {"rub", "v. B2"},
+        {"rubber", "n., adj. B2"},
+        {"rubbish", "n. A2"},
+        {"rude", "adj. A2"},
+        {"rugby", "n. B1"},
+        {"rule", "n. A1, v. B1"},
+        {"run", "v. A1, n. A2"},
+        {"runner", "n. A2"},
+        {"running", "n. A2"},
+        {"rural", "adj. B2"},
+        {"rush", "v., n. B2"},
+
+        {"sad", "adj. A1"},
+        {"sadly", "adv. A2"},
+        {"safe", "adj. A2"},
+        {"safety", "n. B1"},
+        {"sail", "v. A2, n. B1"},
+        {"sailing", "n. A2"},
+        {"sailor", "n. B1"},
+        {"salad", "n. A1"},
+        {"salary", "n. A2"},
+        {"sale", "n. A2"},
+        {"salt", "n. A1"},
+        {"same", "adj., pron., adv. A1"},
+        {"sample", "n. B1, v. B2"},
+        {"sand", "n. B1"},
+        {"sandwich", "n. A1"},
+        {"satellite", "n. B2"},
+        {"satisfied", "adj. B2"},
+        {"satisfy", "v. B2"},
+        {"Saturday", "n. A1"},
+        {"sauce", "n. A2"},
+        {"save", "v. A2"},
+        {"saving", "n. B2"},
+        {"say", "v. A1"},
+        {"scale", "n. B2"},
+        {"scan", "v. B1"},
+        {"scared", "adj. A2"},
+        {"scary", "adj. A2"},
+        {"scene", "n. A2"},
+        {"schedule", "n. A2, v. B2"},
+        {"scheme", "n. B2"},
+        {"school", "n. A1"},
+        {"science", "n. A1"},
+        {"scientific", "adj. B1"},
+        {"scientist", "n. A1"},
+        {"score", "v., n. A2"},
+        {"scream", "v., n. B2"},
+        {"screen", "n. A2, v. B2"},
+        {"script", "n. B1"},
+        {"sculpture", "n. B1"},
+        {"sea", "n. A1"},
+        {"search", "n., v. A2"},
+        {"season", "n. A2"},
+        {"seat", "n. A2, v. B2"},
+        {"second1", "(next after the first) det./ number A1, adv. A2"},
+        {"second1", "(unit of time) n. A1"},
+        {"secondary", "adj. B1"},
+        {"secondly", "adv. A2"},
+        {"secret", "adj., n. A2"},
+        {"secretary", "n. A2"},
+        {"section", "n. A1"},
+        {"sector", "n. B2"},
+        {"secure", "v., adj. B2"},
+        {"", ""},
 security n. B1
 see v. A1
 seed n. B1
