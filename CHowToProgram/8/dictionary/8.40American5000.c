@@ -2042,7 +2042,7 @@ int main(void) {
         {"wrist", "n. B2"},
  
         {"yell", "v. C1"},
-        {"yield", "n., v. C1"},
+        {"yield", "n., v. C1"}
     };
 
 } /* end main*/
