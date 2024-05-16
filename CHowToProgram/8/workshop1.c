@@ -58,211 +58,214 @@ int main(void) {
         {"admission", "n. C1"},
         {"adolescent", "n. C1"},
         {"adoption", "n. C1"},
+        {"adverse", "adj. C1"},
+        {"advocate", "n., v. C1"},
+        {"aesthetic", "adj. C1"},
+        {"affection", "n. C1"},
+        {"affordable", "adj. B2"},
+        {"aftermath", "n. C1"},
+        {"aggression", "n. C1"},
+        {"agricultural", "adj. C1"},
+        {"agriculture", "n. B2"},
+        {"aide", "n. C1"},
+        {"AIDS", "n. B2"},
+        {"albeit", "conj. C1"},
+        {"alert", "v., n., adj. C1"},
+        {"alien", "n. B2, adj. C1"},
+        {"align", "v. C1"},
+        {"alignment", "n. C1"},
+        {"alike", "adv., adj. C1"},
+        {"allegation", "n. C1"},
+        {"allege", "v. C1"},
+        {"allegedly", "adv. C1"},
+        {"alliance", "n. C1"},
+        {"allocate", "v. C1"},
+        {"allocation", "n. C1"},
+        {"allowance", "n. C1"},
+        {"ally", "n. C1"},
+        {"alongside", "prep. B2"},
+        {"altogether", "adv. B2"},
+        {"aluminium", "n. C1"},
+        {"amateur", "adj., n. C1"},
+        {"ambassador", "n. C1"},
+        {"ambulance", "n. B2"},
+        {"amend", "v. C1"},
+        {"amendment", "n. C1"},
+        {"amid", "prep. C1"},
+        {"amusing", "adj. B2"},
+        {"analogy", "n. C1"},
+        {"analyst", "n. B2"},
+        {"ancestor", "n. B2"},
+        {"anchor", "n. C1"},
+        {"angel", "n. C1"},
+        {"animation", "n. B2"},
+        {"annually", "adv. B2"},
+        {"anonymous", "adj. C1"},
+        {"anticipate", "v. B2"},
+        {"anxiety", "n. B2"},
+        {"apology", "n. B2"},
+        {"apparatus", "n. C1"},
+        {"appealing", "adj. C1"},
+        {"appetite", "n. C1"},
+        {"applaud", "v. C1"},
+        {"applicable", "adj. C1"},
+        {"applicant", "n. B2"},
+        {"appoint", "v. C1"},
+        {"appreciation", "n. C1"},
+        {"appropriately", "adv. B2"},
+        {"arbitrary", "adj. C1"},
+        {"architectural", "adj. C1"},
+        {"archive", "n. C1"},
+        {"arena", "n. C1"},
+        {"arguably", "adv. C1"},
+        {"arm", "v. C1"},
+        {"array", "n. C1"},
+        {"arrow", "n. B2"},
+        {"articulate", "v. C1"},
+        {"artwork", "n. B2"},
+        {"ash", "n. C1"},
+        {"aside", "adv. B2"},
+        {"aspiration", "n. C1"},
+        {"aspire", "v. C1"},
+        {"assassination", "n. C1"},
+        {"assault", "n., v. C1"},
+        {"assemble", "v. C1"},
+        {"assembly", "n. C1"},
+        {"assert", "v. C1"},
+        {"assertion", "n. C1"},
+        {"asset", "n. B2"},
+        {"assign", "v. B2"},
+        {"assistance", "n. B2"},
+        {"assumption", "n. B2"},
+        {"assurance", "n. C1"},
+        {"assure", "v. B2"},
+        {"astonishing", "adj. B2"},
+        {"asylum", "n. C1"},
+        {"atrocity", "n. C1"},
+        {"attachment", "n. B2"},
+        {"attain", "v. C1"},
+        {"attendance", "n. C1"},
+        {"attorney", "n. C1"},
+        {"attribute", "v., n. C1"},
+        {"auction", "n. B2"},
+        {"audio", "adj. B2"},
+        {"audit", "n. C1"},
+        {"authentic", "adj. C1"},
+        {"authorize", "v. C1"},
+        {"auto", "n. C1"},
+        {"automatic", "adj. B2"},
+        {"automatically", "adv. B2"},
+        {"autonomy", "n. C1"},
+        {"availability", "n. C1"},
+        {"await", "v. C1"},
+        {"awareness", "n. B2"},
+        {"awkward", "adj. B2"},
+ 
+        {"backdrop", "n. C1"},
+        {"backing", "n. C1"},
+        {"backup", "n. C1"},
+        {"badge", "n. B2"},
+        {"bail", "n. C1"},
+        {"balanced", "adj. B2"},
+        {"ballet", "n. B2"},
+        {"balloon", "n. B2"},
+        {"ballot", "n. C1"},
+        {"banner", "n. C1"},
+        {"bare", "adj. C1"},
+        {"barely", "adv. B2"},
+        {"bargain", "n. B2"},
+        {"barrel", "n. C1"},
+        {"basement", "n. B2"},
+        {"basket", "n. B2"},
+        {"bass1", "n. C1"},
+        {"bat", "n. B2, v. C1"},
+        {"battlefield", "n. C1"},
+        {"bay", "n. C1"},
+        {"beam", "n. C1"},
+        {"beast", "n. C1"},
+        {"behalf", "n. C1"},
+        {"beloved", "adj. C1"},
+        {"bench", "n. C1"},
+        {"benchmark", "n. C1"},
+        {"beneath", "prep. C1"},
+        {"beneficial", "adj. B2"},
+        {"beneficiary", "n. C1"},
+        {"beside", "prep. B2"},
+        {"besides", "prep., adv. B2"},
+        {"betray", "v. C1"},
+        {"bias", "n. B2"},
+        {"bid", "n., v. B2"},
+        {"bind", "v. C1"},
+        {"biography", "n. C1"},
+        {"biological", "adj. B2"},
+        {"bishop", "n. C1"},
+        {"bizarre", "adj. C1"},
+        {"blade", "n. C1"},
+        {"blanket", "n. B2"},
+        {"blast", "n., v. C1"},
+        {"bleed", "v. C1"},
+        {"blend", "v., n. C1"},
+        {"bless", "v. C1"},
+        {"blessing", "n. C1"},
+        {"blow", "n. B2"},
+        {"boast", "v. C1"},
+        {"bold", "adj. B2"},
+        {"bombing", "n. B2"},
+        {"bonus", "n. C1"},
+        {"booking", "n. B2"},
+        {"boom", "n. C1"},
+        {"boost", "v., n. B2"},
+        {"bounce", "v. C1"},
+        {"bound", "adj. B2"},
+        {"boundary", "n. C1"},
+        {"bow1", "v., n. C1"},
+        {"breach", "n., v. C1"},
+        {"breakdown", "n. C1"},
+        {"breakthrough", "n. C1"},
+        {"breed", "v., n. C1"},
+        {"brick", "n. B2"},
+        {"briefly", "adv. B2"},
+        {"broadband", "n. C1"},
+        {"broadcaster", "n. B2"},
+        {"broadly", "adv. B2"},
+        {"browser", "n. C1"},
+        {"brutal", "adj. C1"},
+        {"buck", "n. C1"},
+        {"buddy", "n. C1"},
+        {"buffer", "n. C1"},
+        {"bug", "n. B2"},
+        {"bulk", "n. C1"},
+        {"burden", "n. C1"},
+        {"bureaucracy", "n. C1"},
+        {"burial", "n. C1"},
+        {"burst", "v. C1"},
+ 
+        {"cabin", "n. B2"},
+        {"cabinet", "n. C1"},
+        {"calculation", "n. C1"},
+        {"canal", "n. B2"},
+        {"candle", "n. B2"},
+        {"canvas", "n. C1"},
+        {"capability", "n. C1"},
+        {"capitalism", "n. C1"},
+        {"capitalist", "adj. C1"},
+        {"carbon", "n. B2"},
+        {"cargo", "n. C1"},
+        {"carriage", "n. C1"},
+        {"carve", "v. C1"},
+ 
+
+        {"casino", "n. C1"},
+        {"casual", "adj. B2"},
+        {"casualty", "n. C1"},
+        {"catalogue", "n. C1"},
+        {"cater", "v. C1"},
+        {"cattle", "n. C1"},
+        {"caution", "n. C1"},
+        {"cautious", "adj. C1"},
+        {"cave", "n. B2"},
+        {"cease", "v. C1"},
         {"", ""},
-adverse adj. C1
-advocate n., v. C1
-aesthetic adj. C1
-affection n. C1
-affordable adj. B2
-aftermath n. C1
-aggression n. C1
-agricultural adj. C1
-agriculture n. B2
-aide n. C1
-AIDS n. B2
-albeit conj. C1
-alert v., n., adj. C1
-alien n. B2, adj. C1
-align v. C1
-alignment n. C1
-alike adv., adj. C1
-allegation n. C1
-allege v. C1
-allegedly adv. C1
-alliance n. C1
-allocate v. C1
-allocation n. C1
-allowance n. C1
-ally n. C1
-alongside prep. B2
-altogether adv. B2
-aluminium n. C1
-amateur adj., n. C1
-ambassador n. C1
-ambulance n. B2
-amend v. C1
-amendment n. C1
-amid prep. C1
-amusing adj. B2
-analogy n. C1
-analyst n. B2
-ancestor n. B2
-anchor n. C1
-angel n. C1
-animation n. B2
-annually adv. B2
-anonymous adj. C1
-anticipate v. B2
-anxiety n. B2
-apology n. B2
-apparatus n. C1
-appealing adj. C1
-appetite n. C1
-applaud v. C1
-applicable adj. C1
-applicant n. B2
-appoint v. C1
-appreciation n. C1
-appropriately adv. B2
-arbitrary adj. C1
-architectural adj. C1
-archive n. C1
-arena n. C1
-arguably adv. C1
-arm v. C1
-array n. C1
-arrow n. B2
-articulate v. C1
-artwork n. B2
-ash n. C1
-aside adv. B2
-aspiration n. C1
-aspire v. C1
-assassination n. C1
-assault n., v. C1
-assemble v. C1
-assembly n. C1
-assert v. C1
-assertion n. C1
-asset n. B2
-assign v. B2
-assistance n. B2
-assumption n. B2
-assurance n. C1
-assure v. B2
-astonishing adj. B2
-asylum n. C1
-atrocity n. C1
-attachment n. B2
-attain v. C1
-attendance n. C1
-attorney n. C1
-attribute v., n. C1
-auction n. B2
-audio adj. B2
-audit n. C1
-authentic adj. C1
-authorize v. C1
-auto n. C1
-automatic adj. B2
-automatically adv. B2
-autonomy n. C1
-availability n. C1
-await v. C1
-awareness n. B2
-awkward adj. B2
-backdrop n. C1
-backing n. C1
-backup n. C1
-badge n. B2
-bail n. C1
-balanced adj. B2
-ballet n. B2
-balloon n. B2
-ballot n. C1
-banner n. C1
-bare adj. C1
-barely adv. B2
-bargain n. B2
-barrel n. C1
-basement n. B2
-basket n. B2
-bass1 n. C1
-bat n. B2, v. C1
-battlefield n. C1
-bay n. C1
-beam n. C1
-beast n. C1
-behalf n. C1
-beloved adj. C1
-bench n. C1
-benchmark n. C1
-beneath prep. C1
-beneficial adj. B2
-beneficiary n. C1
-beside prep. B2
-besides prep., adv. B2
-betray v. C1
-bias n. B2
-bid n., v. B2
-bind v. C1
-biography n. C1
-biological adj. B2
-bishop n. C1
-bizarre adj. C1
-blade n. C1
-blanket n. B2
-blast n., v. C1
-bleed v. C1
-blend v., n. C1
-bless v. C1
-blessing n. C1
-blow n. B2
-boast v. C1
-bold adj. B2
-bombing n. B2
-bonus n. C1
-booking n. B2
-boom n. C1
-boost v., n. B2
-bounce v. C1
-bound adj. B2
-boundary n. C1
-bow1 v., n. C1
-breach n., v. C1
-breakdown n. C1
-breakthrough n. C1
-breed v., n. C1
-brick n. B2
-briefly adv. B2
-broadband n. C1
-broadcaster n. B2
-broadly adv. B2
-browser n. C1
-brutal adj. C1
-buck n. C1
-buddy n. C1
-buffer n. C1
-bug n. B2
-bulk n. C1
-burden n. C1
-bureaucracy n. C1
-burial n. C1
-burst v. C1
-cabin n. B2
-cabinet n. C1
-calculation n. C1
-canal n. B2
-candle n. B2
-canvas n. C1
-capability n. C1
-capitalism n. C1
-capitalist adj. C1
-carbon n. B2
-cargo n. C1
-carriage n. C1
-carve v. C1
-© Oxford University Press The Oxford 5000™ 2 / 8
-casino n. C1
-casual adj. B2
-casualty n. C1
-catalogue n. C1
-cater v. C1
-cattle n. C1
-caution n. C1
-cautious adj. C1
-cave n. B2
-cease v. C1
 cemetery n. C1
 certainty n. B2
 certificate n. B2
