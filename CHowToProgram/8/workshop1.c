@@ -265,239 +265,240 @@ int main(void) {
         {"cautious", "adj. C1"},
         {"cave", "n. B2"},
         {"cease", "v. C1"},
+        {"cemetery", "n. C1"},
+        {"certainty", "n. B2"},
+        {"certificate", "n. B2"},
+        {"challenging", "adj. B2"},
+        {"chamber", "n. C1"},
+        {"championship", "n. B2"},
+        {"chaos", "n. C1"},
+        {"characterize", "v. C1"},
+        {"charm", "n. C1"},
+        {"charming", "adj. B2"},
+        {"charter", "n. C1"},
+        {"chase", "v., n. B2"},
+        {"cheek", "n. B2"},
+        {"cheer", "v., n. B2"},
+        {"choir", "n. B2"},
+        {"chop", "v. B2"},
+        {"chronic", "adj. C1"},
+        {"chunk", "n. C1"},
+        {"circuit", "n. B2"},
+        {"circulate", "v. C1"},
+        {"circulation", "n. C1"},
+        {"citizenship", "n. C1"},
+        {"civic", "adj. C1"},
+        {"civilian", "n., adj. C1"},
+        {"civilization", "n. B2"},
+        {"clarify", "v. B2"},
+        {"clarity", "n. C1"},
+        {"clash", "n. C1"},
+        {"classification", "n. C1"},
+        {"classify", "v. B2"},
+        {"clerk", "n. B2"},
+        {"cliff", "n. B2"},
+        {"cling", "v. C1"},
+        {"clinic", "n. B2"},
+        {"clinical", "adj. C1"},
+        {"clip", "n. B2"},
+        {"closure", "n. C1"},
+        {"cluster", "n. C1"},
+        {"coalition", "n. C1"},
+        {"coastal", "adj. C1"},
+        {"cocktail", "n. C1"},
+        {"cognitive", "adj. C1"},
+        {"coincide", "v. C1"},
+        {"coincidence", "n. B2"},
+        {"collaborate", "v. C1"},
+        {"collaboration", "n. C1"},
+        {"collective", "adj. C1"},
+        {"collector", "n. B2"},
+        {"collision", "n. C1"},
+        {"colonial", "adj. C1"},
+        {"colony", "n. B2"},
+        {"colourful", "adj. B2"},
+        {"columnist", "n. C1"},
+        {"combat", "n., v. C1"},
+        {"comic", "adj., n. B2"},
+        {"commander", "n. B2"},
+        {"commence", "v. C1"},
+        {"commentary", "n. C1"},
+        {"commentator", "n. C1"},
+        {"commerce", "n. C1"},
+        {"commissioner", "n. C1"},
+        {"commodity", "n. C1"},
+        {"communist", "adj. C1"},
+        {"companion", "n. C1"},
+        {"comparable", "adj. C1"},
+        {"comparative", "adj. B2"},
+        {"compassion", "n. C1"},
+        {"compel", "v. C1"},
+        {"compelling", "adj. C1"},
+        {"compensate", "v. C1"},
+        {"compensation", "n. C1"},
+        {"competence", "n. C1"},
+        {"competent", "adj. C1"},
+        {"compile", "v. C1"},
+        {"complement", "v. C1"},
+        {"completion", "n. B2"},
+        {"complexity", "n. C1"},
+        {"compliance", "n. C1"},
+        {"complication", "n. C1"},
+        {"comply", "v. C1"},
+        {"compose", "v. B2"},
+        {"composer", "n. B2"},
+        {"composition", "n. C1"},
+        {"compound", "n. B2"},
+        {"comprehensive", "adj. B2"},
+        {"comprise", "v. B2"},
+        {"compromise", "n., v. C1"},
+        {"compulsory", "adj. B2"},
+        {"compute", "v. C1"},
+        {"conceal", "v. C1"},
+        {"concede", "v. C1"},
+        {"conceive", "v. C1"},
+        {"conception", "n. C1"},
+        {"concession", "n. C1"},
+        {"concrete", "adj., n. B2"},
+        {"condemn", "v. C1"},
+        {"confer", "v. C1"},
+        {"confess", "v. B2"},
+        {"confession", "n. C1"},
+        {"configuration", "n. C1"},
+        {"confine", "v. C1"},
+        {"confirmation", "n. C1"},
+        {"confront", "v. C1"},
+        {"confrontation", "n. C1"},
+        {"confusion", "n. B2"},
+        {"congratulate", "v. C1"},
+        {"congregation", "n. C1"},
+        {"congressional", "adj. C1"},
+        {"conquer", "v. C1"},
+        {"conscience", "n. C1"},
+        {"consciousness", "n. C1"},
+        {"consecutive", "adj. C1"},
+        {"consensus", "n. C1"},
+        {"consent", "n., v. C1"},
+        {"consequently", "adv. B2"},
+        {"conservation", "n. B2"},
+        {"conserve", "v. C1"},
+        {"considerable", "adj. B2"},
+        {"considerably", "adv. B2"},
+        {"consistency", "n. C1"},
+        {"consistently", "adv. B2"},
+        {"consolidate", "v. C1"},
+        {"conspiracy", "n. B2"},
+        {"constituency", "n. C1"},
+        {"constitute", "v. C1"},
+        {"constitution", "n. C1"},
+        {"constitutional", "adj. C1"},
+        {"constraint", "n. C1"},
+        {"consult", "v. B2"},
+        {"consultant", "n. B2"},
+        {"consultation", "n. C1"},
+        {"consumption", "n. B2"},
+        {"contemplate", "v. C1"},
+        {"contempt", "n. C1"},
+        {"contend", "v. C1"},
+        {"contender", "n. C1"},
+        {"content2", "adj. C1"},
+        {"contention", "n. C1"},
+        {"continually", "adv. C1"},
+        {"contractor", "n. C1"},
+        {"contradiction", "n. C1"},
+        {"contrary", "adj., n. C1"},
+        {"contributor", "n. C1"},
+        {"controversial", "adj. B2"},
+        {"controversy", "n. B2"},
+        {"convenience", "n. B2"},
+        {"convention", "n. B2"},
+        {"conventional", "adj. B2"},
+        {"conversion", "n. C1"},
+        {"convey", "v. B2"},
+        {"convict", "v. C1"},
+        {"conviction", "n. C1"},
+        {"convincing", "adj. B2"},
+        {"cooperate", "v. C1"},
+        {"cooperative", "adj. C1"},
+        {"coordinate", "v. C1"},
+        {"coordination", "n. C1"},
+        {"coordinator", "n. C1"},
+        {"cop", "n. C1"},
+        {"cope", "v. B2"},
+        {"copper", "n. C1"},
+        {"copyright", "n. C1"},
+        {"corporation", "n. B2"},
+        {"correction", "n. C1"},
+        {"correlate", "v. C1"},
+        {"correlation", "n. C1"},
+        {"correspond", "v. C1"},
+        {"correspondence", "n. C1"},
+        {"correspondent", "n. C1"},
+        {"corresponding", "adj. C1"},
+        {"corridor", "n. B2"},
+        {"corrupt", "adj. C1"},
+        {"corruption", "n. C1"},
+        {"costly", "adj. C1"},
+        {"councillor", "n. C1"},
+        {"counselling", "n. C1"},
+        {"counsellor", "n. C1"},
+        {"counter", "(long flat surface) n. B2"},
+        {"counter", "(argue against) v. C1"},
+        {"counterpart", "n. C1"},
+        {"countless", "adj. C1"},
+        {"coup", "n. C1"},
+        {"courtesy", "n. C1"},
+        {"coverage", "n. B2"},
+        {"crack", "v., n. B2"},
+        {"craft", "n. B2, v. C1"},
+        {"crawl", "v. C1"},
+        {"creativity", "n. B2"},
+        {"creator", "n. C1"},
+        {"credibility", "n. C1"},
+        {"credible", "adj. C1"},
+        {"creep", "v. C1"},
+        {"critically", "adv. B2"},
+        {"critique", "n. C1"},
+        {"crown", "n. C1"},
+        {"crude", "adj. C1"},
+        {"cruise", "n., v. B2"},
+        {"crush", "v. C1"},
+        {"crystal", "n. C1"},
+        {"cue", "n. B2"},
+        {"cult", "n., adj. C1"},
+        {"cultivate", "v. C1"},
+        {"curiosity", "n. C1"},
+        {"curious", "adj. B2"},
+        {"curriculum", "n. B2"},
+        {"custody", "n. C1"},
+        {"cute", "adj. B2"},
+        {"cutting", "n. C1"},
+        {"cynical", "adj. C1"},
+ 
+        {"dairy", "n., adj. B2"},
+        {"dam", "n. C1"},
+        {"damaging", "adj. C1"},
+        {"dare", "v. B2"},
+        {"darkness", "n. B2"},
+        {"database", "n. B2"},
+        {"dawn", "n. C1"},
+        {"deadline", "n. B2"},
+        {"deadly", "adj. B2"},
+        {"dealer", "n. B2"},
+        {"debris", "n. C1"},
+        {"debut", "n. C1"},
+        {"decision-making", "n. C1"},
+        {"decisive", "adj. C1"},
+        {"deck", "n. B2"},
+        {"declaration", "n. C1"},
+        {"dedicated", "adj. C1"},
+        {"dedication", "n. C1"},
+        {"deed", "n. C1"},
+        {"deem", "v. C1"},
+        {"default", "n. C1"},
+        {"defect", "n. C1"},
+        {"defender", "n. B2"},
         {"", ""},
-cemetery n. C1
-certainty n. B2
-certificate n. B2
-challenging adj. B2
-chamber n. C1
-championship n. B2
-chaos n. C1
-characterize v. C1
-charm n. C1
-charming adj. B2
-charter n. C1
-chase v., n. B2
-cheek n. B2
-cheer v., n. B2
-choir n. B2
-chop v. B2
-chronic adj. C1
-chunk n. C1
-circuit n. B2
-circulate v. C1
-circulation n. C1
-citizenship n. C1
-civic adj. C1
-civilian n., adj. C1
-civilization n. B2
-clarify v. B2
-clarity n. C1
-clash n. C1
-classification n. C1
-classify v. B2
-clerk n. B2
-cliff n. B2
-cling v. C1
-clinic n. B2
-clinical adj. C1
-clip n. B2
-closure n. C1
-cluster n. C1
-coalition n. C1
-coastal adj. C1
-cocktail n. C1
-cognitive adj. C1
-coincide v. C1
-coincidence n. B2
-collaborate v. C1
-collaboration n. C1
-collective adj. C1
-collector n. B2
-collision n. C1
-colonial adj. C1
-colony n. B2
-colourful adj. B2
-columnist n. C1
-combat n., v. C1
-comic adj., n. B2
-commander n. B2
-commence v. C1
-commentary n. C1
-commentator n. C1
-commerce n. C1
-commissioner n. C1
-commodity n. C1
-communist adj. C1
-companion n. C1
-comparable adj. C1
-comparative adj. B2
-compassion n. C1
-compel v. C1
-compelling adj. C1
-compensate v. C1
-compensation n. C1
-competence n. C1
-competent adj. C1
-compile v. C1
-complement v. C1
-completion n. B2
-complexity n. C1
-compliance n. C1
-complication n. C1
-comply v. C1
-compose v. B2
-composer n. B2
-composition n. C1
-compound n. B2
-comprehensive adj. B2
-comprise v. B2
-compromise n., v. C1
-compulsory adj. B2
-compute v. C1
-conceal v. C1
-concede v. C1
-conceive v. C1
-conception n. C1
-concession n. C1
-concrete adj., n. B2
-condemn v. C1
-confer v. C1
-confess v. B2
-confession n. C1
-configuration n. C1
-confine v. C1
-confirmation n. C1
-confront v. C1
-confrontation n. C1
-confusion n. B2
-congratulate v. C1
-congregation n. C1
-congressional adj. C1
-conquer v. C1
-conscience n. C1
-consciousness n. C1
-consecutive adj. C1
-consensus n. C1
-consent n., v. C1
-consequently adv. B2
-conservation n. B2
-conserve v. C1
-considerable adj. B2
-considerably adv. B2
-consistency n. C1
-consistently adv. B2
-consolidate v. C1
-conspiracy n. B2
-constituency n. C1
-constitute v. C1
-constitution n. C1
-constitutional adj. C1
-constraint n. C1
-consult v. B2
-consultant n. B2
-consultation n. C1
-consumption n. B2
-contemplate v. C1
-contempt n. C1
-contend v. C1
-contender n. C1
-content2 adj. C1
-contention n. C1
-continually adv. C1
-contractor n. C1
-contradiction n. C1
-contrary adj., n. C1
-contributor n. C1
-controversial adj. B2
-controversy n. B2
-convenience n. B2
-convention n. B2
-conventional adj. B2
-conversion n. C1
-convey v. B2
-convict v. C1
-conviction n. C1
-convincing adj. B2
-cooperate v. C1
-cooperative adj. C1
-coordinate v. C1
-coordination n. C1
-coordinator n. C1
-cop n. C1
-cope v. B2
-copper n. C1
-copyright n. C1
-corporation n. B2
-correction n. C1
-correlate v. C1
-correlation n. C1
-correspond v. C1
-correspondence n. C1
-correspondent n. C1
-corresponding adj. C1
-corridor n. B2
-corrupt adj. C1
-corruption n. C1
-costly adj. C1
-councillor n. C1
-counselling n. C1
-counsellor n. C1
-counter (long flat surface) n. B2
-counter (argue against) v. C1
-counterpart n. C1
-countless adj. C1
-coup n. C1
-courtesy n. C1
-coverage n. B2
-crack v., n. B2
-craft n. B2, v. C1
-crawl v. C1
-creativity n. B2
-creator n. C1
-credibility n. C1
-credible adj. C1
-creep v. C1
-critically adv. B2
-critique n. C1
-crown n. C1
-crude adj. C1
-cruise n., v. B2
-crush v. C1
-crystal n. C1
-cue n. B2
-cult n., adj. C1
-cultivate v. C1
-curiosity n. C1
-curious adj. B2
-curriculum n. B2
-custody n. C1
-cute adj. B2
-cutting n. C1
-cynical adj. C1
-dairy n., adj. B2
-dam n. C1
-damaging adj. C1
-dare v. B2
-darkness n. B2
-database n. B2
-dawn n. C1
-deadline n. B2
-deadly adj. B2
-dealer n. B2
-debris n. C1
-debut n. C1
-decision-making n. C1
-decisive adj. C1
-deck n. B2
-declaration n. C1
-dedicated adj. C1
-dedication n. C1
-deed n. C1
-deem v. C1
-default n. C1
-defect n. C1
-defender n. B2
 defensive adj. C1
 deficiency n. C1
 deficit n. C1
