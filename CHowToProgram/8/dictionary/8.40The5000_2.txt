@@ -565,9 +565,9 @@ int main(void) {
         {"disappointment", "n. B2"},
         {"disastrous", "adj. C1"},
         {"discard", "v. C1"},
+        {"discharge", "v. C1"},
+        {"disclose", "v. C1"},
         {"", ""},
-discharge v. C1
-disclose v. C1
 disclosure n. C1
 discourage v. B2
 discourse n. C1

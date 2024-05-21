@@ -3,8 +3,8 @@
     4/14/2024
     7:16 PM
     (Project:A Crossword-Puzzle Generator)
-    The 5001 (American English)
-    The 5001 is the list of the 5000 most important words to learn in English, from A1 to C1 level.
+    The 3000 (American English)
+    The 3000 is the list of the 3000 most important words to learn in English, from A1 to B2 level.
 */
 int main( void ) {
     const char * american[5001][2] = {
@@ -3052,9 +3052,6 @@ int main( void ) {
     
         {"zero", "number A2"},
         {"zone", "n. B2"},
-
-
-        
         {"abolish", "v. C1"},
         {"abortion", "n. C1"},
         {"absence", "n. C1"},

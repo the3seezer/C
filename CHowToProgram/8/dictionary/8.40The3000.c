@@ -8,7 +8,7 @@
     Note: One element is missing in the array
 */
 int main( void ) {
-    const char * the[3001][2] = {
+    const char * the[3000][2] = {
         {"a", "indefinite article A1"}, {"an", "indefinite article A1"},
         {"abandon", "v. B2"},
         {"ability", "n. A2"},
