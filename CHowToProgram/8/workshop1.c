@@ -498,73 +498,74 @@ int main(void) {
         {"default", "n. C1"},
         {"defect", "n. C1"},
         {"defender", "n. B2"},
+        {"defensive", "adj. C1"},
+        {"deficiency", "n. C1"},
+        {"deficit", "n. C1"},
+        {"defy", "v. C1"},
+        {"delegate", "n. C1"},
+        {"delegation", "n. C1"},
+        {"delete", "v. B2"},
+        {"delicate", "adj. C1"},
+        {"democracy", "n. B2"},
+        {"democratic", "adj. B2"},
+        {"demon", "n. C1"},
+        {"demonstration", "n. B2"},
+        {"denial", "n. C1"},
+        {"denounce", "v. C1"},
+        {"dense", "adj. C1"},
+        {"density", "n. C1"},
+        {"depart", "v. B2"},
+        {"dependence", "n. C1"},
+        {"dependent", "adj. B2"},
+        {"depict", "v. C1"},
+        {"deploy", "v. C1"},
+        {"deployment", "n. C1"},
+        {"deposit", "n. B2, v. C1"},
+        {"depression", "n. B2"},
+        {"deprive", "v. C1"},
+        {"deputy", "n. C1"},
+        {"derive", "v. B2"},
+        {"descend", "v. C1"},
+        {"descent", "n. C1"},
+        {"designate", "v. C1"},
+        {"desirable", "adj. C1"},
+        {"desktop", "n. C1"},
+        {"desperately", "adv. B2"},
+        {"destruction", "n. B2"},
+        {"destructive", "adj. C1"},
+        {"detain", "v. C1"},
+        {"detection", "n. C1"},
+        {"detention", "n. C1"},
+ 
+
+        {"deteriorate", "v. C1"},
+        {"determination", "n. B2"},
+        {"devastate", "v. C1"},
+        {"devil", "n. C1"},
+        {"devise", "v. C1"},
+        {"devote", "v. B2"},
+        {"diagnose", "v. C1"},
+        {"diagnosis", "n. C1"},
+        {"dictate", "v. C1"},
+        {"dictator", "n. C1"},
+        {"differ", "v. B2"},
+        {"differentiate", "v. C1"},
+        {"dignity", "n. C1"},
+        {"dilemma", "n. C1"},
+        {"dimension", "n. C1"},
+        {"diminish", "v. C1"},
+        {"dip", "v. C1"},
+        {"diplomat", "n. C1"},
+        {"diplomatic", "n. C1"},
+        {"directory", "n. C1"},
+        {"disability", "n. B2"},
+        {"disabled", "adj. B2"},
+        {"disagreement", "n. B2"},
+        {"disappoint", "v. B2"},
+        {"disappointment", "n. B2"},
+        {"disastrous", "adj. C1"},
+        {"discard", "v. C1"},
         {"", ""},
-defensive adj. C1
-deficiency n. C1
-deficit n. C1
-defy v. C1
-delegate n. C1
-delegation n. C1
-delete v. B2
-delicate adj. C1
-democracy n. B2
-democratic adj. B2
-demon n. C1
-demonstration n. B2
-denial n. C1
-denounce v. C1
-dense adj. C1
-density n. C1
-depart v. B2
-dependence n. C1
-dependent adj. B2
-depict v. C1
-deploy v. C1
-deployment n. C1
-deposit n. B2, v. C1
-depression n. B2
-deprive v. C1
-deputy n. C1
-derive v. B2
-descend v. C1
-descent n. C1
-designate v. C1
-desirable adj. C1
-desktop n. C1
-desperately adv. B2
-destruction n. B2
-destructive adj. C1
-detain v. C1
-detection n. C1
-detention n. C1
-© Oxford University Press The Oxford 5000™ 3 / 8
-deteriorate v. C1
-determination n. B2
-devastate v. C1
-devil n. C1
-devise v. C1
-devote v. B2
-diagnose v. C1
-diagnosis n. C1
-dictate v. C1
-dictator n. C1
-differ v. B2
-differentiate v. C1
-dignity n. C1
-dilemma n. C1
-dimension n. C1
-diminish v. C1
-dip v. C1
-diplomat n. C1
-diplomatic n. C1
-directory n. C1
-disability n. B2
-disabled adj. B2
-disagreement n. B2
-disappoint v. B2
-disappointment n. B2
-disastrous adj. C1
-discard v. C1
 discharge v. C1
 disclose v. C1
 disclosure n. C1
