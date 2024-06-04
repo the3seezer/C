@@ -10,6 +10,10 @@
 
 #define SIZE 10
 
+void scheduleWords( char [][SIZE], const char *[][2]);
+void createSquares();
+void display(char board[][SIZE]);
+
 int main( void ) {
     const char * american[5001][2] = {
         {"a", "indefinite article A1"}, {"an", "indefinite article A1"},
@@ -5097,10 +5101,23 @@ int main( void ) {
         {"yield", "n., v. C1"}
     };
 
-    
+    char crossboard[SIZE][SIZE];
     
 } /* end main */
+
+void scheduleWords( char board[][SIZE], const char * dict[][2] ) {
+
+} /* end function scheduleWords */
 
 void createSquares() {
 
 } /* end function createSquares */
+
+void display(char board[][SIZE]) {
+    // display the board
+    for ( size_t i = 0; i < SIZE; i++ ) {
+        for ( size_t j = 0; j < SIZE; j++ ) {
+            
+        } // end for
+    } // end for
+} /* end function display */
