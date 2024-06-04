@@ -6,6 +6,10 @@
     The 5001 (American English)
     The 5001 is the list of the 5000 most important words to learn in English, from A1 to C1 level.
 */
+#include <stdio.h>
+
+#define SIZE 10
+
 int main( void ) {
     const char * american[5001][2] = {
         {"a", "indefinite article A1"}, {"an", "indefinite article A1"},
@@ -5092,5 +5096,11 @@ int main( void ) {
         {"yell", "v. C1"},
         {"yield", "n., v. C1"}
     };
+
     
-} /* end function main */
+    
+} /* end main */
+
+void createSquares() {
+
+} /* end function createSquares */
