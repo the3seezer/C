@@ -5117,7 +5117,8 @@ void display(char board[][SIZE]) {
     // display the board
     for ( size_t i = 0; i < SIZE; i++ ) {
         for ( size_t j = 0; j < SIZE; j++ ) {
-            
+            printf("%c", board[i][j]);
         } // end for
+        puts("");
     } // end for
 } /* end function display */
